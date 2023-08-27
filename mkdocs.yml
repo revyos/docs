@@ -1,0 +1,72 @@
+site_name: RevyOS Docs
+repo_name: revyos/docs
+repo_url: https://github.com/revyos/docs
+default_language: zh-CN
+default_language_only: true
+theme:
+  name: material
+  features:
+    - navigation.instant
+    - navigation.tabs # 栏头加标签（一级导航）
+    - navigation.tabs.sticky # 固定（浏览时不收起）标签
+  highlightjs: true
+  hljs_languages:
+    - bash
+    - python
+    - c
+    - cpp
+
+plugins:
+  - i18n:
+      default_language: zh
+      languages:
+        en:
+          name: English
+          build: true
+        zh:
+          name: 简体中文
+          build: true
+      material_alternate: true
+      nav_translations:
+        en:
+          主页: Home
+          更新日志: Changelog
+          构建文档: Build
+          性能测试: Benchmark
+          重启测试: reboot-test
+          手动编译内核: Manuel Build Kernel
+          如何启用优化GCC: Enable Optimization GCC
+
+nav:
+  - 主页: index.md
+  - 更新日志:
+    # 更新日志需要倒序排列
+    - lpi4a:
+      - 20230810: changelog/lpi4a/20230810.md
+      - 20230614: changelog/lpi4a/20230614.md
+      - 20230511: changelog/lpi4a/20230511.md
+      - 20230425: changelog/lpi4a/20230425.md
+      - 20230412: changelog/lpi4a/20230412.md
+    - ahead:
+      - 20230802: changelog/ahead/20230802.md
+  - 构建文档:
+    - Debian 相关: 
+      - 如何启用优化GCC: build/debian/enable_optimization_gcc.md
+      - Debian 软件包构建流程: build/debian/Debian软件包构建流程.md
+      - 编译器相关说明: build/debian/编译器相关说明.md
+    - 其他通用构建: 
+      - T-Head QEMU 编译流程: build/other/thead-qemu编译流程.md
+      - 手动编译内核: build/other/manuel_build_kernel.md
+      - gcc 编译软件软件说明: build/other/gcc编译软件说明.md
+  - 适配文档:
+    - GStreamer 播放器适配: adaptation/GStreamer播放器适配.md
+    - Games:
+      - OpenTTD 游戏: adaptation/games/OpenTTD游戏.md
+      - yquake2 游戏: adaptation/games/yquake2.md
+  - 性能测试:
+    - coremark: benchmark/coremark.md
+    - stream: benchmark/stream.md
+    - 重启测试: benchmark/reboot.md
+
+
+    
