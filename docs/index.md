@@ -18,8 +18,8 @@ __RevyOS__ 的用户版镜像目前在 [ISCAS(中国科学院软件研究所)](h
 
 | 支持设备 | lpi4a/vala(荔枝派4a/评估板a) | ahead(beaglev-ahead) |
 | :--: | :--: | :--: |
-| 最新镜像 | [lpi4a 20230810](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20230810/) | [ahead 20230802 测试版](https://mirror.iscas.ac.cn/revyos/extra/images/beagle/test/20230802/) |
-| 更新日志 | [lpi4a 20230810](docs/changelog/lpi4a/20230810.md) | [ahead 20230802 测试版](docs/changelog/ahead/20230802.md) |
+| 最新镜像 | [lpi4a 20231026](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20231026/) | [ahead 202301025](https://mirror.iscas.ac.cn/revyos/extra/images/beagle/20231025/) |
+| 更新日志 | [lpi4a 20231026](docs/changelog/lpi4a/20231026.md) | ahead 20231025 |
 
 镜像刷写请参考：[镜像刷写教程](https://wiki.sipeed.com/hardware/zh/lichee/th1520/lpi4a/4_burn_image.html#%E6%89%B9%E9%87%8F%E7%83%A7%E5%BD%95)
 
