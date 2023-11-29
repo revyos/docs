@@ -36,8 +36,7 @@ plugins:
           重启测试: reboot-test
           手动编译内核: Manuel Build Kernel
           如何启用优化GCC: Enable Optimization GCC
-          系统功能: 
-
+           
 nav:
   - 主页: index.md
   - 更新日志:
@@ -70,8 +69,3 @@ nav:
     - coremark: benchmark/coremark.md
     - stream: benchmark/stream.md
     - 重启测试: benchmark/reboot.md
-  - 系统功能：
-    - GIMP: 
-    - ibus: 
-
-    
