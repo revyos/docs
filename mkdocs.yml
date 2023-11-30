@@ -36,9 +36,36 @@ plugins:
           重启测试: reboot-test
           手动编译内核: Manuel Build Kernel
           如何启用优化GCC: Enable Optimization GCC
+          桌面使用: desktop
            
 nav:
   - 主页: index.md
+  - 构建文档:
+    - Debian 相关: 
+      - 如何启用优化GCC: build/debian/enable_optimization_gcc.md
+      - Debian 软件包构建流程: build/debian/Debian软件包构建流程.md
+      - 编译器相关说明: build/debian/编译器相关说明.md
+    - 其他通用构建: 
+      - T-Head QEMU 编译流程: build/other/thead-qemu编译流程.md
+      - 手动编译内核: build/other/manuel_build_kernel.md
+      - gcc 编译软件软件说明: build/other/gcc编译软件说明.md
+  - 适配文档:
+    - GStreamer 播放器适配: adaptation/GStreamer播放器适配.md
+    - GStreamer pipeline: adaptation/GStreamer-pipeline-example-with-thead-omxil-lib.md
+  - 系统使用: 
+    - docker: desktop/revyos-use-docker.md
+    - 安装: desktop/install.md
+    - 软件使用:
+      - GIMP 图像编辑工具: desktop/software/gimp.md
+      - iBus 输入法: desktop/software/iBus.md
+    - Games:
+      - OpenTTD 游戏: desktop/games/OpenTTD游戏.md
+      - yquake2 游戏: desktop/games/yquake2.md
+  - 性能测试:
+    - coremark: benchmark/coremark.md
+    - stream: benchmark/stream.md
+    - 重启测试: benchmark/reboot.md
+    - lmbench: benchmark/lmbench.md
   - 更新日志:
     # 更新日志需要倒序排列
     - lpi4a:
@@ -51,21 +78,3 @@ nav:
       - 20230412: changelog/lpi4a/20230412.md
     - ahead:
       - 20230802: changelog/ahead/20230802.md
-  - 构建文档:
-    - Debian 相关: 
-      - 如何启用优化GCC: build/debian/enable_optimization_gcc.md
-      - Debian 软件包构建流程: build/debian/Debian软件包构建流程.md
-      - 编译器相关说明: build/debian/编译器相关说明.md
-    - 其他通用构建: 
-      - T-Head QEMU 编译流程: build/other/thead-qemu编译流程.md
-      - 手动编译内核: build/other/manuel_build_kernel.md
-      - gcc 编译软件软件说明: build/other/gcc编译软件说明.md
-  - 适配文档:
-    - GStreamer 播放器适配: adaptation/GStreamer播放器适配.md
-    - Games:
-      - OpenTTD 游戏: adaptation/games/OpenTTD游戏.md
-      - yquake2 游戏: adaptation/games/yquake2.md
-  - 性能测试:
-    - coremark: benchmark/coremark.md
-    - stream: benchmark/stream.md
-    - 重启测试: benchmark/reboot.md
