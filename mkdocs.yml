@@ -69,6 +69,7 @@ nav:
   - 更新日志:
     # 更新日志需要倒序排列
     - lpi4a:
+      - 20231210: changelog/lpi4a/20231210.md
       - 20231026: changelog/lpi4a/20231026.md
       - 20230916: changelog/lpi4a/20230916.md
       - 20230810: changelog/lpi4a/20230810.md
