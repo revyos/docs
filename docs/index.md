@@ -16,10 +16,10 @@ __RevyOS__ 的用户版镜像目前在 [ISCAS(中国科学院软件研究所)](h
 
 如您想获取 __RevyOS__ 最新版镜像请选择对应板子获取对应的U-Boot/boo分区/root分区文件：
 
-| 支持设备 | lpi4a/vala(荔枝派4a/评估板a) | ahead(beaglev-ahead) |
-| :--: | :--: | :--: |
-| 最新镜像 | [lpi4a 20231210](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20231210/) | [ahead 202301210](https://mirror.iscas.ac.cn/revyos/extra/images/beagle/20231210/) |
-| 更新日志 | [lpi4a 20231210](docs/changelog/lpi4a/20231210.md) | ahead 20231210 |
+| 支持设备 | LicheePi 4A/vala(荔枝派4a/评估板a) | LicheePi Console 4A | ahead(beaglev-ahead) | SG2042 |
+| :--: | :--: | :--: | :--: | :--: |
+| 最新镜像 | [lpi4a 20240202测试版](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20231210/) | [lc4a 20240127](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4amain/20240127/) | [ahead 202301210](https://mirror.iscas.ac.cn/revyos/extra/images/beagle/20231210/) | [pioneer](https://mirror.iscas.ac.cn/revyos/extra/images/sg2042/20240119/) |
+| 更新日志 | [lpi4a 20240202测试版](docs/changelog/lpi4a/20231210.md) | lc4a 20240127 | ahead 20231210 | pioneer |
 
 镜像刷写请参考：[镜像刷写教程](https://wiki.sipeed.com/hardware/zh/lichee/th1520/lpi4a/4_burn_image.html#%E6%89%B9%E9%87%8F%E7%83%A7%E5%BD%95)
 
