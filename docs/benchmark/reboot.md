@@ -33,7 +33,7 @@ WantedBy=multi-user.target
 
 后根据以下指令安装并开始测试：
 
-```bash
+```
 systemctl daemon-reload
 systemctl enable cycletest.service (enable the service to start on reboot)
 systemctl start cycletest.service (start the service, should reboot in 30s)
