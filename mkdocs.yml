@@ -61,12 +61,14 @@ nav:
     - Games:
       - OpenTTD 游戏: desktop/games/OpenTTD游戏.md
       - yquake2 游戏: desktop/games/yquake2.md
-  - 性能测试:
+  - benchmark:
     - coremark: benchmark/coremark.md
     - stream: benchmark/stream.md
-    - 重启测试: benchmark/reboot.md
+    - reboot-test: benchmark/reboot.md
     - lmbench: benchmark/lmbench.md
-  - 更新日志:
+    - glmark2: benchmark/glmark2.md
+    - p7zip: benchmark/p7zip.md
+  - Changelog:
     # 更新日志需要倒序排列
     - lpi4a:
       - 20240202: changelog/lpi4a/20240202.md

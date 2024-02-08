@@ -5,13 +5,16 @@ We will only use glmark2-es2 for relevant tests here . This is a testing tool fo
 
 This software package is already pre-installed in the system.
 
-## Pre-test steps
+`th1520` only support glmark-es2.
+
+## Pre-steps
 
 If you need perfect performance, put your device into performance mode before you start, here's how to do it.
 
 
 Please execute the following commands in the terminal. This command requires a root account.
-```
+
+```bash
 echo performance >  /sys/devices/system/cpu/cpufreq/policy0/scaling_governor 
 
 cat /sys/devices/system/cpu/cpufreq/policy0/cpuinfo_cur_freq
@@ -34,7 +37,6 @@ After the test is completed, the additional activity screen will disappear and t
 For example:
 
 ```
-
 debian@lpi4a:~/Desktop$ glmark2-es2
 =======================================================
     glmark2 2021.12
