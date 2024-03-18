@@ -1,0 +1,1954 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../../build/other/gcc%E7%BC%96%E8%AF%91%E8%BD%AF%E4%BB%B6%E8%AF%B4%E6%98%8E/">
+      
+      
+        <link rel="next" href="../GStreamer-pipeline-example-with-thead-omxil-lib/">
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.1.21">
+    
+    
+      
+        <title>GStreamer 播放器适配 - RevyOS Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.eebd395e.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ptg-omxil-gstreamer" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../" title="RevyOS Docs" class="md-header__button md-logo" aria-label="RevyOS Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            RevyOS Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              GStreamer 播放器适配
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/revyos/docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    revyos/docs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../" class="md-tabs__link">
+      Home
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../build/debian/enable_optimization_gcc/" class="md-tabs__link">
+        Build
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="./" class="md-tabs__link md-tabs__link--active">
+        适配文档
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../desktop/revyos-use-docker/" class="md-tabs__link">
+        系统使用
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../benchmark/coremark/" class="md-tabs__link">
+        benchmark
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../changelog/lpi4a/20240202/" class="md-tabs__link">
+        Changelog
+      </a>
+    </li>
+  
+
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../" title="RevyOS Docs" class="md-nav__button md-logo" aria-label="RevyOS Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    RevyOS Docs
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/revyos/docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    revyos/docs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          Build
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Build
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+          Debian 相关
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Debian 相关
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../build/debian/enable_optimization_gcc/" class="md-nav__link">
+        Enable Optimization GCC
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../build/debian/Debian%E8%BD%AF%E4%BB%B6%E5%8C%85%E6%9E%84%E5%BB%BA%E6%B5%81%E7%A8%8B/" class="md-nav__link">
+        Debian 软件包构建流程
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../build/debian/%E7%BC%96%E8%AF%91%E5%99%A8%E7%9B%B8%E5%85%B3%E8%AF%B4%E6%98%8E/" class="md-nav__link">
+        编译器相关说明
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+          其他通用构建
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          其他通用构建
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../build/other/thead-qemu%E7%BC%96%E8%AF%91%E6%B5%81%E7%A8%8B/" class="md-nav__link">
+        T-Head QEMU 编译流程
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../build/other/manuel_build_kernel/" class="md-nav__link">
+        Manuel Build Kernel
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../build/other/gcc%E7%BC%96%E8%AF%91%E8%BD%AF%E4%BB%B6%E8%AF%B4%E6%98%8E/" class="md-nav__link">
+        gcc 编译软件软件说明
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          适配文档
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          适配文档
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          GStreamer 播放器适配
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        GStreamer 播放器适配
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    概述
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-gstreamer-omxh264dec" class="md-nav__link">
+    A. GStreamer omxh264dec 解码测试
+  </a>
+  
+    <nav class="md-nav" aria-label="A. GStreamer omxh264dec 解码测试">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1. 驱动编译、安装以及硬件访问权限的设置
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 驱动编译、安装以及硬件访问权限的设置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    1.1 编译驱动
+  </a>
+  
+    <nav class="md-nav" aria-label="1.1 编译驱动">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111" class="md-nav__link">
+    1.1.1替代方案
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    1.2 安装驱动
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    1.3 设置硬件访问权限
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#revyos" class="md-nav__link">
+    RevyOS 适配记录
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-vpu-omxil" class="md-nav__link">
+    2. 安装 vpu-omxil 并调整配置
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 安装 vpu-omxil 并调整配置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-vpu-omxil-libomxil-bellagio" class="md-nav__link">
+    2.1 将 vpu-omxil 中的组件注册到 libomxil-bellagio 中
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1 将 vpu-omxil 中的组件注册到 libomxil-bellagio 中">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211-revyosdebian" class="md-nav__link">
+    2.1.1 RevyOS/Debian 注册组件
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-gstomxconf" class="md-nav__link">
+    2.2 调整 gstomx.conf 的设置
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-dmabuf" class="md-nav__link">
+    3. 添加 dmabuf 补丁
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-gstreamer" class="md-nav__link">
+    4. GStreamer 解码初步测试
+  </a>
+  
+    <nav class="md-nav" aria-label="4. GStreamer 解码初步测试">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#revyos_1" class="md-nav__link">
+    RevyOS 适配记录
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#b-gstreamer-video-sink" class="md-nav__link">
+    B. 选用合适的 GStreamer video-sink
+  </a>
+  
+    <nav class="md-nav" aria-label="B. 选用合适的 GStreamer video-sink">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#revyos_2" class="md-nav__link">
+    RevyOS 适配记录
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#c" class="md-nav__link">
+    C. 播放器支持
+  </a>
+  
+    <nav class="md-nav" aria-label="C. 播放器支持">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#revyos_3" class="md-nav__link">
+    RevyOS 适配记录
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#revyos_4" class="md-nav__link">
+    总结：RevyOS 适配工作
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    本文所用资源
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GStreamer-pipeline-example-with-thead-omxil-lib/" class="md-nav__link">
+        GStreamer pipeline
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          系统使用
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          系统使用
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../desktop/revyos-use-docker/" class="md-nav__link">
+        docker
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../desktop/install/" class="md-nav__link">
+        安装
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+          软件使用
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_3">
+          <span class="md-nav__icon md-icon"></span>
+          软件使用
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../desktop/software/gimp/" class="md-nav__link">
+        GIMP 图像编辑工具
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../desktop/software/iBus/" class="md-nav__link">
+        iBus 输入法
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+          Games
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_4">
+          <span class="md-nav__icon md-icon"></span>
+          Games
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../desktop/games/OpenTTD%E6%B8%B8%E6%88%8F/" class="md-nav__link">
+        OpenTTD 游戏
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../desktop/games/yquake2/" class="md-nav__link">
+        yquake2 游戏
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          benchmark
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          benchmark
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../benchmark/coremark/" class="md-nav__link">
+        coremark
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../benchmark/stream/" class="md-nav__link">
+        stream
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../benchmark/reboot/" class="md-nav__link">
+        reboot-test
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../benchmark/lmbench/" class="md-nav__link">
+        lmbench
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../benchmark/glmark2/" class="md-nav__link">
+        glmark2
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../benchmark/p7zip/" class="md-nav__link">
+        p7zip
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          Changelog
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Changelog
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_1" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_1" id="__nav_6_1_label" tabindex="0">
+          lpi4a
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_1_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_6_1">
+          <span class="md-nav__icon md-icon"></span>
+          lpi4a
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/lpi4a/20240202/" class="md-nav__link">
+        20240202
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/lpi4a/20231210/" class="md-nav__link">
+        20231210
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/lpi4a/20231026/" class="md-nav__link">
+        20231026
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/lpi4a/20230916/" class="md-nav__link">
+        20230916
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/lpi4a/20230810/" class="md-nav__link">
+        20230810
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/lpi4a/20230614/" class="md-nav__link">
+        20230614
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/lpi4a/20230511/" class="md-nav__link">
+        20230511
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/lpi4a/20230425/" class="md-nav__link">
+        20230425
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/lpi4a/20230412/" class="md-nav__link">
+        20230412
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_2" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2" id="__nav_6_2_label" tabindex="0">
+          ahead
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_6_2">
+          <span class="md-nav__icon md-icon"></span>
+          ahead
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/ahead/20230802/" class="md-nav__link">
+        20230802
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    概述
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-gstreamer-omxh264dec" class="md-nav__link">
+    A. GStreamer omxh264dec 解码测试
+  </a>
+  
+    <nav class="md-nav" aria-label="A. GStreamer omxh264dec 解码测试">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1. 驱动编译、安装以及硬件访问权限的设置
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 驱动编译、安装以及硬件访问权限的设置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    1.1 编译驱动
+  </a>
+  
+    <nav class="md-nav" aria-label="1.1 编译驱动">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111" class="md-nav__link">
+    1.1.1替代方案
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    1.2 安装驱动
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    1.3 设置硬件访问权限
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#revyos" class="md-nav__link">
+    RevyOS 适配记录
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-vpu-omxil" class="md-nav__link">
+    2. 安装 vpu-omxil 并调整配置
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 安装 vpu-omxil 并调整配置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-vpu-omxil-libomxil-bellagio" class="md-nav__link">
+    2.1 将 vpu-omxil 中的组件注册到 libomxil-bellagio 中
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1 将 vpu-omxil 中的组件注册到 libomxil-bellagio 中">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211-revyosdebian" class="md-nav__link">
+    2.1.1 RevyOS/Debian 注册组件
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-gstomxconf" class="md-nav__link">
+    2.2 调整 gstomx.conf 的设置
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-dmabuf" class="md-nav__link">
+    3. 添加 dmabuf 补丁
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-gstreamer" class="md-nav__link">
+    4. GStreamer 解码初步测试
+  </a>
+  
+    <nav class="md-nav" aria-label="4. GStreamer 解码初步测试">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#revyos_1" class="md-nav__link">
+    RevyOS 适配记录
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#b-gstreamer-video-sink" class="md-nav__link">
+    B. 选用合适的 GStreamer video-sink
+  </a>
+  
+    <nav class="md-nav" aria-label="B. 选用合适的 GStreamer video-sink">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#revyos_2" class="md-nav__link">
+    RevyOS 适配记录
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#c" class="md-nav__link">
+    C. 播放器支持
+  </a>
+  
+    <nav class="md-nav" aria-label="C. 播放器支持">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#revyos_3" class="md-nav__link">
+    RevyOS 适配记录
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#revyos_4" class="md-nav__link">
+    总结：RevyOS 适配工作
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    本文所用资源
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="ptg-omxil-gstreamer">支持 PTG omxil 库的 GStreamer 播放器适配文档</h1>
+<p>适用SDK v1.1.2</p>
+<h2 id="_1">概述</h2>
+<p>PTG 的 OpenMAX IL 库（下称 <code>vpu-omxil</code>）可使 LicheePi 4A 能够流畅硬解码 4k 60fps 的视频，那么具体应该如何使用该库呢？本文将主要介绍 LicheePi 4A 开发板上 Parole 播放器的集成与使用，用户可根据本文来了解在 LicheePi 4A 上的适配过程
+以 h264 的硬解为例，视频硬解的工作流程如图所示</p>
+<pre><code class="language-plain">                +-------------------------------------------+
+                |    +------------+       +------------+    |   +--------+
+video stream----+---&gt;| omxh264dec +------&gt;| video-sink +----+--&gt;| player |
+                |    +------+-----+       +------------+    |   +--------+
+                |           |     GStreamer                 |
+                +-----------+-------------------------------+
+                            |
+                      +-----v-----+
+                      | vpu-omxil |
+                      +-----+-----+
+                            |
+                            |
+                    +-------v-------+
+                    | kernel module |
+                    |    (driver)   |
+                    +-------+-------+
+                            |
+                            v
+                        hardware
+</code></pre>
+<ol>
+<li>视频流（video stream）由 GStreamer 读入后经过一系列预处理，送到 GStreamer 的解码器<code>omxh264dec</code> 中</li>
+<li>omxh264dec 调用动态库，即 PTG 提供的 vpu-omxil 库，该库通过驱动访问硬件（kernel module）进行硬解</li>
+<li>解码后的流传输到 GStreamer 的 video-sink 中，并由播放器（player）呈现</li>
+</ol>
+<h2 id="a-gstreamer-omxh264dec">A. GStreamer omxh264dec 解码测试</h2>
+<p>将 omxh264 解码的部分单独拎出来，大体的结构如下</p>
+<pre><code class="language-plain">  +---+------------+----+
+  |   +------------+    |
+  |   | omxh264dec |    |
+  |   +------------+    |
+  |      GStreamer      |
+  +----------+----------+
+             |
+  +----+-----v-----+----+
+  |    +-----------+    |
+  |    | vpu-omxil |    |
+  |    +-----------+    |
+  |  libomxil-bellagio  |
+  +----------+----------+
+             |
++------------v------------+
+|  - memalloc   - vc8000  |
+|  - hantrodec  - vidmem  |
+|      kernel modules     |
++------------+------------+
+             |
+             v
+          hardware
+</code></pre>
+<p>我们依照自底向上的顺序构建图示的链条。
+本节的主要目的是使 omxh264dec 解码器能够运行，并不涉及到输出屏幕等内容。</p>
+<h3 id="1">1. 驱动编译、安装以及硬件访问权限的设置</h3>
+<p>硬解码需要访问硬件，而访问硬件又需要驱动，所以需要编译并安装驱动</p>
+<h4 id="11">1.1 编译驱动</h4>
+<p>PTG 提供的驱动源：</p>
+<p><a href="https://github.com/revyos/vpu-vc8000e-kernel">https://github.com/revyos/vpu-vc8000e-kernel</a></p>
+<p><a href="https://github.com/revyos/vpu-vc8000d-kernel">https://github.com/revyos/vpu-vc8000d-kernel</a></p>
+<p><a href="https://github.com/revyos/video_memory">https://github.com/revyos/video_memory</a></p>
+<h5 id="111">1.1.1替代方案</h5>
+<p><a href="https://github.com/revyos/thead-kernel">revyos/thead-kernel</a> 已经合并了上述三个内核模块, 使用revyos_defconfig 可以无需编译上述内核模块</p>
+<h4 id="12">1.2 安装驱动</h4>
+<pre><code class="language-shell"># depmod 分析可载入模块的依赖关系，在 /lib/modules/&lt;kernel-version&gt;中添加modules.dep文件，以便后续 modprobe 使用
+sudo depmod -a
+sudo modprobe vidmem vc8000 hantrodec memalloc
+
+## 如果 modprobe 安装有问题的话，可以尝试使用 insmod 安装
+#cd /usr/lib/modules/$(uname -r)
+#sudo insmod $(find . -name *vidmem.ko*)
+#sudo insmod $(find . -name *vc8000.ko*)
+#sudo insmod $(find . -name *hantrodec.ko*)
+#sudo insmod $(find . -name *memalloc.ko*)
+
+# 可选：设置开机加载模块
+echo -e &quot;\nvidmem\nhantrodec\nmemalloc\nvc8000\n&quot; | sudo tee -a /etc/modules &gt; /dev/null
+</code></pre>
+<h4 id="13">1.3 设置硬件访问权限</h4>
+<p>安装内核模块后，<code>/dev</code> 目录下会出现 <code>hantrodec</code> <code>vidmem</code> <code>vc8000</code> 三个设备文件。默认情况下，用户对其没有访问权限，如果不修改权限的话，非 root 用户在打开 omxil 库时会报错。</p>
+<pre><code class="language-shell"># 生效一次
+cd /dev
+sudo chmod 666 hantrodec vidmem vc8000
+
+# 长期生效
+cat &lt;&lt; EOF | sudo tee /lib/udev/rules.d/70-hantro.rules &gt; /dev/null
+KERNEL==&quot;vidmem&quot;, MODE=&quot;0666&quot;
+KERNEL==&quot;hantrodec&quot;, MODE=&quot;0666&quot;
+KERNEL==&quot;vc8000&quot;, MODE=&quot;0666&quot;
+EOF
+</code></pre>
+<h4 id="revyos">RevyOS 适配记录</h4>
+<p>如果要获取 RevyOS 特定版本的内核模块，可进入 <a href="https://github.com/revyos/thead-kernel">revyos/thead-kernel</a> ，并在 GitHub CI 中下载 artifacts</p>
+<h3 id="2-vpu-omxil">2. 安装 vpu-omxil 并调整配置</h3>
+<p>首先，请将 vpu-omxil 下载并解压到 /usr/lib/omxil/中
+<a href="https://drive.google.com/file/d/1pYgCVI7WltfpskltJ-RqzVUCEC21FS56">vpu-omxil_1.2.1.tar.gz</a>
+如下图所示， 需要</p>
+<ol>
+<li>将 <code>vpu-omxil</code> 中的 OpenMax 组件注册到 <code>libomxil-bellagio</code> 中</li>
+<li><code>gst-omx</code>（该包提供了 omxh264dec 解码器） 调用 <code>libomxil-bellagio</code> 的时候也需要知道调用的组件名称</li>
+</ol>
+<pre><code class="language-plain">+---------+   +-------------------+   +-----------+
+| gst-omx +--&gt;| libomxil-bellagio +--&gt;| vpu-omxil |
++---------+   +-------------------+   +-----------+
+</code></pre>
+<h4 id="21-vpu-omxil-libomxil-bellagio">2.1 将 <code>vpu-omxil</code> 中的组件注册到 <code>libomxil-bellagio</code> 中</h4>
+<pre><code class="language-shell">sudo apt install libomxil-bellagio-bin libomxil-bellagio0
+# 注册组件
+omxregister-bellagio -v /usr/lib/omxil/
+</code></pre>
+<p>使用 omxregister-bellagio 生成注册文件，默认路径为 ~/.omxregister</p>
+<h5 id="211-revyosdebian">2.1.1 RevyOS/Debian 注册组件</h5>
+<p><a href="https://github.com/revyos/th1520-vpu">th1520-vpu</a> 利用了 debian 在 <code>usr/lib/riscv64-linux-gnu/libomxil-bellagio0</code> 安装之后
+触发自动注册行为 结果如下</p>
+<pre><code class="language-bash">cat /var/lib/libomxil-bellagio0/registry
+/usr/lib/riscv64-linux-gnu/libomxil-bellagio0/libOMX.hantro.H2.video.encoder.so
+ ==&gt; OMX.hantro.H2.video.encoder ==&gt; OMX.hantro.H2.video.encoder.avc:OMX.hantro.H2.video.encoder.hevc:
+/usr/lib/riscv64-linux-gnu/libomxil-bellagio0/libOMX.hantro.VC8000D.image.decoder.so
+ ==&gt; OMX.hantro.VC8000D.image.decoder ==&gt; OMX.hantro.VC8000D.image.decoder.jpeg:
+/usr/lib/riscv64-linux-gnu/libomxil-bellagio0/libOMX.hantro.H2.image.encoder.so
+ ==&gt; OMX.hantro.H2.image.encoder ==&gt; OMX.hantro.H2.image.encoder.jpeg:
+/usr/lib/riscv64-linux-gnu/libomxil-bellagio0/libOMX.hantro.VC8000D.video.decoder.so
+ ==&gt; OMX.hantro.VC8000D.video.decoder ==&gt; OMX.hantro.VC8000D.video.decoder.mpeg4:OMX.hantro.VC8000D.video.decoder.avc:OMX.hantro.VC8000D.video.decoder.avs:OMX.hantro.VC8000D.video.decoder.h263:OMX.hantro.VC8000D.video.decoder.wmv:OMX.hantro.VC8000D.video.decoder.vp6:OMX.hantro.VC8000D.video.decoder.vp8:OMX.hantro.VC8000D.video.decoder.jpeg:OMX.hantro.VC8000D.video.decoder.hevc:OMX.hantro.VC8000D.video.decoder.vp9:OMX.hantro.VC8000D.video.decoder.avs2:
+</code></pre>
+<h4 id="22-gstomxconf">2.2 调整 gstomx.conf 的设置</h4>
+<p>调整 gstomx.conf 的设置以使解码器 omxh264dec 调用正确的组件，具体请查看针对 gst-omx 的补丁</p>
+<p><a href="https://gist.github.com/Sakura286/26777ea8204c1819885e093806a4f7ca#file-gst-omx-01-add-libomxil-config-patch">gst-omx-01-add-libomxil-config.patch</a></p>
+<h3 id="3-dmabuf">3. 添加 dmabuf 补丁</h3>
+<p>请查看 PTG 提供的针对 gst-omx 的 dmabuf 补丁
+<a href="https://gist.github.com/Sakura286/26777ea8204c1819885e093806a4f7ca#file-gst-omx-02-set-dec-out-port-dmabuf-patch">gst-omx-02-set-dec-out-port-dmabuf.patch</a></p>
+<h3 id="4-gstreamer">4. GStreamer 解码初步测试</h3>
+<pre><code class="language-shell">sudo apt install gstreamer1.0-omx-generic gstreamer1.0-omx-bellagio-config gstreamer1.0-plugins-bad gstreamer1.0-plugins-base gstreamer1.0-gl gstreamer1.0-plugins-good gstreamer1.0-tools
+
+# 1 基本解码
+gst-launch-1.0 filesrc location=&lt;test.mp4&gt; ! qtdemux !  h264parse ! omxh264dec  ! videoconvert ! fakesink  sync=false
+# 2 在终端中显示 fps
+# 参考：https://stackoverflow.com/questions/73948308
+gst-launch-1.0 filesrc location=&lt;test.mp4&gt; ! qtdemux !  h264parse ! omxh264dec  ! videoconvert ! fpsdisplaysink video-sink=fakesink  text-overlay=false sync=false -v 2&gt;&amp;1
+</code></pre>
+<p><code>fakesink</code>会把前面的视频流全部吞掉，不输出画面（因而不会在 video-sink 这一环节损失性能），但是结合fpsdisplaysink可以读取到解码的速度。正常日志如下：</p>
+<pre><code class="language-log">Setting pipeline to PAUSED ...[DBGT]
+vc8kdec compiled without trace support (ENABLE_DBGT_TRACE switch not enabled)
+Pipeline is PREROLLING ...
+Redistribute latency...
+OMX  ! decoder_get_parameter OMX_ErrorNoMore (2)
+Pipeline is PREROLLED ...
+Setting pipeline to PLAYING ...
+New clock: GstSystemClockRedistribute latency...
+0:01:39.5 / 0:01:49.4 (90.9 %)
+</code></pre>
+<p><strong>【TIP】</strong>如果有 <code>[omxh264dec-omxh264dec0: Could not initialize supporting library.](https://gist.github.com/Sakura286/015fae6792e160268db7ad8a697dd2df)</code> 等字样的报错，可以安装<code>gst-omx</code>、<code>libomxil-bellagio</code>与<code>libc6</code>相关的 debug-symbol 包，使用 <code>gdb</code> 启动上述命令进行调试。调试时，先断<code>DWLInit</code>，然后再断<code>open</code>，具体看是打开哪个地方的时候出错了。</p>
+<h4 id="revyos_1">RevyOS 适配记录</h4>
+<p>RevyOS 适配过程中对于初始化动态库失败找到了如下三种原因：</p>
+<ol>
+<li>编译 vpu-omxil 时使用的工具链与当前系统不兼容</li>
+<li>未使用<code>omxregister-bellagio</code>注册 vpu-omxil</li>
+<li>未调整 <code>/dev</code> 目录下 <code>hantrodec</code> <code>vc8000</code> <code>vidmem</code> 等设备的权限</li>
+</ol>
+<h2 id="b-gstreamer-video-sink">B. 选用合适的 GStreamer video-sink</h2>
+<p><code>video-sink</code> 是视频流在整个 <a href="https://gstreamer.freedesktop.org/documentation/tutorials/basic/concepts.html">GStreamer pipeline</a> 中的最后一步，其作用一般是将视频流输出到屏幕上。
+前文中<code>fakesink</code>只是测试解码器是否正常工作的特殊 <code>video-sink</code>，<a href="https://gstreamer.freedesktop.org/documentation/tutorials/basic/platform-specific-elements.html?gi-language=c">可选的 video-sink</a>非常多，常见的有 <code>autovideosink</code>，<code>ximagesink</code>，<code>xvimagesink</code>，<code>fbdevsink</code>，<code>waylandsink</code>，<code>glimagesink</code>，<code>gtkglsink</code>等，它们各在不同的插件包里，需要酌情安装：</p>
+<table>
+<thead>
+<tr>
+<th><strong>video-sink</strong></th>
+<th><strong>所属包名</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>waylandsink</td>
+<td>gstreamer1.0-plugins-bad</td>
+</tr>
+<tr>
+<td>fbdevsink</td>
+<td>gstreamer1.0-plugins-bad</td>
+</tr>
+<tr>
+<td>autovideosink</td>
+<td>gstreamer1.0-plugins-good</td>
+</tr>
+<tr>
+<td>gtkglsink</td>
+<td>gstreamer1.0-plugins-good</td>
+</tr>
+<tr>
+<td>ximagesink &#124; xvimagesink</td>
+<td>gstreamer1.0-plugins-base</td>
+</tr>
+<tr>
+<td>glimagesink</td>
+<td>gstreamer1.0-plugins-base &#124; gstreamer1.0-gl</td>
+</tr>
+</tbody>
+</table>
+<p><strong>【TIP】</strong>使用 <code>gst-inspect-1.0 &lt;video-sink-name&gt;</code> 来查看对应 video-sink 可用的选项
+<strong>【TIP】</strong>添加 <code>--gst-debug-level=&lt;lv&gt;</code> 来获得更多的<a href="https://gstreamer.freedesktop.org/documentation/tutorials/basic/debugging-tools.html#the-debug-log">输出日志</a>，其中 <code>&lt;lv&gt;</code> 代表了从 1 到 6，啰嗦程度从低到高，建议在等级 4 及以下，否则日志会非常长
+请尝试不同的 video-sink ，并尝试不同的插件参数，以及给予不同的环境变量，直至找到可以流畅硬解 H264 的那一个。</p>
+<h3 id="revyos_2">RevyOS 适配记录</h3>
+<ul>
+<li><code>**waylandsink**</code>：由于现在（20230720）RevyOS 采用了 Xfce 桌面，不可能支持 Wayland，故 <code>waylandsink</code>从原理上无法使用</li>
+<li><code>**fbdevsink**</code>与<code>**ximagesink**</code>：无法使用</li>
+<li><code>**xvimagesink**</code>：通过<a href="https://gstreamer.freedesktop.org/documentation/tutorials/basic/debugging-tools.html#getting-pipeline-graphs">流水线图</a>以及日志可以确定，playbin 或 autovideosink 会自动调用 xvimagesink，使用 perf 分析后可以发现，使用xvimagesink 不可避免地会进行大量的 memcpy 操作，严重降低解码性能；该问题在获得PTG的 dmabuf 补丁后依然存在，故无法使用</li>
+<li><code>**gtkglsink**</code>：<a href="https://gitlab.gnome.org/GNOME/gtk/-/issues/738">GTK3 不支持 EGL on X11</a>，而 RevyOS 目前基于 x11，且只支持 EGL，故无法使用</li>
+</ul>
+<p>剩下的只有<code>glimagesink</code>，根据 <a href="https://gstreamer.freedesktop.org/documentation/gstreamer/running.html#environment-variables">Running and debugging GStreamer Applications</a>，并观察其他使用到 glimagesink 的例子，可以猜测需要明确指定环境变量 <code>GST_GL_API</code>与 <code>GST_GL_PLATFORM</code>
+由于 RevyOS 使用了 gles2+egl 的组合，使用如下的命令，成功硬解。</p>
+<pre><code class="language-shell">GST_GL_API=gles2 GST_GL_PLATFORM=egl gst-launch-1.0 filesrc location=&lt;test.mp4&gt; ! qtdemux !  h264parse ! omxh264dec  ! videoconvert ! fpsdisplaysink video-sink=glimagesink sync=false
+</code></pre>
+<p>然而 GStreamer 被播放器调用时是无法通过环境变量来传递参数的，所以构建 gst-plugins-base 时应当传递额外的 meson 编译参数：</p>
+<pre><code class="language-shell">-Dgl_api=[\'gles2\'] -Dgl_platform=[\'egl\']
+</code></pre>
+<h2 id="c">C. 播放器支持</h2>
+<p>GStreamer 的 pipeline 没有问题之后，就需要使播放器支持。不同播放器会使用到不同的 video-sink，同样对 gstreamer 有着不同程度的依赖。
+适配播放器时，最重要的工作便是①使播放器适配已验证的 video-sink，或者②使 gstreamer pipeline 支持播放器指定的 video-sink，此次 RevyOS 适配过程采用了①方案。</p>
+<pre><code class="language-plain">                +-------------------------------------------+
+                |    +------------+       +------------+    |   +--------+
+video stream----+---&gt;| omxh264dec +------&gt;| video-sink +----+--&gt;| player |
+                |    +------------+       +------------+    |   +--------+
+                |                GStreamer                  |
+                +-------------------------------------------+
+</code></pre>
+<h3 id="revyos_3">RevyOS 适配记录</h3>
+<p>根据 <a href="https://gstreamer.freedesktop.org/apps/">https://gstreamer.freedesktop.org/apps/</a> 进行简单的排查</p>
+<table>
+<thead>
+<tr>
+<th>是否可用</th>
+<th>是否更新</th>
+<th>应用名</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>❌</td>
+<td></td>
+<td>Gnash</td>
+<td>Flash 播放器</td>
+</tr>
+<tr>
+<td>❌</td>
+<td></td>
+<td>GEntrans</td>
+<td>Debian 未收录</td>
+</tr>
+<tr>
+<td>❓</td>
+<td>20230226</td>
+<td>Kaffeine</td>
+<td>❌ 需要大量 KDE 相关组件</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>✔️ 存在于<a href="https://buildd.debian.org/status/package.php?p=kaffeine&amp;suite=sid">riscv64 仓库</a>中</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>❌ 在 Debian amd64 Gnome 上，播放窗口与控制窗口分离，且默认调用了 VLC 进行播放</td>
+</tr>
+<tr>
+<td>❌</td>
+<td></td>
+<td>Lcdgrilo</td>
+<td>Debian 未收录</td>
+</tr>
+<tr>
+<td>✔️</td>
+<td>20230218</td>
+<td>Parole</td>
+<td>✔️ For XFCE</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>❓ 不支持 Wayland，仅支持 x11</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>✔️ Debian amd64 Gnome 验证通过</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>✔️ 存在于<a href="https://buildd.debian.org/status/package.php?p=parole&amp;suite=sid">riscv64 仓库</a> 中</td>
+</tr>
+<tr>
+<td>❌</td>
+<td></td>
+<td>Songbird</td>
+<td>Debian 未收录</td>
+</tr>
+<tr>
+<td>❌</td>
+<td></td>
+<td>Snappy</td>
+<td>Debian 未收录</td>
+</tr>
+<tr>
+<td>❌</td>
+<td></td>
+<td>Totem</td>
+<td>需要 GTK3，然而 GTK3 不支持 EGL on X11</td>
+</tr>
+</tbody>
+</table>
+<p>最初选择的播放器是 Totem，但是发现 Totem 无法指定除了 gtkglsink 以外的 video-sink，且由于 RevyOS 不支持 gtkglsink，所以支持 Totem 播放器的难度较大。
+对支持 GStreamer 的播放器进行排查后发现了 Parole ， Parole 由 GObject 编写，与常见的面向对象编程略有区别。寻找其构建 parole_gst 对象时的方法 parole_gst_constructed，将 video-sink 属性设置为前文已验证的 glimagesink，补丁：</p>
+<p><a href="https://gist.github.com/Sakura286/26777ea8204c1819885e093806a4f7ca#file-parole-01-add-glimagesink-support-patch">parole-01-add-glimagesink-support.patch</a></p>
+<p>至此，粗略的适配工作完成。</p>
+<h2 id="revyos_4">总结：RevyOS 适配工作</h2>
+<ol>
+<li>编译驱动模块至内核，设置启动加载，设置设备权限</li>
+<li>将 PTG 提供的 omxil 二进制动态库文件打包为 th1520-vpu</li>
+<li>修改 th1520-vpu 的依赖，使其依赖 gst-omx 、libomxil-bellagio 等包</li>
+<li>设置了一些 postinstall 操作，例如使用  omxregister-bellagio  注册组件等</li>
+<li>修改 gst-omx</li>
+<li>增加 config 中对 vpu-omxil 组件的支持</li>
+<li>应用 dmabuf 补丁</li>
+<li>增加对 h265 vp9 的支持</li>
+<li>修改 gst-base 编译时的 gl 支持，限制为 gles2+egl</li>
+<li>修改 parole 以支持 glimagesink</li>
+</ol>
+<h2 id="_2">本文所用资源</h2>
+<p>补丁集合：</p>
+<p>https://gist.github.com/Sakura286/26777ea8204c1819885e093806a4f7ca</p>
+<p>PTG omxil 库</p>
+<p>https://drive.google.com/file/d/1pYgCVI7WltfpskltJ-RqzVUCEC21FS56</p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.instant", "navigation.tabs", "navigation.tabs.sticky"], "search": "../../../assets/javascripts/workers/search.74e28a9f.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.220ee61c.min.js"></script>
+      
+    
+  </body>
+</html>
