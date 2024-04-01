@@ -18,8 +18,8 @@ __RevyOS__ 的用户版镜像目前在 [ISCAS(中国科学院软件研究所)](h
 
 | 支持设备 | LicheePi 4A/vala(荔枝派4a/评估板a) | LicheePi Cluster 4A | ahead(beaglev-ahead) | Milk-V Pioneer |
 | :--: | :--: | :--: | :--: | :--: |
-| 最新镜像 | [lpi4a 20240202测试版](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20231210/) | [LicheePi Cluster 4A 20240127](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4amain/20240127/) | [ahead 202301210](https://mirror.iscas.ac.cn/revyos/extra/images/beagle/20231210/) | [pioneer20240119](https://mirror.iscas.ac.cn/revyos/extra/images/sg2042/20240119/) |
-| 更新日志 | [lpi4a 20240202测试版](docs/changelog/lpi4a/20231210.md) | lc4a 20240127 | ahead 20231210 | pioneer20240119 |
+| 最新镜像 | [lpi4a 20240202测试版](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20231210/) | [LicheePi Cluster 4A 20240127](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4amain/20240127/) | [ahead 202301210](https://mirror.iscas.ac.cn/revyos/extra/images/beagle/20231210/) | [pioneer20240327](https://mirror.iscas.ac.cn/revyos/extra/images/sg2042/20240327/) |
+| 更新日志 | [lpi4a 20240202测试版](docs/changelog/lpi4a/20231210.md) | lc4a 20240127 | ahead 20231210 | pioneer20240327 |
 
 镜像刷写请参考：[镜像刷写教程](https://wiki.sipeed.com/hardware/zh/lichee/th1520/lpi4a/4_burn_image.html#%E6%89%B9%E9%87%8F%E7%83%A7%E5%BD%95)
 
