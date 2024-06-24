@@ -2,7 +2,7 @@
 
 ## 简介
 
-[RevyOS](https://github.com/revyos)是由[RuyiSDK](https://github.com/ruyisdk)团队的RevyOS小队支持开发的一款针对T-Head芯片生态的Debian优化定制发行版。
+[RevyOS](https://github.com/revyos)是由[RuyiSDK](https://github.com/ruyisdk)团队的RevyOS小队支持开发的一款针对XuanTie芯片生态的Debian优化定制发行版。
 
 __RevyOS__ 围绕 c910v/c920/c906fdv/c908 等芯片提供了完整而全面的适配和优化支持，默认集成支持 RVV0.7.1 和 XThead 的 GCC 工具链，并搭载使用 RVV0.7.1 指令集优化过的 glibc 和 thead-kernel。
 
@@ -18,7 +18,7 @@ __RevyOS__ 的用户版镜像目前在 [ISCAS(中国科学院软件研究所)](h
 
 | 支持设备 | LicheePi 4A/vala(荔枝派4a/评估板a) | LicheePi Cluster 4A | ahead(beaglev-ahead) | Milk-V Pioneer | Milk-V Meles |
 | :--: | :--: | :--: | :--: | :--: | :--: |
-| 最新镜像 | [lpi4a 20240601](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20240601/) | [LicheePi Cluster 4A 20240601](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20240601/) | [ahead 20240529](https://github.com/revyos/mkimg-th1520/releases/tag/20240529) | [pioneer20240327](https://mirror.iscas.ac.cn/revyos/extra/images/sg2042/20240327/) | [meles20240601](https://mirror.iscas.ac.cn/revyos/extra/images/meles/20240601/) |
+| 最新镜像 | [lpi4a 20240601](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20240601/) | [LicheePi Cluster 4A 20240601](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20240601/) | [ahead 20240529](https://   github.com/revyos/mkimg-th1520/releases/tag/20240529) | [pioneer20240327](https://mirror.iscas.ac.cn/revyos/extra/images/sg2042/20240327/) | [meles20240601](https://mirror.iscas.ac.cn/revyos/extra/images/meles/20240601/) |
 | 更新日志 | lpi4a 20240529 | lc4a 20240529 | ahead 20240529 | pioneer20240327 | Meles20240601 |
 
 RevyOS 0529版本U-boot文件下载：[链接](https://github.com/revyos/thead-u-boot/actions/runs/9326868005)
