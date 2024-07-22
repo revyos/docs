@@ -16,12 +16,10 @@ __RevyOS__ 的用户版镜像目前在 [ISCAS(中国科学院软件研究所)](h
 
 如您想获取 __RevyOS__ 最新版镜像请选择对应板子获取对应的U-Boot/boo分区/root分区文件：
 
-| 支持设备 | LicheePi 4A/vala(荔枝派4a/评估板a) | LicheePi Cluster 4A | ahead(beaglev-ahead) | Milk-V Pioneer | Milk-V Meles |
-| :--: | :--: | :--: | :--: | :--: | :--: |
-| 最新镜像 | [lpi4a 20240601](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20240601/) | [LicheePi Cluster 4A 20240601](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20240601/) | [ahead 20240529](https://   github.com/revyos/mkimg-th1520/releases/tag/20240529) | [pioneer20240327](https://mirror.iscas.ac.cn/revyos/extra/images/sg2042/20240327/) | [meles20240601](https://mirror.iscas.ac.cn/revyos/extra/images/meles/20240601/) |
-| 更新日志 | lpi4a 20240529 | lc4a 20240529 | ahead 20240529 | pioneer20240327 | Meles20240601 |
-
-RevyOS 0529版本U-boot文件下载：[链接](https://github.com/revyos/thead-u-boot/actions/runs/9326868005)
+| 支持设备 | LicheePi 4A/vala(荔枝派4a/评估板a) | LicheePi Cluster 4A | LicheePiConsole 4A | LicheePiBook 4A | ahead(beaglev-ahead) | Milk-V Pioneer | Milk-V Meles |
+| :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: |
+| 最新镜像 | [lpi4a 20240720](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20240720/) | [LicheePi Cluster 4A 20240601](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20240601/) | [LicheePiBook 4A 20240720](https://mirror.iscas.ac.cn/revyos/extra/images/laptop4a/20240720/) | [LicheePiConsole 4A 20240720](https://mirror.iscas.ac.cn/revyos/extra/images/lcon4a/20240720/) |[ahead 20240529](https://github.com/revyos/mkimg-th1520/releases/tag/20240529) | [pioneer20240716](https://mirror.iscas.ac.cn/revyos/extra/images/sg2042/20240716/) | [meles20240720](https://mirror.iscas.ac.cn/revyos/extra/images/meles/20240720/) |
+| 更新日志 | lpi4a 20240720 | lc4a 20240601 | LicheePiConsole 4A 20240720 |LicheePiBook 4A 20240720 | ahead 20240529 | pioneer20240716 | Meles20240720 |
 
 镜像刷写请参考：[镜像刷写教程](https://wiki.sipeed.com/hardware/zh/lichee/th1520/lpi4a/4_burn_image.html#%E6%89%B9%E9%87%8F%E7%83%A7%E5%BD%95)
 
