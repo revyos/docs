@@ -14,7 +14,7 @@ __RevyOS__ 围绕 c910v/c920/c906fdv/c908 等芯片提供了完整而全面的�
 
 __RevyOS__ 的用户版镜像目前在 [ISCAS(中国科学院软件研究所)](https://mirror.iscas.ac.cn/revyos) / [felix 芬兰源](https://mirrors.felixc.at/revyos/) 开源镜像站进行更新。
 
-如您想获取 __RevyOS__ 最新版镜像请选择对应板子获取对应的U-Boot/boo分区/root分区文件：
+如您想获取 __RevyOS__ 最新版镜像请选择对应板子获取对应的U-Boot/boot分区/root分区文件：
 
 | 支持设备 | LicheePi 4A/vala(荔枝派4a/评估板a) | LicheePi Cluster 4A | LicheePiConsole 4A | LicheePiBook 4A | ahead(beaglev-ahead) | Milk-V Pioneer | Milk-V Meles |
 | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: |
