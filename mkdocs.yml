@@ -70,7 +70,7 @@ nav:
     - p7zip: benchmark/p7zip.md
   - 镜像刷写:
     - Lichee Pi 4A: Installation/licheepi4a.md
-    - Milk-V Pioneer: Installation/milk-v pioneer.md
+    - Milk-V Pioneer: Installation/milk-v-pioneer.md
   - Changelog:
     # 更新日志需要倒序排列
     - lpi4a:
