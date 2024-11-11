@@ -2,30 +2,28 @@
 
 ## 简介
 
-[RevyOS](https://github.com/revyos)是由[RuyiSDK](https://github.com/ruyisdk)团队的 RevyOS 小队支持开发的一款针对 XuanTie 芯片生态的 Debian 优化定制发行版。
+[RevyOS](https://github.com/orgs/revyos/repositories)是由RuyiSDK团队的RevyOS小队支持开发的一款针对XuanTie芯片生态的Debian优化定制发行版。
 
-__RevyOS__ 围绕 c910v/c920/c906fdv/c908 等芯片提供了完整而全面的适配和优化支持，默认集成支持 RVV0.7.1 和 XThead 的 GCC 工具链，并搭载使用 RVV0.7.1 指令集优化过的 glibc 和 thead-kernel。
+__RevyOS__ 围绕玄铁C906、C910、C920、C908等芯片提供了完整而全面的适配和优化支持，默认集成支持玄铁扩展指令集和RVV 1.0的GCC工具链，并搭载使用RVV 1.0指令集优化过的Glibc和Kernel。
 
 目前，__RevyOS__ 在办公、网页浏览、观看视频等方面已经能满足用户的基本使用需求。
 
-基于上述定制和优化的 __RevyOS__，在 Lichee Pi 4A，beaglev-ahead，milkv-pioneer 等硬件平台上，能够提供优秀的性能和极佳的体验。
+基于上述定制和优化的 __RevyOS__，在 Lichee RV，Lichee Pi 4A 等硬件平台上，能够提供优秀的性能和极佳的体验。
 
 ## 镜像下载及刷写
 
-__RevyOS__ 的用户版镜像目前在 [ISCAS(中国科学院软件研究所)](https://mirror.iscas.ac.cn/revyos) / [felix 芬兰源](https://mirrors.felixc.at/revyos/) 开源镜像站进行更新。
+__RevyOS__ 的用户版镜像目前在 ISCAS（中国科学院软件研究所） 开源镜像站进行更新。如您想获取 __RevyOS__ 最新版镜像请访问[镜像下载](https://mirror.iscas.ac.cn/revyos/extra/images/)目录，根据所使用设备来获取对应镜像。
 
-如您想获取 __RevyOS__ 最新版镜像请选择对应设备获取对应的 U-Boot/boot 分区/root 分区文件：
-
-| 支持设备 | 镜像下载（最新版本） | 刷写教程 | sd 卡支持 | 内核版本 |
-| --- | --- | --- | --- | --- |
-| Lichee Pi 4A | [20240720](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20240720/) | [镜像刷写](./Installation/licheepi4a.md) |  |  |
-| LicheePi Cluster 4A | [20240720](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/) | [镜像刷写](./Installation/licheepi4a.md)  |  |  |
-| LicheeConsole 4A | [20240720](https://mirror.iscas.ac.cn/revyos/extra/images/lcon4a/20240720/) | [镜像刷写](./Installation/licheeconsole4a.md)  |  |  |
-| Lichee Book 4A | [20240720](https://mirror.iscas.ac.cn/revyos/extra/images/laptop4a/) | [镜像刷写](./Installation/licheebook.md)  |  |  |
-| Milk-V Pioneer | [20241025](https://mirror.iscas.ac.cn/revyos/extra/images/sg2042/20241025/) | [镜像刷写](./Installation/milkv-pioneer.md)  |  | 6.6.46 |
-| Milk-V Meles | [20240720](https://mirror.iscas.ac.cn/revyos/extra/images/meles/20240720/) | [镜像刷写](https://milkv.io/zh/docs/meles/installation)  |  |  |
-| Beagle-Ahead | [20231210](https://mirror.iscas.ac.cn/revyos/extra/images/beagle/20231210/) | [镜像刷写]()  |  |  |
-| Huiwei book | [20240617](https://mirror.iscas.ac.cn/revyos/extra/images/huiwei/test/20240617/) | [镜像刷写]()  |  |  |
+| 支持设备 | 镜像下载（最新版本） | 刷写教程 | sd卡支持 |
+| --- | --- | --- | --- |
+| Lichee Pi 4A | [20240720](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20240720/) | [镜像刷写](./Installation/licheepi4a.md) | 支持 |
+| LicheePi Cluster 4A | [20240720](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/) | [镜像刷写](./Installation/licheepi4a.md)  |  |
+| LicheeConsole 4A | [20240720](https://mirror.iscas.ac.cn/revyos/extra/images/lcon4a/20240720/) | [镜像刷写](./Image%20flashing/licheeconsole4a.md)  |  |
+| Lichee Book 4A | [20240720](https://mirror.iscas.ac.cn/revyos/extra/images/laptop4a/) | [镜像刷写](./Image%20flashing/licheebook.md)  |  |  |
+| Milk-V Pioneer | [20241025](https://mirror.iscas.ac.cn/revyos/extra/images/sg2042/20241025/) | [镜像刷写](https://docs.revyos.dev/Installation/milkv-pioneer/)  | 支持 |
+| Milk-V Meles | [20240720](https://mirror.iscas.ac.cn/revyos/extra/images/meles/20240720/) | [镜像刷写](https://milkv.io/zh/docs/meles/installation)  | 支持 |
+| Beagle-Ahead | [20231210](https://mirror.iscas.ac.cn/revyos/extra/images/beagle/20231210/) | [镜像刷写]()  |  |
+| Huiwei book | [20240617](https://mirror.iscas.ac.cn/revyos/extra/images/huiwei/test/20240617/) | [镜像刷写]()  |  |
 
 ### 如何启用 T-Head 优化 GCC
 
