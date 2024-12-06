@@ -16,6 +16,10 @@ theme:
     - c
     - cpp
 
+extra_javascript:
+  - 'https://cdnjs.loli.net/ajax/libs/pangu/4.0.7/pangu.min.js' # Pangu.js
+  - '_static/js/extra.js'
+
 plugins:
   - i18n:
       default_language: zh
