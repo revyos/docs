@@ -1,10 +1,10 @@
 # Stream
 
-## 使用说明
+## Instructions
 
-STREAM 基准测试是一个简单的综合基准测试程序，它测量可持续内存带宽（以 MB/s 为单位）和简单向量内核的相应计算速率。
+The STREAM benchmark is a simple synthetic benchmark program that measures sustainable memory bandwidth (in MB/s) and the corresponding computation rate for simple vector kernels.
 
-stream 仅有单个文件，在进行测试时只需要对 `stream.c` 进行编译即可：
+The stream consists of a single file, and to perform the test, you only need to compile `stream.c`:
 
 ```
 git clone <https://github.com/microseyuyu/STREAM.git>
@@ -14,16 +14,16 @@ export OMP_NUM_THREADS=8
 ./stream
 ```
 
-参数说明：
+Parameter descriptions:
 
-- -O3：指定最高编译优化级别，即 3。
-- fopenmp：启用OpenMP，适应多处理器环境，更能得到内存带宽实际最大值。开启后，程序默认运行线程为CPU线程数
+- -O3: Specifies the highest compilation optimization level, that is, 3.
+- fopenmp: Enables OpenMP, suitable for multi-processor environments, to better achieve the actual maximum memory bandwidth. When enabled, the program defaults to running the number of threads equal to the number of CPU threads.
 
-DN=2000000：指定测试数组a[]、b[]、c[]的大小（Array size）。该值对测试结果影响较大（5.9版本默认值2000000,。若stream.c为5.10版本，参数名变为-DSTREAM_ARRAY_SIZE，默认值10000000）。注意：必须设置测试数组大小远大于CPU 最高级缓存（一般为L3 Cache）的大小，否则就是测试CPU缓存的吞吐性能，而非内存吞吐性能。
-- -DNTIMES=10：执行的次数，并从这些结果中选最优值。
-- OMP_NUM_THREADS=8 线程数量。
+DN=2000000: Specifies the size of the test arrays a[], b[], and c[] (Array size). This value has a significant impact on the test results (the default value for version 5.9 is 2000000. If stream.c is version 5.10, the parameter name changes to -DSTREAM_ARRAY_SIZE, with a default value of 10000000). Note: the size of the test array must be set much larger than the size of the CPU's highest-level cache (usually L3 Cache), otherwise it tests the throughput performance of the CPU cache, rather than the memory throughput performance.
+- -DNTIMES=10: The number of repetitions, from which the optimal value is selected.
+- OMP_NUM_THREADS=8: Number of threads.
 
-参考结果：
+Sample results:
 
 ```
 debian@lpi4a:~/Desktop/STREAM$ ./stream
@@ -34,7 +34,7 @@ This system uses 8 bytes per array element.
 -------------------------------------------------------------
 *****  WARNING: ******
       It appears that you set the preprocessor variable N when compiling this code.
-      This version of the code uses the preprocesor variable STREAM_ARRAY_SIZE to control the array size
+      This version of the code uses the preprocessor variable STREAM_ARRAY_SIZE to control the array size
       Reverting to default value of STREAM_ARRAY_SIZE=10000000
 *****  WARNING: ******
 Array size = 10000000 (elements), Offset = 0 (elements)

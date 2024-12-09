@@ -1,17 +1,17 @@
-# 重启测试
+# Restart Test
 
-## 摘要
-使用脚本对整机进行重启测试。
+## Summary
+Perform a restart test on the entire machine using a script.
 
-## 测试项说明
-测试机器重启会不会出现死机等问题。
+## Test Item Description
+Check if there are any issues such as freezing when the test machine is restarted.
 
-## 测试计划
-进行重启测试 500 次。
+## Test Plan
+Conduct restart tests 500 times.
 
-## 操作步骤
+## Operating Steps
 
-在 /lib/system/system 下创建名为 cycletest.service_ 重启脚本：
+Create a restart script named cycletest.service_ in /lib/system/system:
 
 ```
 [Unit]
@@ -31,7 +31,7 @@ systemctl reboot;\
 WantedBy=multi-user.target
 ```
 
-后根据以下指令安装并开始测试：
+Then install and start the test with the following commands:
 
 ```
 systemctl daemon-reload

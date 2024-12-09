@@ -41,7 +41,25 @@ plugins:
           手动编译内核: Manuel Build Kernel
           如何启用优化GCC: Enable Optimization GCC
           桌面使用: desktop
-           
+          适配文档: Porting Docs
+          系统使用: System Usage
+          镜像刷写: Installation
+          GStreamer 播放器适配: GStreamer Player Porting
+          GStreamer pipeline: GStreamer Pipeline Example
+          Debian 相关: Debian
+          Debian 软件包构建流程: Debian Software Package Build Process
+          编译器相关说明: Compiler Related Description
+          其他通用构建: Other Builds
+          T-Head QEMU 编译流程: T-Head QEMU Build Process
+          gcc 编译软件软件说明: GCC Tips
+          安装: Install
+          docker: Docker
+          软件使用: Software Usage
+          GIMP 图像编辑工具: GIMP Image Editor
+          iBus 输入法: iBus Input Method
+          OpenTTD 游戏: OpenTTD Game
+          yquake2 游戏: yquake2 Game
+
 nav:
   - 主页: index.md
   - 构建文档:
