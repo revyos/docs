@@ -34,7 +34,7 @@ This system uses 8 bytes per array element.
 -------------------------------------------------------------
 *****  WARNING: ******
       It appears that you set the preprocessor variable N when compiling this code.
-      This version of the code uses the preprocessor variable STREAM_ARRAY_SIZE to control the array size
+      This version of the code uses the preprocesor variable STREAM_ARRAY_SIZE to control the array size
       Reverting to default value of STREAM_ARRAY_SIZE=10000000
 *****  WARNING: ******
 Array size = 10000000 (elements), Offset = 0 (elements)

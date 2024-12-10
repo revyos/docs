@@ -29,7 +29,7 @@ The following are reference test results, using the image version [RevyOS2023121
 debian@lpi4a:~/Desktop$ 7z b
 
 7-Zip 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
-p7zip Version 16.02 (locale=C.UTF-8, Utf16=on, HugeFiles=on, 64 bits, 4 CPUs LE)
+p7zip Version 16.02 (locale=C.UTF-8,Utf16=on,HugeFiles=on,64 bits,4 CPUs LE)
 
 LE
 CPU Freq: - 64000000 64000000 - - - - - -
