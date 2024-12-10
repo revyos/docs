@@ -16,8 +16,6 @@ LicheePi4A支持从 SD card 启动和从 eMMC 启动。以下分别介绍这两�
 
 #### 烧录相关工具
 
-从官网获取烧录工具 BalenaEtcher [https://etcher.balena.io/](https://etcher.balena.io/)
-
 安装zstd用于解压镜像文件
 
 ```bash
@@ -34,7 +32,9 @@ apt install zstd
 unzstd sdcard-lpi4a-20240720_171951.img.zst
 ```
 
-### 写入镜像到 MicroSD 卡
+### 使用BalenaEtcher写入镜像到 MicroSD 卡
+从官网获取烧录工具 BalenaEtcher [https://etcher.balena.io/](https://etcher.balena.io/)
+
 
 把 SD 卡插入读卡器，并将其插入电脑。
 
@@ -48,6 +48,14 @@ unzstd sdcard-lpi4a-20240720_171951.img.zst
 在等待一段时间后会显示烧录已完成。
 ![](./image%20for%20flash/lpi4a4.png)
 
+### 使用dd写入镜像
+
+在刷写前请保证您在 `of=` 设置了正确的设备
+```bash
+# sudo dd if=./sdcard-lpi4a-20240720_171951.img of=<Target Device> status=progress
+```
+等待完成即可使用
+
 ### 系统启动
 
 在写入镜像完成后将SD 卡插入如图所示卡槽中。
@@ -56,7 +64,9 @@ unzstd sdcard-lpi4a-20240720_171951.img.zst
 
 ## 从eMMC启动
 
-从eMMC启动镜像时，刷写镜像的途径分为连接串口与不连接串口两种情况。其中进行的操作有些许区别，在此将两种方式一起进行介绍。
+从eMMC启动镜像时，刷写镜像的途径分为连接串口与不连接串口两种情况。\
+其中进行的操作有些许区别，在此将两种方式一起进行介绍。\
+从eMMC启动应当先取出 SD Card。
 
 ### 准备工作
 
