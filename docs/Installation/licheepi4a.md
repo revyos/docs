@@ -26,7 +26,7 @@ apt install zstd
 
 #### 获取镜像
 
-从以下链接下载 LicheePi4A 的系统镜像：[RevyOS0720](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20240720/)。
+从以下链接下载 LicheePi4A 以 `sdcard-` 为前缀的 SD card 启动系统镜像：[RevyOS0720](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20240720/)。
 
 解压镜像压缩包得到sdcard-lpi4a-20240720_171951.img文件
 
@@ -80,9 +80,16 @@ apt install minicom
 
 其中u-boot文件需要根据自己的板卡规格进行选择，请注意提前了解自己的板卡规格后进行下载。
 
+下载后使用 `unzstd` 解压 root 和 boot 镜像
+
+```bash
+unzstd boot-lpi4a-20240720_171951.ext4.zst
+unzstd root-lpi4a-20240720_171951.ext4.zst
+```
+
 ### 写入镜像到eMMC(不接入串口)
 
-按住板卡上的重启键后，接入电脑。板卡会进入刷写模式
+按住板卡上的BOOT键后，接入电脑。板卡会进入刷写模式
 
 ### 写入镜像到eMMC(接入串口)
 
@@ -102,15 +109,20 @@ sudo minicom
 fastboot usb 0
 ```
 
-随后另起一个窗口进行镜像刷写，以下命令均为在镜像文件下载文件夹路径内，注意文件路径。
+随后另起一个窗口进行镜像刷写。
+
+### 正式刷写
+以下命令均为在镜像文件下载文件夹路径内，注意文件路径和文件名。
 
 ```bash
+fastboot flash ram u-boot-with-spl-lpi4a-16g.bin
+fastboot reboot
+sleep 10 # 等待电脑再次识别出设备
 fastboot flash uboot u-boot-with-spl-lpi4a-16g.bin
 fastboot flash boot boot-lpi4a-20240720_171951.ext4
 fastboot flash root root-lpi4a-20240720_171951.ext4
 ```
-
-在串口控制台中可以看到具体进度
+fastboot 会显示刷写进度，如果连接了串口，在串口控制台中可以看到具体进度
 
 ![]()
 
@@ -118,7 +130,11 @@ fastboot flash root root-lpi4a-20240720_171951.ext4
 
 ![]()
 
+#### 可能出现的问题
+如果 `lsusb` 中存在 `ID 2345:7654 T-HEAD USB download gadget`，但`fastboot` 命令仍然卡在 `< waiting for any device >` ，可以尝试使用 `sudo` 运行 `fastboot` 命令。
+
+
 ### 用户登录
 
-登录账户：debian
+登录账户：debian\
 账户密码：debian
