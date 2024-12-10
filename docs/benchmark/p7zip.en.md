@@ -1,29 +1,29 @@
 # p7zip
 
-p7zip 测试是用于测试系统解压性能，通过数据直观评估性能，以下是运行 7pzip 测试的操作步骤
+p7zip test is used to evaluate the decompression performance of the system, visually assess performance through data. The following are the steps to run the 7zip test.
 
-## 安装 7zip
+## Install 7zip
 
-首先需要在 RevyOS 中 安装 p7zip
+First, you need to install p7zip in RevyOS.
 
 ```
 debian@lpi4a:~/Desktop$ sudo apt update
 debian@lpi4a:~/Desktop$ sudo apt install p7zip-full
 ```
 
-## 执行性能测试
+## Execute Performance Test
 
-进行 p7zip 测试需要在终端中输入以下命令来执行：
+To conduct the p7zip test, enter the following command in the terminal to execute:
 
 ```
 debian@lpi4a:~/Desktop$ 7z b
 ```
 
-系统会开始进行测试然后输出性能数据。
+The system will begin testing and then output performance data.
 
-通过以上步骤，可以在 RevyOS 上安装并测试 7zip 的性能。
+By following these steps, you can install and test the performance of 7zip on RevyOS.
 
-以下是测试结果参考，使用镜像版本为[RevyOS20231210](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20231210/)16g版本
+The following are reference test results, using the image version [RevyOS20231210](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20231210/) 16g version.
 
 ```
 debian@lpi4a:~/Desktop$ 7z b

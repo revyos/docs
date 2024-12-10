@@ -1,0 +1,43 @@
+# Compiler-related Information
+
+RevyOS comes pre-packaged with an optimized compiler that primarily supports `rv64gc`.
+
+## General Extensions
+
+| Supported Optimizations | gcc-10 | gcc-13 | clang-17 |
+| :--: | :--: | :--: | :--: |
+| Zfh  | ✅ | ✅ | ✅ |
+| v0p7 | ✅ | ❌ | ❌ |
+
+
+## THead Vendor Extensions
+
+*xthead Current Version v2.2*
+
+| Supported Optimizations<sup>1</sup> | gcc-10<sup>2</sup> | gcc-13.2 | clang-17 |
+| :--: | :--: | :--: | :--: |
+| XTheadCmo              | ✅ | ✅ | ✅ |
+| XTheadSync             | ✅ | ✅ | ✅ |
+| XTheadBa               | ✅ | ✅ | ✅ |
+| XTheadBb               | ✅ | ✅ | ✅ |
+| XTheadBs               | ✅ | ✅ | ✅ |
+| XTheadCondMov          | ✅ | ✅ | ✅ |
+| XTheadMemIdx           | ✅ | ✅ | ✅ |
+| XTheadMemPair          | ✅ | ✅ | ✅ |
+| XTheadFMemIdx          | ✅ | ✅ | ✅ |
+| XTheadMac              | ✅ | ✅ | ✅ |
+| XTheadFmv              | ✅ | ✅ | ❌ |
+| XTheadInt              | ✅ | ✅ | ❌ |
+| XTHeadVdot<sup>3</sup> | ✅ | ✅ | ✅ |
+
+Notes:
+
+1. gcc-11/gcc-12/clang-14/clang-15/clang-16 have insufficient or no xthead extensions, hence they are not listed.
+2. gcc-10 uses xtheadc to cover all extensions, and gcc-10 is built using the source code from the thead-gcc project.
+3. XTHeadVdot is not supported on c910v/c920.
+
+## Reference Documentation
+
+- [xthead Extension Reference Document](https://github.com/T-head-Semi/thead-extension-spec)
+- [gcc Merged xthead Extension Submission](https://gcc.gnu.org/git/?p=gcc.git;a=commitdiff;h=8351535f20b52cf332791f60d2bf22a025833516)
+- [clang-17 xthead Extension Documentation](https://github.com/llvm/llvm-project/blob/release/17.x/llvm/docs/RISCVUsage.rst#vendor-extensions)
