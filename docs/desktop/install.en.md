@@ -1,15 +1,14 @@
-# 包安装
+# Package Installation
 
-在RevyOS中安装包只需要在 terminal 中输入
+In RevyOS, packages can be installed by typing the following command in the terminal:
 
+```bash
+sudo apt install <package-name>
 ```
-apt install + 包名
-```
-即可安装
 
-以下以安装 git作为演示
+Here is an example of installing `git`:
 
-```
+```bash
 debian@lpi4a:~$ sudo apt install git
 [sudo] password for debian: 
 Reading package lists... Done
@@ -50,3 +49,5 @@ Setting up git-man (1:2.40.1-1) ...
 Setting up git (1:2.40.1-1) ...
 Processing triggers for man-db (2.11.2-2) ...
 ```
+
+After confirming with `Y`, `git` and its dependencies are installed and ready for use.

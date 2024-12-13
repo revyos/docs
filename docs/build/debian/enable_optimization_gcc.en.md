@@ -1,6 +1,6 @@
 # Enable T-Head Optimization GCC
 
-Experimental `feature` 如果发现问题可以进行[issue report](https://github.com/revyos/revyos/issues)
+This is an experimental `feature`. If you encounter any issues, you can [report an issue](https://github.com/revyos/revyos/issues).
 
 ```bash
 # Add Optimization deb source
@@ -41,8 +41,8 @@ Supported LTO compression algorithms: zlib zstd
 gcc version 13.2.0 (Debian 13.2.0-1revyos1)
 ```
 
-## gcc-10/gcc-13 difference
+## gcc-10/gcc-13 Difference
 
-除了v0p7 其他优化都可以用 gcc-13 代替 gcc-10
+Except for v0p7, all optimizations can use gcc-13 as a replacement for gcc-10.
 
-后者的优化可以主线报问题 是已经主线化的功能
+The optimizations in the latter can report issues to the mainline as they are already part of the mainline functionality.

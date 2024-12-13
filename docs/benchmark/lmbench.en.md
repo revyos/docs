@@ -1,41 +1,40 @@
 # lmbench for Lpi4A
 
-## 软件版本
+## Software Version
 
-> lmbench for revyOS
+> lmbench for RevyOS
 
-## 测试说明
+## Test Description
 
-| 带宽测评工具 | 反应时间测评工具 | 其他 |
+| Bandwidth Measurement Tool | Latency Measurement Tool | Others |
 | --- | --- | --- |
-| 读取缓存文件 | 上下文切换 | \\ |
-| 拷贝内存 | 网络：连接的建立，管道，TCP，UDP 和RPC hot potato | \\ |
-| 读内存 | 文件系统的建立和删除 | \\ |
-| 写内存 | 进程创建 | 处理器时钟比率计算 |
-| 管道 | 信号处理 | \\ |
-| TCP | 上层的系统调用 | \\ |
-| \\ | 内存读入反应时间 | \\ |
+| Read Cache File | Context Switching | \\ |
+| Copy Memory | Network: Connection Establishment, Pipe, TCP, UDP, and RPC Hot Potato | \\ |
+| Read Memory | File System Creation and Deletion | \\ |
+| Write Memory | Process Creation | Processor Clock Rate Calculation |
+| Pipe | Signal Handling | \\ |
+| TCP | Upper-Level System Calls | \\ |
+| \\ | Memory Read Latency | \\ |
 
-## 测试准备
+## Test Preparation
 
-下载测试工具：
+Download the testing tool:
 
 ```
 git clone https://github.com/revyos/lmbench3.git
 ```
 
-> 该版本为已为 RevyOS 移植版本。
+> This version has been ported for RevyOS.
 
-
-在开始测试前，需要先安装依赖：
+Before starting the tests, you need to install the dependencies:
 
 ```
 sudo apt install gcc make libntirpc-dev -y
 ```
 
-## 测试执行
+## Test Execution
 
-执行命令进行编译，配置，并测试
+Execute the commands to compile, configure, and test:
 
 ```
 cd lmbench3
@@ -43,11 +42,11 @@ cd src
 make results
 ```
 
-编译完成后会有以下选项提示需要设置：
+After compilation, the following options will prompt you to set:
 
-以下不需要更改的项目直接回车，会自动设置默认值。
+The options that do not require changes can be left blank to automatically set default values.
 
-`MULTIPLE COPIES [default 1]`: 设置同时运行 lmbench 的份数，份数多会使 lmbench 运行缓慢，默认是 1，这里设置为默认值 1。
+`MULTIPLE COPIES [default 1]`: Sets the number of concurrent instances of lmbench to run. Running more instances may slow down lmbench. The default is 1, so set it to the default value of 1.
 
 ```
 =====================================================================
@@ -64,41 +63,41 @@ MULTIPLE COPIES [default 1]:
 =====================================================================
 ```
 
-`Job placement selection [default 1]`: 作业调度控制方法，默认值是 1，表示允许作业调度，这里设置为默认值。
+`Job placement selection [default 1]`: Controls job scheduling methods. The default is 1, which allows job scheduling, so set it to the default value.
 
 ```
 =====================================================================
 
 Options to control job placement
 1) Allow scheduler to place jobs
-2) Assign each benchmark process with any attendent child processes
+2) Assign each benchmark process with any attendant child processes
    to its own processor
-3) Assign each benchmark process with any attendent child processes
+3) Assign each benchmark process with any attendant child processes
    to its own processor, except that it will be as far as possible
    from other processes
-4) Assign each benchmark and attendent processes to their own
+4) Assign each benchmark and attendant processes to their own
    processors
-5) Assign each benchmark and attendent processes to their own
+5) Assign each benchmark and attendant processes to their own
    processors, except that they will be as far as possible from
    each other and other processes
-6) Custom placement: you assign each benchmark process with attendent
+6) Custom placement: you assign each benchmark process with attendant
    child processes to processors
-7) Custom placement: you assign each benchmark and attendent
+7) Custom placement: you assign each benchmark and attendant
    processes to processors
 
-Note: some benchmarks, such as bw_pipe, create attendent child
+Note: some benchmarks, such as bw_pipe, create attendant child
 processes for each benchmark process.  For example, bw_pipe
 needs a second process to send data down the pipe to be read
 by the benchmark process.  If you have three copies of the
 benchmark process running, then you actually have six processes;
-three attendent child processes sending data down the pipes and 
+three attendant child processes sending data down the pipes and 
 three benchmark processes reading data and doing the measurements.
 
 Job placement selection [default 1]: 
 =====================================================================
 ```
 
-`Memory`: 设置测试内存大小，默认是 `$MB` , 即为程序计算出来的最大可测试内存，也可以手动定义测试值，这里设置为这里使用默认值。
+`Memory`: Sets the test memory size. The default is `$MB`, which is the maximum testable memory calculated by the program, or you can manually define the test value. Here, we will use the default value.
 
 ```
 =====================================================================
@@ -121,7 +120,7 @@ OK, it looks like your cache line is 64 bytes.
 =====================================================================
 ```
 
-`SUBSET (ALL|HARWARE|OS|DEVELOPMENT) [default all]`: 要运行的测试集，包含 `ALL/HARWARE/OS/DEVELOPMENT`，默认选 `all`，这里选 `all`。
+`SUBSET (ALL|HARDWARE|OS|DEVELOPMENT) [default all]`: Selects the test set, which includes `ALL/HARDWARE/OS/DEVELOPMENT`. The default is `all`, so we will select `all`.
 
 ```
 =====================================================================
@@ -129,18 +128,18 @@ OK, it looks like your cache line is 64 bytes.
 lmbench measures a wide variety of system performance, and the full suite
 of benchmarks can take a long time on some platforms.  Consequently, we
 offer the capability to run only predefined subsets of benchmarks, one
-for operating system specific benchmarks and one for hardware specific
-benchmarks.  We also offer the option of running only selected benchmarks
+for operating system-specific benchmarks and one for hardware-specific
+benchmarks.  We also offer the option of running only selected benchmarks,
 which is useful during operating system development.
 
 Please remember that if you intend to publish the results you either need
 to do a full run or one of the predefined OS or hardware subsets.
 
-SUBSET (ALL|HARWARE|OS|DEVELOPMENT) [default all]: 
+SUBSET (ALL|HARDWARE|OS|DEVELOPMENT) [default all]: 
 =====================================================================
 ```
 
-`FASTMEM [default no]`: 内存 `latency` 测试，如果跳过该测试，则设置为 `yes`，如果不跳过则设置为 `no`，默认是 `no`，这里设置为默认值。
+`FASTMEM [default no]`: Memory latency test. If you want to skip this test, set it to `yes`. If you do not want to skip it, set it to `no`. The default is `no`, so we will keep the default value.
 
 ```
 =====================================================================
@@ -153,19 +152,19 @@ is greater than 128 bytes.
 If you are planning on sending in these results, please don't do a fast
 run.
 
-Answering yes means that we measure memory latency with a 128 byte stride.  
+Answering yes means that we measure memory latency with a 128-byte stride.  
 
 FASTMEM [default no]: 
 =====================================================================
 ```
 
-`SLOWFS [default no]`: 文件系统 `latency` 测试，如果跳过值设置为 `yes`，不跳过设置为 `no`，默认 `no`，这里设置为默认值。
+`SLOWFS [default no]`: File system latency test. If you want to skip this test, set it to `yes`. If you do not want to skip it, set it to `no`. The default is `no`, so we will keep the default value.
 
 ```
 =====================================================================
 
 This benchmark measures, by default, file system latency.  That can
-take a long time on systems with old style file systems (i.e., UFS,
+take a long time on systems with old-style file systems (i.e., UFS,
 FFS, etc.).  Linux' ext2fs and Sun's tmpfs are fast enough that this
 test is not painful.
 
@@ -178,7 +177,7 @@ SLOWFS [default no]:
 =====================================================================
 ```
 
-`DISKS [default none]`: 硬盘带宽和 `seek time`，需要设置测试硬盘的盘符，例如 `/dev/sda`，默认不测试(默认 none )，这里设置为默认值。
+`DISKS [default none]`: Disk bandwidth and seek time. You need to specify the disk device path, such as `/dev/sda`. By default, it does not test (default is none), so we will keep the default value.
 
 ```
 =====================================================================
@@ -194,7 +193,7 @@ If you want to skip the disk tests, hit return below.
 
 If you want to include disk tests, then specify the path to the disk
 device, such as /dev/sda.  For each disk that is readable, you'll be
-prompted for a one line description of the drive, i.e., 
+prompted for a one-line description of the drive, i.e., 
 
 	Iomega IDE ZIP
 or
@@ -204,7 +203,7 @@ DISKS [default none]:
 =====================================================================
 ```
 
-`REMOTE [default none]`: 网络测试，需要 `2` 台机器并设置 `rsh`，是测试机器能 `rsh` 访问另一台，默认不测试(默认 none )，这里设置为默认值。
+`REMOTE [default none]`: Network testing requires two machines and `rsh` access. This tests whether the testing machine can `rsh` into another machine. By default, it does not test (default is none), so we will keep the default value.
 
 ```
 =====================================================================
@@ -219,7 +218,7 @@ REMOTE [default none]:
 =====================================================================
 ```
 
-`Processor mhz [default 999 MHz, 1.0010 nanosec clock]`: 测试 `cpu`，默认 `$MHZ`，即为程序判断出的频率，也可以根据情况自己设定，例如 3500，单位 `MHz`，这里设置为默认值。
+`Processor mhz [default 999 MHz, 1.0010 nanosec clock]`: Tests the CPU frequency. The default is `$MHZ`, which is the frequency determined by the program. You can also specify it based on your situation, e.g., 3500, in MHz. Here, we will keep the default value.
 
 ```
 =====================================================================
@@ -242,14 +241,16 @@ Processor mhz [default 999 MHz, 1.0010 nanosec clock]:
 =====================================================================
 ```
 
-`FSDIR [default /usr/tmp]`: 临时目录用来存放测试文件，可以自己设定，默认 `/usr/tmp`，这里设置为默认值。
+`FSDIR [default /usr/tmp]`: A temporary directory to store test files. You can set your own value; the default is `/usr
+
+/tmp`, so we will keep the default value.
 
 ```
 =====================================================================
 
 We need a place to store a 686 Mbyte file as well as create and delete a
 large number of small files.  We default to /usr/tmp.  If /usr/tmp is a
-memory resident file system (i.e., tmpfs), pick a different place.
+memory-resident file system (i.e., tmpfs), pick a different place.
 Please specify a directory that has enough space and is a local file
 system.
 
@@ -257,20 +258,20 @@ FSDIR [default /usr/tmp]:
 =====================================================================
 ```
 
-`Status output file [default /dev/tty]`: 测试输出信息文件存放目录，可以自己设定，默认 `/dev/tty`。
+`Status output file [default /dev/tty]`: The directory to store test output information. You can set your own value; the default is `/dev/tty`, so we will keep the default value.
 
 ```
 =====================================================================
 
 lmbench outputs status information as it runs various benchmarks.
-By default this output is sent to /dev/tty, but you may redirect
+By default, this output is sent to /dev/tty, but you may redirect
 it to any file you wish (such as /dev/null...).
 
 Status output file [default /dev/tty]: 
 =====================================================================
 ```
 
-`Mail results [default yes]`: 是否将测试结果邮件发出来，默认是 `yes`，这里设置为 `no`。
+`Mail results [default yes]`: Whether to email the test results. The default is `yes`, so we will set it to `no`.
 
 ```
 =====================================================================
@@ -288,9 +289,9 @@ OK, no results mailed.
 =====================================================================
 ```
 
-以上项目设置完成后，开始自动执行测试。
+After completing the above settings, the tests will start automatically.
 
-## 测试结果
+## Test Results
 
 
-## 测试说明
+## Test Notes
