@@ -1,16 +1,3 @@
-# 安装 golang
-
-```bash
-sudo apt install golang-go
-```
-
-测试安装是否成功:
-
-```bash
-debian@lpi4a:~$ go version
-go version go1.19.8 linux/riscv64
-```
-
 # 安装 riscv64 docker
 源中已有 riscv64 的docker安装包，名为 `docker.io`，可以直接使用:
 

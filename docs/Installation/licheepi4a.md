@@ -53,6 +53,7 @@ unzstd sdcard-lpi4a-20240720_171951.img.zst
 在刷写前请保证您在 `of=` 设置了正确的设备
 ```bash
 # sudo dd if=./sdcard-lpi4a-20240720_171951.img of=<Target Device> status=progress
+# sync
 ```
 等待完成即可使用
 
