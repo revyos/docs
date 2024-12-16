@@ -69,8 +69,9 @@ Connect the HDMI and power cables to start the system.
 
 ## Booting from eMMC
 
-When booting from eMMC, RevyOS images are flashed to the eMMC storage using `fastboot`. There are two options: connecting with or without a serial interface. This guide provides instructions for both methods.\
-You must eject SD card when booting from eMMC.
+When booting from eMMC, RevyOS images are flashed to the eMMC storage using `fastboot`. There are two options: connecting with or without a serial interface. This guide provides instructions for both methods.
+
+You **must** eject SD card when booting from eMMC.
 
 ### Preparation
 
@@ -111,8 +112,9 @@ unzstd root-lpi4a-20240720_171951.ext4.zst
    sudo minicom
    ```
 
-2. Connect the USB end to the computer, and connect the Type-C interface on the board to the computer with a USB-Type-C cable.\
-Connect the serial port like following image. In the red circle is GND, in the yellow circle is TX and in the green circle is RX. You have to connect TX to RX, RX to TX and GND to GND when connecting to your host device.
+2. Connect the USB end to the computer, and connect the Type-C interface on the board to the computer with a USB-Type-C cable.
+
+Connect the serial port like following image. In the red circle(count from left to right, the second pin on the first row) is GND, in the yellow circle(fifth pin on the first row) is TX and in the green circle(fifth pin on the second row) is RX. You have to connect TX to RX, RX to TX and GND to GND when connecting to your host device.
 
 ![](./image%20for%20flash/lpi4a6.png)
 
@@ -124,7 +126,15 @@ Connect the serial port like following image. In the red circle is GND, in the y
    ```
 
 4. In a new terminal window, navigate to the folder where the image files are stored, and execute the following flash commands:
+#### Enter u-boot fastboot
+If running `lsusb` doesn't give a `ID 1234:8888 Brain Actuated Technologies USB download gadget` output, excecute following commant to enter u-boot fastboot
+```bash
+   fastboot flash ram u-boot-with-spl-lpi4a-16g.bin # Replace with your device's uboot image
+   fastboot reboot
+   sleep 1
+```
 
+#### flash images
    ```bash
    fastboot flash ram u-boot-with-spl-lpi4a-16g.bin # Replace with your device's uboot image
    fastboot reboot
@@ -134,7 +144,8 @@ Connect the serial port like following image. In the red circle is GND, in the y
    fastboot flash root root-lpi4a-20240720_171951.ext4
    ```
 
-5. Monitor the flashing progress in the serial console.\
+5. Monitor the flashing progress in the serial console.
+
 In serial you can see the image size and the being flashing partition in `cmd_parameter: boot, imagesize: 92886476` (In this guide we are flashing the boot image which has a size of 92886476 Bytes)
 ![](./image%20for%20flash/lpi4a7.png)
 

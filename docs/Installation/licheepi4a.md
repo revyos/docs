@@ -65,9 +65,8 @@ unzstd sdcard-lpi4a-20240720_171951.img.zst
 
 ## 从eMMC启动
 
-从eMMC启动镜像时，刷写镜像的途径分为连接串口与不连接串口两种情况。\
-其中进行的操作有些许区别，在此将两种方式一起进行介绍。\
-从eMMC启动应当先取出 SD Card。
+从eMMC启动镜像时，刷写镜像的途径分为连接串口与不连接串口两种情况，其中进行的操作有些许区别，在此将两种方式一起进行介绍。
+**从eMMC启动应当先取出 SD Card**
 
 ### 准备工作
 
@@ -110,8 +109,9 @@ unzstd root-lpi4a-20240720_171951.ext4.zst
 sudo minicom
 ```
 
-如图所示将串口与板卡进行连接，usb端接入电脑。板卡上的Type-C接口通过USB-Type-C线连接到电脑。\
-连接串口，红色圈内为 GND，黄色圈内为 TX，绿色圈内为 RX。与主机应遵循TX到RX,RX到TX,GND到GND的接线。
+如图所示将串口与板卡进行连接，usb端接入电脑。板卡上的Type-C接口通过USB-Type-C线连接到电脑。
+
+连接串口，红色圈内（从左往右第一排第二个）为 GND，黄色圈内（第一排第五个）为 TX，绿色圈内（第二排第五个）为 RX。与主机应遵循TX到RX,RX到TX,GND到GND的接线。
 
 ![](./image%20for%20flash/lpi4a6.png)
 
@@ -126,10 +126,16 @@ fastboot usb 0
 ### 正式刷写
 以下命令均为在镜像文件下载文件夹路径内，注意文件路径和文件名。
 
+#### 使设备进入 u-boot fastboot
+如果 `lsusb` 结果不是 `ID 1234:8888 Brain Actuated Technologies USB download gadget`，运行下面的命令
 ```bash
 fastboot flash ram u-boot-with-spl-lpi4a-16g.bin # 替换为您的型号对应的 uboot 镜像
 fastboot reboot
 sleep 1
+```
+
+#### 刷写镜像
+```bash
 fastboot flash uboot u-boot-with-spl-lpi4a-16g.bin
 fastboot flash boot boot-lpi4a-20240720_171951.ext4
 fastboot flash root root-lpi4a-20240720_171951.ext4
