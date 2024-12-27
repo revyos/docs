@@ -1,8 +1,6 @@
 site_name: RevyOS Docs
 repo_name: revyos/docs
 repo_url: https://github.com/revyos/docs
-default_language: zh-CN
-default_language_only: true
 theme:
   name: material
   features:
@@ -22,6 +20,7 @@ extra_javascript:
 plugins:
   - i18n:
       default_language: zh
+      default_language_only: false
       languages:
         en:
           name: English
