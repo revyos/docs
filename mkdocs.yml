@@ -78,6 +78,7 @@ nav:
     - 软件使用:
       - GIMP 图像编辑工具: desktop/software/gimp.md
       - iBus 输入法: desktop/software/iBus.md
+      - ROS2: desktop/software/ROS2.md
     - Games:
       - OpenTTD 游戏: desktop/games/OpenTTD游戏.md
       - yquake2 游戏: desktop/games/yquake2.md
