@@ -69,20 +69,20 @@ After flashing, use `sync` to ensure data is fully written to the SD card.
 
 Flashing to the SPI Flash requires installing utilities and loading the `mtd` module.
 
-1. Install necessary packages:
+Install necessary packages:
 
    ```bash
    sudo apt install mtd-utils
    sudo modprobe mtdblock
    ```
 
-2. Download the firmware file:
+Download the firmware file:
 
    ```bash
    wget https://mirror.iscas.ac.cn/revyos/extra/images/sg2042/20240819/firmware_single_sg2042-v6.6-lts-v0p7.bin
    ```
 
-3. Navigate to the directory where `firmware_single_sg2042-v6.6-lts-v0p7.bin` was downloaded and run:
+Navigate to the directory where `firmware_single_sg2042-v6.6-lts-v0p7.bin` was downloaded and run:
 
    ```bash
    sudo flashcp -v firmware_single_sg2042-v6.6-lts-v0p7.bin /dev/mtd1
@@ -98,23 +98,11 @@ Flashing to SPI Flash is now complete.
 
 ### Using Command Line
 
-1. Decompress the `revyos-pioneer-20240819-154656.img.zst` file:
-
-   ```bash
-   unzstd revyos-pioneer-20240819-154656.img.zst
-   ```
-
-   This produces the `revyos-pioneer-20240819-154656.img` file.
+1. Decompress the `revyos-pioneer-20240819-154656.img.zst` file using `unzstd revyos-pioneer-20240819-154656.img.zst`. This produces the `revyos-pioneer-20240819-154656.img` file.
 
 2. Insert the NVMe SSD into the reader and connect it to your computer, then confirm the device path.
 
-3. In the directory containing `revyos-pioneer-20240819-154656.img`, flash the image to the NVMe SSD:
-
-   ```bash
-   sudo dd if=revyos-pioneer-20240819-154656.img of=/dev/nvme0n1 bs=4M status=progress
-   ```
-
-   Replace `of=/dev/nvme0n1` with the correct device path if different.
+3. In the directory containing `revyos-pioneer-20240819-154656.img`, flash the image to the NVMe SSD with dd command: `sudo dd if=revyos-pioneer-20240819-154656.img of=/dev/nvme0n1 bs=4M status=progress`. Replace `of=/dev/nvme0n1` with the correct device path if different.
 
 4. After flashing, use `sync` to ensure the data is fully written to the NVMe SSD.
 
