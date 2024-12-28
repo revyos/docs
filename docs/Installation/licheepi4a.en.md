@@ -102,30 +102,30 @@ unzstd root-lpi4a-20240720_171951.ext4.zst
 
 ### Flashing the Image to eMMC (Without Serial Connection)
 
-1. Hold down the BOOT button on the board and connect it to the computer via USB. The board will enter flashing mode.
+Hold down the BOOT button on the board and connect it to the computer via USB. The board will enter flashing mode.
 
 ### Flashing the Image to eMMC (With Serial Connection)
 
-1. Open `minicom` in a terminal to access the serial console:
+Open `minicom` in a terminal to access the serial console:
 
    ```bash
    sudo minicom
    ```
 
-2. Connect the USB end to the computer, and connect the Type-C interface on the board to the computer with a USB-Type-C cable.
+Connect the USB end to the computer, and connect the Type-C interface on the board to the computer with a USB-Type-C cable.
 
 Connect the serial port like following image. In the red circle(count from left to right, the second pin on the first row) is GND, in the yellow circle(fifth pin on the first row) is TX and in the green circle(fifth pin on the second row) is RX. You have to connect TX to RX, RX to TX and GND to GND when connecting to your host device.
 
 ![](./image%20for%20flash/lpi4a6.png)
 
 
-3. In the serial console, press any key to interrupt the boot process. Then, enter the following command:
+In the serial console, press any key to interrupt the boot process. Then, enter the following command:
 
    ```bash
    fastboot usb 0
    ```
 
-4. In a new terminal window, navigate to the folder where the image files are stored, and execute the following flash commands:
+In a new terminal window, navigate to the folder where the image files are stored, and execute the following flash commands:
 #### Enter u-boot fastboot
 If running `lsusb` doesn't give a `ID 1234:8888 Brain Actuated Technologies USB download gadget` output, excecute following commant to enter u-boot fastboot
 ```bash
@@ -144,12 +144,12 @@ If running `lsusb` doesn't give a `ID 1234:8888 Brain Actuated Technologies USB 
    fastboot flash root root-lpi4a-20240720_171951.ext4
    ```
 
-5. Monitor the flashing progress in the serial console.
+Monitor the flashing progress in the serial console.
 
 In serial you can see the image size and the being flashing partition in `cmd_parameter: boot, imagesize: 92886476` (In this guide we are flashing the boot image which has a size of 92886476 Bytes)
 ![](./image%20for%20flash/lpi4a7.png)
 
-6. After flashing is complete, disconnect the USB-Type-C cable, connect the power cable, and boot into the system.
+After flashing is complete, disconnect the USB-Type-C cable, connect the power cable, and boot into the system.
 
 #### Some possible problems
 If you can see download device in `lsusb`, but`fastboot` stuck at `< waiting for any device >`you can try run `fastboot` with root privilege.
