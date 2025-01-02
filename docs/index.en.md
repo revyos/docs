@@ -2,9 +2,9 @@
 
 ## Introduction
 
-[RevyOS](https://github.com/revyos) is a Debian based custom distribution developed and maintained by the RevyOS team under RuyiSDK, specificity optimized for the XuanTie chip ecosystem.
+[RevyOS](https://github.com/revyos) is a Debian based custom distribution developed and maintained by the RevyOS team under RuyiSDK, specifically optimized for the XuanTie chip ecosystem.
 
-RevyOS is part of [RuyiSDK](https://github.com/ruyisdk), a open-source project initiated by PLCT Lab, aimed at providing a convenient and comprehensive development environment for RISC-V developers. It offers the latest hardware information and software support, such as details about supported hardware devices and software components like OS images (e.g., RevyOS), toolchains, and package managers.
+RevyOS is part of [RuyiSDK](https://github.com/ruyisdk), an open-source project initiated by PLCT Lab, aimed at providing a convenient and comprehensive development environment for RISC-V developers. It offers the latest hardware information and software support, such as details about supported hardware devices and software components like OS images (e.g., RevyOS), toolchains, and package managers.
 
 __RevyOS__ provides complete and thorough support for XuanTie chips including XuanTie C906, C910, C920, C908, with default integration of the XuanTie extended instruction sets and the GCC toolchain supporting RVV 1.0. It also features Glibc and Kernel optimized with RVV 1.0 instruction set.
 
@@ -49,6 +49,6 @@ In this documentation, we provide guides for reference on building, adapting, an
 
 RevyOS has its own Telegram group: [Invitation Link](https://t.me/+Pi6px22-OsUxM2M1)
 
-## Internship Rectuitment
+## Internship Recruitment
 
 We are currently recruiting test interns. For more information, visit: [RevyOS Team Test Intern Recruitment](https://github.com/plctlab/weloveinterns/blob/master/open-internships.md#j143-revyos%E5%B0%8F%E9%98%9F%E6%B5%8B%E8%AF%95%E5%AE%9E%E4%B9%A0%E7%94%9F20241111%E5%BC%80%E6%94%BE100%E5%90%8D) (Chinese only)
