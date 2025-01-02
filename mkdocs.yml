@@ -107,3 +107,5 @@ nav:
       - 20230412: changelog/lpi4a/20230412.md
     - ahead:
       - 20230802: changelog/ahead/20230802.md
+  - issue: issue.md
+    
