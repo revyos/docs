@@ -1,18 +1,16 @@
 # glmark2
 
-glmark2 is an OpenGL 2.0 and ES 2.0 benchmark.
-We will only use glmark2-es2 for relevant tests here . This is a testing tool for x11-glesv2. 
+glmark2 是基于 OpenGL 2.0 以及 ES 2.0 的一个性能测试.
 
-This software package is already pre-installed in the system.
-
-`th1520` only support glmark-es2.
-
-## Pre-steps
-
-If you need perfect performance, put your device into performance mode before you start, here's how to do it.
+此处我们只使用 glmark2-es2 ，软件包已经预装在RevyOS中，用于 x11-glesv2 的测试. 
 
 
-Please execute the following commands in the terminal. This command requires a root account.
+`th1520` 只支持 glmark-es2.
+
+## 准备步骤
+
+开始之前我们需要调整芯片进入高性能模式，在终端中执行下述命令即可，需要使用 `sudo` 或者root账户.
+
 
 ```bash
 echo performance >  /sys/devices/system/cpu/cpufreq/policy0/scaling_governor 
@@ -20,21 +18,19 @@ echo performance >  /sys/devices/system/cpu/cpufreq/policy0/scaling_governor
 cat /sys/devices/system/cpu/cpufreq/policy0/cpuinfo_cur_freq
 ```
 
-After the execution is completed, you will see a series of numbers, such as "1848000".
+如果在执行之后看到 "1848000" 数字，则表明已经调整至性能模式，可以继续向下操作.
 
 
-## Start operation
+## 开始运行
 
 
-Open a terminal and enter glmark2-es2. This test allows the use of non-root accounts.
+使用任意账户登陆系统，打开终端输入 `glmark2-es2`，需要将HDMI连接到显示器，请勿通过SSH连接执行. 
 
-After entering the command, a new window will appear on your desktop with an active screen.
+输入命令后，桌面上会出现一个有图形活动的新窗口。
 
+测试完成后，额外窗口会消失，分数会以 `glmark2 Score: xxx` 的形式输出在终端中。
 
-After the test is completed, the additional activity screen will disappear and the score will be output in the terminal in the form of "glmark2 Score: xxx".
-
-
-For example:
+测试示例:
 
 ```
 debian@lpi4a:~/Desktop$ glmark2-es2
