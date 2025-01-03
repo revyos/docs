@@ -12,7 +12,7 @@ This software package is already pre-installed in the system.
 If you need perfect performance, put your device into performance mode before you start, here's how to do it.
 
 
-Please execute the following commands in the terminal. This command requires a root account.
+Please execute the following commands in the terminal. This command requires a root account or `sudo`.
 
 ```bash
 echo performance >  /sys/devices/system/cpu/cpufreq/policy0/scaling_governor 
@@ -26,12 +26,14 @@ After the execution is completed, you will see a series of numbers, such as "184
 ## Start operation
 
 
-Open a terminal and enter glmark2-es2. This test allows the use of non-root accounts.
+Open a terminal and enter `glmark2-es2`. This test allows the use of non-root accounts.
 
 After entering the command, a new window will appear on your desktop with an active screen.
 
+Need to connect HDMI to the monitor, do not execute the command through SSH connection.
 
-After the test is completed, the additional activity screen will disappear and the score will be output in the terminal in the form of "glmark2 Score: xxx".
+
+After the test is completed, the additional activity screen will disappear and the score will be output in the terminal in the form of `glmark2 Score: xxx`.
 
 
 For example:
