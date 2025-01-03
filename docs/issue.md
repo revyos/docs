@@ -4,14 +4,14 @@
 
 ## 提交新的 Issue
 
-- 访问 GitHub Issue 页面：https://github.com/revyos/revyos/issues
-- 点击页面右侧的 New Issue 按钮。
+- 访问 GitHub Issue 页面：[RevyOS-Issue](https://github.com/revyos/revyos/issues)
+- 点击页面右侧的 [New Issue](https://github.com/revyos/revyos/issues/new/choose) 按钮。
 - 在提交 Issue 时，请尽可能提供以下信息：
    - 问题描述：清晰简洁地描述问题是什么。
    - 复现步骤：列出导致问题的操作步骤。
    - 预期行为：说明期望程序如何运行。
    - 实际行为：描述实际发生了什么。
-   - 环境信息：包括 RevyOS 版本、硬件版本、镜像刷写文件。
+   - 环境信息：包括 RevyOS 镜像版本、镜像刷写文件获取地址，硬件版本。
 - 请尽量附上相关的日志或截图，以帮助更快定位问题。
 
 ## 查看已知问题
