@@ -4,7 +4,7 @@
 
 [RevyOS](https://github.com/orgs/revyos/repositories)是由 RuyiSDK 团队的 RevyOS 小队支持开发的一款针对 XuanTie 芯片生态的 Debian 优化定制发行版。
 
-ReyvOS 是 RuyiSDK 的一部分。RuyiSDK 是一个由 PLCT Lab 所启动的开源项目，该项目旨在为 RISC-V 开发者提供一个便捷、完善的开发环境，其提供了相关最新的硬件信息、软件支持，例如在支持的设备中有提供相关支持硬件情况；软件层面提供了镜像（如 RevyOS）、工具链、包管理器等。
+RevyOS 是 RuyiSDK 的一部分。RuyiSDK 是一个由 PLCT Lab 所启动的开源项目，该项目旨在为 RISC-V 开发者提供一个便捷、完善的开发环境，其提供了相关最新的硬件信息、软件支持，例如在支持的设备中有提供相关支持硬件情况；软件层面提供了镜像（如 RevyOS）、工具链、包管理器等。
 
 __RevyOS__ 围绕玄铁 C906、C910、C920、C908 等芯片提供了完整而全面的适配和优化支持，默认集成支持玄铁扩展指令集和 RVV 1.0 的 GCC 工具链，并搭载使用 RVV 1.0 指令集优化过的 Glibc 和 Kernel。
 
