@@ -24,7 +24,7 @@ If you want to obtain the latest version of __RevyOS__, please select the corres
 | Lichee Cluster 4A | [20240720](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/)                | [Flashing Tutorial](./Installation/licheepi4a.md)      |                 |
 | Lichee Console 4A | [20240720](https://mirror.iscas.ac.cn/revyos/extra/images/lcon4a/20240720/)      | [Flashing Tutorial](./Installation/licheeconsole4a.md) |                 |
 | Lichee Book 4A    | [20240720](https://mirror.iscas.ac.cn/revyos/extra/images/laptop4a/)             | [Flashing Tutorial](./Installation/licheebook.md)      |                 |
-| Milk-V Pioneer    | [20241025](https://mirror.iscas.ac.cn/revyos/extra/images/sg2042/20241025/)      | [Flashing Tutorial](./Installation/milkv-pioneer.md)   | Supported       |
+| Milk-V Pioneer    | [20241230](https://mirror.iscas.ac.cn/revyos/extra/images/sg2042/20241230/)      | [Flashing Tutorial](./Installation/milkv-pioneer.md)   | Supported       |
 | Milk-V Meles      | [20241229](https://mirror.iscas.ac.cn/revyos/extra/images/meles/20241229/)       |                                                        | Supported       |
 | Beagle-Ahead      | [20231210](https://mirror.iscas.ac.cn/revyos/extra/images/beagle/20231210/)      |                                                        |                 |
 | Huiwei Book       | [20240617](https://mirror.iscas.ac.cn/revyos/extra/images/huiwei/test/20240617/) |                                                        |                 |
