@@ -12,12 +12,9 @@ ROS (Robot Operating System, 机器人操作系统) 提供一系列程序库和�
 
 ## 安装
 ### 添加源
-假设使用来自 `ros.z572.online` 的源
-
-**注意下面应该使用 `bookworm`**
 
 ```bash
-sudo sh -c "echo 'deb [trusted=yes] https://ros.z572.online/main bookworm main\ndeb-src [trusted=yes] https://ros.z572.online/main bookworm main' > /etc/apt/sources.list.d/ros.list"
+sudo sh -c "echo 'deb https://mirror.iscas.ac.cn/revyos/revyos-ros2/ revyos-ros2 main\ndeb-src https://mirror.iscas.ac.cn/revyos/revyos-ros2/ revyos-ros2 main' > /etc/apt/sources.list.d/ros.list"
 sudo apt update
 sudo apt upgrade
 ```
