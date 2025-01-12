@@ -58,7 +58,7 @@ source /opt/ros/jazzy/setup.sh
 
 Humble:
 ```bash
-source /opt/ros/Humble/setup.sh
+source /opt/ros/humble/setup.sh
 ```
 
 可以将上面的内容加入 `.bashrc` 或者您使用的 shell profile 中。
