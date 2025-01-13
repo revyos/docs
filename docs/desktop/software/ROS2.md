@@ -71,16 +71,8 @@ rosdep update
 使用 rosdep 安装外部依赖（以 `micro_ros_setup`）为例
 
 1.设置环境变量
-请根据您安装的版本选择对应的命令
-
-Jazzy:
 ```bash
-AMENT_PACKAGE_PATH=/opt/ros/jazzy
-```
-
-Humble:
-```bash
-AMENT_PACKAGE_PATH=/opt/ros/humble
+AMENT_PACKAGE_PATH=/opt/ros/$ROS_DISTRO
 ```
 
 2.下载源代码
