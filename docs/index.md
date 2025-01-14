@@ -12,20 +12,20 @@ __RevyOS__ 围绕玄铁 C906、C910、C920、C908 等芯片提供了完整而全
 
 基于上述定制和优化的 __RevyOS__，在 Lichee RV，Lichee Pi 4A 等硬件平台上，能够提供优秀的性能和极佳的体验。
 
-## 镜像下载及刷写
+## 镜像下载
 
-__RevyOS__ 的用户版镜像目前在 ISCAS（中国科学院软件研究所）开源镜像站进行更新。如您想获取 __RevyOS__ 最新版镜像请访问[镜像下载](https://mirror.iscas.ac.cn/revyos/extra/images/)目录，根据所使用设备来获取对应镜像。
+__RevyOS__ 的用户版镜像目前在 ISCAS（中国科学院软件研究所）开源镜像站进行更新。如您想获取 __RevyOS__ 最新版镜像请访问[镜像下载](https://mirror.iscas.ac.cn/revyos/extra/images/)目录，根据所使用设备来获取对应镜像。在下载完成后，请点击[镜像刷写](./Installation/install.md)获取对应设备的镜像刷写教程。
 
-| 支持设备          | 镜像下载（最新版本）                                                             | 刷写教程                                      | SD 卡支持 |
-| ----------------- | -------------------------------------------------------------------------------- | --------------------------------------------- | --------- |
-| Lichee Pi 4A      | [20250110](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250110/)       | [镜像刷写](./Installation/licheepi4a.md)      | 支持      |
-| Lichee Cluster 4A | [20240720](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/)                | 镜像刷写      |           |
-| Lichee Console 4A | [20240720](https://mirror.iscas.ac.cn/revyos/extra/images/lcon4a/20240720/)      | 镜像刷写 |           |
-| Lichee Book 4A    | [20240720](https://mirror.iscas.ac.cn/revyos/extra/images/laptop4a/)             | 镜像刷写      |           |
-| Milk-V Pioneer    | [20241230](https://mirror.iscas.ac.cn/revyos/extra/images/sg2042/20241230/)      | [镜像刷写](./Installation/milkv-pioneer.md)   | 支持      |
-| Milk-V Meles      | [20250110](https://mirror.iscas.ac.cn/revyos/extra/images/meles/20250110/)       | [镜像刷写](https://milkv.io/zh/docs/meles/installation) | 支持      |
-| Beagle-Ahead      | [20231210](https://mirror.iscas.ac.cn/revyos/extra/images/beagle/20231210/)      |                                               |           |
-| Huiwei book       | [20240617](https://mirror.iscas.ac.cn/revyos/extra/images/huiwei/test/20240617/) |                                               |           |
+| 支持设备          | 镜像下载（最新版本）                                                             |  SD 卡支持 |
+| ----------------- | -------------------------------------------------------------------------------- | --------- |
+| Lichee Pi 4A      | [20250110](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250110/)       | 支持      |
+| Lichee Cluster 4A | [20240720](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/)                |            |
+| Lichee Console 4A | [20240720](https://mirror.iscas.ac.cn/revyos/extra/images/lcon4a/20240720/)      |           |
+| Lichee Book 4A    | [20240720](https://mirror.iscas.ac.cn/revyos/extra/images/laptop4a/)             |            |
+| Milk-V Pioneer    | [20241230](https://mirror.iscas.ac.cn/revyos/extra/images/sg2042/20241230/)      |  支持      |
+| Milk-V Meles      | [20250110](https://mirror.iscas.ac.cn/revyos/extra/images/meles/20250110/)       | 支持      |
+| Beagle-Ahead      | [20231210](https://mirror.iscas.ac.cn/revyos/extra/images/beagle/20231210/)      |           |
+| Huiwei book       | [20240617](https://mirror.iscas.ac.cn/revyos/extra/images/huiwei/test/20240617/) |           |
 
 ### 如何启用 T-Head 优化 GCC
 
