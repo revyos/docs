@@ -89,7 +89,7 @@ nav:
     - lmbench: benchmark/lmbench.md
     - glmark2: benchmark/glmark2.md
     - p7zip: benchmark/p7zip.md
-  - 镜像刷写:
+  - 镜像刷写: Installation/install.md
     - Lichee Pi 4A: Installation/licheepi4a.md
     - Milk-V Pioneer: Installation/milkv-pioneer.md
   - Changelog:
