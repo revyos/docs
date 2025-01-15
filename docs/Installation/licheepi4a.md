@@ -106,12 +106,11 @@ sudo unzstd sdcard-lpi4a-20250110_151339.img.zst
 
 #### 烧录方式介绍
 
-如果您选择从SD card 启动，可以选择使用两种不同的方式将镜像烧录到 MicroSD 卡中。
+如果您选择从SD card 启动，可以选择使用两种不同的方式将镜像烧录到 MicroSD 卡中。一种是通过[图形界面软件烧录](#balenaetcher-microsd)，一种是通过命令行使用dd命令[在命令行进行烧录](#dd)。
 
 ### 使用BalenaEtcher写入镜像到 MicroSD 卡
 
-从官网获取烧录工具 BalenaEtcher [https://etcher.balena.io/](https://etcher.balena.io/)
-
+从官网获取烧录工具 BalenaEtcher [https://etcher.balena.io/](https://etcher.balena.io/)，下载时请根据本机情况选择文件进行下载。根据[演示环境](#_2)中的说明，选择[Etcher for Linux x64 (64-bit) (zip)](https://github.com/balena-io/etcher/releases/download/v1.19.25/balenaEtcher-linux-x64-1.19.25.zip)进行下载并解压安装。
 
 把 SD 卡插入读卡器，并将其插入电脑。
 
@@ -127,18 +126,41 @@ sudo unzstd sdcard-lpi4a-20250110_151339.img.zst
 
 ### 使用dd写入镜像
 
-在刷写前请保证您在 `of=` 设置了正确的设备
-```bash
-# sudo dd if=./sdcard-lpi4a-20240720_171951.img of=<Target Device> status=progress
-# sync
-```
-等待完成即可使用
+dd 是 Linux 和类 Unix 系统中的一个功能强大的命令行工具，主要用于按指定大小和格式复制文件或数据，一般会预装在系统中。
 
-### 系统启动
+使用 dd 命令写入镜像需要根据以下步骤进行
+
+首先需要查看设备列表，在插入 SD 卡前后分别运行以下命令，找到 SD 卡对应的设备名：
+
+```bash
+lsblk
+```
+
+SD 卡的设备名可能是 /dev/sda 或 /dev/mmcblk0，在演示环境中，在执行`lsblk`后确认sd卡分区为`/dev/sda`。
+
+在写入镜像前，需要卸载 SD 卡的挂载分区，如果有多个分区请逐一卸载：
+
+```bash
+sudo umount /dev/sda1
+```
+
+如果没有分区被挂载，umount 命令会显示`not mounted`，这时无需进一步操作。
+
+在卸载分区后，建议运行`sync`命令，确保所有数据已同步。
+
+在执行完上述步骤后即可进行刷写，在刷写前请保证您在 `of=` 设置了正确的设备，在演示环境中，sd卡识别为sda，`of=`后请根据自身设备分区进行填写。
+
+```bash
+sudo dd if=./sdcard-lpi4a-20250110_151339.img of=/dev/sda bs=4M status=progress
+```
+
+在刷写完成后，请执行`sudo sync`命令，保证数据已同步，然后需要确认sd卡是未挂载状态下，这两点执行完成后才可拔出sd卡，插入到开发板中。
+
+### 通过SD卡启动系统
 
 在写入镜像完成后将SD 卡插入如图所示卡槽中。
 ![](./image%20for%20flash/lpi4a5.png)
-连接hdmi线与电源线后可直接启动。
+需要先将hdmi线（如果有外接显示器需求）进行连接，然后将随箱附赠的USB-A接口到USB-C接口的数据线中的C口一端接入到开发板上，另一端接入至少5V2A 输出的 USB 电源上，即可启动。
 
 ## 从 eMMC 启动
 
