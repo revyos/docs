@@ -30,7 +30,7 @@ LicheePi4A 目前支持两种启动方式，分别是[从SD card 启动](#sd-car
 
 注意！从sd卡启动不需要改变拨码开关！按照eMMC拨码开关进行设置！
 
-![拨码开关示例图]()
+![拨码开关示例图](./image%20for%20flash/拨码开关.jpg)
 
 拨码开关存在于板卡下方，需要取出板卡后才能看到，正确设置应为两个按钮全部对准下方。
 
@@ -38,29 +38,78 @@ LicheePi4A 目前支持两种启动方式，分别是[从SD card 启动](#sd-car
 
 ### 准备工作
 
-#### 硬件准备
+#### 获取镜像
 
-准备MicroSD 读卡器和一张MicroSD 卡,目前 MicroSD 卡存在兼容性问题，RevyOS 提供了目前已测试过的 [MicroSD 卡列表]()。如果您使用的 MicroSD 卡不在已知可用的列表上，出现无法正确刷写镜像和刷写后无法启动镜像的问题，请参考[此页](../issue.md)提交issue，并尝试参考从 [eMMC 启动](#从emmc启动)镜像的刷写教程进行镜像刷写。
+从以下链接下载 LicheePi4A 以 `sdcard-` 为前缀的 SD card 启动系统镜像：
 
-#### 烧录相关工具
+- [RevyOS20240720](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20240720/)
 
-安装zstd用于解压镜像文件
+- [RevyOS20250110](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250110/)
+
+其中，20240720镜像使用的是5.10内核，20250110镜像使用的是6.6内核。目前5.10内核处于成熟可用的状态，6.6内核可能会出现一些未知的问题，请根据需求选择相应的镜像。
+
+以下以20250110镜像为例进行演示：
+
+**请注意，下载后的zst文件压缩包约为1.4GB，请在下载时确认本地最少留有12GB的剩余空间，以保证后续的下载和解压不会出现空间不足的情况。**
+
+如果是通过网页浏览，点击链接下载，浏览器会自动拉起文件下载，请进行确认，保证文件下载到本地。
+
+如果想通过命令行进行下载，有许多种方式例如：wget、curl等，在这里我们选择 wget 作为下载工具。
+
+在[演示环境](#_2)中，wget通常会预装，如果没有安装 wget 的情况下请使用以下命令进行安装
 
 ```bash
+sudo apt install wget 
+```
+
+请注意，sudo命令执行时需要用户输入密码进行确认才可执行，请确保自己知道密码后再执行此命令，后续不再赘述。
+
+在安装成功后可以在命令行中执行以下命令进行镜像压缩包下载
+
+```bash
+wget https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250110/sdcard-lpi4a-20250110_151339.img.zst
+```
+
+下载完成后会得到名为 [sdcard-lpi4a-20250110_151339.img.zst](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250110/sdcard-lpi4a-20250110_151339.img.zst) 的文件，此文件并不是最终镜像文件，而是一个压缩包，需要解压镜像压缩包 sdcard-lpi4a-20250110_151339.img.zst 才可得到最终的镜像文件 sdcard-lpi4a-20250110_151339.img。
+
+在上述的[演示环境](#_2)中，zst文件压缩包有多种方式进行解压，例如zstd、tar、7z。此教程只列举其中一种。通过命令行使用 zstd 工具进行解压，此方式需要我们先在系统中安装 zstd 软件包，再进行解压。
+
+如果不知道系统中是否已经安装 ztsd，请执行下面的命令，此命令是通过查看 zstd 版本的命令，通过回显可以判断系统是否已经预装 ztsd 软件包。
+
+```bash
+zstd --version
+```
+
+如果正常回显版本号证明已安装成功,例如下面的回显表示 zstd 已安装：
+
+```bash
+*** zstd command line interface 64-bits v1.4.8, by Yann Collet ***
+```
+
+如果回显没有版本号的情况下，请通过命令行安装zstd，
+```bash
+sudo apt update
 sudo apt install zstd
 ```
 
-#### 获取镜像
-
-从以下链接下载 LicheePi4A 以 `sdcard-` 为前缀的 SD card 启动系统镜像：[RevyOS0720](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20240720/)。
-
-解压镜像压缩包得到sdcard-lpi4a-20240720_171951.img文件
+在安装完 zstd 后，我们便可对镜像文件进行解压。请注意，注意解压后的文件大小约为**9.49GB**，解压时请注意本地存储空间是否足够！
 
 ```bash
-unzstd sdcard-lpi4a-20240720_171951.img.zst
+sudo unzstd sdcard-lpi4a-20250110_151339.img.zst
 ```
 
+最后会得到 sdcard-lpi4a-20250110_151339.img 文件。至此，演示环境下镜像文件获取成功。
+
+#### 硬件准备
+
+准备MicroSD 读卡器和一张MicroSD 卡,目前 MicroSD 卡存在兼容性问题，RevyOS 提供了目前已测试过的 [MicroSD 卡列表](https://github.com/revyos/revyos/blob/main/Installation/card%20list.md)。如果您使用的 MicroSD 卡不在已知可用的列表上，出现无法正确刷写镜像和刷写后无法启动镜像的问题，请参考[此页](../issue.md)提交issue，并尝试参考[从 eMMC 启动](#emmc)镜像的刷写教程进行镜像刷写。
+
+#### 烧录方式介绍
+
+如果您选择从SD card 启动，可以选择使用两种不同的方式将镜像烧录到 MicroSD 卡中。
+
 ### 使用BalenaEtcher写入镜像到 MicroSD 卡
+
 从官网获取烧录工具 BalenaEtcher [https://etcher.balena.io/](https://etcher.balena.io/)
 
 
