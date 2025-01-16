@@ -7,6 +7,7 @@ theme:
     - navigation.tabs # 栏头加标签（一级导航）
     - navigation.tabs.sticky # 固定（浏览时不收起）标签
     - code.highlight
+    - content.code.copy
     - code.copy
   highlightjs: true
   hljs_languages:

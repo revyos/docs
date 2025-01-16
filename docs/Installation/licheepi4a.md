@@ -200,20 +200,33 @@ sudo dd if=./sdcard-lpi4a-20250110_151339.img of=/dev/sda bs=4M status=progress
 Ubuntu可直接通过apt安装
 
 ```bash
-apt install fastboot 
+sudo apt install fastboot 
 ```
 
-通过串口连接时需要串口控制台进行监控，在Ubuntu下选择使用minicom。
+通过串口连接时需要串口控制台进行监控，在Ubuntu下可以选择使用 `minicom`, `screen` 等软件。
 
 ```bash
-apt install minicom
+sudo apt install minicom
+sudo apt install screen
 ```
 
 #### 获取镜像
 
-从以下链接下载 LicheePi4A 的系统镜像：[RevyOS0720](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20240720/)。
+从以下链接下载 LicheePi4A 的系统镜像：
 
-其中u-boot文件需要根据自己的板卡规格进行选择，请注意提前了解自己的板卡规格后进行下载。
+- [RevyOS20240720](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20240720/)
+
+- [RevyOS20250110](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250110/)
+
+其中，20240720镜像使用的是5.10内核，20250110镜像使用的是6.6内核。目前5.10内核处于成熟可用的状态，6.6内核可能会出现一些未知的问题，请根据需求选择相应的镜像。
+
+## 注意
+LicheePi4A 不同的内存版本 uboot 镜像不通用，请根据您的板卡版本选择对应镜像
+
+|内存大小|对应的uboot镜像|
+|---|---|
+|8G|u-boot-with-spl-lpi4a-main_8gemmc.bin|
+|16G|u-boot-with-spl-lpi4a-16g-main.bin|
 
 下载后使用 `unzstd` 解压 root 和 boot 镜像
 
@@ -228,10 +241,24 @@ unzstd root-lpi4a-20240720_171951.ext4.zst
 
 ### 写入镜像到eMMC(接入串口)
 
-首先从终端打开minicom，进入串口控制台。
+#### 使用 minicom
+首先从终端打开 minicom，进入串口控制台。
 
 ```bash
 sudo minicom
+```
+
+如果需要指定使用的串口设备（例如常见的 USB 转串口设备使用的 `ttyUSB0`），可以使用
+
+```bash
+sudo minicom -D /dev/ttyUSB0
+```
+
+#### 使用 screen
+从终端打开 `screen`, `/dev/ttyUSB0` 为您使用的设备， `115200` 为波特率
+
+```bash
+sudo screen /dev/ttyUSB0 115200
 ```
 
 如图所示将串口与板卡进行连接，usb端接入电脑。板卡上的Type-C接口通过USB-Type-C线连接到电脑。
@@ -240,13 +267,24 @@ sudo minicom
 
 ![](./image%20for%20flash/lpi4a6.png)
 
-在接入后在串口控制台中按任意按键打断，在串口控制台窗口中输入
+接入后在串口控制台中按任意按键打断自动启动，出现下面的 uboot 命令行 （见最后一行）
+
+![](./image%20for%20flash/lpi4a-uboot-command-line.png)
+
+在串口控制台窗口中输入
 
 ```bash
 fastboot usb 0
 ```
 
-随后另起一个窗口进行镜像刷写。
+会显示
+```bash
+Light LPI4A 16G# fastboot usb 0
+dwc3_gadget_start maximum_speed:5 revision:0x5533330b
+dwc3_gadget_start DWC3_DCFG:0x80804
+```
+
+即表示可以使用 fastboot 刷写，随后另起一个窗口进行镜像刷写。
 
 ### 正式刷写
 以下命令均为在镜像文件下载文件夹路径内，注意文件路径和文件名。
