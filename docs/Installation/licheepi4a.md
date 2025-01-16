@@ -223,10 +223,11 @@ sudo apt install screen
 ## 注意
 LicheePi4A 不同的内存版本 uboot 镜像不通用，请根据您的板卡版本选择对应镜像
 
-|内存大小|对应的uboot镜像|
+|内存存储组合|对应的uboot镜像|
 |---|---|
-|8G|u-boot-with-spl-lpi4a-main_8gemmc.bin|
-|16G|u-boot-with-spl-lpi4a-16g-main.bin|
+|8G RAM + 8G eMMC|u-boot-with-spl-lpi4a-main_8gemmc.bin|
+|8G RAM + 32G eMMC|u-boot-with-spl-lpi4a-main.bin|
+|16G RAM|u-boot-with-spl-lpi4a-16g-main.bin|
 
 下载后使用 `unzstd` 解压 root 和 boot 镜像
 
