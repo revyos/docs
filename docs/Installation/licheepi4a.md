@@ -30,7 +30,7 @@ LicheePi4A 目前支持两种启动方式，分别是[从SD card 启动](#sd-car
 
 注意！从sd卡启动不需要改变拨码开关！按照eMMC拨码开关进行设置！
 
-![拨码开关示例图](./image%20for%20flash/拨码开关.jpg)
+![拨码开关示例图](./image%20for%20flash/Switch.png)
 
 拨码开关存在于板卡下方，需要取出板卡后才能看到，正确设置应为两个按钮全部对准下方。
 
@@ -52,7 +52,11 @@ LicheePi4A 目前支持两种启动方式，分别是[从SD card 启动](#sd-car
 
 **请注意，下载后的zst文件压缩包约为1.4GB，请在下载时确认本地最少留有12GB的剩余空间，以保证后续的下载和解压不会出现空间不足的情况。**
 
+![image-size](./image%20for%20flash/image-size.png)
+
 如果是通过网页浏览，点击链接下载，浏览器会自动拉起文件下载，请进行确认，保证文件下载到本地。
+
+![web-download](./image%20for%20flash/web-download.png)
 
 如果想通过命令行进行下载，有许多种方式例如：wget、curl等，在这里我们选择 wget 作为下载工具。
 
@@ -62,6 +66,8 @@ LicheePi4A 目前支持两种启动方式，分别是[从SD card 启动](#sd-car
 sudo apt install wget 
 ```
 
+![wget-install](./image%20for%20flash/install-wget.png)
+
 请注意，sudo命令执行时需要用户输入密码进行确认才可执行，请确保自己知道密码后再执行此命令，后续不再赘述。
 
 在安装成功后可以在命令行中执行以下命令进行镜像压缩包下载
@@ -69,6 +75,8 @@ sudo apt install wget
 ```bash
 wget https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250110/sdcard-lpi4a-20250110_151339.img.zst
 ```
+
+![image-download](./image%20for%20flash/image-download.png)
 
 下载完成后会得到名为 [sdcard-lpi4a-20250110_151339.img.zst](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250110/sdcard-lpi4a-20250110_151339.img.zst) 的文件，此文件并不是最终镜像文件，而是一个压缩包，需要解压镜像压缩包 sdcard-lpi4a-20250110_151339.img.zst 才可得到最终的镜像文件 sdcard-lpi4a-20250110_151339.img。
 
@@ -79,6 +87,8 @@ wget https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250110/sdcard-lpi4a-
 ```bash
 zstd --version
 ```
+
+![zstd-version](./image%20for%20flash/zstd-version.png)
 
 如果正常回显版本号证明已安装成功,例如下面的回显表示 zstd 已安装：
 
@@ -92,13 +102,17 @@ sudo apt update
 sudo apt install zstd
 ```
 
-在安装完 zstd 后，我们便可对镜像文件进行解压。请注意，注意解压后的文件大小约为**9.49GB**，解压时请注意本地存储空间是否足够！
+![zstd-install](./image%20for%20flash/zstd-install.png)
+
+在安装完 zstd 后，我们便可对镜像文件进行解压。请注意，注意解压后的文件大小约为**10.2GB**，解压时请注意本地存储空间是否足够！
 
 ```bash
 sudo unzstd sdcard-lpi4a-20250110_151339.img.zst
 ```
 
 最后会得到 sdcard-lpi4a-20250110_151339.img 文件。至此，演示环境下镜像文件获取成功。
+
+![imgsize](./image%20for%20flash/sdcardimg-size.png)
 
 #### 硬件准备
 
@@ -112,17 +126,19 @@ sudo unzstd sdcard-lpi4a-20250110_151339.img.zst
 
 从官网获取烧录工具 BalenaEtcher [https://etcher.balena.io/](https://etcher.balena.io/)，下载时请根据本机情况选择文件进行下载。根据[演示环境](#_2)中的说明，选择[Etcher for Linux x64 (64-bit) (zip)](https://github.com/balena-io/etcher/releases/download/v1.19.25/balenaEtcher-linux-x64-1.19.25.zip)进行下载并解压安装。
 
+![BE-version](./image%20for%20flash/BE-version.png)
+
 把 SD 卡插入读卡器，并将其插入电脑。
 
 运行 BalenaEtcher用于写入镜像到SD 卡。
 在 BalenaEtcher 窗口中, 首先点击 "Flash from file" 来选择镜像文件。
-![](./image%20for%20flash/lpi4a1.png)
+![](./image%20for%20flash/BE1.png)
 选择完镜像文件后在第二栏选择需要写入的设备。
-![](./image%20for%20flash/lpi4a2.png)
+![](./image%20for%20flash/BE2.png)
 两项都选择完以后点击"Flash"写入镜像。
-![](./image%20for%20flash/lpi4a3.png)
+![](./image%20for%20flash/BE3.png)
 在等待一段时间后会显示烧录已完成。
-![](./image%20for%20flash/lpi4a4.png)
+![](./image%20for%20flash/BE4.png)
 
 ### 使用dd写入镜像
 
@@ -138,6 +154,8 @@ lsblk
 
 SD 卡的设备名可能是 /dev/sda 或 /dev/mmcblk0，在演示环境中，在执行`lsblk`后确认sd卡分区为`/dev/sda`。
 
+![lsblk](./image%20for%20flash/lsblk.png)
+
 在写入镜像前，需要卸载 SD 卡的挂载分区，如果有多个分区请逐一卸载：
 
 ```bash
@@ -146,7 +164,9 @@ sudo umount /dev/sda1
 
 如果没有分区被挂载，umount 命令会显示`not mounted`，这时无需进一步操作。
 
-在卸载分区后，建议运行`sync`命令，确保所有数据已同步。
+在卸载分区后，建议运行`sudo sync`命令，确保所有数据已同步。
+
+![sync](./image%20for%20flash/sync.png)
 
 在执行完上述步骤后即可进行刷写，在刷写前请保证您在 `of=` 设置了正确的设备，在演示环境中，sd卡识别为sda，`of=`后请根据自身设备分区进行填写。
 
@@ -154,17 +174,21 @@ sudo umount /dev/sda1
 sudo dd if=./sdcard-lpi4a-20250110_151339.img of=/dev/sda bs=4M status=progress
 ```
 
-在刷写完成后，请执行`sudo sync`命令，保证数据已同步，然后需要确认sd卡是未挂载状态下，这两点执行完成后才可拔出sd卡，插入到开发板中。
+![dd](./image%20for%20flash/dd.png)
+
+在刷写完成后，也请执行`sudo sync`命令，保证数据已同步，然后需要确认sd卡是未挂载状态下，这两点执行完成后才可拔出sd卡，插入到开发板中。
 
 ### 通过SD卡启动系统
 
 在写入镜像完成后将SD 卡插入如图所示卡槽中。
 ![](./image%20for%20flash/lpi4a5.png)
+
 需要先将hdmi线（如果有外接显示器需求）进行连接，然后将随箱附赠的USB-A接口到USB-C接口的数据线中的C口一端接入到开发板上，另一端接入至少5V2A 输出的 USB 电源上，即可启动。
 
 ## 从 eMMC 启动
 
 从eMMC启动镜像时，刷写镜像的途径分为连接串口与不连接串口两种情况，其中进行的操作有些许区别，在此将两种方式一起进行介绍。
+
 **从eMMC启动应当先取出 SD Card**
 
 ### 准备工作
