@@ -116,13 +116,15 @@ sudo unzstd sdcard-lpi4a-20250110_151339.img.zst
 
 #### 硬件准备
 
-准备MicroSD 读卡器和一张MicroSD 卡,目前 MicroSD 卡存在兼容性问题，RevyOS 提供了目前已测试过的 [MicroSD 卡列表](https://github.com/revyos/revyos/blob/main/Installation/card%20list.md)。如果您使用的 MicroSD 卡不在已知可用的列表上，出现无法正确刷写镜像和刷写后无法启动镜像的问题，请参考[此页](../issue.md)提交issue，并尝试参考[从 eMMC 启动](#emmc)镜像的刷写教程进行镜像刷写。
+准备MicroSD 读卡器和一张MicroSD 卡,目前 MicroSD 卡存在兼容性问题，RevyOS 提供了目前已测试过的 [MicroSD 卡列表](https://github.com/revyos/revyos/blob/main/Installation/card%20list.md)。
 
-#### 烧录方式介绍
+如果您使用的 MicroSD 卡不在已知可用的列表上，出现无法正确刷写镜像和刷写后无法启动镜像的问题，请参考[此页](../issue.md)提交issue，并尝试参考[从 eMMC 启动](#emmc)镜像的刷写教程进行镜像刷写。
+
+### 烧录方式介绍
 
 如果您选择从SD card 启动，可以选择使用两种不同的方式将镜像烧录到 MicroSD 卡中。一种是通过[图形界面软件烧录](#balenaetcher-microsd)，一种是通过命令行使用dd命令[在命令行进行烧录](#dd)。
 
-### 使用BalenaEtcher写入镜像到 MicroSD 卡
+#### 使用BalenaEtcher写入镜像到 MicroSD 卡
 
 从官网获取烧录工具 BalenaEtcher [https://etcher.balena.io/](https://etcher.balena.io/)，下载时请根据本机情况选择文件进行下载。根据[演示环境](#_2)中的说明，选择[Etcher for Linux x64 (64-bit) (zip)](https://github.com/balena-io/etcher/releases/download/v1.19.25/balenaEtcher-linux-x64-1.19.25.zip)进行下载并解压安装。
 
@@ -140,7 +142,7 @@ sudo unzstd sdcard-lpi4a-20250110_151339.img.zst
 在等待一段时间后会显示烧录已完成。
 ![](./image%20for%20flash/BE4.png)
 
-### 使用dd写入镜像
+#### 使用dd写入镜像
 
 dd 是 Linux 和类 Unix 系统中的一个功能强大的命令行工具，主要用于按指定大小和格式复制文件或数据，一般会预装在系统中。
 
