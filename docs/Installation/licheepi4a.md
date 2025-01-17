@@ -17,8 +17,8 @@
 此教程中所有镜像刷写的相关操作都使用以下环境:
 
 - 系统及版本: Ubuntu 22.04.5 LTS
-- 内核版本: 6.8.0-49-generic
 - 架构: x86_64
+- LicheePi4A 板卡规格 16G RAM + 128G eMMC
 
 在此环境中，本教程中的所有操作都是可复现的。在下面我们提供了一些未经官方验证，但可以进行刷写的环境，在下面环境中进行镜像刷写遇到问题请参考[此页](../issue.md)提交issue。
 
@@ -38,15 +38,19 @@ LicheePi4A 目前支持两种启动方式，分别是[从SD card 启动](#sd-car
 
 ### 准备工作
 
-#### 获取镜像
+#### 获取 SD card 镜像
 
 从以下链接下载 LicheePi4A 以 `sdcard-` 为前缀的 SD card 启动系统镜像：
 
-- [RevyOS20240720](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20240720/)
+- [RevyOS20240720（5.10内核）](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20240720/)
 
-- [RevyOS20250110](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250110/)
+- [RevyOS20250110（6.6内核）](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250110/)
 
-其中，20240720镜像使用的是5.10内核，20250110镜像使用的是6.6内核。目前5.10内核处于成熟可用的状态，6.6内核可能会出现一些未知的问题，请根据需求选择相应的镜像。
+20240720镜像使用的是5.10内核，目前5.10内核处于较为成熟的状态，在视频的编解码以及各种应用上表现都更加稳定。
+
+20250110镜像使用的是6.6内核，6.6内核可能会出现一些未知的问题，已知的有视频方面卡顿以及usb失去供电等问题，目前正在修复当中。
+
+请在看完上述说明后，根据需求选择相应的镜像。
 
 以下以20250110镜像为例进行演示：
 
@@ -191,23 +195,57 @@ sudo dd if=./sdcard-lpi4a-20250110_151339.img of=/dev/sda bs=4M status=progress
 
 从eMMC启动镜像时，刷写镜像的途径分为连接串口与不连接串口两种情况，其中进行的操作有些许区别，在此将两种方式一起进行介绍。
 
-**从eMMC启动应当先取出 SD Card**
+请注意！从eMMC启动应当先取出 SD Card！
 
 ### 准备工作
 
-从eMMC启动需要将u-boot文件、boot文件以及root文件通过fastboot刷入eMMC中，所以需要保证已安装fastboot。
+#### 硬件准备
 
-Ubuntu可直接通过apt安装
+
+
+#### 安装镜像刷写工具
+
+从 eMMC 启动需要将 u-boot 文件、boot 文件以及 root 文件通过 fastboot 工具刷入eMMC中，所以需要先确认是否已安装 fastboot。
+
+如果不知道系统中是否已经安装 fastboot ，请执行下面的命令，此命令是通过查看 fastboot 版本的命令，通过回显可以判断系统是否已经预装 fastboot 软件包。
+
+```bash
+fastboot --version
+```
+
+![fastboot-version]()
+
+如果正常回显版本号证明已安装成功,例如下面的回显表示 fastboot 已安装：
+
+```bash
+fastboot version 28.0.2-debian
+Installed as /usr/lib/android-sdk/platform-tools/fastboot
+```
+
+如果回显没有版本号的情况下，请通过命令行安装 fastboot
+
+```bash
+sudo apt install fastboot
+```
+
+![fastboot-install](./image%20for%20flash/zstd-install.png)
 
 ```bash
 sudo apt install fastboot 
 ```
 
-通过串口连接时需要串口控制台进行监控，在Ubuntu下可以选择使用 `minicom`, `screen` 等软件。
+#### 安装串口控制台工具
+
+通过串口连接时需要串口控制台进行监控，串口控制台软件有很多，例如 `minicom`, `screen`,`picocom`等软件,在这里我们选择 minicom 来进行演示。
 
 ```bash
 sudo apt install minicom
-sudo apt install screen
+```
+
+在安装完成后可以使用查看 minicom 版本的命令来确认是否成功安装
+
+```bash
+minicom -version
 ```
 
 #### 获取镜像
@@ -218,10 +256,9 @@ sudo apt install screen
 
 - [RevyOS20250110](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250110/)
 
-其中，20240720镜像使用的是5.10内核，20250110镜像使用的是6.6内核。目前5.10内核处于成熟可用的状态，6.6内核可能会出现一些未知的问题，请根据需求选择相应的镜像。
+请注意！
 
-## 注意
-LicheePi4A 不同的内存版本 uboot 镜像不通用，请根据您的板卡版本选择对应镜像
+LicheePi4A 不同的内存版本 uboot 镜像不通用，请根据您的核心板的板卡版本选择对应镜像
 
 |内存存储组合|对应的uboot镜像|
 |---|---|
@@ -229,12 +266,32 @@ LicheePi4A 不同的内存版本 uboot 镜像不通用，请根据您的板卡�
 |8G RAM + 32G eMMC|u-boot-with-spl-lpi4a-main.bin|
 |16G RAM|u-boot-with-spl-lpi4a-16g-main.bin|
 
-下载后使用 `unzstd` 解压 root 和 boot 镜像
+如果无法确认核心板的规格，可以扫描核心板上的二维码进行查看。LicheePi4A板卡发售时，在核心板上会有一张二维码贴纸，在扫描后会显示核心板的内存+存储配置。
+
+例如 16G RAM + 128G eMMC 扫描后显示如下
+
+![Core board-info]()
+
+确认好板卡规格后使用 wget 下载 uboot、boot以及root文件
 
 ```bash
-unzstd boot-lpi4a-20240720_171951.ext4.zst
-unzstd root-lpi4a-20240720_171951.ext4.zst
+sudo wget u-boot-with-spl-lpi4a-16g-main.bin
+sudo wget boot-lpi4a-20250110_151339.ext4.zst
+sudo wget root-lpi4a-20250110_151339.ext4.zst
 ```
+
+![emmc-download]()
+
+下载完成后使用 `unzstd` 命令解压 root 和 boot 文件
+
+```bash
+unzstd boot-lpi4a-20250110_151339.ext4.zst
+unzstd root-lpi4a-20250110_151339.ext4.zst
+```
+
+文件解压完成后就得到了刷写 eMMC 镜像的所需文件了。
+
+![file]()
 
 ### 写入镜像到eMMC(不接入串口)
 
