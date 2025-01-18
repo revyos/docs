@@ -45,6 +45,7 @@ plugins:
           适配文档: Porting Docs
           系统使用: System Usage
           镜像刷写: Installation
+          镜像刷写需知: Installation Overview
           GStreamer 播放器适配: GStreamer Player Porting
           GStreamer pipeline: GStreamer Pipeline Example
           Debian 相关: Debian

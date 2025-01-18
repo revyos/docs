@@ -1,164 +1,379 @@
-# LicheePi 4A Image Flashing Guide
+# Installing RevyOS on the LicheePi 4A
 
-The LicheePi 4A board supports booting from both SD card and eMMC. Below are instructions for flashing RevyOS images for each method.
+This guide provides instructions for installing RevyOS on the LicheePi4A. For other device flashing guides, click the links in the table below.
 
-**Environment**: Ubuntu 22.04
+| Device Name |                |
+| ------- | -------------- |
+| Milk-V pioneer | [Installation Guide](https://docs.revyos.dev/Installation/milkv-pioneer/) |
 
----
+## Important!
 
-## Booting from SD Card
+Before proceeding, compare your board with the image below to ensure they match. Continue only if the boards are identical.
 
-> **Note:** Ensure the dip switch is set for eMMC boot, even when booting from an SD card.
+![LicheePi4A Example](./image%20for%20flash/lpi4a.png)
+
+## Demonstration Environment
+
+All installation operations in this tutorial are demonstrated using the following environment:
+
+- **System and Version**: Ubuntu 22.04.5 LTS
+- **Architecture**: x86_64
+- **LicheePi4A Specs**: 16GB RAM + 128GB eMMC
+
+For unofficial environments that might be used, refer to [this page](../issue.md) for submitting issues.
+
+## Boot Methods Overview
+
+LicheePi4A supports two boot methods: [SD Card Boot](#sd-card) and [eMMC Boot](#emmc). Follow the relevant section based on your needs.
+
+## SD Card Boot
+
+**Attention!** No need to change the DIP switch to boot from the SD card! Set the DIP switch as per the eMMC configuration.
+
+![Example of DIP switch](./image%20for%20flash/Switch.png)
+
+The DIP switch is located on the underside of the board. You need to remove the board to access it. The correct configuration is with both switches set to the downward position.
+
+**Note!** Some early versions of the LicheePi4A board do not have a DIP switch.
 
 ### Preparation
 
-#### Hardware
+#### Obtain SD card images
 
-- A MicroSD card reader
-- A MicroSD card
+Download the LicheePi4A SD card boot system image with the `sdcard-` prefix from the following links:
 
-#### Required Tools
+- [RevyOS20240720 (Kernel version 5.10)](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20240720/)
 
-Install `zstd` for decompressing the image:
+- [RevyOS20250110 (Kernel version 6.6)](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250110/)
+
+The 20240720 image uses Kernel 5.10, which is relatively mature and performs more stably in video encoding/decoding and various applications.  
+
+The 20250110 image uses Kernel 6.6, which may have some unknown issues. Known issues include video stuttering and USB power loss. These problems are currently being addressed.  
+
+Please choose the appropriate image based on your needs after reading the above description.  
+
+The following demonstrates the process using the 20250110 image as an example:  
+
+**Note:** The downloaded `.zst` compressed file is approximately 1.4GB. Ensure that you have at least 12GB of free space on your device to avoid running out of space during the download and extraction process.  
+
+![image-size](./image%20for%20flash/image-size.png)  
+
+If downloading via a web browser, click the link to start the download. Your browser will automatically handle the file download. Confirm the download and ensure the file is saved locally.  
+
+![web-download](./image%20for%20flash/web-download.png)  
+
+If you prefer to download via the command line, tools like `wget` and `curl` can be used. In this guide, we use `wget` as the download tool.  
+
+In most [demonstration environments](#_2), `wget` is pre-installed. If `wget` is not installed, use the following command to install it:  
 
 ```bash
-apt install zstd
-```
+sudo apt install wget
+```  
 
-#### Downloading the Image
+![wget-install](./image%20for%20flash/install-wget.png)  
 
-Download the system image starting with `sdcard-` for LicheePi4A from the [RevyOS mirror site](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20240720/).
+**Note:** The `sudo` command requires a password for execution. Ensure you know the password before proceeding. This will not be repeated in subsequent steps.  
 
-Decompress the downloaded image file:
+Once installed, use the following command to download the image archive:  
 
 ```bash
-unzstd sdcard-lpi4a-20240720_171951.img.zst
-```
+wget https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250110/sdcard-lpi4a-20250110_151339.img.zst
+```  
 
-### Writing the Image to the MicroSD Card with BalenaEtcher
+![image-download](./image%20for%20flash/image-download.png)  
 
-Install BalenaEtcher from official website [https://etcher.balena.io/](https://etcher.balena.io/).
+After downloading, you will obtain a file named [sdcard-lpi4a-20250110_151339.img.zst](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250110/sdcard-lpi4a-20250110_151339.img.zst). This is not the final image file but a compressed archive. You need to extract the compressed file `sdcard-lpi4a-20250110_151339.img.zst` to obtain the final image file `sdcard-lpi4a-20250110_151339.img`.  
 
-1. Insert the SD card into the reader and connect it to the computer.
-2. Open BalenaEtcher, click "Flash from file," and select the `.img` file.
-   ![Select image file](./image%20for%20flash/lpi4a1.png)
-3. In the second field, select the target SD card.
-   ![Select target device](./image%20for%20flash/lpi4a2.png)
-4. Click "Flash" to begin the write process.
-   ![Flash process](./image%20for%20flash/lpi4a3.png)
-5. Wait for the flashing to complete. A success message will appear.
-   ![Flash complete](./image%20for%20flash/lpi4a4.png)
+In the [demonstration environment](#_2) mentioned earlier, `.zst` files can be extracted using various tools such as `zstd`, `tar`, or `7z`. This guide demonstrates one method using the `zstd` tool via the command line. First, you need to install the `zstd` package on your system before extracting the file.  
 
-### Writing the Image with dd
+If you are unsure whether `zstd` is already installed on your system, execute the following command to check the version of `zstd`. If a version is displayed, it indicates that `zstd` is installed.  
 
-You **must** the device after `of=` is correct.
 ```bash
-# sudo dd if=./sdcard-lpi4a-20240720_171951.img of=<Target Device> status=progress
-# sync
+zstd --version
+```  
+
+![zstd-version](./image%20for%20flash/zstd-version.png)  
+
+If the version is displayed, like the example below, you have `zstd` is already installed.  
+
+```bash
+*** zstd command line interface 64-bits v1.4.8, by Yann Collet ***
+```  
+
+If no version information is displayed, install `zstd` using the following commands:  
+```bash
+sudo apt update
+sudo apt install zstd
+```  
+
+![zstd-install](./image%20for%20flash/zstd-install.png)  
+
+After installing `zstd`, you can extract the image file. **Note:** The extracted file will be approximately **10.2GB** in size. Ensure you have enough local storage space before proceeding with the extraction!  
+
+```bash
+sudo unzstd sdcard-lpi4a-20250110_151339.img.zst
+```  
+
+Once the extraction is complete, you will have the file `sdcard-lpi4a-20250110_151339.img`. At this point, the image file has been successfully obtained in the demonstration environment.  
+
+![imgsize](./image%20for%20flash/sdcardimg-size.png)  
+
+#### Hardware preparation
+
+Prepare a MicroSD card reader and a MicroSD card. Note that there are compatibility issues with MicroSD cards. RevyOS provides a list of [tested MicroSD cards](https://github.com/revyos/revyos/blob/main/Installation/card%20list.md).  
+
+If your MicroSD card is not on the list of known compatible cards and you encounter issues such as failure to write the image or failure to boot after writing, refer to [this page](../issue.md) to submit an issue. You can also try the [eMMC boot guide](#emmc) for writing the image.  
+
+### Image Writing Methods  
+
+If you choose to boot from an SD card, there are two methods to write the image to the MicroSD card:[Using a graphical interface tool](#balenaetcher-microsd) like BalenaEtcher, or [Using the `dd` command in the command line](#dd).  
+
+#### Writing the Image with BalenaEtcher  
+
+Download the BalenaEtcher tool from its official website: [https://etcher.balena.io/](https://etcher.balena.io/). Select the appropriate file for your system. For the [demonstration environment](#_2), download and extract [Etcher for Linux x64 (64-bit) (zip)](https://github.com/balena-io/etcher/releases/download/v1.19.25/balenaEtcher-linux-x64-1.19.25.zip).  
+
+![BE-version](./image%20for%20flash/BE-version.png)  
+
+Insert the SD card into the card reader and connect it to your computer.  
+
+Run BalenaEtcher to write the image to the SD card.  
+In the BalenaEtcher window, click **"Flash from file"** to select the image file.  
+![](./image%20for%20flash/BE1.png)  
+After selecting the image file, choose the target device in the second field.  
+![](./image%20for%20flash/BE2.png)  
+Once both options are selected, click **"Flash"** to write the image.  
+![](./image%20for%20flash/BE3.png)  
+After some time, a message will indicate that the writing process is complete.  
+![](./image%20for%20flash/BE4.png)  
+
+#### Writing the Image with `dd`  
+
+`dd` is a powerful command-line tool in Linux and Unix-like systems, used to copy files or data with specified sizes and formats. It is usually pre-installed.  
+
+Follow these steps to write the image using `dd`:  
+
+First, check the list of devices by running the following command before and after inserting the SD card to identify the corresponding device name of the SD card:
+
+```bash
+lsblk
 ```
-After completed, you can boot from that SD card.
 
-### System Boot
+The device name for the SD card might be `/dev/sda` or `/dev/mmcblk0`. In the demonstration environment, the SD card partition is identified as `/dev/sda` after executing `lsblk`.
 
-After flashing, insert the SD card into the slot on the board, as shown below.
-   ![SD card slot](./image%20for%20flash/lpi4a5.png)
+![lsblk](./image%20for%20flash/lsblk.png)
 
-Connect the HDMI and power cables to start the system.
+Before writing the image, unmount any mounted partitions of the SD card. If there are multiple partitions, unmount each one:
 
----
+```bash
+sudo umount /dev/sda1
+```
+
+If no partitions are mounted, the `umount` command will display `not mounted`, and no further action is needed.
+
+After unmounting the partitions, it is recommended to run the `sudo sync` command to ensure all data is synchronized.
+
+![sync](./image%20for%20flash/sync.png)
+
+After completing the above steps, you can proceed with writing the image. Before writing, ensure that the correct device is set in the `of=` parameter. In the demonstration environment, the SD card is recognized as `sda`. Replace `of=` with your device's partition accordingly.
+
+```bash
+sudo dd if=./sdcard-lpi4a-20250110_151339.img of=/dev/sda bs=4M status=progress
+```
+
+![dd](./image%20for%20flash/dd.png)
+
+After the writing process is complete, run the `sudo sync` command again to ensure data synchronization. Then confirm that the SD card is in an unmounted state before safely removing it and inserting it into the development board.
+
+### Booting the System via SD Card
+
+After writing the image, insert the SD card into the slot shown below.  
+![](./image%20for%20flash/lpi4a5.png)
+
+First, connect the HDMI cable (if an external display is needed). Then, use the USB-A to USB-C cable included in the package: connect the USB-C end to the development board and the USB-A end to a USB power source with at least 5V2A output to boot the system.
 
 ## Booting from eMMC
 
-When booting from eMMC, RevyOS images are flashed to the eMMC storage using `fastboot`. There are two options: connecting with or without a serial interface. This guide provides instructions for both methods.
+When booting the image from eMMC, there are two methods for writing the image: with or without a serial connection. The operations differ slightly, and both methods are introduced below.
 
-You **must** eject SD card when booting from eMMC.
+**Note!** When booting from eMMC, remove the SD card first!
 
 ### Preparation
 
-Flashing the image to eMMC requires U-Boot, boot, and root files to be flashed via `fastboot`. Ensure `fastboot` is installed:
+#### Hardware Preparation
+
+
+
+#### Installing the Image Writing Tool
+
+To boot from eMMC, you need to write the `u-boot`, `boot`, and `root` files into the eMMC using the `fastboot` tool. First, confirm whether `fastboot` is installed.
+
+If you are unsure whether `fastboot` is installed, run the following command. This command checks the version of `fastboot`, and the output will indicate whether the `fastboot` package is pre-installed.
 
 ```bash
-apt install fastboot
+fastboot --version
 ```
 
-If using a serial connection, install `minicom` to monitor the console:
+![fastboot-version]()
+
+If the version is displayed correctly, it means `fastboot` is successfully installed. For example, the following output indicates that `fastboot` is installed:
 
 ```bash
-apt install minicom
+fastboot version 28.0.2-debian
+Installed as /usr/lib/android-sdk/platform-tools/fastboot
 ```
 
-#### Downloading the Image
-
-Download the necessary image files for LicheePi4A from the [RevyOS mirror site](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20240720/). 
-
-Make sure to choose the U-Boot file that matches your board model.
-
-After downloading, decompress root and boot image with `unzstd`.
+If no version is displayed, please install `fastboot` in your command line
 
 ```bash
-unzstd boot-lpi4a-20240720_171951.ext4.zst
-unzstd root-lpi4a-20240720_171951.ext4.zst
+sudo apt install fastboot
 ```
 
-### Flashing the Image to eMMC (Without Serial Connection)
+![fastboot-install](./image%20for%20flash/zstd-install.png)
 
-Hold down the BOOT button on the board and connect it to the computer via USB. The board will enter flashing mode.
+```bash
+sudo apt install fastboot 
+```
 
-### Flashing the Image to eMMC (With Serial Connection)
+#### Install Serial Console Tool
 
-Open `minicom` in a terminal to access the serial console:
+When using a serial connection, a serial console tool is required for monitoring. There are many serial console tools available, such as `minicom`, `screen`, and `picocom`. In this guide, we will use `minicom` for demonstration.
 
-   ```bash
-   sudo minicom
-   ```
+```bash
+sudo apt install minicom
+```
 
-Connect the USB end to the computer, and connect the Type-C interface on the board to the computer with a USB-Type-C cable.
+After installation, you can confirm if `minicom` was successfully installed by checking its version:
 
-Connect the serial port like following image. In the red circle(count from left to right, the second pin on the first row) is GND, in the yellow circle(fifth pin on the first row) is TX and in the green circle(fifth pin on the second row) is RX. You have to connect TX to RX, RX to TX and GND to GND when connecting to your host device.
+```bash
+minicom -version
+```
+
+#### Obtain the Image
+
+Download the system image for LicheePi4A from the following links:
+
+- [RevyOS20240720](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20240720/)
+- [RevyOS20250110](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250110/)
+
+**Note!**
+
+The u-boot images for different memory configurations of LicheePi4A are not interchangeable. Please select the appropriate image based on the version of your core board.
+
+| Memory and Storage Combination | Corresponding u-boot Image |
+|--------------------------------|----------------------------|
+| 8G RAM + 8G eMMC               | u-boot-with-spl-lpi4a-main_8gemmc.bin |
+| 8G RAM + 32G eMMC              | u-boot-with-spl-lpi4a-main.bin |
+| 16G RAM                        | u-boot-with-spl-lpi4a-16g-main.bin |
+
+If you are unsure about the specifications of your core board, you can scan the QR code on the core board to check. When LicheePi4A is shipped, a QR code sticker is attached to the core board. Scanning it will display the memory and storage configuration of the core board.
+
+For example, for a 16G RAM + 128G eMMC configuration, scanning the QR code will display the following:
+
+![Core board-info]()
+
+After confirming the board specifications, use `wget` to download the u-boot, boot, and root files:
+
+```bash
+sudo wget u-boot-with-spl-lpi4a-16g-main.bin
+sudo wget boot-lpi4a-20250110_151339.ext4.zst
+sudo wget root-lpi4a-20250110_151339.ext4.zst
+```
+
+![emmc-download]()
+
+After downloading, use the `unzstd` command to decompress the root and boot files:
+
+```bash
+unzstd boot-lpi4a-20250110_151339.ext4.zst
+unzstd root-lpi4a-20250110_151339.ext4.zst
+```
+
+Once decompression is complete, you will have the files required for writing the eMMC image.
+
+![file]()
+
+### Writing the Image to eMMC (Without Serial Connection)
+
+Press and hold the BOOT button on the board, then connect it to your computer. The board will enter flashing mode.
+
+### Writing the Image to eMMC (With Serial Connection)
+
+#### Using `minicom`
+
+First, open `minicom` from the terminal to access the serial console:
+
+```bash
+sudo minicom
+```
+
+If you need to specify the serial device (e.g., the commonly used USB-to-serial device `ttyUSB0`), you can use:
+
+```bash
+sudo minicom -D /dev/ttyUSB0
+```
+
+#### Using `screen`
+Open `screen` from the terminal. Replace `/dev/ttyUSB0` with your device, and `115200` with the baud rate:
+
+```bash
+sudo screen /dev/ttyUSB0 115200
+```
+
+As shown in the diagram, connect the serial port to the board. The USB end connects to the computer, while the Type-C port on the board connects to the computer using a USB-Type-C cable.
+
+For the serial connection, the red circle (first row, second pin from the left) is GND, the yellow circle (first row, fifth pin) is TX, and the green circle (second row, fifth pin) is RX. The connection to the host should follow TX to RX, RX to TX, and GND to GND.
 
 ![](./image%20for%20flash/lpi4a6.png)
 
+After connecting, press any key in the serial console to interrupt the auto-start process. You will see the following u-boot command line (see the last line):
 
-In the serial console, press any key to interrupt the boot process. Then, enter the following command:
+![](./image%20for%20flash/lpi4a-uboot-command-line.png)
 
-   ```bash
-   fastboot usb 0
-   ```
+In the serial console window, enter:
 
-In a new terminal window, navigate to the folder where the image files are stored, and execute the following flash commands:
-#### Enter u-boot fastboot
-If running `lsusb` doesn't give a `ID 1234:8888 Brain Actuated Technologies USB download gadget` output, excecute following commant to enter u-boot fastboot
 ```bash
-   fastboot flash ram u-boot-with-spl-lpi4a-16g.bin # Replace with your device's uboot image
-   fastboot reboot
-   sleep 1
+fastboot usb 0
 ```
 
-#### flash images
-   ```bash
-   fastboot flash ram u-boot-with-spl-lpi4a-16g.bin # Replace with your device's uboot image
-   fastboot reboot
-   sleep 1
-   fastboot flash uboot u-boot-with-spl-lpi4a-16g.bin
-   fastboot flash boot boot-lpi4a-20240720_171951.ext4
-   fastboot flash root root-lpi4a-20240720_171951.ext4
-   ```
+The output will show:
+```bash
+Light LPI4A 16G# fastboot usb 0
+dwc3_gadget_start maximum_speed:5 revision:0x5533330b
+dwc3_gadget_start DWC3_DCFG:0x80804
+```
 
-Monitor the flashing progress in the serial console.
+This indicates that `fastboot` can be used for flashing. Open another terminal window to proceed with image flashing.
 
-In serial you can see the image size and the being flashing partition in `cmd_parameter: boot, imagesize: 92886476` (In this guide we are flashing the boot image which has a size of 92886476 Bytes)
+### Flashing the Image
+All commands below should be executed in the directory where the image files are located. Pay attention to the file paths and names.
+
+#### Put the Device into U-Boot Fastboot Mode
+If the `lsusb` result is not `ID 1234:8888 Brain Actuated Technologies USB download gadget`, run the following commands:
+```bash
+fastboot flash ram u-boot-with-spl-lpi4a-16g.bin # Replace with the u-boot image for your specific model
+fastboot reboot
+sleep 1
+```
+
+#### Flash the Image
+```bash
+fastboot flash uboot u-boot-with-spl-lpi4a-16g.bin
+fastboot flash boot boot-lpi4a-20240720_171951.ext4
+fastboot flash root root-lpi4a-20240720_171951.ext4
+```
+
+`fastboot` will display the flashing progress. If a serial connection is established, you can view the detailed progress in the serial console (the example below shows flashing `boot`, with a size of 92,886,476 bytes. You can see the flashed content at `cmd_parameter: boot, imagesize: 92886476`).
+
 ![](./image%20for%20flash/lpi4a7.png)
 
-After flashing is complete, disconnect the USB-Type-C cable, connect the power cable, and boot into the system.
+Once flashing is complete, disconnect the USB-Type-C cable from the computer and the board, connect the power cable, and the system will boot up.
 
-#### Some possible problems
-If you can see download device in `lsusb`, but`fastboot` stuck at `< waiting for any device >`you can try run `fastboot` with root privilege.
 
----
+#### Potential Issues
+
+If the `lsusb` output shows a download device but the `fastboot` command remains stuck at `< waiting for any device >`, try running the `fastboot` command with `sudo`.
 
 ### User Login
 
-Default credentials for RevyOS:
-
-- **Username**: debian
-- **Password**: debian
+- Login account: `debian`
+- Password: `debian`
