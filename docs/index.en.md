@@ -12,22 +12,22 @@ Currently, __RevyOS__ meets basic user needs in office work, web browsing, and v
 
 Based on these customizations and optimizations, __RevyOS__ delivers excellent performance and a great experience on hardware platforms like Lichee Pi 4A, BeagleV-Ahead, and Milk-V Pioneer.
 
-## Image Download and Flashing
+## Image Download and Installation
 
 The user version images of __RevyOS__ are currently updated on the [ISCAS (Institute of Software, Chinese Academy of Sciences)](https://mirror.iscas.ac.cn/revyos) / [Felix Finland Source](https://mirrors.felixc.at/revyos/) open-source mirror sites.
 
-If you want to obtain the latest version of __RevyOS__, please select the corresponding device to get the appropriate U-Boot, boot partition, and root partition files:
+If you want to obtain the latest version of __RevyOS__, please select the corresponding device to download the appropriate U-Boot, boot partition, and root partition files. After downloading, please visit [Installation](./Installation/install.md) for the installation guide for your device.
 
-| Supported Devices | Image Download (Latest Version)                                                  | Flashing Tutorial                                      | SD Card Support |
-| ----------------- | -------------------------------------------------------------------------------- | ------------------------------------------------------ | --------------- |
-| Lichee Pi 4A      | [20250110](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250110/)       | [Flashing Tutorial](./Installation/licheepi4a.md)      | Supported       |
-| Lichee Cluster 4A | [20240720](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/)                | [Flashing Tutorial](./Installation/licheepi4a.md)      |                 |
-| Lichee Console 4A | [20240720](https://mirror.iscas.ac.cn/revyos/extra/images/lcon4a/20240720/)      | [Flashing Tutorial](./Installation/licheeconsole4a.md) |                 |
-| Lichee Book 4A    | [20240720](https://mirror.iscas.ac.cn/revyos/extra/images/laptop4a/)             | [Flashing Tutorial](./Installation/licheebook.md)      |                 |
-| Milk-V Pioneer    | [20241230](https://mirror.iscas.ac.cn/revyos/extra/images/sg2042/20241230/)      | [Flashing Tutorial](./Installation/milkv-pioneer.md)   | Supported       |
-| Milk-V Meles      | [20250110](https://mirror.iscas.ac.cn/revyos/extra/images/meles/20250110/)       |                                                        | Supported       |
-| Beagle-Ahead      | [20231210](https://mirror.iscas.ac.cn/revyos/extra/images/beagle/20231210/)      |                                                        |                 |
-| Huiwei Book       | [20240617](https://mirror.iscas.ac.cn/revyos/extra/images/huiwei/test/20240617/) |                                                        |                 |
+| Supported Devices | Image Download (Latest Version)  | SD Card Support |
+| ----------------- | -------------------------------------------------------------------------------- | --------- |
+| Lichee Pi 4A      | [20250110](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250110/)       | Supported |
+| Milk-V Meles      | [20250110](https://mirror.iscas.ac.cn/revyos/extra/images/meles/20250110/)       | Supported |
+| Milk-V Pioneer    | [20241230](https://mirror.iscas.ac.cn/revyos/extra/images/sg2042/20241230/)      | Supported |
+| Lichee Cluster 4A | [20240720](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/)                |           |
+| Lichee Console 4A | [20240720](https://mirror.iscas.ac.cn/revyos/extra/images/lcon4a/20240720/)      |           |
+| Lichee Book 4A    | [20240720](https://mirror.iscas.ac.cn/revyos/extra/images/laptop4a/)             |           |
+| Beagle-Ahead      | [20231210](https://mirror.iscas.ac.cn/revyos/extra/images/beagle/20231210/)      |           |
+| Huiwei book       | [20240617](https://mirror.iscas.ac.cn/revyos/extra/images/huiwei/test/20240617/) |           |
 
 ### How to Enable T-Head Optimized GCC
 
@@ -39,7 +39,7 @@ After each update to the image version, we will publish the supported features f
 
 ## Issues
 
-If you encounter any issues during use, you can report them by creating an [issue](https://github.com/revyos/revyos/issues).
+If you encounter any issues during use, you can report them, see [Submitting issues](./issue.md).
 
 ## User Documentation
 
