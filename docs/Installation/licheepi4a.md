@@ -22,9 +22,56 @@
 
 在此环境中，本教程中的所有操作都是可复现的。在下面我们提供了一些未经官方验证，但可以进行刷写的环境，在下面环境中进行镜像刷写遇到问题请参考[此页](../issue.md)提交issue。
 
+## 工具安装
+
+此部分用于介绍后续在镜像的下载以及刷写过程中都需要用到的软件包和工具，请先通过下面的教程下载安装完成后再进行后续的镜像刷写操作。
+
+### 文件下载工具
+
+在处于图形界面时，在镜像站下载镜像时可以通过直接点击链接下载的方式进行下载。而如果想通过命令行进行下载，有许多种方式例如：wget、curl等，在这里我们选择 wget 作为下载工具。
+
+在[演示环境](#_2)中，wget通常会预装，如果没有安装 wget 的情况下请使用以下命令进行安装
+
+```bash
+sudo apt install wget 
+```
+
+![wget-install](./image%20for%20flash/install-wget.png)
+
+请注意，sudo命令执行时需要用户输入密码进行确认才可执行，请确保自己知道密码后再执行此命令，后续不再赘述。
+
+### 文件解压工具
+
+在上述的[演示环境](#_2)中，zst文件压缩包有多种方式进行解压，例如zstd、tar、7z。此教程只列举其中一种。通过命令行使用 zstd 工具进行解压，此方式需要我们先在系统中安装 zstd 软件包，再进行解压。
+
+如果不知道系统中是否已经安装 ztsd，请执行下面的命令，此命令是通过查看 zstd 版本的命令，通过回显可以判断系统是否已经预装 ztsd 软件包。
+
+```bash
+zstd --version
+```
+
+![zstd-version](./image%20for%20flash/zstd-version.png)
+
+如果正常回显版本号证明已安装成功,例如下面的回显表示 zstd 已安装：
+
+```bash
+*** zstd command line interface 64-bits v1.4.8, by Yann Collet ***
+```
+
+如果回显没有版本号的情况下，请通过命令行安装zstd，
+
+```bash
+sudo apt update
+sudo apt install zstd
+```
+
+![zstd-install](./image%20for%20flash/zstd-install.png)
+
 ## 启动方式介绍
 
 LicheePi4A 目前支持两种启动方式，分别是[从SD card 启动](#sd-card)和[从 eMMC 启动](#emmc)，对于两种不同的启动方式，此教程中都有进行说明，请根据自己所需的刷写方式点击进行跳转查看。
+
+请注意，不论使用哪种刷写方式，原有的用户数据都会丢失，所以在进行刷写前请一定确保做好数据备份的工作！
 
 ## 从SD card 启动
 
@@ -58,23 +105,13 @@ LicheePi4A 目前支持两种启动方式，分别是[从SD card 启动](#sd-car
 
 ![image-size](./image%20for%20flash/image-size.png)
 
-如果是通过网页浏览，点击链接下载，浏览器会自动拉起文件下载，请进行确认，保证文件下载到本地。
+下面有两种镜像下载的方式可供选择：
+
+- 如果是通过网页浏览，点击链接下载，浏览器会自动拉起文件下载，请进行确认，保证文件下载到本地。
 
 ![web-download](./image%20for%20flash/web-download.png)
 
-如果想通过命令行进行下载，有许多种方式例如：wget、curl等，在这里我们选择 wget 作为下载工具。
-
-在[演示环境](#_2)中，wget通常会预装，如果没有安装 wget 的情况下请使用以下命令进行安装
-
-```bash
-sudo apt install wget 
-```
-
-![wget-install](./image%20for%20flash/install-wget.png)
-
-请注意，sudo命令执行时需要用户输入密码进行确认才可执行，请确保自己知道密码后再执行此命令，后续不再赘述。
-
-在安装成功后可以在命令行中执行以下命令进行镜像压缩包下载
+- 如果是想通过命令行下载，可使用以下命令。
 
 ```bash
 wget https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250110/sdcard-lpi4a-20250110_151339.img.zst
@@ -82,33 +119,9 @@ wget https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250110/sdcard-lpi4a-
 
 ![image-download](./image%20for%20flash/image-download.png)
 
-下载完成后会得到名为 [sdcard-lpi4a-20250110_151339.img.zst](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250110/sdcard-lpi4a-20250110_151339.img.zst) 的文件，此文件并不是最终镜像文件，而是一个压缩包，需要解压镜像压缩包 sdcard-lpi4a-20250110_151339.img.zst 才可得到最终的镜像文件 sdcard-lpi4a-20250110_151339.img。
+通过以上两种方式下载完成后都会得到名为 [sdcard-lpi4a-20250110_151339.img.zst](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250110/sdcard-lpi4a-20250110_151339.img.zst) 的文件，此文件并不是最终镜像文件，而是一个压缩包，需要解压镜像压缩包 sdcard-lpi4a-20250110_151339.img.zst 才可得到最终的镜像文件 sdcard-lpi4a-20250110_151339.img。
 
-在上述的[演示环境](#_2)中，zst文件压缩包有多种方式进行解压，例如zstd、tar、7z。此教程只列举其中一种。通过命令行使用 zstd 工具进行解压，此方式需要我们先在系统中安装 zstd 软件包，再进行解压。
-
-如果不知道系统中是否已经安装 ztsd，请执行下面的命令，此命令是通过查看 zstd 版本的命令，通过回显可以判断系统是否已经预装 ztsd 软件包。
-
-```bash
-zstd --version
-```
-
-![zstd-version](./image%20for%20flash/zstd-version.png)
-
-如果正常回显版本号证明已安装成功,例如下面的回显表示 zstd 已安装：
-
-```bash
-*** zstd command line interface 64-bits v1.4.8, by Yann Collet ***
-```
-
-如果回显没有版本号的情况下，请通过命令行安装zstd，
-```bash
-sudo apt update
-sudo apt install zstd
-```
-
-![zstd-install](./image%20for%20flash/zstd-install.png)
-
-在安装完 zstd 后，我们便可对镜像文件进行解压。请注意，注意解压后的文件大小约为**10.2GB**，解压时请注意本地存储空间是否足够！
+在工具安装部分安装完 zstd 后，我们可对镜像文件进行解压。请注意，注意解压后的文件大小约为**10.2GB**，解压时请注意本地存储空间是否足够！
 
 ```bash
 sudo unzstd sdcard-lpi4a-20250110_151339.img.zst
@@ -193,15 +206,11 @@ sudo dd if=./sdcard-lpi4a-20250110_151339.img of=/dev/sda bs=4M status=progress
 
 ## 从 eMMC 启动
 
-从eMMC启动镜像时，刷写镜像的途径分为连接串口与不连接串口两种情况，其中进行的操作有些许区别，在此将两种方式一起进行介绍。
+从eMMC启动镜像时，刷写镜像的途径分为连接串口进行刷写与不连接串口进行刷写两种情况。考虑到接入串口进行刷写不是必须行为，所以默认是使用不连接串口的刷写方式，如果手上有串口线的情况下也可以选择查看连接串口刷写的部分。其中进行的操作有些许区别，在此将两种方式都进行介绍。
 
-请注意！从eMMC启动应当先取出 SD Card！
+请注意！从 eMMC 启动前应当先取出 SD Card！
 
 ### 准备工作
-
-#### 硬件准备
-
-
 
 #### 安装镜像刷写工具
 
@@ -234,19 +243,6 @@ sudo apt install fastboot
 sudo apt install fastboot 
 ```
 
-#### 安装串口控制台工具
-
-通过串口连接时需要串口控制台进行监控，串口控制台软件有很多，例如 `minicom`, `screen`,`picocom`等软件,在这里我们选择 minicom 来进行演示。
-
-```bash
-sudo apt install minicom
-```
-
-在安装完成后可以使用查看 minicom 版本的命令来确认是否成功安装
-
-```bash
-minicom -version
-```
 
 #### 获取镜像
 
@@ -268,7 +264,11 @@ LicheePi4A 不同的内存版本 uboot 镜像不通用，请根据您的核心�
 
 如果无法确认核心板的规格，可以扫描核心板上的二维码进行查看。LicheePi4A板卡发售时，在核心板上会有一张二维码贴纸，在扫描后会显示核心板的内存+存储配置。
 
-例如 16G RAM + 128G eMMC 扫描后显示如下
+例如 16G RAM + 128G 核心板的核心板贴纸在此处
+
+![]()
+
+通过扫描后显示如下
 
 ![Core board-info]()
 
@@ -295,35 +295,59 @@ unzstd root-lpi4a-20250110_151339.ext4.zst
 
 ### 写入镜像到eMMC(不接入串口)
 
-按住板卡上的BOOT键后，接入电脑。板卡会进入刷写模式
+按住板卡上的BOOT键后，接入电脑。板卡会进入刷写模式。
+
+此时可以根据`lsusb`中的输出内容判断设备是否正常连接。
+
+在确认正常连接后先执行以下命令
+
+```bash
+fastboot flash ram u-boot-with-spl-lpi4a-16g.bin # 替换为您的板卡规格对应的 uboot 文件
+fastboot reboot
+sleep 1
+```
+
+然后再进行镜像文件的刷写
+
+```bash
+fastboot flash uboot u-boot-with-spl-lpi4a-16g.bin
+fastboot flash boot boot-lpi4a-20240720_171951.ext4
+fastboot flash root root-lpi4a-20240720_171951.ext4
+```
+
+至此镜像刷写完成，可以通过重新拔插电源线的方式启动系统。
 
 ### 写入镜像到eMMC(接入串口)
 
+#### 安装串口控制台工具
+
+通过串口连接时需要串口控制台进行监控，串口控制台软件有很多，例如 `minicom`, `screen`,`picocom`等软件,在这里我们选择 minicom 来进行演示。
+
+```bash
+sudo apt install minicom
+```
+
+在安装完成后可以使用查看 minicom 版本的命令来确认是否成功安装
+
+```bash
+minicom -version
+```
+
 #### 使用 minicom
-首先从终端打开 minicom，进入串口控制台。
-
-```bash
-sudo minicom
-```
-
-如果需要指定使用的串口设备（例如常见的 USB 转串口设备使用的 `ttyUSB0`），可以使用
-
-```bash
-sudo minicom -D /dev/ttyUSB0
-```
-
-#### 使用 screen
-从终端打开 `screen`, `/dev/ttyUSB0` 为您使用的设备， `115200` 为波特率
-
-```bash
-sudo screen /dev/ttyUSB0 115200
-```
 
 如图所示将串口与板卡进行连接，usb端接入电脑。板卡上的Type-C接口通过USB-Type-C线连接到电脑。
 
 连接串口，红色圈内（从左往右第一排第二个）为 GND，黄色圈内（第一排第五个）为 TX，绿色圈内（第二排第五个）为 RX。与主机应遵循TX到RX,RX到TX,GND到GND的接线。
 
 ![](./image%20for%20flash/lpi4a6.png)
+
+如果需要指定使用的串口设备（例如常见的 USB 转串口设备使用的 `ttyUSB0`），可以在命令行中输入
+
+```bash
+sudo minicom -D /dev/ttyUSB0 -b 115200
+```
+
+其中`-D`用于指定串口设备，所以后面需要接上串口设备的地址。`-b`用于设置波特率,这里我们设置为 115200。
 
 接入后在串口控制台中按任意按键打断自动启动，出现下面的 uboot 命令行 （见最后一行）
 
@@ -335,7 +359,8 @@ sudo screen /dev/ttyUSB0 115200
 fastboot usb 0
 ```
 
-会显示
+输入后会显示
+
 ```bash
 Light LPI4A 16G# fastboot usb 0
 dwc3_gadget_start maximum_speed:5 revision:0x5533330b
@@ -345,22 +370,27 @@ dwc3_gadget_start DWC3_DCFG:0x80804
 即表示可以使用 fastboot 刷写，随后另起一个窗口进行镜像刷写。
 
 ### 正式刷写
-以下命令均为在镜像文件下载文件夹路径内，注意文件路径和文件名。
+
+以下命令操作均为在镜像文件下载文件夹路径内进行，如果在非镜像文件目录下执行时请注意文件路径和文件名。
 
 #### 使设备进入 u-boot fastboot
-如果 `lsusb` 结果不是 `ID 1234:8888 Brain Actuated Technologies USB download gadget`，运行下面的命令
+
+运行下面的命令
+
 ```bash
-fastboot flash ram u-boot-with-spl-lpi4a-16g.bin # 替换为您的型号对应的 uboot 镜像
+fastboot flash ram u-boot-with-spl-lpi4a-16g.bin # 替换为您的板卡规格对应的 uboot 文件
 fastboot reboot
 sleep 1
 ```
 
 #### 刷写镜像
+
 ```bash
 fastboot flash uboot u-boot-with-spl-lpi4a-16g.bin
 fastboot flash boot boot-lpi4a-20240720_171951.ext4
 fastboot flash root root-lpi4a-20240720_171951.ext4
 ```
+
 fastboot 会显示刷写进度，如果连接了串口，在串口控制台中可以看到具体进度（下图以刷写
 boot，大小为 92886476 Bytes为例，可在 `cmd_parameter: boot, imagesize: 92886476` 处查看刷入的内容）。
 
@@ -368,12 +398,17 @@ boot，大小为 92886476 Bytes为例，可在 `cmd_parameter: boot, imagesize: 
 
 刷写完成后拔掉电脑与板卡连接的USB-Type-C线，接入电源线便可直接启动进入系统。
 
-
 #### 可能出现的问题
-如果 `lsusb` 中存在 download 设备，但`fastboot` 命令仍然卡在 `< waiting for any device >` ，可以尝试使用 `sudo` 运行 `fastboot` 命令。
 
+如果 `lsusb` 中存在 download 设备，但`fastboot` 命令仍然卡在 `< waiting for any device >` ，可以尝试使用 `sudo` 运行 `fastboot` 命令。
 
 ### 用户登录
 
+下面是默认的系统账户以及密码
+
 - 登录账户：debian
 - 账户密码：debian
+
+在初次启动镜像时可使用以上的用户密码进行登录。
+
+出于安全性考虑，请在初次登录后一定修改密码，避免出现问题。
