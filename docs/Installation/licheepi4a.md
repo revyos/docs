@@ -30,13 +30,19 @@
 
 在处于图形界面时，在镜像站下载镜像时可以通过直接点击链接下载的方式进行下载。而如果想通过命令行进行下载，有许多种方式例如：wget、curl等，在这里我们选择 wget 作为下载工具。
 
-在[演示环境](#_2)中，wget通常会预装，如果没有安装 wget 的情况下请使用以下命令进行安装
+在[演示环境](#_2)中，wget通常会预装，可以通过在命令行查询 wget 版本的方式来查看是否已安装 wget。
+
+```bash
+wget --version
+```
+
+如果没有安装 wget 的情况下请使用以下命令进行安装
 
 ```bash
 sudo apt install wget 
 ```
 
-![wget-install](./image%20for%20flash/install-wget.png)
+![wget-install](./image%20for%20flash/wget-install.png)
 
 请注意，sudo命令执行时需要用户输入密码进行确认才可执行，请确保自己知道密码后再执行此命令，后续不再赘述。
 
@@ -65,7 +71,7 @@ sudo apt update
 sudo apt install zstd
 ```
 
-![zstd-install](./image%20for%20flash/zstd-install.png)
+![zstd-install](./image%20for%20flash/zstd-version.png)
 
 ## 启动方式介绍
 
@@ -103,7 +109,7 @@ LicheePi4A 目前支持两种启动方式，分别是[从SD card 启动](#sd-car
 
 **请注意，下载后的zst文件压缩包约为1.4GB，请在下载时确认本地最少留有12GB的剩余空间，以保证后续的下载和解压不会出现空间不足的情况。**
 
-![image-size](./image%20for%20flash/image-size.png)
+![image-size](./image%20for%20flash/sdcard-image-size.png)
 
 下面有两种镜像下载的方式可供选择：
 
@@ -117,11 +123,13 @@ LicheePi4A 目前支持两种启动方式，分别是[从SD card 启动](#sd-car
 wget https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250110/sdcard-lpi4a-20250110_151339.img.zst
 ```
 
-![image-download](./image%20for%20flash/image-download.png)
+![image-download](./image%20for%20flash/wget-download-sd.png)
 
 通过以上两种方式下载完成后都会得到名为 [sdcard-lpi4a-20250110_151339.img.zst](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250110/sdcard-lpi4a-20250110_151339.img.zst) 的文件，此文件并不是最终镜像文件，而是一个压缩包，需要解压镜像压缩包 sdcard-lpi4a-20250110_151339.img.zst 才可得到最终的镜像文件 sdcard-lpi4a-20250110_151339.img。
 
 在工具安装部分安装完 zstd 后，我们可对镜像文件进行解压。请注意，注意解压后的文件大小约为**10.2GB**，解压时请注意本地存储空间是否足够！
+
+![img-size](./image%20for%20flash/sdcard-image.png)
 
 ```bash
 sudo unzstd sdcard-lpi4a-20250110_151339.img.zst
@@ -129,7 +137,7 @@ sudo unzstd sdcard-lpi4a-20250110_151339.img.zst
 
 最后会得到 sdcard-lpi4a-20250110_151339.img 文件。至此，演示环境下镜像文件获取成功。
 
-![imgsize](./image%20for%20flash/sdcardimg-size.png)
+![unzstd-sdcard](./image%20for%20flash/unzstd.png)
 
 #### 硬件准备
 
@@ -222,7 +230,7 @@ sudo dd if=./sdcard-lpi4a-20250110_151339.img of=/dev/sda bs=4M status=progress
 fastboot --version
 ```
 
-![fastboot-version]()
+![fastboot-version](./image%20for%20flash/fastboot-version.png)
 
 如果正常回显版本号证明已安装成功,例如下面的回显表示 fastboot 已安装：
 
@@ -237,11 +245,7 @@ Installed as /usr/lib/android-sdk/platform-tools/fastboot
 sudo apt install fastboot
 ```
 
-![fastboot-install](./image%20for%20flash/zstd-install.png)
-
-```bash
-sudo apt install fastboot 
-```
+![fastboot-install](./image%20for%20flash/fastboot-install.png)
 
 #### 获取镜像
 
@@ -279,7 +283,7 @@ sudo wget https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250110/boot-lpi
 sudo wget https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250110/root-lpi4a-20250110_151339.ext4.zst
 ```
 
-![emmc-download]()
+![emmc-download](./image%20for%20flash/wget-download.png)
 
 下载完成后使用 `unzstd` 命令解压 root 和 boot 文件
 
@@ -290,13 +294,17 @@ unzstd root-lpi4a-20250110_151339.ext4.zst
 
 文件解压完成后就得到了刷写 eMMC 镜像的所需文件了。
 
-![file]()
+![file](./image%20for%20flash/unzstd-bootandroot.png)
 
 ### 写入镜像到eMMC(不接入串口)
 
 按住板卡上的BOOT键后，接入电脑。板卡会进入刷写模式。
 
 此时可以根据`lsusb`中的输出内容判断设备是否正常连接。
+
+![lsusb](./image%20for%20flash/lsusb.png)
+
+在正常连接后，`lsusb`命令下会显示如下设备`ID 2345:7654 T-HEAD USB download gadget`
 
 在确认正常连接后先执行以下命令
 
@@ -306,7 +314,7 @@ fastboot reboot
 sleep 1
 ```
 
-![]()
+![flash-ram](./image%20for%20flash/flash-ram.png)
 
 然后再进行镜像文件的刷写
 
@@ -316,11 +324,11 @@ fastboot flash boot boot-lpi4a-20240720_171951.ext4
 fastboot flash root root-lpi4a-20240720_171951.ext4
 ```
 
-![]()
+![flash-ubootandboot](./image%20for%20flash/flash-ubootandboot.png)
 
 其中 uboot 文件和 boot 文件刷写较快，root 文件需要大约5分钟才能刷写完成。如果在刷写 root 文件时并非是30+的数据块，而是2000+或是3000+，那么证明前面的刷写操作有误，在此情况下写入完成后也无法启动镜像，请重新进行刷写操作。
 
-![]()
+![flash-root](./image%20for%20flash/flash-root.png)
 
 至此镜像刷写完成，可以通过重新拔插电源线的方式启动系统。
 
@@ -334,7 +342,7 @@ fastboot flash root root-lpi4a-20240720_171951.ext4
 sudo apt install minicom
 ```
 
-![]()
+![minicom-install](./image%20for%20flash/minicom-install.png)
 
 在安装完成后可以使用查看 minicom 版本的命令来确认是否成功安装
 
@@ -342,7 +350,7 @@ sudo apt install minicom
 minicom -version
 ```
 
-![]()
+![minicom-version](./image%20for%20flash/minicom-version.png)
 
 #### 使用 minicom
 
@@ -362,7 +370,7 @@ ls /dev/tty*
 
 在接入后再输入一次以上命令，回显结果中会发现多出一个设备`/dev/ttyUSB0`
 
-![]()
+![lstty](./image%20for%20flash/lstty.png)
 
 此时我们知道了串口设备地址，可以通过命令行指定参数启动minicom
 
@@ -372,13 +380,13 @@ sudo minicom -D /dev/ttyUSB0 -b 115200
 
 其中`-D`用于指定串口设备，所以后面需要接上串口设备的地址。`-b`用于设置波特率,这里我们设置为 115200。
 
-![]()
+![minicom-start](./image%20for%20flash/minicom-start.png)
 
 ### 正式刷写
 
 在启动 minicom 后，我们将 USB-Type-C 线的 USB 端接入电源，接入后在串口控制台中查看，在出现`Hit any key to stop autoboot`此行命令时会有一个约3秒的系统倒数，此时按任意键即可打断启动，出现下面的 uboot 命令行。
 
-![]()
+![start](./image%20for%20flash/image-start.png)
 
 在串口控制台窗口中输入
 
@@ -392,9 +400,11 @@ fastboot usb 0
 Light LPI4A 16G# fastboot usb 0
 dwc3_gadget_start maximum_speed:5 revision:0x5533330b
 dwc3_gadget_start DWC3_DCFG:0x80804
+dwc3_gadget_start_conndone_interrupt speed:0 dwc3_dsts:0x20000
+dwc3_gadget_start_conndone_interrupt speed:0 dwc3_dsts:0x2f938
 ```
 
-![]()
+![usb0](./image%20for%20flash/fastboot-usb0.png)
 
 即表示已可以使用 fastboot 刷写，随后另起一个窗口进行镜像刷写。
 
@@ -411,7 +421,7 @@ fastboot flash root root-lpi4a-20240720_171951.ext4
 fastboot 会显示刷写进度，如果连接了串口，在串口控制台中可以看到具体进度（下图以刷写
 boot，大小为 92886476 Bytes为例，可在 `cmd_parameter: boot, imagesize: 92886476` 处查看刷入的内容）。
 
-![]()
+![flash-boot](./image%20for%20flash/flash-root-minicom.png)
 
 刷写完成后拔掉电脑与板卡连接的USB-Type-C线，接入电源线便可直接启动进入系统。
 
@@ -419,7 +429,7 @@ boot，大小为 92886476 Bytes为例，可在 `cmd_parameter: boot, imagesize: 
 
 如果 `lsusb` 中存在 download 设备，但`fastboot` 命令仍然卡在 `< waiting for any device >` ，可以尝试使用 `sudo` 运行 `fastboot` 命令。
 
-![]()
+![waiting](./image%20for%20flash/waiting.png)
 
 ### 用户登录
 
