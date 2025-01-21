@@ -243,7 +243,6 @@ sudo apt install fastboot
 sudo apt install fastboot 
 ```
 
-
 #### 获取镜像
 
 从以下链接下载 LicheePi4A 的系统镜像：
@@ -254,7 +253,7 @@ sudo apt install fastboot
 
 请注意！
 
-LicheePi4A 不同的内存版本 uboot 镜像不通用，请根据您的核心板的板卡版本选择对应镜像
+LicheePi4A 不同的内存版本的 uboot 文件不通用，请根据您的核心板的板卡版本选择对应镜像
 
 |内存存储组合|对应的uboot镜像|
 |---|---|
@@ -268,16 +267,16 @@ LicheePi4A 不同的内存版本 uboot 镜像不通用，请根据您的核心�
 
 ![]()
 
-通过扫描后显示如下
+通过扫描二维码后显示如下
 
 ![Core board-info]()
 
-确认好板卡规格后使用 wget 下载 uboot、boot以及root文件
+确认好板卡规格后使用 wget 命令下载 uboot、boot以及root文件
 
 ```bash
-sudo wget u-boot-with-spl-lpi4a-16g-main.bin
-sudo wget boot-lpi4a-20250110_151339.ext4.zst
-sudo wget root-lpi4a-20250110_151339.ext4.zst
+sudo wget https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250110/u-boot-with-spl-lpi4a-16g-main.bin
+sudo wget https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250110/boot-lpi4a-20250110_151339.ext4.zst
+sudo wget https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250110/root-lpi4a-20250110_151339.ext4.zst
 ```
 
 ![emmc-download]()
@@ -307,6 +306,8 @@ fastboot reboot
 sleep 1
 ```
 
+![]()
+
 然后再进行镜像文件的刷写
 
 ```bash
@@ -314,6 +315,12 @@ fastboot flash uboot u-boot-with-spl-lpi4a-16g.bin
 fastboot flash boot boot-lpi4a-20240720_171951.ext4
 fastboot flash root root-lpi4a-20240720_171951.ext4
 ```
+
+![]()
+
+其中 uboot 文件和 boot 文件刷写较快，root 文件需要大约5分钟才能刷写完成。如果在刷写 root 文件时并非是30+的数据块，而是2000+或是3000+，那么证明前面的刷写操作有误，在此情况下写入完成后也无法启动镜像，请重新进行刷写操作。
+
+![]()
 
 至此镜像刷写完成，可以通过重新拔插电源线的方式启动系统。
 
@@ -327,11 +334,15 @@ fastboot flash root root-lpi4a-20240720_171951.ext4
 sudo apt install minicom
 ```
 
+![]()
+
 在安装完成后可以使用查看 minicom 版本的命令来确认是否成功安装
 
 ```bash
 minicom -version
 ```
+
+![]()
 
 #### 使用 minicom
 
@@ -341,7 +352,19 @@ minicom -version
 
 ![](./image%20for%20flash/lpi4a6.png)
 
-如果需要指定使用的串口设备（例如常见的 USB 转串口设备使用的 `ttyUSB0`），可以在命令行中输入
+接入后我们需要确认串口设备的地址，可以使用命令行查看也可以进行dmesg信息进行查看，这里我们使用命令行查看。
+
+在接入串口前命令行中输入以下命令
+
+```bash
+ls /dev/tty*
+```
+
+在接入后再输入一次以上命令，回显结果中会发现多出一个设备`/dev/ttyUSB0`
+
+![]()
+
+此时我们知道了串口设备地址，可以通过命令行指定参数启动minicom
 
 ```bash
 sudo minicom -D /dev/ttyUSB0 -b 115200
@@ -349,9 +372,13 @@ sudo minicom -D /dev/ttyUSB0 -b 115200
 
 其中`-D`用于指定串口设备，所以后面需要接上串口设备的地址。`-b`用于设置波特率,这里我们设置为 115200。
 
-接入后在串口控制台中按任意按键打断自动启动，出现下面的 uboot 命令行 （见最后一行）
+![]()
 
-![](./image%20for%20flash/lpi4a-uboot-command-line.png)
+### 正式刷写
+
+在启动 minicom 后，我们将 USB-Type-C 线的 USB 端接入电源，接入后在串口控制台中查看，在出现`Hit any key to stop autoboot`此行命令时会有一个约3秒的系统倒数，此时按任意键即可打断启动，出现下面的 uboot 命令行。
+
+![]()
 
 在串口控制台窗口中输入
 
@@ -367,23 +394,13 @@ dwc3_gadget_start maximum_speed:5 revision:0x5533330b
 dwc3_gadget_start DWC3_DCFG:0x80804
 ```
 
-即表示可以使用 fastboot 刷写，随后另起一个窗口进行镜像刷写。
+![]()
 
-### 正式刷写
-
-以下命令操作均为在镜像文件下载文件夹路径内进行，如果在非镜像文件目录下执行时请注意文件路径和文件名。
-
-#### 使设备进入 u-boot fastboot
-
-运行下面的命令
-
-```bash
-fastboot flash ram u-boot-with-spl-lpi4a-16g.bin # 替换为您的板卡规格对应的 uboot 文件
-fastboot reboot
-sleep 1
-```
+即表示已可以使用 fastboot 刷写，随后另起一个窗口进行镜像刷写。
 
 #### 刷写镜像
+
+以下命令操作均为在镜像文件下载文件夹路径内进行，如果在非镜像文件目录下执行时请注意文件路径和文件名。
 
 ```bash
 fastboot flash uboot u-boot-with-spl-lpi4a-16g.bin
@@ -394,13 +411,15 @@ fastboot flash root root-lpi4a-20240720_171951.ext4
 fastboot 会显示刷写进度，如果连接了串口，在串口控制台中可以看到具体进度（下图以刷写
 boot，大小为 92886476 Bytes为例，可在 `cmd_parameter: boot, imagesize: 92886476` 处查看刷入的内容）。
 
-![](./image%20for%20flash/lpi4a7.png)
+![]()
 
 刷写完成后拔掉电脑与板卡连接的USB-Type-C线，接入电源线便可直接启动进入系统。
 
 #### 可能出现的问题
 
 如果 `lsusb` 中存在 download 设备，但`fastboot` 命令仍然卡在 `< waiting for any device >` ，可以尝试使用 `sudo` 运行 `fastboot` 命令。
+
+![]()
 
 ### 用户登录
 
