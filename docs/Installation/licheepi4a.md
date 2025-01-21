@@ -265,15 +265,17 @@ LicheePi4A 不同的内存版本的 uboot 文件不通用，请根据您的核�
 |8G RAM + 32G eMMC|u-boot-with-spl-lpi4a-main.bin|
 |16G RAM|u-boot-with-spl-lpi4a-16g-main.bin|
 
-如果无法确认核心板的规格，可以扫描核心板上的二维码进行查看。LicheePi4A板卡发售时，在核心板上会有一张二维码贴纸，在扫描后会显示核心板的内存+存储配置。
+如果无法确认核心板的规格，可以扫描核心板上的二维码进行查看。LicheePi4A板卡发售时，在核心板与底板上都会有一张二维码贴纸，在扫描核心板的二维码贴纸后会显示核心板的内存+存储配置。
 
-例如 16G RAM + 128G 核心板的核心板贴纸在此处
+例如在 16G RAM + 128G 板卡上，贴纸在如图所示的部分
 
-![]()
+![core-card](./image%20for%20flash/core-card.png)
 
 通过扫描二维码后显示如下
 
-![Core board-info]()
+![Core board-info](./image%20for%20flash/card-info.png)
+
+扫描后的结果中，第二部分的数字便是核心板的内存+存储配置。
 
 确认好板卡规格后使用 wget 命令下载 uboot、boot以及root文件
 
