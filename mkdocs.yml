@@ -52,7 +52,7 @@ plugins:
           T-Head QEMU 编译流程: T-Head QEMU Build Process
           gcc 编译软件软件说明: GCC Tips
           安装: Install
-          docker: Docker
+          Docker: Docker
           软件使用: Software Usage
           GIMP 图像编辑工具: GIMP Image Editor
           iBus 输入法: iBus Input Method
@@ -74,7 +74,7 @@ nav:
     - GStreamer 播放器适配: adaptation/GStreamer播放器适配.md
     - GStreamer pipeline: adaptation/GStreamer-pipeline-example-with-thead-omxil-lib.md
   - 系统使用: 
-    - docker: desktop/revyos-use-docker.md
+    - Docker: desktop/revyos-use-docker.md
     - 安装: desktop/install.md
     - 软件使用:
       - GIMP 图像编辑工具: desktop/software/gimp.md
@@ -82,7 +82,7 @@ nav:
     - Games:
       - OpenTTD 游戏: desktop/games/OpenTTD游戏.md
       - yquake2 游戏: desktop/games/yquake2.md
-  - benchmark:
+  - Benchmark:
     - coremark: benchmark/coremark.md
     - stream: benchmark/stream.md
     - reboot-test: benchmark/reboot.md
