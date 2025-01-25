@@ -13,11 +13,10 @@ sudo reboot
 重启后需要手动将中文输入法添加到输入选项中：
 
 托盘图标->右击->Preference
-![](images/ibus_1.png)
+![iBus 设置界面](images/ibus_1.png)
 
 点击选项卡Input Method->Add，打开下图窗口
-![](images/ibus_2.png)
+![iBus 添加输入法界面](images/ibus_2.png)
 
-点击Chinese->Intelligent Pinyin->Add
-![](images/ibus_3.png)
-
+点击Chinese->Pinyin->Add
+![iBus 添加中文输入法操作](images/ibus_3.png)
