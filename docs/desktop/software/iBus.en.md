@@ -21,5 +21,5 @@ After rebooting, manually add the Chinese input method:
 2. In the **Input Method** tab, click **Add** to open the input selection window.
    ![Input Method Tab](images/ibus_2.png)
 
-3. Select **Chinese -> Intelligent Pinyin** and click **Add**.
+3. Select **Chinese -> Pinyin** and click **Add**.
    ![Add Intelligent Pinyin](images/ibus_3.png)
