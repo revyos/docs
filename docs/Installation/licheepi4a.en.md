@@ -56,7 +56,7 @@ The following demonstrates the process using the 20250110 image as an example:
 
 **Note:** The downloaded `.zst` compressed file is approximately 1.4GB. Ensure that you have at least 12GB of free space on your device to avoid running out of space during the download and extraction process.  
 
-![image-size](./image%20for%20flash/image-size.png)  
+![image-size](./image%20for%20flash/sdcard-image-size.png)  
 
 If downloading via a web browser, click the link to start the download. Your browser will automatically handle the file download. Confirm the download and ensure the file is saved locally.  
 
@@ -70,7 +70,7 @@ In most [demonstration environments](#_2), `wget` is pre-installed. If `wget` is
 sudo apt install wget
 ```  
 
-![wget-install](./image%20for%20flash/install-wget.png)  
+![wget-install](./image%20for%20flash/wget-install.png)  
 
 **Note:** The `sudo` command requires a password for execution. Ensure you know the password before proceeding. This will not be repeated in subsequent steps.  
 
@@ -80,7 +80,7 @@ Once installed, use the following command to download the image archive:
 wget https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250110/sdcard-lpi4a-20250110_151339.img.zst
 ```  
 
-![image-download](./image%20for%20flash/image-download.png)  
+![image-download](./image%20for%20flash/wget-download-sd.png)  
 
 After downloading, you will obtain a file named [sdcard-lpi4a-20250110_151339.img.zst](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250110/sdcard-lpi4a-20250110_151339.img.zst). This is not the final image file but a compressed archive. You need to extract the compressed file `sdcard-lpi4a-20250110_151339.img.zst` to obtain the final image file `sdcard-lpi4a-20250110_151339.img`.  
 
@@ -116,7 +116,7 @@ sudo unzstd sdcard-lpi4a-20250110_151339.img.zst
 
 Once the extraction is complete, you will have the file `sdcard-lpi4a-20250110_151339.img`. At this point, the image file has been successfully obtained in the demonstration environment.  
 
-![imgsize](./image%20for%20flash/sdcardimg-size.png)  
+![imgsize](./image%20for%20flash/sdcard-image.png)  
 
 #### Hardware preparation
 
@@ -213,7 +213,7 @@ If you are unsure whether `fastboot` is installed, run the following command. Th
 fastboot --version
 ```
 
-![fastboot-version]()
+![fastboot-version](./image%20for%20flash/fastboot-version.png)
 
 If the version is displayed correctly, it means `fastboot` is successfully installed. For example, the following output indicates that `fastboot` is installed:
 
@@ -267,9 +267,13 @@ The u-boot images for different memory configurations of LicheePi4A are not inte
 
 If you are unsure about the specifications of your core board, you can scan the QR code on the core board to check. When LicheePi4A is shipped, a QR code sticker is attached to the core board. Scanning it will display the memory and storage configuration of the core board.
 
-For example, for a 16G RAM + 128G eMMC configuration, scanning the QR code will display the following:
+For example, for a 16G RAM + 128G eMMC configuration, you can find the QR code sticker here:
 
-![Core board-info]()
+![core-card](./image%20for%20flash/core-card.png)
+
+Scanning the QR code will display the following:
+
+![Core board-info](./image%20for%20flash/card-info.png)
 
 After confirming the board specifications, use `wget` to download the u-boot, boot, and root files:
 
@@ -279,7 +283,7 @@ sudo wget boot-lpi4a-20250110_151339.ext4.zst
 sudo wget root-lpi4a-20250110_151339.ext4.zst
 ```
 
-![emmc-download]()
+![emmc-download](./image%20for%20flash/wget-download.png)
 
 After downloading, use the `unzstd` command to decompress the root and boot files:
 
@@ -290,7 +294,7 @@ unzstd root-lpi4a-20250110_151339.ext4.zst
 
 Once decompression is complete, you will have the files required for writing the eMMC image.
 
-![file]()
+![file](./image%20for%20flash/unzstd-bootandroot.png)
 
 ### Writing the Image to eMMC (Without Serial Connection)
 
@@ -327,7 +331,7 @@ For the serial connection, the red circle (first row, second pin from the left) 
 
 After connecting, press any key in the serial console to interrupt the auto-start process. You will see the following u-boot command line (see the last line):
 
-![](./image%20for%20flash/lpi4a-uboot-command-line.png)
+![](./image%20for%20flash/image-start.png)
 
 In the serial console window, enter:
 
@@ -364,7 +368,7 @@ fastboot flash root root-lpi4a-20240720_171951.ext4
 
 `fastboot` will display the flashing progress. If a serial connection is established, you can view the detailed progress in the serial console (the example below shows flashing `boot`, with a size of 92,886,476 bytes. You can see the flashed content at `cmd_parameter: boot, imagesize: 92886476`).
 
-![](./image%20for%20flash/lpi4a7.png)
+![](./image%20for%20flash/flash-root-minicom.png)
 
 Once flashing is complete, disconnect the USB-Type-C cable from the computer and the board, connect the power cable, and the system will boot up.
 

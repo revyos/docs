@@ -62,6 +62,7 @@ plugins:
           OpenTTD 游戏: OpenTTD Game
           yquake2 游戏: yquake2 Game
           Chromium 鱼缸测试: Chromium Fish Bowl Test
+          概况: Overview
 
 nav:
   - 主页: index.md
@@ -101,6 +102,7 @@ nav:
     - Milk-V Pioneer: Installation/milkv-pioneer.md
   - Changelog:
     # 更新日志需要倒序排列
+    - 概况: changelog/changelog-index.md
     - lpi4a:
       - 20240601: changelog/lpi4a/20240601.md
       - 20240202: changelog/lpi4a/20240202.md

@@ -35,7 +35,7 @@ For more details, see this document: [How to Enable Optimized GCC](build/debian/
 
 ## Changelog
 
-After each update to the image version, we will publish the supported features for the current version. To view the changelog, please click [RevyOS Version Change Log](./changelog/) and select the version you want to check.
+After each update to the image version, we will publish the supported features for the current version. To view the changelog, please click [RevyOS Version Change Log](./changelog/changelog-index.md) and select the version you want to check.
 
 ## Issues
 
