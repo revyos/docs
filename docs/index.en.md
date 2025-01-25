@@ -33,7 +33,7 @@ For detailed instructions, see this document on [How to Enable Optimized GCC](bu
 
 ## Changelog
 
-After updating the version of the image, we will publish the supported content for the current version. If you wish to view the supported content of the image, please click on the [RevyOS Version Change Log](./changelog/) and select the version you need to check.
+After updating the version of the image, we will publish the supported content for the current version. If you wish to view the supported content of the image, please click on the [RevyOS Version Change Log](./changelog/lpi4a/20240601.md) and select the version you need to check.
 
 ## Issues
 
@@ -46,3 +46,7 @@ In this documentation, we provide relevant building and adaptation documentation
 ## User Group
 
 RevyOS has its own Telegram group: [Invitation Link](https://t.me/+Pi6px22-OsUxM2M1)
+
+## Intern Recruitment
+
+We are currently recruiting testing interns. For more details, please visit: [RevyOS Team Testing Intern Recruitment](https://github.com/plctlab/weloveinterns/blob/master/open-internships.md#j143-revyos%E5%B0%8F%E9%98%9F%E6%B5%8B%E8%AF%95%E5%AE%9E%E4%B9%A0%E7%94%9F20241111%E5%BC%80%E6%94%BE100%E5%90%8D)

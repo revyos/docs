@@ -18,8 +18,8 @@ __RevyOS__ 的用户版镜像目前在 ISCAS（中国科学院软件研究所）
 | --- | --- | --- | --- |
 | Lichee Pi 4A | [20240720](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20240720/) | [镜像刷写](./Installation/licheepi4a.md) | 支持 |
 | LicheePi Cluster 4A | [20240720](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/) | [镜像刷写](./Installation/licheepi4a.md)  |  |
-| LicheeConsole 4A | [20240720](https://mirror.iscas.ac.cn/revyos/extra/images/lcon4a/20240720/) | [镜像刷写](./Image%20flashing/licheeconsole4a.md)  |  |
-| Lichee Book 4A | [20240720](https://mirror.iscas.ac.cn/revyos/extra/images/laptop4a/) | [镜像刷写](./Image%20flashing/licheebook.md)  |  |  |
+| LicheeConsole 4A | [20240720](https://mirror.iscas.ac.cn/revyos/extra/images/lcon4a/20240720/) | [镜像刷写](./Installation/licheeconsole4a.md)  |  |
+| Lichee Book 4A | [20240720](https://mirror.iscas.ac.cn/revyos/extra/images/laptop4a/) | [镜像刷写](./Installation/licheebook.md)  |  |  |
 | Milk-V Pioneer | [20241025](https://mirror.iscas.ac.cn/revyos/extra/images/sg2042/20241025/) | [镜像刷写](https://docs.revyos.dev/Installation/milkv-pioneer/)  | 支持 |
 | Milk-V Meles | [20240720](https://mirror.iscas.ac.cn/revyos/extra/images/meles/20240720/) | | 支持 |
 | Beagle-Ahead | [20231210](https://mirror.iscas.ac.cn/revyos/extra/images/beagle/20231210/) | [镜像刷写]()  |  |
@@ -31,7 +31,7 @@ __RevyOS__ 的用户版镜像目前在 ISCAS（中国科学院软件研究所）
 
 ## 更新日志
 
-镜像版本更新后我们会公布当前版本镜像支持内容，如您想查看镜像支持内容请点击[RevyOS 版本更新日志](./changelog/)后选择您所需要的版本进行查看。
+镜像版本更新后我们会公布当前版本镜像支持内容，如您想查看镜像支持内容请点击[RevyOS 版本更新日志](./changelog/lpi4a/20240601.md)后选择您所需要的版本进行查看。
 
 ## issue 相关
 

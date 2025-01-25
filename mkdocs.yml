@@ -58,6 +58,7 @@ plugins:
           iBus 输入法: iBus Input Method
           OpenTTD 游戏: OpenTTD Game
           yquake2 游戏: yquake2 Game
+          Chromium 鱼缸测试: Chromium Fish Bowl Test
 
 nav:
   - 主页: index.md
@@ -80,7 +81,7 @@ nav:
       - GIMP 图像编辑工具: desktop/software/gimp.md
       - iBus 输入法: desktop/software/iBus.md
     - Games:
-      - OpenTTD 游戏: desktop/games/OpenTTD游戏.md
+      - OpenTTD 游戏: desktop/games/OpenTTD.md
       - yquake2 游戏: desktop/games/yquake2.md
   - Benchmark:
     - coremark: benchmark/coremark.md
@@ -89,6 +90,7 @@ nav:
     - lmbench: benchmark/lmbench.md
     - glmark2: benchmark/glmark2.md
     - p7zip: benchmark/p7zip.md
+    - Chromium 鱼缸测试: benchmark/Chromium-Fish-Bowl-Test.md
   - 镜像刷写:
     - Lichee Pi 4A: Installation/licheepi4a.md
     - Milk-V Pioneer: Installation/milkv-pioneer.md
