@@ -6,8 +6,8 @@ RevyOS currently supports multiple devices. After each new version release, we w
 
 | Supported Device      | Latest Version Download | Changelog       |
 | --------------------- | ----------------------- | ---------------- |
-| Lichee Pi 4A         | [20250110](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250110/) | In Progress      |
-| Milk-V Meles         | [20250110](https://mirror.iscas.ac.cn/revyos/extra/images/meles/20250110/) | In Progress      |
+| Lichee Pi 4A         | [20250123](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250123/) | In Progress      |
+| Milk-V Meles         | [20250123](https://mirror.iscas.ac.cn/revyos/extra/images/meles/20250123/) | In Progress      |
 | Milk-V Pioneer       | [20241230](https://mirror.iscas.ac.cn/revyos/extra/images/sg2042/20241230/) | In Progress      |
 | Lichee Cluster 4A    | [20240720](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/) | In Progress      |
 | Lichee Console 4A    | [20240720](https://mirror.iscas.ac.cn/revyos/extra/images/lcon4a/20240720/) | In Progress      |
