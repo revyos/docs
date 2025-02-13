@@ -1,0 +1,2125 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../install/">
+      
+      
+        <link rel="next" href="../milkv-pioneer/">
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.1.21">
+    
+    
+      
+        <title>Lichee Pi 4A - RevyOS Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.eebd395e.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#installing-revyos-on-the-licheepi-4a" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../" title="RevyOS Docs" class="md-header__button md-logo" aria-label="RevyOS Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            RevyOS Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lichee Pi 4A
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <div class="md-header__option">
+        <div class="md-select">
+          
+          <button class="md-header__button md-icon" aria-label="Select language">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.52 17.52 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04M18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12m-2.62 7 1.62-4.33L19.12 17h-3.24Z"/></svg>
+          </button>
+          <div class="md-select__inner">
+            <ul class="md-select__list">
+              
+                <li class="md-select__item">
+                  <a href="../../../Installation/licheepi4a/" hreflang="zh" class="md-select__link">
+                    简体中文
+                  </a>
+                </li>
+              
+                <li class="md-select__item">
+                  <a href="./" hreflang="en" class="md-select__link">
+                    English
+                  </a>
+                </li>
+              
+            </ul>
+          </div>
+        </div>
+      </div>
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/revyos/docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    revyos/docs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../" class="md-tabs__link">
+      Home
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../build/debian/enable_optimization_gcc/" class="md-tabs__link">
+        Build
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../adaptation/GStreamer%E6%92%AD%E6%94%BE%E5%99%A8%E9%80%82%E9%85%8D/" class="md-tabs__link">
+        Porting Docs
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../desktop/revyos-use-docker/" class="md-tabs__link">
+        System Usage
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../benchmark/coremark/" class="md-tabs__link">
+        Benchmark
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../install/" class="md-tabs__link md-tabs__link--active">
+        Installation
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../changelog/changelog-index/" class="md-tabs__link">
+        Changelog
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../issue/" class="md-tabs__link">
+      issue
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../" title="RevyOS Docs" class="md-nav__button md-logo" aria-label="RevyOS Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    RevyOS Docs
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/revyos/docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    revyos/docs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          Build
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Build
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+          Debian
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Debian
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../build/debian/enable_optimization_gcc/" class="md-nav__link">
+        Enable Optimization GCC
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../build/debian/Debian%E8%BD%AF%E4%BB%B6%E5%8C%85%E6%9E%84%E5%BB%BA%E6%B5%81%E7%A8%8B/" class="md-nav__link">
+        Debian Software Package Build Process
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../build/debian/%E7%BC%96%E8%AF%91%E5%99%A8%E7%9B%B8%E5%85%B3%E8%AF%B4%E6%98%8E/" class="md-nav__link">
+        Compiler Related Description
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+          Other Builds
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Other Builds
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../build/other/thead-qemu%E7%BC%96%E8%AF%91%E6%B5%81%E7%A8%8B/" class="md-nav__link">
+        T-Head QEMU Build Process
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../build/other/manuel_build_kernel/" class="md-nav__link">
+        Manuel Build Kernel
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../build/other/gcc%E7%BC%96%E8%AF%91%E8%BD%AF%E4%BB%B6%E8%AF%B4%E6%98%8E/" class="md-nav__link">
+        GCC Tips
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          Porting Docs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Porting Docs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adaptation/GStreamer%E6%92%AD%E6%94%BE%E5%99%A8%E9%80%82%E9%85%8D/" class="md-nav__link">
+        GStreamer Player Porting
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adaptation/GStreamer-pipeline-example-with-thead-omxil-lib/" class="md-nav__link">
+        GStreamer Pipeline Example
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          System Usage
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          System Usage
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../desktop/revyos-use-docker/" class="md-nav__link">
+        Docker
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../desktop/install/" class="md-nav__link">
+        Install
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+          Software Usage
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_3">
+          <span class="md-nav__icon md-icon"></span>
+          Software Usage
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../desktop/software/gimp/" class="md-nav__link">
+        GIMP Image Editor
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../desktop/software/iBus/" class="md-nav__link">
+        iBus Input Method
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../desktop/software/ROS2/" class="md-nav__link">
+        ROS2
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+          Games
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_4">
+          <span class="md-nav__icon md-icon"></span>
+          Games
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../desktop/games/OpenTTD/" class="md-nav__link">
+        OpenTTD Game
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../desktop/games/yquake2/" class="md-nav__link">
+        yquake2 Game
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          Benchmark
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Benchmark
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../benchmark/coremark/" class="md-nav__link">
+        coremark
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../benchmark/stream/" class="md-nav__link">
+        stream
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../benchmark/reboot/" class="md-nav__link">
+        reboot-test
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../benchmark/lmbench/" class="md-nav__link">
+        lmbench
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../benchmark/glmark2/" class="md-nav__link">
+        glmark2
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../benchmark/p7zip/" class="md-nav__link">
+        p7zip
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../benchmark/Chromium-Fish-Bowl-Test/" class="md-nav__link">
+        Chromium Fish Bowl Test
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          Installation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Installation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../install/" class="md-nav__link">
+        Installation Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Lichee Pi 4A
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Lichee Pi 4A
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#important" class="md-nav__link">
+    Important!
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#demonstration-environment" class="md-nav__link">
+    Demonstration Environment
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#boot-methods-overview" class="md-nav__link">
+    Boot Methods Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sd-card-boot" class="md-nav__link">
+    SD Card Boot
+  </a>
+  
+    <nav class="md-nav" aria-label="SD Card Boot">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preparation" class="md-nav__link">
+    Preparation
+  </a>
+  
+    <nav class="md-nav" aria-label="Preparation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#obtain-sd-card-images" class="md-nav__link">
+    Obtain SD card images
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hardware-preparation" class="md-nav__link">
+    Hardware preparation
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#image-writing-methods" class="md-nav__link">
+    Image Writing Methods
+  </a>
+  
+    <nav class="md-nav" aria-label="Image Writing Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#writing-the-image-with-balenaetcher" class="md-nav__link">
+    Writing the Image with BalenaEtcher
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#writing-the-image-with-dd" class="md-nav__link">
+    Writing the Image with dd
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#booting-the-system-via-sd-card" class="md-nav__link">
+    Booting the System via SD Card
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#booting-from-emmc" class="md-nav__link">
+    Booting from eMMC
+  </a>
+  
+    <nav class="md-nav" aria-label="Booting from eMMC">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preparation_1" class="md-nav__link">
+    Preparation
+  </a>
+  
+    <nav class="md-nav" aria-label="Preparation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hardware-preparation_1" class="md-nav__link">
+    Hardware Preparation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installing-the-image-writing-tool" class="md-nav__link">
+    Installing the Image Writing Tool
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install-serial-console-tool" class="md-nav__link">
+    Install Serial Console Tool
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#obtain-the-image" class="md-nav__link">
+    Obtain the Image
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#writing-the-image-to-emmc-without-serial-connection" class="md-nav__link">
+    Writing the Image to eMMC (Without Serial Connection)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#writing-the-image-to-emmc-with-serial-connection" class="md-nav__link">
+    Writing the Image to eMMC (With Serial Connection)
+  </a>
+  
+    <nav class="md-nav" aria-label="Writing the Image to eMMC (With Serial Connection)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-minicom" class="md-nav__link">
+    Using minicom
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-screen" class="md-nav__link">
+    Using screen
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flashing-the-image" class="md-nav__link">
+    Flashing the Image
+  </a>
+  
+    <nav class="md-nav" aria-label="Flashing the Image">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#put-the-device-into-u-boot-fastboot-mode" class="md-nav__link">
+    Put the Device into U-Boot Fastboot Mode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flash-the-image" class="md-nav__link">
+    Flash the Image
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#potential-issues" class="md-nav__link">
+    Potential Issues
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-login" class="md-nav__link">
+    User Login
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../milkv-pioneer/" class="md-nav__link">
+        Milk-V Pioneer
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+          Changelog
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Changelog
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/changelog-index/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_2" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_2" id="__nav_7_2_label" tabindex="0">
+          lpi4a
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7_2">
+          <span class="md-nav__icon md-icon"></span>
+          lpi4a
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/lpi4a/20240601/" class="md-nav__link">
+        20240601
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/lpi4a/20240202/" class="md-nav__link">
+        20240202
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/lpi4a/20231210/" class="md-nav__link">
+        20231210
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/lpi4a/20231026/" class="md-nav__link">
+        20231026
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/lpi4a/20230916/" class="md-nav__link">
+        20230916
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/lpi4a/20230810/" class="md-nav__link">
+        20230810
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/lpi4a/20230614/" class="md-nav__link">
+        20230614
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/lpi4a/20230511/" class="md-nav__link">
+        20230511
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/lpi4a/20230425/" class="md-nav__link">
+        20230425
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/lpi4a/20230412/" class="md-nav__link">
+        20230412
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_3" id="__nav_7_3_label" tabindex="0">
+          ahead
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7_3">
+          <span class="md-nav__icon md-icon"></span>
+          ahead
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/ahead/20230802/" class="md-nav__link">
+        20230802
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../issue/" class="md-nav__link">
+        issue
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#important" class="md-nav__link">
+    Important!
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#demonstration-environment" class="md-nav__link">
+    Demonstration Environment
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#boot-methods-overview" class="md-nav__link">
+    Boot Methods Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sd-card-boot" class="md-nav__link">
+    SD Card Boot
+  </a>
+  
+    <nav class="md-nav" aria-label="SD Card Boot">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preparation" class="md-nav__link">
+    Preparation
+  </a>
+  
+    <nav class="md-nav" aria-label="Preparation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#obtain-sd-card-images" class="md-nav__link">
+    Obtain SD card images
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hardware-preparation" class="md-nav__link">
+    Hardware preparation
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#image-writing-methods" class="md-nav__link">
+    Image Writing Methods
+  </a>
+  
+    <nav class="md-nav" aria-label="Image Writing Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#writing-the-image-with-balenaetcher" class="md-nav__link">
+    Writing the Image with BalenaEtcher
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#writing-the-image-with-dd" class="md-nav__link">
+    Writing the Image with dd
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#booting-the-system-via-sd-card" class="md-nav__link">
+    Booting the System via SD Card
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#booting-from-emmc" class="md-nav__link">
+    Booting from eMMC
+  </a>
+  
+    <nav class="md-nav" aria-label="Booting from eMMC">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preparation_1" class="md-nav__link">
+    Preparation
+  </a>
+  
+    <nav class="md-nav" aria-label="Preparation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hardware-preparation_1" class="md-nav__link">
+    Hardware Preparation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installing-the-image-writing-tool" class="md-nav__link">
+    Installing the Image Writing Tool
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install-serial-console-tool" class="md-nav__link">
+    Install Serial Console Tool
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#obtain-the-image" class="md-nav__link">
+    Obtain the Image
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#writing-the-image-to-emmc-without-serial-connection" class="md-nav__link">
+    Writing the Image to eMMC (Without Serial Connection)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#writing-the-image-to-emmc-with-serial-connection" class="md-nav__link">
+    Writing the Image to eMMC (With Serial Connection)
+  </a>
+  
+    <nav class="md-nav" aria-label="Writing the Image to eMMC (With Serial Connection)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-minicom" class="md-nav__link">
+    Using minicom
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-screen" class="md-nav__link">
+    Using screen
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flashing-the-image" class="md-nav__link">
+    Flashing the Image
+  </a>
+  
+    <nav class="md-nav" aria-label="Flashing the Image">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#put-the-device-into-u-boot-fastboot-mode" class="md-nav__link">
+    Put the Device into U-Boot Fastboot Mode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flash-the-image" class="md-nav__link">
+    Flash the Image
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#potential-issues" class="md-nav__link">
+    Potential Issues
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-login" class="md-nav__link">
+    User Login
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="installing-revyos-on-the-licheepi-4a">Installing RevyOS on the LicheePi 4A</h1>
+<p>This guide provides instructions for installing RevyOS on the LicheePi4A. For other device flashing guides, click the links in the table below.</p>
+<table>
+<thead>
+<tr>
+<th>Device Name</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Milk-V pioneer</td>
+<td><a href="https://docs.revyos.dev/Installation/milkv-pioneer/">Installation Guide</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="important">Important!</h2>
+<p>Before proceeding, compare your board with the image below to ensure they match. Continue only if the boards are identical.</p>
+<p><img alt="LicheePi4A Example" src="../image%20for%20flash/lpi4a.png" /></p>
+<h2 id="demonstration-environment">Demonstration Environment</h2>
+<p>All installation operations in this tutorial are demonstrated using the following environment:</p>
+<ul>
+<li><strong>System and Version</strong>: Ubuntu 22.04.5 LTS</li>
+<li><strong>Architecture</strong>: x86_64</li>
+<li><strong>LicheePi4A Specs</strong>: 16GB RAM + 128GB eMMC</li>
+</ul>
+<p>For unofficial environments that might be used, refer to <a href="../../issue/">this page</a> for submitting issues.</p>
+<h2 id="boot-methods-overview">Boot Methods Overview</h2>
+<p>LicheePi4A supports two boot methods: <a href="#sd-card">SD Card Boot</a> and <a href="#emmc">eMMC Boot</a>. Follow the relevant section based on your needs.</p>
+<h2 id="sd-card-boot">SD Card Boot</h2>
+<p><strong>Attention!</strong> No need to change the DIP switch to boot from the SD card! Set the DIP switch as per the eMMC configuration.</p>
+<p><img alt="Example of DIP switch" src="../image%20for%20flash/Switch.png" /></p>
+<p>The DIP switch is located on the underside of the board. You need to remove the board to access it. The correct configuration is with both switches set to the downward position.</p>
+<p><strong>Note!</strong> Some early versions of the LicheePi4A board do not have a DIP switch.</p>
+<h3 id="preparation">Preparation</h3>
+<h4 id="obtain-sd-card-images">Obtain SD card images</h4>
+<p>Download the LicheePi4A SD card boot system image with the <code>sdcard-</code> prefix from the following links:</p>
+<ul>
+<li>
+<p><a href="https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20240720/">RevyOS20240720 (Kernel version 5.10)</a></p>
+</li>
+<li>
+<p><a href="https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250110/">RevyOS20250110 (Kernel version 6.6)</a></p>
+</li>
+</ul>
+<p>The 20240720 image uses Kernel 5.10, which is relatively mature and performs more stably in video encoding/decoding and various applications.  </p>
+<p>The 20250110 image uses Kernel 6.6, which may have some unknown issues. Known issues include video stuttering and USB power loss. These problems are currently being addressed.  </p>
+<p>Please choose the appropriate image based on your needs after reading the above description.  </p>
+<p>The following demonstrates the process using the 20250110 image as an example:  </p>
+<p><strong>Note:</strong> The downloaded <code>.zst</code> compressed file is approximately 1.4GB. Ensure that you have at least 12GB of free space on your device to avoid running out of space during the download and extraction process.  </p>
+<p><img alt="image-size" src="../image%20for%20flash/sdcard-image-size.png" />  </p>
+<p>If downloading via a web browser, click the link to start the download. Your browser will automatically handle the file download. Confirm the download and ensure the file is saved locally.  </p>
+<p><img alt="web-download" src="../image%20for%20flash/web-download.png" />  </p>
+<p>If you prefer to download via the command line, tools like <code>wget</code> and <code>curl</code> can be used. In this guide, we use <code>wget</code> as the download tool.  </p>
+<p>In most <a href="#_2">demonstration environments</a>, <code>wget</code> is pre-installed. If <code>wget</code> is not installed, use the following command to install it:  </p>
+<pre><code class="language-bash">sudo apt install wget
+</code></pre>
+<p><img alt="wget-install" src="../image%20for%20flash/wget-install.png" />  </p>
+<p><strong>Note:</strong> The <code>sudo</code> command requires a password for execution. Ensure you know the password before proceeding. This will not be repeated in subsequent steps.  </p>
+<p>Once installed, use the following command to download the image archive:  </p>
+<pre><code class="language-bash">wget https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250110/sdcard-lpi4a-20250110_151339.img.zst
+</code></pre>
+<p><img alt="image-download" src="../image%20for%20flash/wget-download-sd.png" />  </p>
+<p>After downloading, you will obtain a file named <a href="https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250110/sdcard-lpi4a-20250110_151339.img.zst">sdcard-lpi4a-20250110_151339.img.zst</a>. This is not the final image file but a compressed archive. You need to extract the compressed file <code>sdcard-lpi4a-20250110_151339.img.zst</code> to obtain the final image file <code>sdcard-lpi4a-20250110_151339.img</code>.  </p>
+<p>In the <a href="#_2">demonstration environment</a> mentioned earlier, <code>.zst</code> files can be extracted using various tools such as <code>zstd</code>, <code>tar</code>, or <code>7z</code>. This guide demonstrates one method using the <code>zstd</code> tool via the command line. First, you need to install the <code>zstd</code> package on your system before extracting the file.  </p>
+<p>If you are unsure whether <code>zstd</code> is already installed on your system, execute the following command to check the version of <code>zstd</code>. If a version is displayed, it indicates that <code>zstd</code> is installed.  </p>
+<pre><code class="language-bash">zstd --version
+</code></pre>
+<p><img alt="zstd-version" src="../image%20for%20flash/zstd-version.png" />  </p>
+<p>If the version is displayed, like the example below, you have <code>zstd</code> is already installed.  </p>
+<pre><code class="language-bash">*** zstd command line interface 64-bits v1.4.8, by Yann Collet ***
+</code></pre>
+<p>If no version information is displayed, install <code>zstd</code> using the following commands:  </p>
+<pre><code class="language-bash">sudo apt update
+sudo apt install zstd
+</code></pre>
+<p><img alt="zstd-install" src="../image%20for%20flash/zstd-install.png" />  </p>
+<p>After installing <code>zstd</code>, you can extract the image file. <strong>Note:</strong> The extracted file will be approximately <strong>10.2GB</strong> in size. Ensure you have enough local storage space before proceeding with the extraction!  </p>
+<pre><code class="language-bash">sudo unzstd sdcard-lpi4a-20250110_151339.img.zst
+</code></pre>
+<p>Once the extraction is complete, you will have the file <code>sdcard-lpi4a-20250110_151339.img</code>. At this point, the image file has been successfully obtained in the demonstration environment.  </p>
+<p><img alt="imgsize" src="../image%20for%20flash/sdcard-image.png" />  </p>
+<h4 id="hardware-preparation">Hardware preparation</h4>
+<p>Prepare a MicroSD card reader and a MicroSD card. Note that there are compatibility issues with MicroSD cards. RevyOS provides a list of <a href="https://github.com/revyos/revyos/blob/main/Installation/card%20list.md">tested MicroSD cards</a>.  </p>
+<p>If your MicroSD card is not on the list of known compatible cards and you encounter issues such as failure to write the image or failure to boot after writing, refer to <a href="../../issue/">this page</a> to submit an issue. You can also try the <a href="#emmc">eMMC boot guide</a> for writing the image.  </p>
+<h3 id="image-writing-methods">Image Writing Methods</h3>
+<p>If you choose to boot from an SD card, there are two methods to write the image to the MicroSD card:<a href="#balenaetcher-microsd">Using a graphical interface tool</a> like BalenaEtcher, or <a href="#dd">Using the <code>dd</code> command in the command line</a>.  </p>
+<h4 id="writing-the-image-with-balenaetcher">Writing the Image with BalenaEtcher</h4>
+<p>Download the BalenaEtcher tool from its official website: <a href="https://etcher.balena.io/">https://etcher.balena.io/</a>. Select the appropriate file for your system. For the <a href="#_2">demonstration environment</a>, download and extract <a href="https://github.com/balena-io/etcher/releases/download/v1.19.25/balenaEtcher-linux-x64-1.19.25.zip">Etcher for Linux x64 (64-bit) (zip)</a>.  </p>
+<p><img alt="BE-version" src="../image%20for%20flash/BE-version.png" />  </p>
+<p>Insert the SD card into the card reader and connect it to your computer.  </p>
+<p>Run BalenaEtcher to write the image to the SD card.<br />
+In the BalenaEtcher window, click <strong>"Flash from file"</strong> to select the image file.<br />
+<img alt="" src="../image%20for%20flash/BE1.png" /><br />
+After selecting the image file, choose the target device in the second field.<br />
+<img alt="" src="../image%20for%20flash/BE2.png" /><br />
+Once both options are selected, click <strong>"Flash"</strong> to write the image.<br />
+<img alt="" src="../image%20for%20flash/BE3.png" /><br />
+After some time, a message will indicate that the writing process is complete.<br />
+<img alt="" src="../image%20for%20flash/BE4.png" />  </p>
+<h4 id="writing-the-image-with-dd">Writing the Image with <code>dd</code></h4>
+<p><code>dd</code> is a powerful command-line tool in Linux and Unix-like systems, used to copy files or data with specified sizes and formats. It is usually pre-installed.  </p>
+<p>Follow these steps to write the image using <code>dd</code>:  </p>
+<p>First, check the list of devices by running the following command before and after inserting the SD card to identify the corresponding device name of the SD card:</p>
+<pre><code class="language-bash">lsblk
+</code></pre>
+<p>The device name for the SD card might be <code>/dev/sda</code> or <code>/dev/mmcblk0</code>. In the demonstration environment, the SD card partition is identified as <code>/dev/sda</code> after executing <code>lsblk</code>.</p>
+<p><img alt="lsblk" src="../image%20for%20flash/lsblk.png" /></p>
+<p>Before writing the image, unmount any mounted partitions of the SD card. If there are multiple partitions, unmount each one:</p>
+<pre><code class="language-bash">sudo umount /dev/sda1
+</code></pre>
+<p>If no partitions are mounted, the <code>umount</code> command will display <code>not mounted</code>, and no further action is needed.</p>
+<p>After unmounting the partitions, it is recommended to run the <code>sudo sync</code> command to ensure all data is synchronized.</p>
+<p><img alt="sync" src="../image%20for%20flash/sync.png" /></p>
+<p>After completing the above steps, you can proceed with writing the image. Before writing, ensure that the correct device is set in the <code>of=</code> parameter. In the demonstration environment, the SD card is recognized as <code>sda</code>. Replace <code>of=</code> with your device's partition accordingly.</p>
+<pre><code class="language-bash">sudo dd if=./sdcard-lpi4a-20250110_151339.img of=/dev/sda bs=4M status=progress
+</code></pre>
+<p><img alt="dd" src="../image%20for%20flash/dd.png" /></p>
+<p>After the writing process is complete, run the <code>sudo sync</code> command again to ensure data synchronization. Then confirm that the SD card is in an unmounted state before safely removing it and inserting it into the development board.</p>
+<h3 id="booting-the-system-via-sd-card">Booting the System via SD Card</h3>
+<p>After writing the image, insert the SD card into the slot shown below.<br />
+<img alt="" src="../image%20for%20flash/lpi4a5.png" /></p>
+<p>First, connect the HDMI cable (if an external display is needed). Then, use the USB-A to USB-C cable included in the package: connect the USB-C end to the development board and the USB-A end to a USB power source with at least 5V2A output to boot the system.</p>
+<h2 id="booting-from-emmc">Booting from eMMC</h2>
+<p>When booting the image from eMMC, there are two methods for writing the image: with or without a serial connection. The operations differ slightly, and both methods are introduced below.</p>
+<p><strong>Note!</strong> When booting from eMMC, remove the SD card first!</p>
+<h3 id="preparation_1">Preparation</h3>
+<h4 id="hardware-preparation_1">Hardware Preparation</h4>
+<h4 id="installing-the-image-writing-tool">Installing the Image Writing Tool</h4>
+<p>To boot from eMMC, you need to write the <code>u-boot</code>, <code>boot</code>, and <code>root</code> files into the eMMC using the <code>fastboot</code> tool. First, confirm whether <code>fastboot</code> is installed.</p>
+<p>If you are unsure whether <code>fastboot</code> is installed, run the following command. This command checks the version of <code>fastboot</code>, and the output will indicate whether the <code>fastboot</code> package is pre-installed.</p>
+<pre><code class="language-bash">fastboot --version
+</code></pre>
+<p><img alt="fastboot-version" src="../image%20for%20flash/fastboot-version.png" /></p>
+<p>If the version is displayed correctly, it means <code>fastboot</code> is successfully installed. For example, the following output indicates that <code>fastboot</code> is installed:</p>
+<pre><code class="language-bash">fastboot version 28.0.2-debian
+Installed as /usr/lib/android-sdk/platform-tools/fastboot
+</code></pre>
+<p>If no version is displayed, please install <code>fastboot</code> in your command line</p>
+<pre><code class="language-bash">sudo apt install fastboot
+</code></pre>
+<p><img alt="fastboot-install" src="../image%20for%20flash/zstd-install.png" /></p>
+<pre><code class="language-bash">sudo apt install fastboot 
+</code></pre>
+<h4 id="install-serial-console-tool">Install Serial Console Tool</h4>
+<p>When using a serial connection, a serial console tool is required for monitoring. There are many serial console tools available, such as <code>minicom</code>, <code>screen</code>, and <code>picocom</code>. In this guide, we will use <code>minicom</code> for demonstration.</p>
+<pre><code class="language-bash">sudo apt install minicom
+</code></pre>
+<p>After installation, you can confirm if <code>minicom</code> was successfully installed by checking its version:</p>
+<pre><code class="language-bash">minicom -version
+</code></pre>
+<h4 id="obtain-the-image">Obtain the Image</h4>
+<p>Download the system image for LicheePi4A from the following links:</p>
+<ul>
+<li><a href="https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20240720/">RevyOS20240720</a></li>
+<li><a href="https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250110/">RevyOS20250110</a></li>
+</ul>
+<p><strong>Note!</strong></p>
+<p>The u-boot images for different memory configurations of LicheePi4A are not interchangeable. Please select the appropriate image based on the version of your core board.</p>
+<table>
+<thead>
+<tr>
+<th>Memory and Storage Combination</th>
+<th>Corresponding u-boot Image</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>8G RAM + 8G eMMC</td>
+<td>u-boot-with-spl-lpi4a-main_8gemmc.bin</td>
+</tr>
+<tr>
+<td>8G RAM + 32G eMMC</td>
+<td>u-boot-with-spl-lpi4a-main.bin</td>
+</tr>
+<tr>
+<td>16G RAM</td>
+<td>u-boot-with-spl-lpi4a-16g-main.bin</td>
+</tr>
+</tbody>
+</table>
+<p>If you are unsure about the specifications of your core board, you can scan the QR code on the core board to check. When LicheePi4A is shipped, a QR code sticker is attached to the core board. Scanning it will display the memory and storage configuration of the core board.</p>
+<p>For example, for a 16G RAM + 128G eMMC configuration, you can find the QR code sticker here:</p>
+<p><img alt="core-card" src="../image%20for%20flash/core-card.png" /></p>
+<p>Scanning the QR code will display the following:</p>
+<p><img alt="Core board-info" src="../image%20for%20flash/card-info.png" /></p>
+<p>After confirming the board specifications, use <code>wget</code> to download the u-boot, boot, and root files:</p>
+<pre><code class="language-bash">sudo wget u-boot-with-spl-lpi4a-16g-main.bin
+sudo wget boot-lpi4a-20250110_151339.ext4.zst
+sudo wget root-lpi4a-20250110_151339.ext4.zst
+</code></pre>
+<p><img alt="emmc-download" src="../image%20for%20flash/wget-download.png" /></p>
+<p>After downloading, use the <code>unzstd</code> command to decompress the root and boot files:</p>
+<pre><code class="language-bash">unzstd boot-lpi4a-20250110_151339.ext4.zst
+unzstd root-lpi4a-20250110_151339.ext4.zst
+</code></pre>
+<p>Once decompression is complete, you will have the files required for writing the eMMC image.</p>
+<p><img alt="file" src="../image%20for%20flash/unzstd-bootandroot.png" /></p>
+<h3 id="writing-the-image-to-emmc-without-serial-connection">Writing the Image to eMMC (Without Serial Connection)</h3>
+<p>Press and hold the BOOT button on the board, then connect it to your computer. The board will enter flashing mode.</p>
+<h3 id="writing-the-image-to-emmc-with-serial-connection">Writing the Image to eMMC (With Serial Connection)</h3>
+<h4 id="using-minicom">Using <code>minicom</code></h4>
+<p>First, open <code>minicom</code> from the terminal to access the serial console:</p>
+<pre><code class="language-bash">sudo minicom
+</code></pre>
+<p>If you need to specify the serial device (e.g., the commonly used USB-to-serial device <code>ttyUSB0</code>), you can use:</p>
+<pre><code class="language-bash">sudo minicom -D /dev/ttyUSB0
+</code></pre>
+<h4 id="using-screen">Using <code>screen</code></h4>
+<p>Open <code>screen</code> from the terminal. Replace <code>/dev/ttyUSB0</code> with your device, and <code>115200</code> with the baud rate:</p>
+<pre><code class="language-bash">sudo screen /dev/ttyUSB0 115200
+</code></pre>
+<p>As shown in the diagram, connect the serial port to the board. The USB end connects to the computer, while the Type-C port on the board connects to the computer using a USB-Type-C cable.</p>
+<p>For the serial connection, the red circle (first row, second pin from the left) is GND, the yellow circle (first row, fifth pin) is TX, and the green circle (second row, fifth pin) is RX. The connection to the host should follow TX to RX, RX to TX, and GND to GND.</p>
+<p><img alt="" src="../image%20for%20flash/lpi4a6.png" /></p>
+<p>After connecting, press any key in the serial console to interrupt the auto-start process. You will see the following u-boot command line (see the last line):</p>
+<p><img alt="" src="../image%20for%20flash/image-start.png" /></p>
+<p>In the serial console window, enter:</p>
+<pre><code class="language-bash">fastboot usb 0
+</code></pre>
+<p>The output will show:</p>
+<pre><code class="language-bash">Light LPI4A 16G# fastboot usb 0
+dwc3_gadget_start maximum_speed:5 revision:0x5533330b
+dwc3_gadget_start DWC3_DCFG:0x80804
+</code></pre>
+<p>This indicates that <code>fastboot</code> can be used for flashing. Open another terminal window to proceed with image flashing.</p>
+<h3 id="flashing-the-image">Flashing the Image</h3>
+<p>All commands below should be executed in the directory where the image files are located. Pay attention to the file paths and names.</p>
+<h4 id="put-the-device-into-u-boot-fastboot-mode">Put the Device into U-Boot Fastboot Mode</h4>
+<p>If the <code>lsusb</code> result is not <code>ID 1234:8888 Brain Actuated Technologies USB download gadget</code>, run the following commands:</p>
+<pre><code class="language-bash">fastboot flash ram u-boot-with-spl-lpi4a-16g.bin # Replace with the u-boot image for your specific model
+fastboot reboot
+sleep 1
+</code></pre>
+<h4 id="flash-the-image">Flash the Image</h4>
+<pre><code class="language-bash">fastboot flash uboot u-boot-with-spl-lpi4a-16g.bin
+fastboot flash boot boot-lpi4a-20240720_171951.ext4
+fastboot flash root root-lpi4a-20240720_171951.ext4
+</code></pre>
+<p><code>fastboot</code> will display the flashing progress. If a serial connection is established, you can view the detailed progress in the serial console (the example below shows flashing <code>boot</code>, with a size of 92,886,476 bytes. You can see the flashed content at <code>cmd_parameter: boot, imagesize: 92886476</code>).</p>
+<p><img alt="" src="../image%20for%20flash/flash-root-minicom.png" /></p>
+<p>Once flashing is complete, disconnect the USB-Type-C cable from the computer and the board, connect the power cable, and the system will boot up.</p>
+<h4 id="potential-issues">Potential Issues</h4>
+<p>If the <code>lsusb</code> output shows a download device but the <code>fastboot</code> command remains stuck at <code>&lt; waiting for any device &gt;</code>, try running the <code>fastboot</code> command with <code>sudo</code>.</p>
+<h3 id="user-login">User Login</h3>
+<ul>
+<li>Login account: <code>debian</code></li>
+<li>Password: <code>debian</code></li>
+</ul>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "code.highlight", "content.code.copy", "code.copy"], "search": "../../../assets/javascripts/workers/search.74e28a9f.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.220ee61c.min.js"></script>
+      
+        
+          <script src="https://cdnjs.loli.net/ajax/libs/pangu/4.0.7/pangu.min.js"></script>
+        
+      
+        
+          <script src="../../../_static/js/extra.js"></script>
+        
+      
+    
+  </body>
+</html>

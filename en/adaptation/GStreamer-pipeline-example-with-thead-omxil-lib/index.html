@@ -1,0 +1,2281 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../GStreamer%E6%92%AD%E6%94%BE%E5%99%A8%E9%80%82%E9%85%8D/">
+      
+      
+        <link rel="next" href="../../desktop/revyos-use-docker/">
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.1.21">
+    
+    
+      
+        <title>GStreamer Pipeline Example - RevyOS Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.eebd395e.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#gstreamer-pipeline-examples-with-thead-openmax-il-lib" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../" title="RevyOS Docs" class="md-header__button md-logo" aria-label="RevyOS Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            RevyOS Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              GStreamer Pipeline Example
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <div class="md-header__option">
+        <div class="md-select">
+          
+          <button class="md-header__button md-icon" aria-label="Select language">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.52 17.52 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04M18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12m-2.62 7 1.62-4.33L19.12 17h-3.24Z"/></svg>
+          </button>
+          <div class="md-select__inner">
+            <ul class="md-select__list">
+              
+                <li class="md-select__item">
+                  <a href="../../../adaptation/GStreamer-pipeline-example-with-thead-omxil-lib/" hreflang="zh" class="md-select__link">
+                    简体中文
+                  </a>
+                </li>
+              
+                <li class="md-select__item">
+                  <a href="./" hreflang="en" class="md-select__link">
+                    English
+                  </a>
+                </li>
+              
+            </ul>
+          </div>
+        </div>
+      </div>
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/revyos/docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    revyos/docs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../" class="md-tabs__link">
+      Home
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../build/debian/enable_optimization_gcc/" class="md-tabs__link">
+        Build
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../GStreamer%E6%92%AD%E6%94%BE%E5%99%A8%E9%80%82%E9%85%8D/" class="md-tabs__link md-tabs__link--active">
+        Porting Docs
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../desktop/revyos-use-docker/" class="md-tabs__link">
+        System Usage
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../benchmark/coremark/" class="md-tabs__link">
+        Benchmark
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../Installation/install/" class="md-tabs__link">
+        Installation
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../changelog/changelog-index/" class="md-tabs__link">
+        Changelog
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../issue/" class="md-tabs__link">
+      issue
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../" title="RevyOS Docs" class="md-nav__button md-logo" aria-label="RevyOS Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    RevyOS Docs
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/revyos/docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    revyos/docs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          Build
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Build
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+          Debian
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Debian
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../build/debian/enable_optimization_gcc/" class="md-nav__link">
+        Enable Optimization GCC
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../build/debian/Debian%E8%BD%AF%E4%BB%B6%E5%8C%85%E6%9E%84%E5%BB%BA%E6%B5%81%E7%A8%8B/" class="md-nav__link">
+        Debian Software Package Build Process
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../build/debian/%E7%BC%96%E8%AF%91%E5%99%A8%E7%9B%B8%E5%85%B3%E8%AF%B4%E6%98%8E/" class="md-nav__link">
+        Compiler Related Description
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+          Other Builds
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Other Builds
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../build/other/thead-qemu%E7%BC%96%E8%AF%91%E6%B5%81%E7%A8%8B/" class="md-nav__link">
+        T-Head QEMU Build Process
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../build/other/manuel_build_kernel/" class="md-nav__link">
+        Manuel Build Kernel
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../build/other/gcc%E7%BC%96%E8%AF%91%E8%BD%AF%E4%BB%B6%E8%AF%B4%E6%98%8E/" class="md-nav__link">
+        GCC Tips
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          Porting Docs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Porting Docs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GStreamer%E6%92%AD%E6%94%BE%E5%99%A8%E9%80%82%E9%85%8D/" class="md-nav__link">
+        GStreamer Player Porting
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          GStreamer Pipeline Example
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        GStreamer Pipeline Example
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#get-ready" class="md-nav__link">
+    Get ready
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pipeline-samples" class="md-nav__link">
+    Pipeline samples
+  </a>
+  
+    <nav class="md-nav" aria-label="Pipeline samples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test" class="md-nav__link">
+    Test
+  </a>
+  
+    <nav class="md-nav" aria-label="Test">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#videotestsrc" class="md-nav__link">
+    videotestsrc
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fpsdisplaysink" class="md-nav__link">
+    fpsdisplaysink
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audiotestsrc" class="md-nav__link">
+    audiotestsrc
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fakesink" class="md-nav__link">
+    fakesink
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#decode" class="md-nav__link">
+    Decode
+  </a>
+  
+    <nav class="md-nav" aria-label="Decode">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#video-decode" class="md-nav__link">
+    Video decode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audio-decode" class="md-nav__link">
+    Audio decode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#demux-and-decode" class="md-nav__link">
+    demux and decode
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#encode-to-file" class="md-nav__link">
+    Encode to file
+  </a>
+  
+    <nav class="md-nav" aria-label="Encode to file">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#video-encode" class="md-nav__link">
+    Video encode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audio-encode" class="md-nav__link">
+    Audio encode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mux-and-encode" class="md-nav__link">
+    mux and encode
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#media-file-transcode" class="md-nav__link">
+    Media file transcode
+  </a>
+  
+    <nav class="md-nav" aria-label="Media file transcode">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#video-transcode" class="md-nav__link">
+    Video transcode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audio-transcode" class="md-nav__link">
+    Audio transcode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#video-audio-remux-and-transcode" class="md-nav__link">
+    Video + audio remux and transcode
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#media-mixing" class="md-nav__link">
+    Media mixing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#camera-capture" class="md-nav__link">
+    Camera capture
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stream-transfer" class="md-nav__link">
+    Stream transfer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#other-tools" class="md-nav__link">
+    Other tools
+  </a>
+  
+    <nav class="md-nav" aria-label="Other tools">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gst-inspect-10" class="md-nav__link">
+    gst-inspect-1.0
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gst-discover10" class="md-nav__link">
+    gst-discover1.0
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gst-play-10" class="md-nav__link">
+    gst-play-1.0
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#other-examples" class="md-nav__link">
+    Other examples
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#get-ready_1" class="md-nav__link">
+    Get ready
+  </a>
+  
+    <nav class="md-nav" aria-label="Get ready">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#debug-tips" class="md-nav__link">
+    Debug tips
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#grammer" class="md-nav__link">
+    Grammer
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reference" class="md-nav__link">
+    Reference
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          System Usage
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          System Usage
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../desktop/revyos-use-docker/" class="md-nav__link">
+        Docker
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../desktop/install/" class="md-nav__link">
+        Install
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+          Software Usage
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_3">
+          <span class="md-nav__icon md-icon"></span>
+          Software Usage
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../desktop/software/gimp/" class="md-nav__link">
+        GIMP Image Editor
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../desktop/software/iBus/" class="md-nav__link">
+        iBus Input Method
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../desktop/software/ROS2/" class="md-nav__link">
+        ROS2
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+          Games
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_4">
+          <span class="md-nav__icon md-icon"></span>
+          Games
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../desktop/games/OpenTTD/" class="md-nav__link">
+        OpenTTD Game
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../desktop/games/yquake2/" class="md-nav__link">
+        yquake2 Game
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          Benchmark
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Benchmark
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../benchmark/coremark/" class="md-nav__link">
+        coremark
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../benchmark/stream/" class="md-nav__link">
+        stream
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../benchmark/reboot/" class="md-nav__link">
+        reboot-test
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../benchmark/lmbench/" class="md-nav__link">
+        lmbench
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../benchmark/glmark2/" class="md-nav__link">
+        glmark2
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../benchmark/p7zip/" class="md-nav__link">
+        p7zip
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../benchmark/Chromium-Fish-Bowl-Test/" class="md-nav__link">
+        Chromium Fish Bowl Test
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          Installation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Installation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Installation/install/" class="md-nav__link">
+        Installation Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Installation/licheepi4a/" class="md-nav__link">
+        Lichee Pi 4A
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Installation/milkv-pioneer/" class="md-nav__link">
+        Milk-V Pioneer
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+          Changelog
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Changelog
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/changelog-index/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_2" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_2" id="__nav_7_2_label" tabindex="0">
+          lpi4a
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7_2">
+          <span class="md-nav__icon md-icon"></span>
+          lpi4a
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/lpi4a/20240601/" class="md-nav__link">
+        20240601
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/lpi4a/20240202/" class="md-nav__link">
+        20240202
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/lpi4a/20231210/" class="md-nav__link">
+        20231210
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/lpi4a/20231026/" class="md-nav__link">
+        20231026
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/lpi4a/20230916/" class="md-nav__link">
+        20230916
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/lpi4a/20230810/" class="md-nav__link">
+        20230810
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/lpi4a/20230614/" class="md-nav__link">
+        20230614
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/lpi4a/20230511/" class="md-nav__link">
+        20230511
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/lpi4a/20230425/" class="md-nav__link">
+        20230425
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/lpi4a/20230412/" class="md-nav__link">
+        20230412
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_3" id="__nav_7_3_label" tabindex="0">
+          ahead
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7_3">
+          <span class="md-nav__icon md-icon"></span>
+          ahead
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/ahead/20230802/" class="md-nav__link">
+        20230802
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../issue/" class="md-nav__link">
+        issue
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#get-ready" class="md-nav__link">
+    Get ready
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pipeline-samples" class="md-nav__link">
+    Pipeline samples
+  </a>
+  
+    <nav class="md-nav" aria-label="Pipeline samples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test" class="md-nav__link">
+    Test
+  </a>
+  
+    <nav class="md-nav" aria-label="Test">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#videotestsrc" class="md-nav__link">
+    videotestsrc
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fpsdisplaysink" class="md-nav__link">
+    fpsdisplaysink
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audiotestsrc" class="md-nav__link">
+    audiotestsrc
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fakesink" class="md-nav__link">
+    fakesink
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#decode" class="md-nav__link">
+    Decode
+  </a>
+  
+    <nav class="md-nav" aria-label="Decode">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#video-decode" class="md-nav__link">
+    Video decode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audio-decode" class="md-nav__link">
+    Audio decode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#demux-and-decode" class="md-nav__link">
+    demux and decode
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#encode-to-file" class="md-nav__link">
+    Encode to file
+  </a>
+  
+    <nav class="md-nav" aria-label="Encode to file">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#video-encode" class="md-nav__link">
+    Video encode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audio-encode" class="md-nav__link">
+    Audio encode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mux-and-encode" class="md-nav__link">
+    mux and encode
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#media-file-transcode" class="md-nav__link">
+    Media file transcode
+  </a>
+  
+    <nav class="md-nav" aria-label="Media file transcode">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#video-transcode" class="md-nav__link">
+    Video transcode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audio-transcode" class="md-nav__link">
+    Audio transcode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#video-audio-remux-and-transcode" class="md-nav__link">
+    Video + audio remux and transcode
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#media-mixing" class="md-nav__link">
+    Media mixing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#camera-capture" class="md-nav__link">
+    Camera capture
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stream-transfer" class="md-nav__link">
+    Stream transfer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#other-tools" class="md-nav__link">
+    Other tools
+  </a>
+  
+    <nav class="md-nav" aria-label="Other tools">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gst-inspect-10" class="md-nav__link">
+    gst-inspect-1.0
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gst-discover10" class="md-nav__link">
+    gst-discover1.0
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gst-play-10" class="md-nav__link">
+    gst-play-1.0
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#other-examples" class="md-nav__link">
+    Other examples
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#get-ready_1" class="md-nav__link">
+    Get ready
+  </a>
+  
+    <nav class="md-nav" aria-label="Get ready">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#debug-tips" class="md-nav__link">
+    Debug tips
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#grammer" class="md-nav__link">
+    Grammer
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reference" class="md-nav__link">
+    Reference
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="gstreamer-pipeline-examples-with-thead-openmax-il-lib">GStreamer pipeline examples with thead OpenMax-IL lib</h1>
+<p>Some GStreamer pipeline command-line examples with <strong>omxil library</strong> on <strong>TH1520</strong>, <strong>RevyOS</strong></p>
+<h2 id="get-ready">Get ready</h2>
+<p>In this section, the grammer of the gstreamer command-line pipeline and some usefule debug tips are introduced. <strong>They have been moved to the end of the article.</strong></p>
+<h2 id="pipeline-samples">Pipeline samples</h2>
+<p>Basically, you neet to install <code>gstreamer1.0-plugins-base</code>, <code>gstreamer1.0-plugins-good</code>, <code>gstreamer1.0-plugins-bad</code>, <code>gstreamer1.0-omx-generic</code>, <code>gstreamer1.0-omx-bellagio-config</code>,<code>gstreamer1.0-tools</code>.</p>
+<h3 id="test">Test</h3>
+<h4 id="videotestsrc">videotestsrc</h4>
+<pre><code class="language-shell"># videotestsrc
+gst-launch-1.0 videotestsrc ! autovideosink
+
+# specify the video stream format
+gst-launch-1.0 videotestsrc ! video/x-raw, format=NV12, width=960, height=540, framerate=60/1 ! autovideosink
+</code></pre>
+<h4 id="fpsdisplaysink">fpsdisplaysink</h4>
+<pre><code class="language-shell"># display framerate
+gst-launch-1.0 videotestsrc ! fpsdisplaysink
+
+# no need to sync on the clock - used to test the performance of the pipeline
+gst-launch-1.0 videotestsrc ! fpsdisplaysink sync=false
+
+# stop display on the screen, but redirect the output to stdout
+gst-launch-1.0 videotestsrc ! fpsdisplaysink text-overlay=false -v 2&gt;&amp;1
+
+# specify which sink to use
+gst-launch-1.0 videotestsrc ! fpsdisplaysink sink=glimagesink
+
+# combine the previous examples
+gst-launch-1.0 videotestsrc ! fpsdisplaysink sink=glimagesink sync=false text-overlay=false -v 2&gt;&amp;1
+</code></pre>
+<h4 id="audiotestsrc">audiotestsrc</h4>
+<pre><code class="language-shell"># audiotestsrc
+gst-launch-1.0 audiotestsrc ! autoaudiosink
+
+# change volume (0 to 1)
+gst-launch-1.0 audiotestsrc volume=0.1 ! autoaudiosink
+
+# change waveform
+# could be selected among square, silence, pink-noise, etc.
+gst-launch-1.0 audiotestsrc wave=pink-noise ! autoaudiosink
+
+# set fix frequency, such as &quot;do&quot; (262 Hz)
+gst-launch-1.0 audiotestsrc freq=262 ! autoaudiosink
+</code></pre>
+<h4 id="fakesink">fakesink</h4>
+<pre><code class="language-shell"># a dummy sink that swallows everything
+gst-launch-1.0 videotestsrc ! fakesink
+</code></pre>
+<h3 id="decode">Decode</h3>
+<h4 id="video-decode">Video decode</h4>
+<pre><code class="language-shell"># let decodebin choose which decoder to use,
+# and autovideosink choose which video-sink to use (not recommended)
+gst-launch-1.0 filesrc location=fire.mp4 ! decodebin ! autovideosink
+
+# h264 software decode without opengl display
+gst-launch-1.0 filesrc location=fire.mp4 ! qtdemux ! h264parse ! avdec_h264 ! xvimagesink
+
+# h264 hardware decode with opengl display
+gst-launch-1.0 filesrc location=fire.mp4 ! qtdemux ! h264parse ! omxh264dec ! glimagesink
+
+# h265 hardware decode
+gst-launch-1.0 filesrc location=fire.mp4 ! qtdemux ! h265parse ! omxh265dec ! glimagesink
+
+# vp9 hardware decode 
+gst-launch-1.0 filesrc location=fire.webm ! matroskademux ! omxvp9dec ! glimagesink
+
+# mpeg4 hardware decode 
+gst-launch-1.0 filesrc location=fire.mp4 ! qtdemux ! queue ! mpeg4videoparse ! omxmpeg4videodec ! glimagesink
+
+# play mkv/webm file
+gst-launch-1.0 filesrc location=fire.mkv ! matroskademux ! decodebin ! glimagesink
+
+# todo 10-bit h264/h265 decode
+</code></pre>
+<h4 id="audio-decode">Audio decode</h4>
+<pre><code class="language-shell"># there is no hardware decoder on th1520
+
+# let autoaudiosink choose which audio-sink to use
+gst-launch-1.0 filesrc location=blade.mp3 ! decodebin ! audioconvert ! autoaudiosink
+
+# mp3 decode
+gst-launch-1.0 filesrc location=blade.mp3 ! mpegaudioparse ! avdec_mp3 ! audioconvert ! autoaudiosink
+
+# aac decode
+gst-launch-1.0 filesrc location=blade.aac ! aacparse ! avdec_aac ! audioconvert ! autoaudiosink
+gst-launch-1.0 filesrc location=blade.aac ! aacparse ! faad ! audioconvert ! autoaudiosink
+## faad works well without aacparse
+gst-launch-1.0 filesrc location=blade.aac ! faad ! audioconvert ! autoaudiosink
+
+# opus decode
+## ogg file must be demuxed by oggdemux first
+gst-launch-1.0 filesrc location=blade.ogg ! oggdemux ! opusparse ! opusdec ! audioconvert ! autoaudiosink
+gst-launch-1.0 filesrc location=blade.ogg ! oggdemux ! opusparse ! avdec_opus ! audioconvert ! autoaudiosink
+
+# wav decode
+gst-launch-1.0 filesrc location=test.wav ! wavparse ! audioresample ! audioconvert ! autoaudiosink
+
+# use specific audiosink
+gst-launch-1.0 filesrc location=blade.mp3 ! decodebin ! audioconvert ! pulsesink
+
+# specify the output device by using alsasink with device property
+gst-launch-1.0 filesrc location=blade.mp3 ! decodebin ! audioconvert ! alsasink device=hw:0,2
+</code></pre>
+<h4 id="demux-and-decode">demux and decode</h4>
+<p>We play media file in this section.</p>
+<pre><code class="language-shell"># play mp4 file with both audio and video
+gst-launch-1.0 filesrc location=fire.mp4 ! qtdemux name=demux \
+  demux.video_0 ! queue  ! decodebin ! videoconvert ! autovideosink \
+  demux.audio_0 ! queue ! decodebin ! audioconvert !  autoaudiosink
+</code></pre>
+<h3 id="encode-to-file">Encode to file</h3>
+<h4 id="video-encode">Video encode</h4>
+<pre><code class="language-shell"># h264 encode test
+# before import video stream to omxh264dec, data should be transformed to frame with rawvideoparse
+# property and pad of rawvideoparse should be set to the same, so we use 'use-sink-caps=true' here
+gst-launch-1.0 videotestsrc ! videoconvert \
+  ! video/x-raw, format=NV12, width=640, height=480 \
+  ! rawvideoparse use-sink-caps=true ! omxh264enc ! fakesink
+
+# h264 hardware encode to file
+## todo: encoded h264 file has seek problem
+gst-launch-1.0 videotestsrc ! videoconvert \
+  ! video/x-raw, format=NV12, width=640, height=480 \
+  ! rawvideoparse use-sink-caps=true ! omxh264enc \
+  ! h264parse ! qtmux ! mp4mux ! filesink location=test.mp4
+
+# h264 hardware encode to file with specific bitrate(bit per second)
+gst-launch-1.0 videotestsrc ! videoconvert \
+  ! video/x-raw, format=NV12, width=640, height=480 \
+  ! rawvideoparse use-sink-caps=true  \
+  ! omxh264enc target-bitrate=3000000 \
+  ! h264parse ! filesink location=test.mp4
+
+
+# h265 hardware encode to file
+## this pipeline produces h265 stream only
+## qtdemux is not needed while decoding
+gst-launch-1.0 videotestsrc ! videoconvert \
+  ! video/x-raw, format=NV12, width=640, height=480 \
+  ! rawvideoparse use-sink-caps=true ! omxh265enc \
+  ! h265parse ! filesink location=test.h265
+
+# h264 hardware encode from camera to file
+gst-launch-1.0 v4l2src device=/dev/video0 ! videoconvert \
+  ! video/x-raw, format=NV12,width=640,height=480 \
+  ! rawvideoparse use-sink-caps=true \
+  ! omxh264enc ! h264parse ! filesink location=test.mp4 -e
+</code></pre>
+<h4 id="audio-encode">Audio encode</h4>
+<pre><code class="language-shell"># There is no hardware audio encoder on th1520
+
+# encode aac stream with adts container(.aac file)
+## the unit of the bitrate is 'bit/sec'
+gst-launch-1.0 audiotestsrc ! voaacenc bitrate=128000 ! avmux_adts ! filesink location=test.aac
+
+
+# todo: encode aac stream with adif container(.m4a file)
+
+# encode to mp3 file
+## the unit of the bitrate is 'kbit/sec'
+gst-launch-1.0 audiotestsrc ! lamemp3enc quality=2 target=bitrate bitrate=192 cbr=true ! id3v2mux ! filesink location=test.mp3
+
+# encode opus stream to .ogg file
+gst-launch-1.0 audiotestsrc ! opusenc ! oggmux ! filesink location=test.opus
+
+
+# todo: encode pcm stream to .wav file
+</code></pre>
+<h4 id="mux-and-encode">mux and encode</h4>
+<p>This part has been removed to <code>Video + audio transcode</code> section.</p>
+<h3 id="media-file-transcode">Media file transcode</h3>
+<h4 id="video-transcode">Video transcode</h4>
+<p>Since <code>omx...dec</code> cannot fulfill qtdemux and mp4mux, and gst-omx is no longer maintained, it is hard to mux mp4 file with these two plugins. To mux stream from omxh264dec, use <code>avmux_mp4</code> instead. But there is no h265 or vp9 muxer available for <code>omx...dec</code></p>
+<p>The raw video stream should be processed by <code>rawvideoparse</code> before sent to encoder. Because  itself cannot scale frame or change framerate, <code>rawvideoparse</code> need to get the stream info of its sink pad(src pad of the backward element). Therefore <code>use-sink-caps</code> must be set to <code>true</code>.</p>
+<p>To change width and height, set properties <code>output-width</code> and <code>output-height</code> of <code>omx...dec</code>. To modify bitrate and bitrate control method, set properties <code>control-rate</code> and <code>target-bitrate</code> of <code>omx...enc</code>. To change framerate, set properties of <code>videorate</code>.</p>
+<pre><code class="language-shell"># h265 to h264
+gst-launch-1.0 filesrc location=test_h265.mp4 ! qtdemux ! h265parse ! omxh265dec \
+  ! rawvideoparse use-sink-caps=true \
+  ! omxh264enc ! h264parse ! avmux_mp4 ! filesink location=t_h264.mp4
+
+# vp9 to h264
+gst-launch-1.0 filesrc location=test_vp9.webm ! matroskademux ! omxvp9dec \
+  ! rawvideoparse use-sink-caps=true \
+  ! omxh264enc ! h264parse ! avmux_mp4 ! filesink location=t_h264.mp4
+
+# arbitrary input to h264
+gst-launch-1.0 filesrc location=test_h264.mp4 ! decodebin \
+  ! rawvideoparse use-sink-caps=true \
+  ! omxh264enc ! h264parse ! filesink location=t_h264.mp4
+
+# h264 to h264, with more options
+## set the video width and height to 1280×720, framerate to 15fps, bitrate mode to constant and bitrate to 5Mbps
+gst-launch-1.0 filesrc location=test_h264.mp4 ! qtdemux ! h264parse \
+  ! omxh264dec output-width=1280 output-height=720 \
+  ! videorate ! video/x-raw, framerate=15/1 \
+  ! rawvideoparse use-sink-caps=true  \
+  ! omxh264enc control-rate=constant target-bitrate=5000000 ! h264parse ! filesink location=t_h264.mp4
+
+## there is no vp9 encoder in th1520 omxil lib
+</code></pre>
+<h4 id="audio-transcode">Audio transcode</h4>
+<pre><code class="language-shell"># aac to mp3
+gst-launch-1.0 filesrc location=test.aac ! aacparse ! avdec_aac ! audioconvert ! lamemp3enc quality=2 target=bitrate bitrate=192 cbr=true ! id3v2mux ! filesink location=t.mp3
+
+# mp3 to aac
+gst-launch-1.0 filesrc location=test.mp3 ! mpegaudioparse ! avdec_mp3 ! audioconvert ! voaacenc bitrate=128000 ! avmux_adts ! filesink location=t.aac
+
+# wav to mp3
+gst-launch-1.0 filesrc location=test.wav ! wavparse ! audioresample ! audioconvert ! lamemp3enc quality=2 target=bitrate bitrate=192 cbr=true ! id3v2mux ! filesink location=t.mp3
+
+# mp3 to wav
+gst-launch-1.0 filesrc location=test.mp3 ! mpegaudioparse ! avdec_mp3 ! audioresample ! audioconvert \
+  ! audio/x-raw, rate=44100, format=S16LE ! wavenc ! filesink location=t.wav
+</code></pre>
+<h4 id="video-audio-remux-and-transcode">Video + audio remux and transcode</h4>
+<pre><code class="language-shell"># mux test
+gst-launch-1.0 audiotestsrc ! autoaudiosink videotestsrc ! autovideosink
+
+# mux the test video and audio stream to a mp4 file
+## be aware that '-e' must be set to this pipeline,
+## and there is no '!' before audiotestsrc
+gst-launch-1.0 -e videotestsrc ! videoconvert \
+  ! video/x-raw, format=NV12, width=960, height=540 \
+  ! rawvideoparse use-sink-caps=true ! omxh264enc ! h264parse \
+  ! avmux_mp4 name=mux ! filesink location=t_h264.mp4 \
+  audiotestsrc ! lamemp3enc ! mux.
+
+# change container from mkv to mp4 with h264 stream
+## this means demux a mkv file then mux video and audio stream to mp4 file
+gst-launch-1.0 filesrc location=test_h264.mkv \
+  ! matroskademux name=demux mp4mux force-create-timecode-trak=true name=mux ! filesink location=t_h264.mp4 \
+  demux.video_0 ! queue ! video/x-h264 ! mux. \
+  demux.audio_0 ! queue ! audio/mpeg ! mux.
+</code></pre>
+<h3 id="media-mixing">Media mixing</h3>
+<h3 id="camera-capture">Camera capture</h3>
+<p>You can use command <code>v4l2-ctl</code>, which is included in package <code>v4l-utils</code> to get information of your camera.</p>
+<p>For more information, read <a href="https://archive.md/nlyBK">this article</a></p>
+<pre><code class="language-shell"># h264 hardware encode from camera to file
+gst-launch-1.0 v4l2src device=/dev/video0 ! videoconvert \
+  ! video/x-raw, format=NV12,width=640,height=480 \
+  ! rawvideoparse format=nv12 width=640 height=480 \
+  ! omxh264enc ! h264parse ! filesink location=test.mp4 -e
+
+</code></pre>
+<h3 id="stream-transfer">Stream transfer</h3>
+<pre><code class="language-bash"># capture camera and stream to other machine
+
+## source
+gst-launch-1.0 v4l2src device=/dev/video0 !  videoconvert ! videorate \
+  ! video/x-raw,  format=NV12,width=640,height=480,framerate=20/1 \
+  ! rawvideoparse format=nv12 width=640 height=480  framerate=20/1 \
+  ! omxh264enc ! h264parse config-interval=1 ! video/x-h264,stream-format=byte-stream,alignment=nal \
+  ! rtph264pay ! udpsink  host=192.168.31.27 port=5600
+
+## destination
+gst-launch-1.0 udpsrc port=5600 caps='application/x-rtp, media=(string)video, clock-rate=(int)90000, encoding-name=(string)H264' \
+  ! rtph264depay ! h264parse ! avdec_h264 ! autovideosink
+</code></pre>
+<h3 id="other-tools">Other tools</h3>
+<h4 id="gst-inspect-10">gst-inspect-1.0</h4>
+<p><code>gst-inspect-1.0</code> is a tool to print info about a GStreamer element(factory), which is included in <code>gstreamer1.0-tools</code>.</p>
+<pre><code class="language-shell"># print the GStreamer element list with a 'less' like paing filter.
+gst-inspect-1.0
+
+# print info of the element
+gst-inspect-1.0 &lt;element_name&gt;
+</code></pre>
+<h4 id="gst-discover10">gst-discover1.0</h4>
+<p><code>gst-discover-1.0</code> is a tool to show info about the media file, which is inclucded in <code>gstreamer1.0-plugins-base-apps</code>.</p>
+<pre><code class="language-shell">gst-discoverer-1.0 -v test.mp4
+</code></pre>
+<h4 id="gst-play-10">gst-play-1.0</h4>
+<p>If you are tired of manually build pipeline for playback by hand. You can use <code>gst-play-1.0</code> as an alternative, which is included in <code>gstreamer1.0-plugins-base-apps</code>.</p>
+<pre><code class="language-shell"># play media file
+gst-play-1.0 test.mp4
+
+# play media file with specific sink
+gst-play-1.0 --videosink=glimagesink --audiosink=alsasink
+</code></pre>
+<p>Left button and right button can be used to seek. For more info, please read <a href="https://manpages.ubuntu.com/manpages/xenial/man1/gst-play-1.0.1.html">this article</a>.</p>
+<h3 id="other-examples">Other examples</h3>
+<h2 id="get-ready_1">Get ready</h2>
+<h3 id="debug-tips">Debug tips</h3>
+<p>To get the cap info or property of an element, you may need to run <code>gst-inspect-1.0 &lt;element_name&gt;</code>. If <code>gst-inspect-1.0</code> command not found, install <code>gstreamer1.0-tools</code>.</p>
+<p>If you want to debug GStreamer, refer to the articles below.
+<a href="https://gstreamer.freedesktop.org/documentation/tutorials/basic/debugging-tools.html">https://gstreamer.freedesktop.org/documentation/tutorials/basic/debugging-tools.html</a>
+<a href="https://gstreamer.freedesktop.org/documentation/gstreamer/running.html?gi-language=c">https://gstreamer.freedesktop.org/documentation/gstreamer/running.html?gi-language=c</a></p>
+<h3 id="grammer">Grammer</h3>
+<p>Here is a simple command-line pipeline.</p>
+<pre><code class="language-shell">gst-launch-1.0 videotestsrc ! autovideosink
+</code></pre>
+<p><strong><code>!</code> represent a link.</strong> The established pipeline looks like</p>
+<pre><code class="language-plain">videotestsrc =&gt; autovideosink
+</code></pre>
+<p>There are several properties  in videotestsrc, which could be lookup by <code>gst-inspect-1.0 videotestsrc</code>.Set some properties:</p>
+<pre><code class="language-shell">gst-launch-1.0 videotestsrc pattern=ball flip=true ! autovideosink
+</code></pre>
+<p><strong><code>NAME=VALUE</code> is a property.</strong> <code>pattern</code> and <code>flip</code> are properties of videotestsrc.</p>
+<p>Sometimes we need to control the behavior of <code>gst-launch-1.0</code>.</p>
+<pre><code class="language-shell">GST_DEBUG=3 gst-launch-1.0 videotestsrc pattern=ball flip=true ! autovideosink
+gst-launch-1.0 videotestsrc pattern=ball flip=true ! autovideosink --gst-debug-level=3
+</code></pre>
+<p>There are two ways to achieve this goal. One is setting <strong>environment variable</strong>. Another one is passing <strong>command-line argument</strong> to <code>gst-launch-1.0</code>. <code>GST_DEBUG=3</code> and <code>--gst-debug-level=3</code> have the same meaning.</p>
+<p>In most video decoding cases, there is a video-stream and an audio stream. We need to use <strong>demuxer</strong> to seperate them. Demuxer usually have several src pad. Here is an example.</p>
+<pre><code class="language-shell">gst-launch-1.0 filesrc location=test-video.mp4 ! qtdemux name=demux demux. ! queue ! h264parse ! omxh264dec ! glimagesink demux. ! queue ! aacparse ! avdec_aac ! audioconvert !  alsasink
+</code></pre>
+<p>It is hard to read. Add some word wrap:</p>
+<pre><code class="language-shell">gst-launch-1.0 filesrc location=test-video.mp4 ! qtdemux name=demux \
+  demux. ! queue ! h264parse ! omxh264dec ! glimagesink \
+  demux. ! queue ! aacparse ! avdec_aac ! audioconvert ! pulsesink
+</code></pre>
+<p>Here we use a demuxer to seperate video and audio, the grammer is:</p>
+<pre><code class="language-plain">... demuxer name=DEMUXER_NAME \
+DEMUXER_NAME.PIPELINE_NAME_1 ! queue ! ...(the remaining part of pipeline 1) \
+DEMUXER_NAME.PIPELINE_NAME_2 ! queue ! ...(the remaining part of pipeline 2)
+</code></pre>
+<p>Sometimes we need to set certain properties of the stream at certain nodes in the pipeline, e.g set resolution of the videostream of the <code>videotestsrc</code>.</p>
+<pre><code class="language-shell">gst-launch-1.0 videotestsrc ! video/x-raw, width=800, height=600 ! glimagesink
+</code></pre>
+<p>We negotiated the pad properties between <code>videotestsrc</code> and <code>glimagesink</code>. The property names and values must be supported by both element. You can find them in <code>Pad Templates</code> section of <code>gst-inspect-1.0</code>.</p>
+<h2 id="reference">Reference</h2>
+<ol>
+<li><a href="https://stackoverflow.com/questions/25382211/">GStreamer pipeline grammar - StackOverflow</a></li>
+<li><a href="https://gist.github.com/hum4n0id/cda96fb07a34300cdb2c0e314c14df0a">GStreamer pipeline samples - GitHub</a></li>
+<li><a href="https://gstreamer.freedesktop.org/documentation/tools/gst-launch.html">gst-launch-1.0 - GStreamer doc</a></li>
+<li><a href="https://stackoverflow.com/questions/73948308/">How to display fps of streaming video in gsteramer? - StackOverflow</a></li>
+<li><a href="https://stackoverflow.com/questions/37496912">Storing AAC Audio and Retrieving - StackOverflow</a></li>
+<li><a href="https://developer.download.nvidia.com/embedded/L4T/r32_Release_v1.0/Docs/Accelerated_GStreamer_User_Guide.pdf">Accelerated GStreamer User Guide - NVIDIA</a></li>
+<li><a href="https://stackoverflow.com/questions/37496912">Storing AAC Audio and Retrieving - StackOverflow</a></li>
+<li><a href="https://stackoverflow.com/questions/70672729">Play an opus file with gstreamer and pulseaudio - StackOverflow</a></li>
+<li><a href="https://forums.raspberrypi.com/viewtopic.php?t=206714&amp;sid=ec650e96fc653a8ad0e06dd099cb9220">mp4mux not working with omxh264enc</a></li>
+<li><a href="https://gitlab.freedesktop.org/gstreamer/gst-omx/-/issues/13">omxh264enc makes qtmux error out with "Buffer has no PTS." - FreeDesktop - Gitlab</a></li>
+<li><a href="https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_requests/4976/">gst-omx: Retire the whole package - FreeDesktop - Gitlab</a></li>
+</ol>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "code.highlight", "content.code.copy", "code.copy"], "search": "../../../assets/javascripts/workers/search.74e28a9f.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.220ee61c.min.js"></script>
+      
+        
+          <script src="https://cdnjs.loli.net/ajax/libs/pangu/4.0.7/pangu.min.js"></script>
+        
+      
+        
+          <script src="../../../_static/js/extra.js"></script>
+        
+      
+    
+  </body>
+</html>

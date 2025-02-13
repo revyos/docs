@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+    <url>
+         <loc>None./</loc>
+         <lastmod>2025-02-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/"/>
+         
+    </url>
+    <url>
+         <loc>Noneissue/</loc>
+         <lastmod>2025-02-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/issue/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/issue/"/>
+         
+    </url>
+    <url>
+         <loc>NoneInstallation/install/</loc>
+         <lastmod>2025-02-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/Installation/install/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/Installation/install/"/>
+         
+    </url>
+    <url>
+         <loc>NoneInstallation/licheebook/</loc>
+         <lastmod>2025-02-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/Installation/licheebook/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/Installation/licheebook/"/>
+         
+    </url>
+    <url>
+         <loc>NoneInstallation/licheeconsole4a/</loc>
+         <lastmod>2025-02-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/Installation/licheeconsole4a/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/Installation/licheeconsole4a/"/>
+         
+    </url>
+    <url>
+         <loc>NoneInstallation/licheepi4a/</loc>
+         <lastmod>2025-02-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/Installation/licheepi4a/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/Installation/licheepi4a/"/>
+         
+    </url>
+    <url>
+         <loc>NoneInstallation/milkv-meles/</loc>
+         <lastmod>2025-02-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/Installation/milkv-meles/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/Installation/milkv-meles/"/>
+         
+    </url>
+    <url>
+         <loc>NoneInstallation/milkv-pioneer/</loc>
+         <lastmod>2025-02-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/Installation/milkv-pioneer/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/Installation/milkv-pioneer/"/>
+         
+    </url>
+    <url>
+         <loc>Noneadaptation/GStreamer-pipeline-example-with-thead-omxil-lib/</loc>
+         <lastmod>2025-02-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/adaptation/GStreamer-pipeline-example-with-thead-omxil-lib/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/adaptation/GStreamer-pipeline-example-with-thead-omxil-lib/"/>
+         
+    </url>
+    <url>
+         <loc>Noneadaptation/GStreamer%E6%92%AD%E6%94%BE%E5%99%A8%E9%80%82%E9%85%8D/</loc>
+         <lastmod>2025-02-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/adaptation/GStreamer%E6%92%AD%E6%94%BE%E5%99%A8%E9%80%82%E9%85%8D/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/adaptation/GStreamer%E6%92%AD%E6%94%BE%E5%99%A8%E9%80%82%E9%85%8D/"/>
+         
+    </url>
+    <url>
+         <loc>Nonebenchmark/Chromium-Fish-Bowl-Test/</loc>
+         <lastmod>2025-02-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/benchmark/Chromium-Fish-Bowl-Test/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/benchmark/Chromium-Fish-Bowl-Test/"/>
+         
+    </url>
+    <url>
+         <loc>Nonebenchmark/coremark/</loc>
+         <lastmod>2025-02-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/benchmark/coremark/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/benchmark/coremark/"/>
+         
+    </url>
+    <url>
+         <loc>Nonebenchmark/glmark2/</loc>
+         <lastmod>2025-02-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/benchmark/glmark2/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/benchmark/glmark2/"/>
+         
+    </url>
+    <url>
+         <loc>Nonebenchmark/lmbench/</loc>
+         <lastmod>2025-02-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/benchmark/lmbench/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/benchmark/lmbench/"/>
+         
+    </url>
+    <url>
+         <loc>Nonebenchmark/p7zip/</loc>
+         <lastmod>2025-02-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/benchmark/p7zip/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/benchmark/p7zip/"/>
+         
+    </url>
+    <url>
+         <loc>Nonebenchmark/reboot/</loc>
+         <lastmod>2025-02-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/benchmark/reboot/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/benchmark/reboot/"/>
+         
+    </url>
+    <url>
+         <loc>Nonebenchmark/stream/</loc>
+         <lastmod>2025-02-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/benchmark/stream/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/benchmark/stream/"/>
+         
+    </url>
+    <url>
+         <loc>Nonebuild/debian/Debian%E8%BD%AF%E4%BB%B6%E5%8C%85%E6%9E%84%E5%BB%BA%E6%B5%81%E7%A8%8B/</loc>
+         <lastmod>2025-02-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/build/debian/Debian%E8%BD%AF%E4%BB%B6%E5%8C%85%E6%9E%84%E5%BB%BA%E6%B5%81%E7%A8%8B/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/build/debian/Debian%E8%BD%AF%E4%BB%B6%E5%8C%85%E6%9E%84%E5%BB%BA%E6%B5%81%E7%A8%8B/"/>
+         
+    </url>
+    <url>
+         <loc>Nonebuild/debian/enable_optimization_gcc/</loc>
+         <lastmod>2025-02-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/build/debian/enable_optimization_gcc/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/build/debian/enable_optimization_gcc/"/>
+         
+    </url>
+    <url>
+         <loc>Nonebuild/debian/%E7%BC%96%E8%AF%91%E5%99%A8%E7%9B%B8%E5%85%B3%E8%AF%B4%E6%98%8E/</loc>
+         <lastmod>2025-02-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/build/debian/%E7%BC%96%E8%AF%91%E5%99%A8%E7%9B%B8%E5%85%B3%E8%AF%B4%E6%98%8E/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/build/debian/%E7%BC%96%E8%AF%91%E5%99%A8%E7%9B%B8%E5%85%B3%E8%AF%B4%E6%98%8E/"/>
+         
+    </url>
+    <url>
+         <loc>Nonebuild/other/gcc%E7%BC%96%E8%AF%91%E8%BD%AF%E4%BB%B6%E8%AF%B4%E6%98%8E/</loc>
+         <lastmod>2025-02-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/build/other/gcc%E7%BC%96%E8%AF%91%E8%BD%AF%E4%BB%B6%E8%AF%B4%E6%98%8E/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/build/other/gcc%E7%BC%96%E8%AF%91%E8%BD%AF%E4%BB%B6%E8%AF%B4%E6%98%8E/"/>
+         
+    </url>
+    <url>
+         <loc>Nonebuild/other/manuel_build_kernel/</loc>
+         <lastmod>2025-02-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/build/other/manuel_build_kernel/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/build/other/manuel_build_kernel/"/>
+         
+    </url>
+    <url>
+         <loc>Nonebuild/other/thead-qemu%E7%BC%96%E8%AF%91%E6%B5%81%E7%A8%8B/</loc>
+         <lastmod>2025-02-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/build/other/thead-qemu%E7%BC%96%E8%AF%91%E6%B5%81%E7%A8%8B/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/build/other/thead-qemu%E7%BC%96%E8%AF%91%E6%B5%81%E7%A8%8B/"/>
+         
+    </url>
+    <url>
+         <loc>Nonechangelog/changelog-index/</loc>
+         <lastmod>2025-02-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/changelog/changelog-index/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/changelog/changelog-index/"/>
+         
+    </url>
+    <url>
+         <loc>Nonechangelog/ahead/20230802/</loc>
+         <lastmod>2025-02-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/changelog/ahead/20230802/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/changelog/ahead/20230802/"/>
+         
+    </url>
+    <url>
+         <loc>Nonechangelog/lpi4a/20230412/</loc>
+         <lastmod>2025-02-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/changelog/lpi4a/20230412/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/changelog/lpi4a/20230412/"/>
+         
+    </url>
+    <url>
+         <loc>Nonechangelog/lpi4a/20230425/</loc>
+         <lastmod>2025-02-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/changelog/lpi4a/20230425/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/changelog/lpi4a/20230425/"/>
+         
+    </url>
+    <url>
+         <loc>Nonechangelog/lpi4a/20230511/</loc>
+         <lastmod>2025-02-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/changelog/lpi4a/20230511/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/changelog/lpi4a/20230511/"/>
+         
+    </url>
+    <url>
+         <loc>Nonechangelog/lpi4a/20230614/</loc>
+         <lastmod>2025-02-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/changelog/lpi4a/20230614/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/changelog/lpi4a/20230614/"/>
+         
+    </url>
+    <url>
+         <loc>Nonechangelog/lpi4a/20230810/</loc>
+         <lastmod>2025-02-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/changelog/lpi4a/20230810/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/changelog/lpi4a/20230810/"/>
+         
+    </url>
+    <url>
+         <loc>Nonechangelog/lpi4a/20230916/</loc>
+         <lastmod>2025-02-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/changelog/lpi4a/20230916/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/changelog/lpi4a/20230916/"/>
+         
+    </url>
+    <url>
+         <loc>Nonechangelog/lpi4a/20231026/</loc>
+         <lastmod>2025-02-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/changelog/lpi4a/20231026/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/changelog/lpi4a/20231026/"/>
+         
+    </url>
+    <url>
+         <loc>Nonechangelog/lpi4a/20231210/</loc>
+         <lastmod>2025-02-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/changelog/lpi4a/20231210/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/changelog/lpi4a/20231210/"/>
+         
+    </url>
+    <url>
+         <loc>Nonechangelog/lpi4a/20240202/</loc>
+         <lastmod>2025-02-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/changelog/lpi4a/20240202/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/changelog/lpi4a/20240202/"/>
+         
+    </url>
+    <url>
+         <loc>Nonechangelog/lpi4a/20240601/</loc>
+         <lastmod>2025-02-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/changelog/lpi4a/20240601/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/changelog/lpi4a/20240601/"/>
+         
+    </url>
+    <url>
+         <loc>Nonedesktop/install/</loc>
+         <lastmod>2025-02-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/desktop/install/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/desktop/install/"/>
+         
+    </url>
+    <url>
+         <loc>Nonedesktop/revyos-use-docker/</loc>
+         <lastmod>2025-02-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/desktop/revyos-use-docker/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/desktop/revyos-use-docker/"/>
+         
+    </url>
+    <url>
+         <loc>Nonedesktop/games/OpenTTD/</loc>
+         <lastmod>2025-02-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/desktop/games/OpenTTD/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/desktop/games/OpenTTD/"/>
+         
+    </url>
+    <url>
+         <loc>Nonedesktop/games/yquake2/</loc>
+         <lastmod>2025-02-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/desktop/games/yquake2/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/desktop/games/yquake2/"/>
+         
+    </url>
+    <url>
+         <loc>Nonedesktop/software/ROS2/</loc>
+         <lastmod>2025-02-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/desktop/software/ROS2/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/desktop/software/ROS2/"/>
+         
+    </url>
+    <url>
+         <loc>Nonedesktop/software/gimp/</loc>
+         <lastmod>2025-02-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/desktop/software/gimp/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/desktop/software/gimp/"/>
+         
+    </url>
+    <url>
+         <loc>Nonedesktop/software/iBus/</loc>
+         <lastmod>2025-02-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="Noneen/desktop/software/iBus/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/desktop/software/iBus/"/>
+         
+    </url>
+</urlset>

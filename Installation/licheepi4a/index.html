@@ -1,0 +1,2176 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../install/">
+      
+      
+        <link rel="next" href="../milkv-pioneer/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.1.21">
+    
+    
+      
+        <title>Lichee Pi 4A - RevyOS Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.eebd395e.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#licheepi4a" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="RevyOS Docs" class="md-header__button md-logo" aria-label="RevyOS Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            RevyOS Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lichee Pi 4A
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <div class="md-header__option">
+        <div class="md-select">
+          
+          <button class="md-header__button md-icon" aria-label="选择当前语言">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.52 17.52 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04M18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12m-2.62 7 1.62-4.33L19.12 17h-3.24Z"/></svg>
+          </button>
+          <div class="md-select__inner">
+            <ul class="md-select__list">
+              
+                <li class="md-select__item">
+                  <a href="./" hreflang="zh" class="md-select__link">
+                    简体中文
+                  </a>
+                </li>
+              
+                <li class="md-select__item">
+                  <a href="../../en/Installation/licheepi4a/" hreflang="en" class="md-select__link">
+                    English
+                  </a>
+                </li>
+              
+            </ul>
+          </div>
+        </div>
+      </div>
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/revyos/docs" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    revyos/docs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../.." class="md-tabs__link">
+      主页
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../build/debian/enable_optimization_gcc/" class="md-tabs__link">
+        构建文档
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../adaptation/GStreamer%E6%92%AD%E6%94%BE%E5%99%A8%E9%80%82%E9%85%8D/" class="md-tabs__link">
+        适配文档
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../desktop/revyos-use-docker/" class="md-tabs__link">
+        系统使用
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../benchmark/coremark/" class="md-tabs__link">
+        Benchmark
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../install/" class="md-tabs__link md-tabs__link--active">
+        镜像刷写
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../changelog/changelog-index/" class="md-tabs__link">
+        Changelog
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../issue/" class="md-tabs__link">
+      issue
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="RevyOS Docs" class="md-nav__button md-logo" aria-label="RevyOS Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    RevyOS Docs
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/revyos/docs" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    revyos/docs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        主页
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          构建文档
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          构建文档
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+          Debian 相关
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Debian 相关
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../build/debian/enable_optimization_gcc/" class="md-nav__link">
+        如何启用优化GCC
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../build/debian/Debian%E8%BD%AF%E4%BB%B6%E5%8C%85%E6%9E%84%E5%BB%BA%E6%B5%81%E7%A8%8B/" class="md-nav__link">
+        Debian 软件包构建流程
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../build/debian/%E7%BC%96%E8%AF%91%E5%99%A8%E7%9B%B8%E5%85%B3%E8%AF%B4%E6%98%8E/" class="md-nav__link">
+        编译器相关说明
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+          其他通用构建
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          其他通用构建
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../build/other/thead-qemu%E7%BC%96%E8%AF%91%E6%B5%81%E7%A8%8B/" class="md-nav__link">
+        T-Head QEMU 编译流程
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../build/other/manuel_build_kernel/" class="md-nav__link">
+        手动编译内核
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../build/other/gcc%E7%BC%96%E8%AF%91%E8%BD%AF%E4%BB%B6%E8%AF%B4%E6%98%8E/" class="md-nav__link">
+        gcc 编译软件软件说明
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          适配文档
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          适配文档
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adaptation/GStreamer%E6%92%AD%E6%94%BE%E5%99%A8%E9%80%82%E9%85%8D/" class="md-nav__link">
+        GStreamer 播放器适配
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adaptation/GStreamer-pipeline-example-with-thead-omxil-lib/" class="md-nav__link">
+        GStreamer pipeline
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          系统使用
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          系统使用
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../desktop/revyos-use-docker/" class="md-nav__link">
+        Docker
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../desktop/install/" class="md-nav__link">
+        安装
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+          软件使用
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_3">
+          <span class="md-nav__icon md-icon"></span>
+          软件使用
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../desktop/software/gimp/" class="md-nav__link">
+        GIMP 图像编辑工具
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../desktop/software/iBus/" class="md-nav__link">
+        iBus 输入法
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../desktop/software/ROS2/" class="md-nav__link">
+        ROS2
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+          Games
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_4">
+          <span class="md-nav__icon md-icon"></span>
+          Games
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../desktop/games/OpenTTD/" class="md-nav__link">
+        OpenTTD 游戏
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../desktop/games/yquake2/" class="md-nav__link">
+        yquake2 游戏
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          Benchmark
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Benchmark
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../benchmark/coremark/" class="md-nav__link">
+        coremark
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../benchmark/stream/" class="md-nav__link">
+        stream
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../benchmark/reboot/" class="md-nav__link">
+        reboot-test
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../benchmark/lmbench/" class="md-nav__link">
+        lmbench
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../benchmark/glmark2/" class="md-nav__link">
+        glmark2
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../benchmark/p7zip/" class="md-nav__link">
+        p7zip
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../benchmark/Chromium-Fish-Bowl-Test/" class="md-nav__link">
+        Chromium 鱼缸测试
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          镜像刷写
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          镜像刷写
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../install/" class="md-nav__link">
+        镜像刷写需知
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Lichee Pi 4A
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Lichee Pi 4A
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    注意！
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    演示环境介绍
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    工具安装
+  </a>
+  
+    <nav class="md-nav" aria-label="工具安装">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    文件下载工具
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    文件解压工具
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    启动方式介绍
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sd-card" class="md-nav__link">
+    从SD card 启动
+  </a>
+  
+    <nav class="md-nav" aria-label="从SD card 启动">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    准备工作
+  </a>
+  
+    <nav class="md-nav" aria-label="准备工作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sd-card_1" class="md-nav__link">
+    获取 SD card 镜像
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    硬件准备
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    烧录方式介绍
+  </a>
+  
+    <nav class="md-nav" aria-label="烧录方式介绍">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#balenaetcher-microsd" class="md-nav__link">
+    使用BalenaEtcher写入镜像到 MicroSD 卡
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dd" class="md-nav__link">
+    使用dd写入镜像
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sd" class="md-nav__link">
+    通过SD卡启动系统
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#emmc" class="md-nav__link">
+    从 eMMC 启动
+  </a>
+  
+    <nav class="md-nav" aria-label="从 eMMC 启动">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    准备工作
+  </a>
+  
+    <nav class="md-nav" aria-label="准备工作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    安装镜像刷写工具
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    获取镜像
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#emmc_1" class="md-nav__link">
+    写入镜像到eMMC(不接入串口)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#emmc_2" class="md-nav__link">
+    写入镜像到eMMC(接入串口)
+  </a>
+  
+    <nav class="md-nav" aria-label="写入镜像到eMMC(接入串口)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    安装串口控制台工具
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#minicom" class="md-nav__link">
+    使用 minicom
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    正式刷写
+  </a>
+  
+    <nav class="md-nav" aria-label="正式刷写">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    刷写镜像
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    可能出现的问题
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    用户登录
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../milkv-pioneer/" class="md-nav__link">
+        Milk-V Pioneer
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+          Changelog
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Changelog
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/changelog-index/" class="md-nav__link">
+        概况
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_2" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_2" id="__nav_7_2_label" tabindex="0">
+          lpi4a
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7_2">
+          <span class="md-nav__icon md-icon"></span>
+          lpi4a
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/lpi4a/20240601/" class="md-nav__link">
+        20240601
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/lpi4a/20240202/" class="md-nav__link">
+        20240202
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/lpi4a/20231210/" class="md-nav__link">
+        20231210
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/lpi4a/20231026/" class="md-nav__link">
+        20231026
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/lpi4a/20230916/" class="md-nav__link">
+        20230916
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/lpi4a/20230810/" class="md-nav__link">
+        20230810
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/lpi4a/20230614/" class="md-nav__link">
+        20230614
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/lpi4a/20230511/" class="md-nav__link">
+        20230511
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/lpi4a/20230425/" class="md-nav__link">
+        20230425
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/lpi4a/20230412/" class="md-nav__link">
+        20230412
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_3" id="__nav_7_3_label" tabindex="0">
+          ahead
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7_3">
+          <span class="md-nav__icon md-icon"></span>
+          ahead
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/ahead/20230802/" class="md-nav__link">
+        20230802
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../issue/" class="md-nav__link">
+        issue
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    注意！
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    演示环境介绍
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    工具安装
+  </a>
+  
+    <nav class="md-nav" aria-label="工具安装">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    文件下载工具
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    文件解压工具
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    启动方式介绍
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sd-card" class="md-nav__link">
+    从SD card 启动
+  </a>
+  
+    <nav class="md-nav" aria-label="从SD card 启动">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    准备工作
+  </a>
+  
+    <nav class="md-nav" aria-label="准备工作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sd-card_1" class="md-nav__link">
+    获取 SD card 镜像
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    硬件准备
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    烧录方式介绍
+  </a>
+  
+    <nav class="md-nav" aria-label="烧录方式介绍">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#balenaetcher-microsd" class="md-nav__link">
+    使用BalenaEtcher写入镜像到 MicroSD 卡
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dd" class="md-nav__link">
+    使用dd写入镜像
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sd" class="md-nav__link">
+    通过SD卡启动系统
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#emmc" class="md-nav__link">
+    从 eMMC 启动
+  </a>
+  
+    <nav class="md-nav" aria-label="从 eMMC 启动">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    准备工作
+  </a>
+  
+    <nav class="md-nav" aria-label="准备工作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    安装镜像刷写工具
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    获取镜像
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#emmc_1" class="md-nav__link">
+    写入镜像到eMMC(不接入串口)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#emmc_2" class="md-nav__link">
+    写入镜像到eMMC(接入串口)
+  </a>
+  
+    <nav class="md-nav" aria-label="写入镜像到eMMC(接入串口)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    安装串口控制台工具
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#minicom" class="md-nav__link">
+    使用 minicom
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    正式刷写
+  </a>
+  
+    <nav class="md-nav" aria-label="正式刷写">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    刷写镜像
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    可能出现的问题
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    用户登录
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="licheepi4a">LicheePi4A镜像刷写教程</h1>
+<p>此页面是 LicheePi4A 镜像刷写教程，如想获取其它镜像刷写教程请从下面的表格中点击链接进行查看。</p>
+<table>
+<thead>
+<tr>
+<th>支持设备</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Milk-V pioneer</td>
+<td><a href="https://docs.revyos.dev/Installation/milkv-pioneer/">刷写教程</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="_1">注意！</h2>
+<p>在查看此教程前，请对照下面的图片确认手中板卡是否和图片一致，请在确认一致后再继续按照教程操作。</p>
+<p><img alt="LicheePi4A 示例图" src="../image%20for%20flash/lpi4a.png" /></p>
+<h2 id="_2">演示环境介绍</h2>
+<p>此教程中所有镜像刷写的相关操作都使用以下环境:</p>
+<ul>
+<li>系统及版本: Ubuntu 22.04.5 LTS</li>
+<li>架构: x86_64</li>
+<li>LicheePi4A 板卡规格 16G RAM + 128G eMMC</li>
+</ul>
+<p>在此环境中，本教程中的所有操作都是可复现的。在下面我们提供了一些未经官方验证，但可以进行刷写的环境，在下面环境中进行镜像刷写遇到问题请参考<a href="../../issue/">此页</a>提交issue。</p>
+<h2 id="_3">工具安装</h2>
+<p>此部分用于介绍后续在镜像的下载以及刷写过程中都需要用到的软件包和工具，请先通过下面的教程下载安装完成后再进行后续的镜像刷写操作。</p>
+<h3 id="_4">文件下载工具</h3>
+<p>在处于图形界面时，在镜像站下载镜像时可以通过直接点击链接下载的方式进行下载。而如果想通过命令行进行下载，有许多种方式例如：wget、curl等，在这里我们选择 wget 作为下载工具。</p>
+<p>在<a href="#_2">演示环境</a>中，wget通常会预装，可以通过在命令行查询 wget 版本的方式来查看是否已安装 wget。</p>
+<pre><code class="language-bash">wget --version
+</code></pre>
+<p>如果没有安装 wget 的情况下请使用以下命令进行安装</p>
+<pre><code class="language-bash">sudo apt install wget 
+</code></pre>
+<p><img alt="wget-install" src="../image%20for%20flash/wget-install.png" /></p>
+<p>请注意，sudo命令执行时需要用户输入密码进行确认才可执行，请确保自己知道密码后再执行此命令，后续不再赘述。</p>
+<h3 id="_5">文件解压工具</h3>
+<p>在上述的<a href="#_2">演示环境</a>中，zst文件压缩包有多种方式进行解压，例如zstd、tar、7z。此教程只列举其中一种。通过命令行使用 zstd 工具进行解压，此方式需要我们先在系统中安装 zstd 软件包，再进行解压。</p>
+<p>如果不知道系统中是否已经安装 ztsd，请执行下面的命令，此命令是通过查看 zstd 版本的命令，通过回显可以判断系统是否已经预装 ztsd 软件包。</p>
+<pre><code class="language-bash">zstd --version
+</code></pre>
+<p><img alt="zstd-version" src="../image%20for%20flash/zstd-version.png" /></p>
+<p>如果正常回显版本号证明已安装成功,例如下面的回显表示 zstd 已安装：</p>
+<pre><code class="language-bash">*** zstd command line interface 64-bits v1.4.8, by Yann Collet ***
+</code></pre>
+<p>如果回显没有版本号的情况下，请通过命令行安装zstd，</p>
+<pre><code class="language-bash">sudo apt update
+sudo apt install zstd
+</code></pre>
+<p><img alt="zstd-install" src="../image%20for%20flash/zstd-version.png" /></p>
+<h2 id="_6">启动方式介绍</h2>
+<p>LicheePi4A 目前支持两种启动方式，分别是<a href="#sd-card">从SD card 启动</a>和<a href="#emmc">从 eMMC 启动</a>，对于两种不同的启动方式，此教程中都有进行说明，请根据自己所需的刷写方式点击进行跳转查看。</p>
+<p>请注意，不论使用哪种刷写方式，原有的用户数据都会丢失，所以在进行刷写前请一定确保做好数据备份的工作！</p>
+<h2 id="sd-card">从SD card 启动</h2>
+<p>注意！从sd卡启动不需要改变拨码开关！按照eMMC拨码开关进行设置！</p>
+<p><img alt="拨码开关示例图" src="../image%20for%20flash/Switch.png" /></p>
+<p>拨码开关存在于板卡下方，需要取出板卡后才能看到，正确设置应为两个按钮全部对准下方。</p>
+<p><strong>注意！</strong> 部分早期版本的 LicheePi4A 板卡没有拨码开关。</p>
+<h3 id="_7">准备工作</h3>
+<h4 id="sd-card_1">获取 SD card 镜像</h4>
+<p>从以下链接下载 LicheePi4A 以 <code>sdcard-</code> 为前缀的 SD card 启动系统镜像：</p>
+<ul>
+<li>
+<p><a href="https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20240720/">RevyOS20240720（5.10内核）</a></p>
+</li>
+<li>
+<p><a href="https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250110/">RevyOS20250110（6.6内核）</a></p>
+</li>
+</ul>
+<p>20240720镜像使用的是5.10内核，目前5.10内核处于较为成熟的状态，在视频的编解码以及各种应用上表现都更加稳定。</p>
+<p>20250110镜像使用的是6.6内核，6.6内核可能会出现一些未知的问题，已知的有视频方面卡顿以及usb失去供电等问题，目前正在修复当中。</p>
+<p>请在看完上述说明后，根据需求选择相应的镜像。</p>
+<p>以下以20250110镜像为例进行演示：</p>
+<p><strong>请注意，下载后的zst文件压缩包约为1.4GB，请在下载时确认本地最少留有12GB的剩余空间，以保证后续的下载和解压不会出现空间不足的情况。</strong></p>
+<p><img alt="image-size" src="../image%20for%20flash/sdcard-image-size.png" /></p>
+<p>下面有两种镜像下载的方式可供选择：</p>
+<ul>
+<li>如果是通过网页浏览，点击链接下载，浏览器会自动拉起文件下载，请进行确认，保证文件下载到本地。</li>
+</ul>
+<p><img alt="web-download" src="../image%20for%20flash/web-download.png" /></p>
+<ul>
+<li>如果是想通过命令行下载，可使用以下命令。</li>
+</ul>
+<pre><code class="language-bash">wget https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250110/sdcard-lpi4a-20250110_151339.img.zst
+</code></pre>
+<p><img alt="image-download" src="../image%20for%20flash/wget-download-sd.png" /></p>
+<p>通过以上两种方式下载完成后都会得到名为 <a href="https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250110/sdcard-lpi4a-20250110_151339.img.zst">sdcard-lpi4a-20250110_151339.img.zst</a> 的文件，此文件并不是最终镜像文件，而是一个压缩包，需要解压镜像压缩包 sdcard-lpi4a-20250110_151339.img.zst 才可得到最终的镜像文件 sdcard-lpi4a-20250110_151339.img。</p>
+<p>在工具安装部分安装完 zstd 后，我们可对镜像文件进行解压。请注意，注意解压后的文件大小约为<strong>10.2GB</strong>，解压时请注意本地存储空间是否足够！</p>
+<p><img alt="img-size" src="../image%20for%20flash/sdcard-image.png" /></p>
+<pre><code class="language-bash">sudo unzstd sdcard-lpi4a-20250110_151339.img.zst
+</code></pre>
+<p>最后会得到 sdcard-lpi4a-20250110_151339.img 文件。至此，演示环境下镜像文件获取成功。</p>
+<p><img alt="unzstd-sdcard" src="../image%20for%20flash/unzstd.png" /></p>
+<h4 id="_8">硬件准备</h4>
+<p>准备MicroSD 读卡器和一张MicroSD 卡,目前 MicroSD 卡存在兼容性问题，RevyOS 提供了目前已测试过的 <a href="https://github.com/revyos/revyos/blob/main/Installation/card%20list.md">MicroSD 卡列表</a>。</p>
+<p>如果您使用的 MicroSD 卡不在已知可用的列表上，出现无法正确刷写镜像和刷写后无法启动镜像的问题，请参考<a href="../../issue/">此页</a>提交issue，并尝试参考<a href="#emmc">从 eMMC 启动</a>镜像的刷写教程进行镜像刷写。</p>
+<h3 id="_9">烧录方式介绍</h3>
+<p>如果您选择从SD card 启动，可以选择使用两种不同的方式将镜像烧录到 MicroSD 卡中。一种是通过<a href="#balenaetcher-microsd">图形界面软件烧录</a>，一种是通过命令行使用dd命令<a href="#dd">在命令行进行烧录</a>。</p>
+<h4 id="balenaetcher-microsd">使用BalenaEtcher写入镜像到 MicroSD 卡</h4>
+<p>从官网获取烧录工具 BalenaEtcher <a href="https://etcher.balena.io/">https://etcher.balena.io/</a>，下载时请根据本机情况选择文件进行下载。根据<a href="#_2">演示环境</a>中的说明，选择<a href="https://github.com/balena-io/etcher/releases/download/v1.19.25/balenaEtcher-linux-x64-1.19.25.zip">Etcher for Linux x64 (64-bit) (zip)</a>进行下载并解压安装。</p>
+<p><img alt="BE-version" src="../image%20for%20flash/BE-version.png" /></p>
+<p>把 SD 卡插入读卡器，并将其插入电脑。</p>
+<p>运行 BalenaEtcher用于写入镜像到SD 卡。
+在 BalenaEtcher 窗口中, 首先点击 "Flash from file" 来选择镜像文件。
+<img alt="" src="../image%20for%20flash/BE1.png" />
+选择完镜像文件后在第二栏选择需要写入的设备。
+<img alt="" src="../image%20for%20flash/BE2.png" />
+两项都选择完以后点击"Flash"写入镜像。
+<img alt="" src="../image%20for%20flash/BE3.png" />
+在等待一段时间后会显示烧录已完成。
+<img alt="" src="../image%20for%20flash/BE4.png" /></p>
+<h4 id="dd">使用dd写入镜像</h4>
+<p>dd 是 Linux 和类 Unix 系统中的一个功能强大的命令行工具，主要用于按指定大小和格式复制文件或数据，一般会预装在系统中。</p>
+<p>使用 dd 命令写入镜像需要根据以下步骤进行</p>
+<p>首先需要查看设备列表，在插入 SD 卡前后分别运行以下命令，找到 SD 卡对应的设备名：</p>
+<pre><code class="language-bash">lsblk
+</code></pre>
+<p>SD 卡的设备名可能是 /dev/sda 或 /dev/mmcblk0，在演示环境中，在执行<code>lsblk</code>后确认sd卡分区为<code>/dev/sda</code>。</p>
+<p><img alt="lsblk" src="../image%20for%20flash/lsblk.png" /></p>
+<p>在写入镜像前，需要卸载 SD 卡的挂载分区，如果有多个分区请逐一卸载：</p>
+<pre><code class="language-bash">sudo umount /dev/sda1
+</code></pre>
+<p>如果没有分区被挂载，umount 命令会显示<code>not mounted</code>，这时无需进一步操作。</p>
+<p>在卸载分区后，建议运行<code>sudo sync</code>命令，确保所有数据已同步。</p>
+<p><img alt="sync" src="../image%20for%20flash/sync.png" /></p>
+<p>在执行完上述步骤后即可进行刷写，在刷写前请保证您在 <code>of=</code> 设置了正确的设备，在演示环境中，sd卡识别为sda，<code>of=</code>后请根据自身设备分区进行填写。</p>
+<pre><code class="language-bash">sudo dd if=./sdcard-lpi4a-20250110_151339.img of=/dev/sda bs=4M status=progress
+</code></pre>
+<p><img alt="dd" src="../image%20for%20flash/dd.png" /></p>
+<p>在刷写完成后，也请执行<code>sudo sync</code>命令，保证数据已同步，然后需要确认sd卡是未挂载状态下，这两点执行完成后才可拔出sd卡，插入到开发板中。</p>
+<h3 id="sd">通过SD卡启动系统</h3>
+<p>在写入镜像完成后将SD 卡插入如图所示卡槽中。
+<img alt="" src="../image%20for%20flash/lpi4a5.png" /></p>
+<p>需要先将hdmi线（如果有外接显示器需求）进行连接，然后将随箱附赠的USB-A接口到USB-C接口的数据线中的C口一端接入到开发板上，另一端接入至少5V2A 输出的 USB 电源上，即可启动。</p>
+<h2 id="emmc">从 eMMC 启动</h2>
+<p>从eMMC启动镜像时，刷写镜像的途径分为连接串口进行刷写与不连接串口进行刷写两种情况。考虑到接入串口进行刷写不是必须行为，所以默认是使用不连接串口的刷写方式，如果手上有串口线的情况下也可以选择查看连接串口刷写的部分。其中进行的操作有些许区别，在此将两种方式都进行介绍。</p>
+<p>请注意！从 eMMC 启动前应当先取出 SD Card！</p>
+<h3 id="_10">准备工作</h3>
+<h4 id="_11">安装镜像刷写工具</h4>
+<p>从 eMMC 启动需要将 u-boot 文件、boot 文件以及 root 文件通过 fastboot 工具刷入eMMC中，所以需要先确认是否已安装 fastboot。</p>
+<p>如果不知道系统中是否已经安装 fastboot ，请执行下面的命令，此命令是通过查看 fastboot 版本的命令，通过回显可以判断系统是否已经预装 fastboot 软件包。</p>
+<pre><code class="language-bash">fastboot --version
+</code></pre>
+<p><img alt="fastboot-version" src="../image%20for%20flash/fastboot-version.png" /></p>
+<p>如果正常回显版本号证明已安装成功,例如下面的回显表示 fastboot 已安装：</p>
+<pre><code class="language-bash">fastboot version 28.0.2-debian
+Installed as /usr/lib/android-sdk/platform-tools/fastboot
+</code></pre>
+<p>如果回显没有版本号的情况下，请通过命令行安装 fastboot</p>
+<pre><code class="language-bash">sudo apt install fastboot
+</code></pre>
+<p><img alt="fastboot-install" src="../image%20for%20flash/fastboot-install.png" /></p>
+<h4 id="_12">获取镜像</h4>
+<p>从以下链接下载 LicheePi4A 的系统镜像：</p>
+<ul>
+<li>
+<p><a href="https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20240720/">RevyOS20240720</a></p>
+</li>
+<li>
+<p><a href="https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250110/">RevyOS20250110</a></p>
+</li>
+</ul>
+<p>请注意！</p>
+<p>LicheePi4A 不同的内存版本的 uboot 文件不通用，请根据您的核心板的板卡版本选择对应镜像</p>
+<table>
+<thead>
+<tr>
+<th>内存存储组合</th>
+<th>对应的uboot镜像</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>8G RAM + 8G eMMC</td>
+<td>u-boot-with-spl-lpi4a-main_8gemmc.bin</td>
+</tr>
+<tr>
+<td>8G RAM + 32G eMMC</td>
+<td>u-boot-with-spl-lpi4a-main.bin</td>
+</tr>
+<tr>
+<td>16G RAM</td>
+<td>u-boot-with-spl-lpi4a-16g-main.bin</td>
+</tr>
+</tbody>
+</table>
+<p>如果无法确认核心板的规格，可以扫描核心板上的二维码进行查看。LicheePi4A板卡发售时，在核心板与底板上都会有一张二维码贴纸，在扫描核心板的二维码贴纸后会显示核心板的内存+存储配置。</p>
+<p>例如在 16G RAM + 128G 板卡上，贴纸在如图所示的部分</p>
+<p><img alt="core-card" src="../image%20for%20flash/core-card.png" /></p>
+<p>通过扫描二维码后显示如下</p>
+<p><img alt="Core board-info" src="../image%20for%20flash/card-info.png" /></p>
+<p>扫描后的结果中，第二部分的数字便是核心板的内存+存储配置。</p>
+<p>确认好板卡规格后使用 wget 命令下载 uboot、boot以及root文件</p>
+<pre><code class="language-bash">sudo wget https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250110/u-boot-with-spl-lpi4a-16g-main.bin
+sudo wget https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250110/boot-lpi4a-20250110_151339.ext4.zst
+sudo wget https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250110/root-lpi4a-20250110_151339.ext4.zst
+</code></pre>
+<p><img alt="emmc-download" src="../image%20for%20flash/wget-download.png" /></p>
+<p>下载完成后使用 <code>unzstd</code> 命令解压 root 和 boot 文件</p>
+<pre><code class="language-bash">unzstd boot-lpi4a-20250110_151339.ext4.zst
+unzstd root-lpi4a-20250110_151339.ext4.zst
+</code></pre>
+<p>文件解压完成后就得到了刷写 eMMC 镜像的所需文件了。</p>
+<p><img alt="file" src="../image%20for%20flash/unzstd-bootandroot.png" /></p>
+<h3 id="emmc_1">写入镜像到eMMC(不接入串口)</h3>
+<p>按住板卡上的BOOT键后，接入电脑。板卡会进入刷写模式。</p>
+<p>此时可以根据<code>lsusb</code>中的输出内容判断设备是否正常连接。</p>
+<p><img alt="lsusb" src="../image%20for%20flash/lsusb.png" /></p>
+<p>在正常连接后，<code>lsusb</code>命令下会显示如下设备<code>ID 2345:7654 T-HEAD USB download gadget</code></p>
+<p>在确认正常连接后先执行以下命令</p>
+<pre><code class="language-bash">fastboot flash ram u-boot-with-spl-lpi4a-16g.bin # 替换为您的板卡规格对应的 uboot 文件
+fastboot reboot
+sleep 1
+</code></pre>
+<p><img alt="flash-ram" src="../image%20for%20flash/flash-ram.png" /></p>
+<p>然后再进行镜像文件的刷写</p>
+<pre><code class="language-bash">fastboot flash uboot u-boot-with-spl-lpi4a-16g.bin
+fastboot flash boot boot-lpi4a-20240720_171951.ext4
+fastboot flash root root-lpi4a-20240720_171951.ext4
+</code></pre>
+<p><img alt="flash-ubootandboot" src="../image%20for%20flash/flash-ubootandboot.png" /></p>
+<p>其中 uboot 文件和 boot 文件刷写较快，root 文件需要大约5分钟才能刷写完成。如果在刷写 root 文件时并非是30+的数据块，而是2000+或是3000+，那么证明前面的刷写操作有误，在此情况下写入完成后也无法启动镜像，请重新进行刷写操作。</p>
+<p><img alt="flash-root" src="../image%20for%20flash/flash-root.png" /></p>
+<p>至此镜像刷写完成，可以通过重新拔插电源线的方式启动系统。</p>
+<h3 id="emmc_2">写入镜像到eMMC(接入串口)</h3>
+<h4 id="_13">安装串口控制台工具</h4>
+<p>通过串口连接时需要串口控制台进行监控，串口控制台软件有很多，例如 <code>minicom</code>, <code>screen</code>,<code>picocom</code>等软件,在这里我们选择 minicom 来进行演示。</p>
+<pre><code class="language-bash">sudo apt install minicom
+</code></pre>
+<p><img alt="minicom-install" src="../image%20for%20flash/minicom-install.png" /></p>
+<p>在安装完成后可以使用查看 minicom 版本的命令来确认是否成功安装</p>
+<pre><code class="language-bash">minicom -version
+</code></pre>
+<p><img alt="minicom-version" src="../image%20for%20flash/minicom-version.png" /></p>
+<h4 id="minicom">使用 minicom</h4>
+<p>如图所示将串口与板卡进行连接，usb端接入电脑。板卡上的Type-C接口通过USB-Type-C线连接到电脑。</p>
+<p>连接串口，红色圈内（从左往右第一排第二个）为 GND，黄色圈内（第一排第五个）为 TX，绿色圈内（第二排第五个）为 RX。与主机应遵循TX到RX,RX到TX,GND到GND的接线。</p>
+<p><img alt="" src="../image%20for%20flash/lpi4a6.png" /></p>
+<p>接入后我们需要确认串口设备的地址，可以使用命令行查看也可以进行dmesg信息进行查看，这里我们使用命令行查看。</p>
+<p>在接入串口前命令行中输入以下命令</p>
+<pre><code class="language-bash">ls /dev/tty*
+</code></pre>
+<p>在接入后再输入一次以上命令，回显结果中会发现多出一个设备<code>/dev/ttyUSB0</code></p>
+<p><img alt="lstty" src="../image%20for%20flash/lstty.png" /></p>
+<p>此时我们知道了串口设备地址，可以通过命令行指定参数启动minicom</p>
+<pre><code class="language-bash">sudo minicom -D /dev/ttyUSB0 -b 115200
+</code></pre>
+<p>其中<code>-D</code>用于指定串口设备，所以后面需要接上串口设备的地址。<code>-b</code>用于设置波特率,这里我们设置为 115200。</p>
+<p><img alt="minicom-start" src="../image%20for%20flash/minicom-start.png" /></p>
+<h3 id="_14">正式刷写</h3>
+<p>在启动 minicom 后，我们将 USB-Type-C 线的 USB 端接入电源，接入后在串口控制台中查看，在出现<code>Hit any key to stop autoboot</code>此行命令时会有一个约3秒的系统倒数，此时按任意键即可打断启动，出现下面的 uboot 命令行。</p>
+<p><img alt="start" src="../image%20for%20flash/image-start.png" /></p>
+<p>在串口控制台窗口中输入</p>
+<pre><code class="language-bash">fastboot usb 0
+</code></pre>
+<p>输入后会显示</p>
+<pre><code class="language-bash">Light LPI4A 16G# fastboot usb 0
+dwc3_gadget_start maximum_speed:5 revision:0x5533330b
+dwc3_gadget_start DWC3_DCFG:0x80804
+dwc3_gadget_start_conndone_interrupt speed:0 dwc3_dsts:0x20000
+dwc3_gadget_start_conndone_interrupt speed:0 dwc3_dsts:0x2f938
+</code></pre>
+<p><img alt="usb0" src="../image%20for%20flash/fastboot-usb0.png" /></p>
+<p>即表示已可以使用 fastboot 刷写，随后另起一个窗口进行镜像刷写。</p>
+<h4 id="_15">刷写镜像</h4>
+<p>以下命令操作均为在镜像文件下载文件夹路径内进行，如果在非镜像文件目录下执行时请注意文件路径和文件名。</p>
+<pre><code class="language-bash">fastboot flash uboot u-boot-with-spl-lpi4a-16g.bin
+fastboot flash boot boot-lpi4a-20240720_171951.ext4
+fastboot flash root root-lpi4a-20240720_171951.ext4
+</code></pre>
+<p>fastboot 会显示刷写进度，如果连接了串口，在串口控制台中可以看到具体进度（下图以刷写
+boot，大小为 92886476 Bytes为例，可在 <code>cmd_parameter: boot, imagesize: 92886476</code> 处查看刷入的内容）。</p>
+<p><img alt="flash-boot" src="../image%20for%20flash/flash-root-minicom.png" /></p>
+<p>刷写完成后拔掉电脑与板卡连接的USB-Type-C线，接入电源线便可直接启动进入系统。</p>
+<h4 id="_16">可能出现的问题</h4>
+<p>如果 <code>lsusb</code> 中存在 download 设备，但<code>fastboot</code> 命令仍然卡在 <code>&lt; waiting for any device &gt;</code> ，可以尝试使用 <code>sudo</code> 运行 <code>fastboot</code> 命令。</p>
+<p><img alt="waiting" src="../image%20for%20flash/waiting.png" /></p>
+<h3 id="_17">用户登录</h3>
+<p>下面是默认的系统账户以及密码</p>
+<ul>
+<li>登录账户：debian</li>
+<li>账户密码：debian</li>
+</ul>
+<p>在初次启动镜像时可使用以上的用户密码进行登录。</p>
+<p>出于安全性考虑，请在初次登录后一定修改密码，避免出现问题。</p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "code.highlight", "content.code.copy", "code.copy"], "search": "../../assets/javascripts/workers/search.74e28a9f.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.220ee61c.min.js"></script>
+      
+        
+          <script src="https://cdnjs.loli.net/ajax/libs/pangu/4.0.7/pangu.min.js"></script>
+        
+      
+        
+          <script src="../../_static/js/extra.js"></script>
+        
+      
+    
+  </body>
+</html>
