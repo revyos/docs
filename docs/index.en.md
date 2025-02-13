@@ -20,8 +20,8 @@ If you want to obtain the latest version of __RevyOS__, please select the corres
 
 | Supported Devices | Image Download (Latest Version)  | SD Card Support |
 | ----------------- | -------------------------------------------------------------------------------- | --------- |
-| Lichee Pi 4A      | [20250110](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250110/)       | Supported |
-| Milk-V Meles      | [20250110](https://mirror.iscas.ac.cn/revyos/extra/images/meles/20250110/)       | Supported |
+| Lichee Pi 4A      | [20250123](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250123/)       | Supported |
+| Milk-V Meles      | [20250123](https://mirror.iscas.ac.cn/revyos/extra/images/meles/20250123/)       | Supported |
 | Milk-V Pioneer    | [20241230](https://mirror.iscas.ac.cn/revyos/extra/images/sg2042/20241230/)      | Supported |
 | Lichee Cluster 4A | [20240720](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/)                |           |
 | Lichee Console 4A | [20240720](https://mirror.iscas.ac.cn/revyos/extra/images/lcon4a/20240720/)      |           |
