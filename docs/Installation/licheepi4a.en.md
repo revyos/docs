@@ -4,7 +4,7 @@ This guide provides instructions for installing RevyOS on the LicheePi4A. For ot
 
 | Device Name |                |
 | ------- | -------------- |
-| Milk-V pioneer | [Installation Guide](https://docs.revyos.dev/Installation/milkv-pioneer/) |
+| Milk-V Pioneer | [Installation Guide](https://docs.revyos.dev/Installation/milkv-pioneer/) |
 
 ## Important!
 

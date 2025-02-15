@@ -1,4 +1,4 @@
-# 在 Milk-V pioneer 上安装 RevyOS
+# 在 Milk-V Pioneer 上安装 RevyOS
 
 ## 1.准备工作
 

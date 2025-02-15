@@ -4,7 +4,7 @@
 
 | 支持设备 |                |
 | ------- | -------------- |
-| Milk-V pioneer | [刷写教程](https://docs.revyos.dev/Installation/milkv-pioneer/) |
+| Milk-V Pioneer | [刷写教程](https://docs.revyos.dev/Installation/milkv-pioneer/) |
 
 ## 注意！
 

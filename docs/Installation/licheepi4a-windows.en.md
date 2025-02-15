@@ -4,7 +4,7 @@ This page provides a tutorial for flashing the LicheePi 4A image on Windows oper
 
 | Supported Devices |                |
 | ----------------- | -------------- |
-| Milk-V pioneer    | [Flashing Tutorial](https://docs.revyos.dev/Installation/milkv-pioneer/) |
+| Milk-V Pioneer    | [Flashing Tutorial](https://docs.revyos.dev/Installation/milkv-pioneer/) |
 
 ## Attention!
 
