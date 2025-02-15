@@ -99,6 +99,7 @@ nav:
   - 镜像刷写: 
     - 镜像刷写需知: Installation/install.md
     - Lichee Pi 4A: Installation/licheepi4a.md
+    - LiChee Pi 4A on Windows: Installation/licheepi4a-windows.md
     - Milk-V Pioneer: Installation/milkv-pioneer.md
   - Changelog:
     # 更新日志需要倒序排列
