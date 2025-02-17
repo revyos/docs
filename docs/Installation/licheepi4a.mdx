@@ -1,0 +1,455 @@
+---
+sidebar_position: 2
+---
+
+import { DownloadLink } from "@site/src/components/ImageLinks";
+
+# LicheePi4A镜像刷写教程
+
+此页面是 LicheePi4A 镜像刷写教程，如想获取其它镜像刷写教程请从下面的表格中点击链接进行查看。
+
+| 支持设备 |                |
+| ------- | -------------- |
+| Milk-V pioneer | [刷写教程](https://docs.revyos.dev/Installation/milkv-pioneer/) |
+
+## 注意！
+
+在查看此教程前，请对照下面的图片确认手中板卡是否和图片一致，请在确认一致后再继续按照教程操作。
+
+![LicheePi4A 示例图](/img/image-for-flash/lpi4a.png)
+
+## 演示环境介绍
+
+此教程中所有镜像刷写的相关操作都使用以下环境:
+
+- 系统及版本: Ubuntu 22.04.5 LTS
+- 架构: x86_64
+- LicheePi4A 板卡规格 16G RAM + 128G eMMC
+
+在此环境中，本教程中的所有操作都是可复现的。在下面我们提供了一些未经官方验证，但可以进行刷写的环境，在下面环境中进行镜像刷写遇到问题请参考[此页](../issue)提交issue。
+
+## 工具安装
+
+此部分用于介绍后续在镜像的下载以及刷写过程中都需要用到的软件包和工具，请先通过下面的教程下载安装完成后再进行后续的镜像刷写操作。
+
+### 文件下载工具
+
+在处于图形界面时，在镜像站下载镜像时可以通过直接点击链接下载的方式进行下载。而如果想通过命令行进行下载，有许多种方式例如：wget、curl等，在这里我们选择 wget 作为下载工具。
+
+在[演示环境](#演示环境介绍)中，wget通常会预装，可以通过在命令行查询 wget 版本的方式来查看是否已安装 wget。
+
+```bash
+wget --version
+```
+
+如果没有安装 wget 的情况下请使用以下命令进行安装
+
+```bash
+sudo apt install wget 
+```
+
+![wget-install](/img/image-for-flash/wget-install.png)
+
+请注意，sudo命令执行时需要用户输入密码进行确认才可执行，请确保自己知道密码后再执行此命令，后续不再赘述。
+
+### 文件解压工具
+
+在上述的[演示环境](#演示环境介绍)中，zst文件压缩包有多种方式进行解压，例如zstd、tar、7z。此教程只列举其中一种。通过命令行使用 zstd 工具进行解压，此方式需要我们先在系统中安装 zstd 软件包，再进行解压。
+
+如果不知道系统中是否已经安装 ztsd，请执行下面的命令，此命令是通过查看 zstd 版本的命令，通过回显可以判断系统是否已经预装 ztsd 软件包。
+
+```bash
+zstd --version
+```
+
+![zstd-version](/img/image-for-flash/zstd-version.png)
+
+如果正常回显版本号证明已安装成功,例如下面的回显表示 zstd 已安装：
+
+```bash
+*** zstd command line interface 64-bits v1.4.8, by Yann Collet ***
+```
+
+如果回显没有版本号的情况下，请通过命令行安装zstd，
+
+```bash
+sudo apt update
+sudo apt install zstd
+```
+
+![zstd-install](/img/image-for-flash/zstd-version.png)
+
+## 启动方式介绍
+
+LicheePi4A 目前支持两种启动方式，分别是[从SD card 启动](#从sd-card-启动)和[从 eMMC 启动](#从-emmc-启动)，对于两种不同的启动方式，此教程中都有进行说明，请根据自己所需的刷写方式点击进行跳转查看。
+
+请注意，不论使用哪种刷写方式，原有的用户数据都会丢失，所以在进行刷写前请一定确保做好数据备份的工作！
+
+## 从SD card 启动
+
+注意！从sd卡启动不需要改变拨码开关！按照eMMC拨码开关进行设置！
+
+![拨码开关示例图](/img/image-for-flash/Switch.png)
+
+拨码开关存在于板卡下方，需要取出板卡后才能看到，正确设置应为两个按钮全部对准下方。
+
+**注意！** 部分早期版本的 LicheePi4A 板卡没有拨码开关。
+
+### 准备工作
+
+#### 获取 SD card 镜像
+
+从以下链接下载 LicheePi4A 以 `sdcard-` 为前缀的 SD card 启动系统镜像：
+
+- [RevyOS20240720（5.10内核）](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20240720/)
+
+- [RevyOS20250110（6.6内核）](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250110/)
+
+- 最新版本：{<DownloadLink device="Lichee Pi 4A" />}
+
+20240720镜像使用的是5.10内核，目前5.10内核处于较为成熟的状态，在视频的编解码以及各种应用上表现都更加稳定。
+
+20250110镜像使用的是6.6内核，6.6内核可能会出现一些未知的问题，已知的有视频方面卡顿以及usb失去供电等问题，目前正在修复当中。
+
+请在看完上述说明后，根据需求选择相应的镜像。
+
+以下以20250110镜像为例进行演示：
+
+**请注意，下载后的zst文件压缩包约为1.4GB，请在下载时确认本地最少留有12GB的剩余空间，以保证后续的下载和解压不会出现空间不足的情况。**
+
+![image-size](/img/image-for-flash/sdcard-image-size.png)
+
+下面有两种镜像下载的方式可供选择：
+
+- 如果是通过网页浏览，点击链接下载，浏览器会自动拉起文件下载，请进行确认，保证文件下载到本地。
+
+![web-download](/img/image-for-flash/web-download.png)
+
+- 如果是想通过命令行下载，可使用以下命令。
+
+```bash
+wget https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250110/sdcard-lpi4a-20250110_151339.img.zst
+```
+
+![image-download](/img/image-for-flash/wget-download-sd.png)
+
+通过以上两种方式下载完成后都会得到名为 [sdcard-lpi4a-20250110_151339.img.zst](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250110/sdcard-lpi4a-20250110_151339.img.zst) 的文件，此文件并不是最终镜像文件，而是一个压缩包，需要解压镜像压缩包 sdcard-lpi4a-20250110_151339.img.zst 才可得到最终的镜像文件 sdcard-lpi4a-20250110_151339.img。
+
+在工具安装部分安装完 zstd 后，我们可对镜像文件进行解压。请注意，注意解压后的文件大小约为**10.2GB**，解压时请注意本地存储空间是否足够！
+
+![img-size](/img/image-for-flash/sdcard-image.png)
+
+```bash
+sudo unzstd sdcard-lpi4a-20250110_151339.img.zst
+```
+
+最后会得到 sdcard-lpi4a-20250110_151339.img 文件。至此，演示环境下镜像文件获取成功。
+
+![unzstd-sdcard](/img/image-for-flash/unzstd.png)
+
+#### 硬件准备
+
+准备MicroSD 读卡器和一张MicroSD 卡,目前 MicroSD 卡存在兼容性问题，RevyOS 提供了目前已测试过的 [MicroSD 卡列表](https://github.com/revyos/revyos/blob/main/Installation/card%20list.md)。
+
+如果您使用的 MicroSD 卡不在已知可用的列表上，出现无法正确刷写镜像和刷写后无法启动镜像的问题，请参考[此页](../issue)提交issue，并尝试参考[从 eMMC 启动](#从-emmc-启动)镜像的刷写教程进行镜像刷写。
+
+### 烧录方式介绍
+
+如果您选择从SD card 启动，可以选择使用两种不同的方式将镜像烧录到 MicroSD 卡中。一种是通过[图形界面软件烧录](#使用balenaetcher写入镜像到-microsd-卡)，一种是通过命令行使用dd命令[在命令行进行烧录](#使用dd写入镜像)。
+
+#### 使用BalenaEtcher写入镜像到 MicroSD 卡
+
+从官网获取烧录工具 BalenaEtcher [https://etcher.balena.io/](https://etcher.balena.io/)，下载时请根据本机情况选择文件进行下载。根据[演示环境](#演示环境介绍)中的说明，选择[Etcher for Linux x64 (64-bit) (zip)](https://github.com/balena-io/etcher/releases/download/v1.19.25/balenaEtcher-linux-x64-1.19.25.zip)进行下载并解压安装。
+
+![BE-version](/img/image-for-flash/BE-version.png)
+
+把 SD 卡插入读卡器，并将其插入电脑。
+
+运行 BalenaEtcher用于写入镜像到SD 卡。
+在 BalenaEtcher 窗口中, 首先点击 "Flash from file" 来选择镜像文件。
+![](/img/image-for-flash/BE1.png)
+选择完镜像文件后在第二栏选择需要写入的设备。
+![](/img/image-for-flash/BE2.png)
+两项都选择完以后点击"Flash"写入镜像。
+![](/img/image-for-flash/BE3.png)
+在等待一段时间后会显示烧录已完成。
+![](/img/image-for-flash/BE4.png)
+
+#### 使用dd写入镜像
+
+dd 是 Linux 和类 Unix 系统中的一个功能强大的命令行工具，主要用于按指定大小和格式复制文件或数据，一般会预装在系统中。
+
+使用 dd 命令写入镜像需要根据以下步骤进行
+
+首先需要查看设备列表，在插入 SD 卡前后分别运行以下命令，找到 SD 卡对应的设备名：
+
+```bash
+lsblk
+```
+
+SD 卡的设备名可能是 /dev/sda 或 /dev/mmcblk0，在演示环境中，在执行`lsblk`后确认sd卡分区为`/dev/sda`。
+
+![lsblk](/img/image-for-flash/lsblk.png)
+
+在写入镜像前，需要卸载 SD 卡的挂载分区，如果有多个分区请逐一卸载：
+
+```bash
+sudo umount /dev/sda1
+```
+
+如果没有分区被挂载，umount 命令会显示`not mounted`，这时无需进一步操作。
+
+在卸载分区后，建议运行`sudo sync`命令，确保所有数据已同步。
+
+![sync](/img/image-for-flash/sync.png)
+
+在执行完上述步骤后即可进行刷写，在刷写前请保证您在 `of=` 设置了正确的设备，在演示环境中，sd卡识别为sda，`of=`后请根据自身设备分区进行填写。
+
+```bash
+sudo dd if=./sdcard-lpi4a-20250110_151339.img of=/dev/sda bs=4M status=progress
+```
+
+![dd](/img/image-for-flash/dd.png)
+
+在刷写完成后，也请执行`sudo sync`命令，保证数据已同步，然后需要确认sd卡是未挂载状态下，这两点执行完成后才可拔出sd卡，插入到开发板中。
+
+### 通过SD卡启动系统
+
+在写入镜像完成后将SD 卡插入如图所示卡槽中。
+![](/img/image-for-flash/lpi4a5.png)
+
+需要先将hdmi线（如果有外接显示器需求）进行连接，然后将随箱附赠的USB-A接口到USB-C接口的数据线中的C口一端接入到开发板上，另一端接入至少5V2A 输出的 USB 电源上，即可启动。
+
+## 从 eMMC 启动
+
+从eMMC启动镜像时，刷写镜像的途径分为连接串口进行刷写与不连接串口进行刷写两种情况。考虑到接入串口进行刷写不是必须行为，所以默认是使用不连接串口的刷写方式，如果手上有串口线的情况下也可以选择查看连接串口刷写的部分。其中进行的操作有些许区别，在此将两种方式都进行介绍。
+
+请注意！从 eMMC 启动前应当先取出 SD Card！
+
+### 准备工作
+
+#### 安装镜像刷写工具
+
+从 eMMC 启动需要将 u-boot 文件、boot 文件以及 root 文件通过 fastboot 工具刷入eMMC中，所以需要先确认是否已安装 fastboot。
+
+如果不知道系统中是否已经安装 fastboot ，请执行下面的命令，此命令是通过查看 fastboot 版本的命令，通过回显可以判断系统是否已经预装 fastboot 软件包。
+
+```bash
+fastboot --version
+```
+
+![fastboot-version](/img/image-for-flash/fastboot-version.png)
+
+如果正常回显版本号证明已安装成功,例如下面的回显表示 fastboot 已安装：
+
+```bash
+fastboot version 28.0.2-debian
+Installed as /usr/lib/android-sdk/platform-tools/fastboot
+```
+
+如果回显没有版本号的情况下，请通过命令行安装 fastboot
+
+```bash
+sudo apt install fastboot
+```
+
+![fastboot-install](/img/image-for-flash/fastboot-install.png)
+
+#### 获取镜像
+
+从以下链接下载 LicheePi4A 的系统镜像：
+
+- [RevyOS20240720](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20240720/)
+
+- [RevyOS20250110](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250110/)
+
+- 最新版本：{<DownloadLink device="Lichee Pi 4A" />}
+
+请注意！
+
+LicheePi4A 不同的内存版本的 uboot 文件不通用，请根据您的核心板的板卡版本选择对应镜像
+
+|内存存储组合|对应的uboot镜像|
+|---|---|
+|8G RAM + 8G eMMC|u-boot-with-spl-lpi4a-main_8gemmc.bin|
+|8G RAM + 32G eMMC|u-boot-with-spl-lpi4a-main.bin|
+|16G RAM|u-boot-with-spl-lpi4a-16g-main.bin|
+
+如果无法确认核心板的规格，可以扫描核心板上的二维码进行查看。LicheePi4A板卡发售时，在核心板与底板上都会有一张二维码贴纸，在扫描核心板的二维码贴纸后会显示核心板的内存+存储配置。
+
+例如在 16G RAM + 128G 板卡上，贴纸在如图所示的部分
+
+![core-card](/img/image-for-flash/core-card.png)
+
+通过扫描二维码后显示如下
+
+![Core board-info](/img/image-for-flash/card-info.png)
+
+扫描后的结果中，第二部分的数字便是核心板的内存+存储配置。
+
+确认好板卡规格后使用 wget 命令下载 uboot、boot以及root文件
+
+```bash
+sudo wget https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250110/u-boot-with-spl-lpi4a-16g-main.bin
+sudo wget https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250110/boot-lpi4a-20250110_151339.ext4.zst
+sudo wget https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250110/root-lpi4a-20250110_151339.ext4.zst
+```
+
+![emmc-download](/img/image-for-flash/wget-download.png)
+
+下载完成后使用 `unzstd` 命令解压 root 和 boot 文件
+
+```bash
+unzstd boot-lpi4a-20250110_151339.ext4.zst
+unzstd root-lpi4a-20250110_151339.ext4.zst
+```
+
+文件解压完成后就得到了刷写 eMMC 镜像的所需文件了。
+
+![file](/img/image-for-flash/unzstd-bootandroot.png)
+
+### 写入镜像到eMMC(不接入串口)
+
+按住板卡上的BOOT键后，接入电脑。板卡会进入刷写模式。
+
+此时可以根据`lsusb`中的输出内容判断设备是否正常连接。
+
+![lsusb](/img/image-for-flash/lsusb.png)
+
+在正常连接后，`lsusb`命令下会显示如下设备`ID 2345:7654 T-HEAD USB download gadget`
+
+在确认正常连接后先执行以下命令
+
+```bash
+fastboot flash ram u-boot-with-spl-lpi4a-16g.bin # 替换为您的板卡规格对应的 uboot 文件
+fastboot reboot
+sleep 1
+```
+
+![flash-ram](/img/image-for-flash/flash-ram.png)
+
+然后再进行镜像文件的刷写
+
+```bash
+fastboot flash uboot u-boot-with-spl-lpi4a-16g.bin
+fastboot flash boot boot-lpi4a-20240720_171951.ext4
+fastboot flash root root-lpi4a-20240720_171951.ext4
+```
+
+![flash-ubootandboot](/img/image-for-flash/flash-ubootandboot.png)
+
+其中 uboot 文件和 boot 文件刷写较快，root 文件需要大约5分钟才能刷写完成。如果在刷写 root 文件时并非是30+的数据块，而是2000+或是3000+，那么证明前面的刷写操作有误，在此情况下写入完成后也无法启动镜像，请重新进行刷写操作。
+
+![flash-root](/img/image-for-flash/flash-root.png)
+
+至此镜像刷写完成，可以通过重新拔插电源线的方式启动系统。
+
+### 写入镜像到eMMC(接入串口)
+
+#### 安装串口控制台工具
+
+通过串口连接时需要串口控制台进行监控，串口控制台软件有很多，例如 `minicom`, `screen`,`picocom`等软件,在这里我们选择 minicom 来进行演示。
+
+```bash
+sudo apt install minicom
+```
+
+![minicom-install](/img/image-for-flash/minicom-install.png)
+
+在安装完成后可以使用查看 minicom 版本的命令来确认是否成功安装
+
+```bash
+minicom -version
+```
+
+![minicom-version](/img/image-for-flash/minicom-version.png)
+
+#### 使用 minicom
+
+如图所示将串口与板卡进行连接，usb端接入电脑。板卡上的Type-C接口通过USB-Type-C线连接到电脑。
+
+连接串口，红色圈内（从左往右第一排第二个）为 GND，黄色圈内（第一排第五个）为 TX，绿色圈内（第二排第五个）为 RX。与主机应遵循TX到RX,RX到TX,GND到GND的接线。
+
+![](/img/image-for-flash/lpi4a6.png)
+
+接入后我们需要确认串口设备的地址，可以使用命令行查看也可以进行dmesg信息进行查看，这里我们使用命令行查看。
+
+在接入串口前命令行中输入以下命令
+
+```bash
+ls /dev/tty*
+```
+
+在接入后再输入一次以上命令，回显结果中会发现多出一个设备`/dev/ttyUSB0`
+
+![lstty](/img/image-for-flash/lstty.png)
+
+此时我们知道了串口设备地址，可以通过命令行指定参数启动minicom
+
+```bash
+sudo minicom -D /dev/ttyUSB0 -b 115200
+```
+
+其中`-D`用于指定串口设备，所以后面需要接上串口设备的地址。`-b`用于设置波特率,这里我们设置为 115200。
+
+![minicom-start](/img/image-for-flash/minicom-start.png)
+
+### 正式刷写
+
+在启动 minicom 后，我们将 USB-Type-C 线的 USB 端接入电源，接入后在串口控制台中查看，在出现`Hit any key to stop autoboot`此行命令时会有一个约3秒的系统倒数，此时按任意键即可打断启动，出现下面的 uboot 命令行。
+
+![start](/img/image-for-flash/image-start.png)
+
+在串口控制台窗口中输入
+
+```bash
+fastboot usb 0
+```
+
+输入后会显示
+
+```bash
+Light LPI4A 16G# fastboot usb 0
+dwc3_gadget_start maximum_speed:5 revision:0x5533330b
+dwc3_gadget_start DWC3_DCFG:0x80804
+dwc3_gadget_start_conndone_interrupt speed:0 dwc3_dsts:0x20000
+dwc3_gadget_start_conndone_interrupt speed:0 dwc3_dsts:0x2f938
+```
+
+![usb0](/img/image-for-flash/fastboot-usb0.png)
+
+即表示已可以使用 fastboot 刷写，随后另起一个窗口进行镜像刷写。
+
+#### 刷写镜像
+
+以下命令操作均为在镜像文件下载文件夹路径内进行，如果在非镜像文件目录下执行时请注意文件路径和文件名。
+
+```bash
+fastboot flash uboot u-boot-with-spl-lpi4a-16g.bin
+fastboot flash boot boot-lpi4a-20240720_171951.ext4
+fastboot flash root root-lpi4a-20240720_171951.ext4
+```
+
+fastboot 会显示刷写进度，如果连接了串口，在串口控制台中可以看到具体进度（下图以刷写
+boot，大小为 92886476 Bytes为例，可在 `cmd_parameter: boot, imagesize: 92886476` 处查看刷入的内容）。
+
+![flash-boot](/img/image-for-flash/flash-root-minicom.png)
+
+刷写完成后拔掉电脑与板卡连接的USB-Type-C线，接入电源线便可直接启动进入系统。
+
+#### 可能出现的问题
+
+如果 `lsusb` 中存在 download 设备，但`fastboot` 命令仍然卡在 `< waiting for any device >` ，可以尝试使用 `sudo` 运行 `fastboot` 命令。
+
+![waiting](/img/image-for-flash/waiting.png)
+
+### 用户登录
+
+下面是默认的系统账户以及密码
+
+- 登录账户：debian
+- 账户密码：debian
+
+在初次启动镜像时可使用以上的用户密码进行登录。
+
+出于安全性考虑，请在初次登录后一定修改密码，避免出现问题。

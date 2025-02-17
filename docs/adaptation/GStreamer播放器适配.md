@@ -1,3 +1,8 @@
+---
+title: GStreamer 播放器适配
+sidebar_position: 1
+---
+
 # 支持 PTG omxil 库的 GStreamer 播放器适配文档
 
 适用SDK v1.1.2

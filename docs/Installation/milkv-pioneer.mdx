@@ -1,0 +1,121 @@
+---
+sidebar_position: 3
+---
+
+import { DownloadLink } from "@site/src/components/ImageLinks";
+
+
+# 在 Milk-V pioneer 上安装 RevyOS
+
+## 1.准备工作
+
+### 工具准备
+
+- MicroSD卡
+- MicroSD读卡器
+- NVMe SSD读卡器
+
+### 镜像下载
+
+RevyOS 镜像目录：[镜像下载](https://mirror.iscas.ac.cn/revyos/extra/images/sg2042/)
+
+目前最新镜像版本为: {<DownloadLink device="Milk-V Pioneer" />}
+
+以下以20240819镜像目录为例：
+
+![](/img/image-for-flash/pioneer-image-dir.png)
+
+RevyOS 镜像刷写遵循固件文件+系统文件的方式，因此会用到以下文件
+
+固件文件:
+
+- firmware_single_sg2042-v6.6-lts-v0p7.bin(刷写进SPI Flash中)
+- firmware_single_sg2042-v6.6-lts-v0p7.img(刷写进SD卡中)
+
+系统文件:
+
+- revyos-pioneer-20240819-154656.img.zst
+
+## 2.固件刷写
+
+### 刷写说明
+
+根据镜像下载中的说明，固件文件可以存放于 SPI Flash 或 SD卡中，因此下面将会进行分类说明。
+
+### 将固件刷写到SD卡中
+
+操作环境：Ubuntu 22.04
+
+#### 使用 BalenaEtcher 写入
+
+1、选择文件 firmware_single_sg2042-v6.6-lts-v0p7.img
+2、选择目标SD卡
+3、点击烧录
+
+#### 通过命令行写入
+
+将SD卡插入读卡器并连接至电脑，确认是否正确连接以及设备路径
+
+在存放firmware_single_sg2042-v6.6-lts-v0p7.img文件的目录下时，使用dd命令将文件刷写到SD卡中
+
+`
+sudo dd if=firmware_single_sg2042-v6.6-lts-v0p7.img of=/dev/sda bs=4M status=progress
+`
+
+`of=/dev/sda` 此项请根据设备路径进行更改
+
+刷写完成后请使用`sync`命令，确保数据写入到 SD 卡中。
+
+### 将固件刷写到 SPI Flash 中
+
+操作环境：RevyOS0819
+
+注意事项:首次使用时推荐使用SD卡存放固件
+
+#### 通过命令行写入
+
+此方法是将.bin文件写入到mtd中，所以需要安装相关软件包以及加载相关模块
+
+```
+sudo apt install mtd-utils
+sudo modprobe mtdblock
+```
+
+然后下载文件
+```
+wget https://mirror.iscas.ac.cn/revyos/extra/images/sg2042/20240819/firmware_single_sg2042-v6.6-lts-v0p7.bin
+```
+
+下载完成后切换到 firmware_single_sg2042-v6.6-lts-v0p7.bin 的下载目录下，执行以下命令
+
+```
+sudo flashcp -v firmware_single_sg2042-v6.6-lts-v0p7.bin /dev/mtd1
+```
+
+至此刷写完成
+
+## 3.镜像刷写
+
+操作环境：Ubuntu 22.04
+
+### 通过命令行写入
+
+首先需要解压`revyos-pioneer-20240819-154656.img.zst`文件
+
+```
+unzstd revyos-pioneer-20240819-154656.img.zst
+```
+
+得到`revyos-pioneer-20240819-154656.img`文件
+
+将NVMe SSD插入读卡器并连接至电脑，确认是否正确连接以及设备路径
+
+在存放revyos-pioneer-20240819-154656.img文件的目录下时，使用dd命令将文件刷写到NVMe SSD中
+
+`
+sudo dd if=revyos-pioneer-20240819-154656.img of=/dev/nvme0n1 bs=4M status=progress
+`
+
+`of=/dev/nvme0n1` 此项请根据设备路径进行更改
+
+刷写完成后请使用`sync`命令，确保数据写入到NVMe SSD中。

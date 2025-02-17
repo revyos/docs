@@ -1,0 +1,22 @@
+{
+  "title": {
+    "message": "RevyOS Docs",
+    "description": "The title in the navbar"
+  },
+  "logo.alt": {
+    "message": "RevyOS Logo",
+    "description": "The alt text of navbar logo"
+  },
+  "item.label.文档": {
+    "message": "Docs",
+    "description": "Navbar item with label 文档"
+  },
+  "item.label.提交问题与已知问题": {
+    "message": "Issues",
+    "description": "Navbar item with label 提交问题与已知问题"
+  },
+  "item.label.GitHub": {
+    "message": "GitHub",
+    "description": "Navbar item with label GitHub"
+  }
+}

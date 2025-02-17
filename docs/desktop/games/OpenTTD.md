@@ -1,3 +1,8 @@
+---
+title: OpenTTD 游戏
+sidebar_position: 1
+---
+
 # OpenTTD
 
 状态：
