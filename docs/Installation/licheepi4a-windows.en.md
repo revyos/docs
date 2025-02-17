@@ -30,11 +30,11 @@ Please note that regardless of the flashing method used, existing user data will
 
 ## Booting from SD card
 
-Note! Booting from an SD card does not require changing the DIP switch! Set the DIP switch according to the eMMC settings!
+Note: Booting from an SD card does not require changing the DIP switch! Set the DIP switch to eMMC boot!
 
 ![DIP Switch Example](./image%20for%20flash/Switch.png)
 
-The DIP switch is located on the bottom of the board and can only be seen after removing the board. The correct setting should have both buttons aligned with the bottom.
+The DIP switch is located on the bottom of the carrier board and can only be seen after removing the LM4A SoM. The correct setting should be `BOOT_SEL[1:0]=0 0`, i.e. `SW1=SW2=off`.
 
 **Note!** Some early versions of LicheePi4A boards do not have a DIP switch.
 
@@ -58,15 +58,17 @@ Using the 20250123 image as an example:
 
 There are two ways to download the image:
 
-- Through web browsing. Simply click the link to download.
+- Through a web browser. Simply click the link to download.
 
-![Download image through web](./image%20for%20flash/web-download-windows.png)
+![Download image through web](./image%20for%20flash/web-download-windows-en.png)
 
 - Through command line. Open PowerShell and run the following command:
 
 ```powershell
 curl.exe -OL https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250123/sdcard-lpi4a-20250123_195216.img.zst
 ```
+
+> **Note**: `curl.exe` is [shipped in Windows as a default component since Windows 10](https://curl.se/windows/microsoft.html). If `curl.exe` isn't working, use web browser.
 
 Wait for the progress to reach 100% to complete the download.
 
@@ -78,7 +80,7 @@ Both methods will result in a compressed image file named `sdcard-lpi4a-20250123
 
 Open File Explorer, navigate to the folder containing the image file, right-click and select "Open in terminal"
 
-![Select "Open in terminal" from the context menu](./image%20for%20flash/context_menu_terminal_open_windows.png)
+![Select "Open in terminal" from the context menu](./image%20for%20flash/context_menu_terminal_open_windows-en.png)
 
 Click to open the PowerShell terminal. Enter the following command to get the `md5sum.txt` checksum from the mirror site:
 
@@ -86,7 +88,7 @@ Click to open the PowerShell terminal. Enter the following command to get the `m
 curl.exe -L https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250123/md5sum.txt
 ```
 
-This should display the theoretical checksums for various image files. Run the following command to calculate the local image checksum:
+This should display the checksums for various image files. Run the following command to calculate the local image checksum:
 
 ```powershell
 Get-FileHash -Algorithm MD5 .\sdcard-lpi4a-20250123_195216.img.zst
@@ -99,8 +101,6 @@ Compare the two checksums, they should match. If not, you need to re-download th
 #### Extracting the Image
 
 The image is compressed with `zstd`, you can use compression tools like [PeaZip](https://peazip.github.io/) or [7-zip Zstd version](https://github.com/mcmilk/7-Zip-zstd) to extract it.
-
-![Extract image using Peazip](./image%20for%20flash/peazip_extraction_illustration.png)
 
 **Note**: After extraction, the image itself and the compressed file will occupy about **10.2GB** of space, please ensure you have enough space!
 
@@ -123,7 +123,7 @@ Download the flashing tool BalenaEtcher from the official website [https://etche
 5. After selecting both items, click "Flash" to write the image.
 6. After waiting for a while, it will show that the flashing is complete.
 
-![BalenaEtcher Flashing Process](./image%20for%20flash/balenaetcher-flashing-guide.png)
+![BalenaEtcher Flashing Process](./image%20for%20flash/balenaetcher-flashing-guide-en.png)
 
 ### Booting the System from SD Card
 
@@ -136,7 +136,7 @@ First connect the HDMI cable (if you need an external display), then connect the
 
 When booting the image from eMMC, there are two ways to flash the image: with or without connecting to a serial port. Considering that connecting to a serial port is not necessary, the default method is flashing without connecting to a serial port. If you have a serial cable, you can also choose to refer to the section on flashing with a serial connection. There are some differences in the operations involved. If you want to flash with a serial cable connected, please refer to the relevant section in the [Linux Flashing Tutorial](./licheepi4a.md).
 
-Please note! Remove the SD Card before booting from eMMC!
+**Please note**: Remove the SD Card before booting from eMMC!
 
 ### Preparation
 
@@ -156,7 +156,7 @@ If it can display the version number normally as shown above, it proves the inst
 
 Download the LicheePi4A system image through the above links.
 
-**Note**: The uboot files for different memory versions of LicheePi4A are not interchangeable. Please choose the corresponding image according to your core board version.
+**Note**: The uboot files for different memory versions of LicheePi4A are not interchangeable. Please choose the corresponding image according to your LiChee Pi4A SoM version.
 
 |Memory Storage Combination|Corresponding uboot Image|
 |---|---|
@@ -164,9 +164,9 @@ Download the LicheePi4A system image through the above links.
 |8G RAM + 32G eMMC|u-boot-with-spl-lpi4a-main.bin|
 |16G RAM|u-boot-with-spl-lpi4a-16g-main.bin|
 
-If you can't confirm the specifications of the core board, you can scan the QR code on the core board to check. When LicheePi4A boards are sold, there will be a QR code sticker on both the core board and the base board. After scanning the QR code sticker on the core board, it will display the memory + storage configuration of the core board.
+If you can't confirm the specifications of the Lichee Pi4A SoM, you can scan the QR code on the SoM to check. When LicheePi4A boards are sold, there will be a QR code sticker on both the SoM and the motherboard. After scanning the QR code sticker on the SoM/motherboard, it will display the memory and storage configuration of the SoM.
 
-For example, on a 16G RAM + 128G board, the sticker is in the part shown in the image
+For example, on a 16G RAM + 128G SoM, the sticker is in the part shown in the image
 
 ![core-card](./image%20for%20flash/core-card.png)
 
@@ -174,7 +174,7 @@ The display after scanning the QR code is as follows
 
 ![Core board-info](./image%20for%20flash/card-info.png)
 
-In the result after scanning, the second part of the number is the memory + storage configuration of the core board.
+In the result after scanning, the second part of the number is the memory + storage configuration of the SoM.
 
 After confirming the board specifications, download, verify, and extract the corresponding uboot, boot, and root files (the uboot file does not need to be extracted). This part can refer to the "Booting from SD Card" section above.
 
@@ -190,17 +190,17 @@ To install the fastboot driver, you need to download the [Google USB Driver (pro
 
 1. Right-click on "USB download gadget" in Device Manager, click "Update driver"
 2. Choose "Browse my computer for drivers"
-![Driver Update Step 2](./image%20for%20flash/driver-update-step2.png)
+![Driver Update Step 2](./image%20for%20flash/driver-update-step2-en.png)
 3. Select "Let me pick from a list of available drivers on my computer"
 4. Select "Show All Devices" and click "Next"
-![Driver Update Step 4](./image%20for%20flash/driver-update-step-4.png)
+![Driver Update Step 4](./image%20for%20flash/driver-update-step-4-en.png)
 5. Click "Have Disk"
 6. Click "Browse", select the inf file under the Google USB Driver, click OK
-![Driver Update Step 6](./image%20for%20flash/driver-update-step-6.png)
-7. Select "Android ADB Interface", click "Next", click "Yes" in the pop-up dialog, click "Install" in the Windows Security Center dialog that pops up
-![Driver Update Step 7](./image%20for%20flash/driver-update-step7.png)
+![Driver Update Step 6](./image%20for%20flash/driver-update-step-6-en.png)
+7. Select "Android Bootloader Interface", click "Next", click "Yes" in the pop-up dialog, click "Install" in the Windows Security Center dialog that pops up
+![Driver Update Step 7](./image%20for%20flash/driver-update-step7-en.png)
 8. Successfully installed the fastboot driver
-![Driver Update Step 8](./image%20for%20flash/driver_update_step8.png)
+![Driver Update Step 8](./image%20for%20flash/driver_update_step8-en.png)
 
 If there are problems with the above steps, please go back to Device Manager, find the device, click "Uninstall driver", then unplug and replug the development board and try again.
 
@@ -221,7 +221,7 @@ Return to the PowerShell terminal containing `fastboot.exe`, enter the following
 
 Then proceed with flashing the image files
 
-**Note**: For a small number of boards, after executing the command, Device Manager may detect an incorrect device instead of `Android ADB Interface`. This is due to the change in USB VID and PID of uboot, common when flashing from factory uboot to RevyOS uboot. Uninstall the device and reinstall the driver to resolve this.
+**Note**: For a small number of boards, after executing the command, Device Manager may detect an incorrect device instead of `Android Bootloader Interface`. This is due to the change in USB VID and PID of uboot, common when flashing from factory uboot to RevyOS uboot. Uninstall the device and reinstall the driver to resolve this.
 
 ```powershell
 # Replace the following three lines with the paths to the uboot, boot, root files corresponding to your board specifications, you can drag and drop the files in File Explorer to the terminal to quickly input the file paths

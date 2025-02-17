@@ -34,7 +34,7 @@ LicheePi4A 目前支持两种启动方式，分别是[从SD card 启动](#sd-car
 
 ![拨码开关示例图](./image%20for%20flash/Switch.png)
 
-拨码开关存在于板卡下方，需要取出板卡后才能看到，正确设置应为两个按钮全部对准下方。
+拨码开关存在于核心板下方，需要取出核心板后才能看到，正确设置应为两个按钮全部对准下方，即`BOOT_SEL[1:0]=0 0`。
 
 **注意！** 部分早期版本的 LicheePi4A 板卡没有拨码开关。
 
@@ -67,6 +67,8 @@ LicheePi4A 目前支持两种启动方式，分别是[从SD card 启动](#sd-car
 ```powershell
 curl.exe -OL https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250123/sdcard-lpi4a-20250123_195216.img.zst
 ```
+
+> **注**：`curl.exe`[从Windows 10起作为一个默认组件存在于Windows系统中](https://curl.se/windows/microsoft.html)。如果找不到`curl.exe`，可以使用浏览器下载的方法作为替代。
 
 即可下载。等待进度到达100%即表示下载完成。
 
@@ -197,7 +199,7 @@ Get-FileHash -Algorithm MD5 .\sdcard-lpi4a-20250123_195216.img.zst
 5. 点击“从磁盘安装”
 6. 点击“浏览”，选中Google USB驱动下的inf文件，点击确定
 ![更新驱动程序步骤6](./image%20for%20flash/driver-update-step-6.png)
-7. 选中“Android ADB Interface”，点击“下一步”，在弹出对话框中点击“是”，在弹出的Windows安全中心对话框中点击“安装”
+7. 选中“Android Bootloader Interface”，点击“下一步”，在弹出对话框中点击“是”，在弹出的Windows安全中心对话框中点击“安装”
 ![更新驱动程序步骤7](./image%20for%20flash/driver-update-step7.png)
 8. 成功安装fastboot驱动
 ![更新驱动程序步骤8](./image%20for%20flash/driver_update_step8.png)
@@ -222,7 +224,7 @@ Get-FileHash -Algorithm MD5 .\sdcard-lpi4a-20250123_195216.img.zst
 
 然后再进行镜像文件的刷写
 
-**注意**：有少部分的板卡在执行命令后，设备管理器会检测到错误的设备，而不是`Android ADB Interface`。这是由于uboot的USB VID和PID改变所致，常见于从原厂uboot刷入RevyOS uboot时。卸载设备并重新安装驱动程序即可解决。
+**注意**：有少部分的板卡在执行命令后，设备管理器会检测到错误的设备，而不是`Android Bootloader Interface`。这是由于uboot的USB VID和PID改变所致，常见于从原厂uboot刷入RevyOS uboot时。卸载设备并重新安装驱动程序即可解决。
 
 ```powershell
 # 以下三行替换为您的板卡规格对应的 uboot boot root 文件的路径，可在资源管理器中将文件拖放到终端以快捷输入文件的路径
