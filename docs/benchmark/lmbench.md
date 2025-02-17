@@ -1,3 +1,7 @@
+---
+title: LMbench
+---
+
 # lmbench for Lpi4A
 
 ## 软件版本
