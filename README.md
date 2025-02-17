@@ -22,6 +22,18 @@ This website is built using [Docusaurus](https://docusaurus.io/), a modern stati
 ## mdx 文件
 - 图片放在 `/static/img` 下，引用为 `/img/...`
 
+## Sidebar
+Sidebar 全自动索引，在每篇文章中通过 **第一个标题** 或 markdown meta
+```
+---
+title: your title
+sidebar_position: 1
+---
+```
+确定标题和其所在的位置。
+
+对于文件夹，可以在文件夹中放置 `_category_.json` 手动设定其标题和所在位置，见[此处](docs/adaptation/_category_.json)
+
 ## 开发
 ### 本地开发
 
