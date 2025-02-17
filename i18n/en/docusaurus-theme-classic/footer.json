@@ -9,7 +9,7 @@
   },
   "link.item.label.镜像刷写需知": {
     "message": "Installation Overview",
-    "description": "The label of footer link with label=Installation Overview linking to /docs/Installation/intro"
+    "description": "The label of footer link with label=镜像刷写需知 linking to /docs/Installation/intro"
   },
   "link.item.label.Github": {
     "message": "Github",
@@ -18,5 +18,25 @@
   "copyright": {
     "message": "Copyright © 2025 RevyOS. Built with Docusaurus.",
     "description": "The footer copyright"
+  },
+  "link.title.PLCT Lab": {
+    "message": "PLCT Lab",
+    "description": "The title of the footer links column with title=PLCT Lab in the footer"
+  },
+  "link.item.label.Lichee Pi 4A": {
+    "message": "Lichee Pi 4A",
+    "description": "The label of footer link with label=Lichee Pi 4A linking to /docs/Installation/licheepi4a"
+  },
+  "link.item.label.Milk-V Pioneer": {
+    "message": "Milk-V Pioneer",
+    "description": "The label of footer link with label=Milk-V Pioneer linking to /docs/Installation/milkv-pioneer"
+  },
+  "link.item.label.PLCT 主页": {
+    "message": "PLCT Homepage",
+    "description": "The label of footer link with label=PLCT 主页 linking to https://plctlab.org/"
+  },
+  "link.item.label.Telegram": {
+    "message": "Telegram",
+    "description": "The label of footer link with label=Telegram linking to https://t.me/+Pi6px22-OsUxM2M1"
   }
 }

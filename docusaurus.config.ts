@@ -95,6 +95,15 @@ const config: Config = {
           ],
         },
         {
+          title: 'PLCT Lab',
+          items: [
+            {
+              label: 'PLCT 主页',
+              href: 'https://plctlab.org/',
+            },
+          ],
+        },
+        {
           title: '社交媒体',
           items: [
             {
@@ -108,7 +117,7 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} RevyOS. Built with Docusaurus.`,
+      copyright: `Copyright © 2023 - ${new Date().getFullYear()} RevyOS by PLCT Lab. Built with Docusaurus.`,
     },
     prism: {
       theme: prismThemes.github,
