@@ -34,7 +34,7 @@ const config: Config = {
         docs: {
           sidebarPath: './sidebars.ts',
           editUrl:
-            'https://github.com/revyos/docs/tree/main',
+            'https://github.com/revyos/docs/tree/master',
         },
         theme: {
           customCss: './src/css/custom.css',
