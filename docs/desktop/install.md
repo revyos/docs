@@ -1,3 +1,8 @@
+---
+title: 安装
+sidebar_position: 2
+---
+
 # 包安装
 
 在RevyOS中安装包只需要在 terminal 中输入

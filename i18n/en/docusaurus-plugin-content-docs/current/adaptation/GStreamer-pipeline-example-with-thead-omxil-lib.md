@@ -1,5 +1,5 @@
 ---
-title: GStreamer pipeline
+title: GStreamer Pipeline Example
 sidebar_position: 2
 ---
 

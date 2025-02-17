@@ -1,3 +1,8 @@
+---
+title: GIMP 图像编辑工具
+sidebar_position: 1
+---
+
 # GIMP图像处理软件
 
 状态：可以运行

@@ -1,0 +1,22 @@
+{
+  "link.title.镜像刷写": {
+    "message": "Installation",
+    "description": "The title of the footer links column with title=镜像刷写 in the footer"
+  },
+  "link.title.社交媒体": {
+    "message": "Social Media",
+    "description": "The title of the footer links column with title=社交媒体 in the footer"
+  },
+  "link.item.label.镜像刷写需知": {
+    "message": "Installation Overview",
+    "description": "The label of footer link with label=Installation Overview linking to /docs/Installation/intro"
+  },
+  "link.item.label.Github": {
+    "message": "Github",
+    "description": "The label of footer link with label=Github linking to https://github.com/revyos/revyos"
+  },
+  "copyright": {
+    "message": "Copyright © 2025 RevyOS. Built with Docusaurus.",
+    "description": "The footer copyright"
+  }
+}

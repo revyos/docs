@@ -1,0 +1,54 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.documentSidebar.category.构建文档": {
+    "message": "Build",
+    "description": "The label for category 构建文档 in sidebar documentSidebar"
+  },
+  "sidebar.documentSidebar.category.Debian 相关": {
+    "message": "Debian",
+    "description": "The label for category Debian 相关 in sidebar documentSidebar"
+  },
+  "sidebar.documentSidebar.category.其他通用构建": {
+    "message": "Other Builds",
+    "description": "The label for category 其他通用构建 in sidebar documentSidebar"
+  },
+  "sidebar.documentSidebar.category.适配文档": {
+    "message": "Porting Docs",
+    "description": "The label for category 适配文档 in sidebar documentSidebar"
+  },
+  "sidebar.documentSidebar.category.系统使用": {
+    "message": "System Usage",
+    "description": "The label for category 系统使用 in sidebar documentSidebar"
+  },
+  "sidebar.documentSidebar.category.软件使用": {
+    "message": "Software Usage",
+    "description": "The label for category 软件使用 in sidebar documentSidebar"
+  },
+  "sidebar.documentSidebar.category.Games": {
+    "message": "Games",
+    "description": "The label for category Games in sidebar documentSidebar"
+  },
+  "sidebar.documentSidebar.category.Benchmark": {
+    "message": "Benchmark",
+    "description": "The label for category Benchmark in sidebar documentSidebar"
+  },
+  "sidebar.documentSidebar.category.镜像刷写": {
+    "message": "Installation",
+    "description": "The label for category 镜像刷写 in sidebar documentSidebar"
+  },
+  "sidebar.documentSidebar.category.Changelog": {
+    "message": "Changelog",
+    "description": "The label for category Changelog in sidebar documentSidebar"
+  },
+  "sidebar.documentSidebar.category.Beagle-Ahead": {
+    "message": "Beagle-Ahead",
+    "description": "The label for category Beagle-Ahead in sidebar documentSidebar"
+  },
+  "sidebar.documentSidebar.category.Lichee Pi 4A": {
+    "message": "Lichee Pi 4A",
+    "description": "The label for category Lichee Pi 4A in sidebar documentSidebar"
+  }
+}

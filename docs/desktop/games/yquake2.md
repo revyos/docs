@@ -1,3 +1,8 @@
+---
+title: yquake2 游戏
+sidebar_position: 2
+---
+
 # yquake2
 
 状态：

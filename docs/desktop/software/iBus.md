@@ -1,3 +1,8 @@
+---
+title: iBus 输入法
+sidebar_position: 2
+---
+
 # iBus 输入法
 
 状态：可以运行
