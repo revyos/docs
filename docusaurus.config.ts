@@ -49,7 +49,7 @@ const config: Config = {
       title: 'RevyOS Docs',
       logo: {
         alt: 'RevyOS Logo',
-        src: 'img/logo.svg',
+        src: 'img/RevyOS-logo.svg',
       },
       items: [
         {
