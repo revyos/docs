@@ -8,11 +8,13 @@ import LocaleImage from "@site/src/components/LocaleImage";
 
 # Installing RevyOS on the LicheePi 4A
 
-This guide provides instructions for installing RevyOS on the LicheePi4A. For other device flashing guides, click the links in the table below.
+This page provides a tutorial for flashing the LicheePi 4A image on Linux.
+If you want to flash the image on a Windows, or view other image flashing tutorials, please view the links in the table below.
 
-| Device Name |                |
-| ------- | -------------- |
-| Milk-V pioneer | [Installation Guide](./milkv-pioneer) |
+| Other Flashing Tutorial | Link |
+| ----------------- | -------------- |
+| LicheePi4A (Installing using Windows)| [Installation guilde for Windows](./licheepi4a-windows) |
+| Milk-V Pioneer    | [Flashing Tutorial](./milkv-pioneer.mdx) |
 
 ## Important!
 
@@ -381,9 +383,24 @@ fastboot flash root root-lpi4a-20240720_171951.ext4
 Once flashing is complete, disconnect the USB-Type-C cable from the computer and the board, connect the power cable, and the system will boot up.
 
 
-#### Potential Issues
+### Potential Issues
+
+#### Linux only: stuck at < waiting for any device >
 
 If the `lsusb` output shows a download device but the `fastboot` command remains stuck at `< waiting for any device >`, try running the `fastboot` command with `sudo`.
+
+#### Issues After Major Version Upgrade  
+
+If you **use a serial connection to enter U-Boot** and start fastboot flashing (see [here](#writing-the-image-to-emmc-with-serial-connection)), the issue might be caused by U-Boot retaining old environment variables. Please enter the following command in the U-Boot serial console:  
+
+```  
+env default -a -f; env save; reset  
+```  
+
+If this version includes partition table changes, additionally run:  
+```  
+run gpt_partition  
+```
 
 ### User Login
 

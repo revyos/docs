@@ -6,10 +6,13 @@ import { DownloadLink } from "@site/src/components/ImageLinks";
 
 # LicheePi4A镜像刷写教程
 
-此页面是 LicheePi4A 镜像刷写教程，如想获取其它镜像刷写教程请从下面的表格中点击链接进行查看。
+此页面是 LicheePi4A 镜像刷写教程，适用于 Linux
 
-| 支持设备 |                |
+如想查看镜像刷写教程请从下面的表格中点击链接进行查看。
+
+| 其他刷写教程 |   链接     |
 | ------- | -------------- |
+| LicheePi4A (在 Windows 上刷写)| [Windows 刷写教程](./licheepi4a-windows) |
 | Milk-V pioneer | [刷写教程](./milkv-pioneer) |
 
 ## 注意！
@@ -437,11 +440,21 @@ boot，大小为 92886476 Bytes为例，可在 `cmd_parameter: boot, imagesize: 
 
 刷写完成后拔掉电脑与板卡连接的USB-Type-C线，接入电源线便可直接启动进入系统。
 
-#### 可能出现的问题
+### 可能出现的问题
+
+#### Linux only：卡在< waiting for any device >
 
 如果 `lsusb` 中存在 download 设备，但`fastboot` 命令仍然卡在 `< waiting for any device >` ，可以尝试使用 `sudo` 运行 `fastboot` 命令。
 
 ![waiting](/img/image-for-flash/waiting.png)
+
+#### 大版本升级后出现问题
+
+如果 **使用串口进入 uboot** 并启动 fastboot 刷入（见[此处](#写入镜像到emmc接入串口)），可能是 uboot 保留了旧版本的环境变量导致了问题，请在串口的 uboot 控制台中输入
+```
+env default -a -f; env save; reset
+```
+如果有此版本有分区表变化，请额外运行：`run gpt_partition`
 
 ### 用户登录
 
