@@ -161,6 +161,10 @@ Please press Enter to activate this console.
 / #
 ```
 
+Screen record (running on a Milk-V Meles):
+
+[![asciicast](https://asciinema.org/a/0WZEkADT8gh9GmTHuqoHrSxHa.svg)](https://asciinema.org/a/0WZEkADT8gh9GmTHuqoHrSxHa)
+
 CoreMark results as follows:
 
 ```log

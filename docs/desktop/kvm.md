@@ -161,6 +161,10 @@ Please press Enter to activate this console.
 / #
 ```
 
+屏幕录像（运行在 Milk-V Meles 上）：
+
+[![asciicast](https://asciinema.org/a/0WZEkADT8gh9GmTHuqoHrSxHa.svg)](https://asciinema.org/a/0WZEkADT8gh9GmTHuqoHrSxHa)
+
 CoreMark 结果如下：
 
 ```log
