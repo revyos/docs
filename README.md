@@ -34,6 +34,9 @@ sidebar_position: 1
 
 对于文件夹，可以在文件夹中放置 `_category_.json` 手动设定其标题和所在位置，见[此处](docs/adaptation/_category_.json)
 
+## Links
+为了解决这个问题[facebook/docusaurus issues#3372](https://github.com/facebook/docusaurus/issues/3372)，默认为所有链接后面加上了一个 `/`， 因此跳转到其他页面需要向上一级走一次
+
 ## 开发
 ### 本地开发
 
