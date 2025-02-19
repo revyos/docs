@@ -25,7 +25,12 @@
 
 .logo {
   max-width: 25%;
-  max-height: 25%;
   width: auto;
   height: auto;
+}
+
+@media screen and (max-width: 996px) {
+  .logo {
+    max-width: 70vw;
+  }
 }

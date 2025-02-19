@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Layout from '@theme/Layout';
 import Translate, { translate } from '@docusaurus/Translate';
 import Link from '@docusaurus/Link';
@@ -7,9 +7,14 @@ import styles from './index.module.css';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import { useColorMode } from '@docusaurus/theme-common';
 
-const Logo = () => {
-  const isDark = useColorMode()['isDarkTheme'];
-  return (<img src={useBaseUrl(isDark ? 'img/RevyOS-logo-dark.svg' : 'img/RevyOS-logo.svg')} alt="logo of RevyOS" className={styles.logo} />)
+function Logo(){
+  const [dark, setDark] = useState(false);
+  const { colorMode } = useColorMode();
+  useEffect(() => {
+    setDark(colorMode === 'dark');
+  },[[]])
+
+  return (<img src={useBaseUrl(dark ? 'img/RevyOS-logo-dark.svg' : 'img/RevyOS-logo.svg')} alt="logo of RevyOS" className={styles.logo} />)
 }
 
 
