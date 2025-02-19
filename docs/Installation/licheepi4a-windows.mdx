@@ -30,11 +30,11 @@ import { DownloadLink } from "@site/src/components/ImageLinks";
 
 ## 启动方式介绍
 
-LicheePi4A 目前支持两种启动方式，分别是[从SD card 启动](#sd-card)和[从 eMMC 启动](#emmc)，对于两种不同的启动方式，此教程中都有进行说明，请根据自己所需的刷写方式点击进行跳转查看。
+LicheePi4A 目前支持两种启动方式，分别是[从SD card 启动](#从-sd-card-启动)和[从 eMMC 启动](#从-emmc-启动)，对于两种不同的启动方式，此教程中都有进行说明，请根据自己所需的刷写方式点击进行跳转查看。
 
 请注意，不论使用哪种刷写方式，原有的用户数据都会丢失，所以在进行刷写前请一定确保做好数据备份的工作！
 
-## 从SD card 启动
+## 从 SD card 启动
 
 注意！从sd卡启动不需要改变拨码开关！按照eMMC拨码开关进行设置！
 
@@ -118,7 +118,7 @@ Get-FileHash -Algorithm MD5 .\sdcard-lpi4a-20250123_195216.img.zst
 
 准备MicroSD 读卡器和一张MicroSD 卡,目前 MicroSD 卡存在兼容性问题，RevyOS 提供了目前已测试过的 [MicroSD 卡列表](https://github.com/revyos/revyos/blob/main/Installation/card%20list.md)。
 
-如果您使用的 MicroSD 卡不在已知可用的列表上，出现无法正确刷写镜像和刷写后无法启动镜像的问题，请参考[此页](../issue.md)提交issue，并尝试参考[从 eMMC 启动](#emmc)镜像的刷写教程进行镜像刷写。
+如果您使用的 MicroSD 卡不在已知可用的列表上，出现无法正确刷写镜像和刷写后无法启动镜像的问题，请参考[此页](../issue.md)提交issue，并尝试参考[从 eMMC 启动](#从-emmc-启动)镜像的刷写教程进行镜像刷写。
 
 #### 使用BalenaEtcher写入镜像到 MicroSD 卡
 
