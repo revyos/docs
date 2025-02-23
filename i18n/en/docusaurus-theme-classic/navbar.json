@@ -11,6 +11,9 @@
     "message": "Docs",
     "description": "Navbar item with label 文档"
   },
+  "item.label.项目列表": {
+    "message": "Projects"
+  },
   "item.label.提交问题与已知问题": {
     "message": "Issues",
     "description": "Navbar item with label 提交问题与已知问题"

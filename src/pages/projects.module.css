@@ -1,0 +1,38 @@
+/* 全局容器样式（就是整个里面的东西） */
+.container {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  padding: 4rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  overflow: hidden;
+  flex-grow: 1;
+  position: relative;
+}
+
+/* 适配深色模式 */
+:root {
+  --background-color: #f9f9f9;
+  --text-color: #333;
+  --card-background: #fff;
+  --card-shadow: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme='dark'] {
+  --background-color: #1a1a1a;
+  --text-color: #fff;
+  --card-background: #2a2a2a;
+  --card-shadow: rgba(0, 0, 0, 0.3);
+}
+
+/* 卡片列表容器 */
+.cardListContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  padding-top: 20px;
+  gap: 25px;
+  width: 80%;
+  max-width: 1200px;
+}
