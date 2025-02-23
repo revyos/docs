@@ -66,6 +66,11 @@ const config: Config = {
           position: 'left',
         },
         {
+          href: '/projects',
+          label: '项目列表',
+          position: 'left',
+        },
+        {
           href: 'https://github.com/revyos',
           label: 'GitHub',
           position: 'right',
