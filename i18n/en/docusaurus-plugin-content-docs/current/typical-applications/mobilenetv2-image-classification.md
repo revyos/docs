@@ -247,7 +247,3 @@ data pointer: 0x2b4aca0
 
 === tensor info ===
 ```
-
-## Example Application Scenarios
-
-## Common Issues and Solutions 
