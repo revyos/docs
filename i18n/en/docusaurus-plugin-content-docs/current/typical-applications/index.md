@@ -16,4 +16,3 @@ Here, you will find practical application examples of RevyOS in different scenar
 - Application Examples
 - Implementation Guides
 - Best Practices
-- Performance Optimizations
