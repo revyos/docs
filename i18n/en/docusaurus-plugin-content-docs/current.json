@@ -50,5 +50,13 @@
   "sidebar.documentSidebar.category.Lichee Pi 4A": {
     "message": "Lichee Pi 4A",
     "description": "The label for category Lichee Pi 4A in sidebar documentSidebar"
+  },
+  "sidebar.documentSidebar.category.杂项": {
+    "message": "Miscellaneous",
+    "description": "The label for category 杂项 in sidebar documentSidebar"
+  },
+  "sidebar.documentSidebar.category.典型应用": {
+    "message": "Typical Applications",
+    "description": "The label for category Typical Applications in sidebar documentSidebar"
   }
 }
