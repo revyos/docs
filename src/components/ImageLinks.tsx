@@ -10,14 +10,14 @@ interface ImageLink {
 export const imageLinks = [
   {
     device: "Lichee Pi 4A",
-    version: "20250123",
-    downloadLink: "https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250123/",
+    version: "20250323",
+    downloadLink: "https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250323/",
     sdCardSupport: true,
   },
   {
     device: "Milk-V Meles",
-    version: "20250123",
-    downloadLink: "https://mirror.iscas.ac.cn/revyos/extra/images/meles/20250123/",
+    version: "20250323",
+    downloadLink: "https://mirror.iscas.ac.cn/revyos/extra/images/meles/20250323/",
     sdCardSupport: true,
   },
   {
