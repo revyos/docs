@@ -1,6 +1,12 @@
 # Enable T-Head Optimization GCC
 
-This is an experimental `feature`. If you encounter any issues, you can [report an issue](https://github.com/revyos/revyos/issues).
+:::warning
+When the toolchain of RevyOS is upgraded to gcc14, this repository is abandoned.
+There will be a replacement for c910v repo later. Please wait for further updates.
+（[Issue Track #124](https://github.com/revyos/revyos/issues/124)）
+:::
+
+~~This is an experimental `feature`. If you encounter any issues, you can [report an issue](https://github.com/revyos/revyos/issues).~~
 
 ```bash
 # Add Optimization deb source
@@ -13,7 +19,7 @@ sudo apt install -y build-essential gcc-13 g++-13
 sudo reboot
 ```
 
-## Test gcc-10 (gcc10.4 enable xtheadc+v0p7)
+## ~~Test gcc-10 (gcc10.4 enable xtheadc+v0p7)~~
 
 ```
 gcc -v
@@ -27,7 +33,7 @@ Supported LTO compression algorithms: zlib zstd
 gcc version 10.4.0 (Debian 10.4.0-8revyos2.3)
 ```
 
-## Test gcc-13 (gcc13.2 enable xthead extension)
+## ~~Test gcc-13 (gcc13.2 enable xthead extension)~~
 
 ```
 gcc-13 -v
@@ -41,8 +47,8 @@ Supported LTO compression algorithms: zlib zstd
 gcc version 13.2.0 (Debian 13.2.0-1revyos1)
 ```
 
-## gcc-10/gcc-13 Difference
+## ~~gcc-10/gcc-13 Difference~~
 
-Except for v0p7, all optimizations can use gcc-13 as a replacement for gcc-10.
+~~Except for v0p7, all optimizations can use gcc-13 as a replacement for gcc-10.~~
 
-The optimizations in the latter can report issues to the mainline as they are already part of the mainline functionality.
+~~The optimizations in the latter can report issues to the mainline as they are already part of the mainline functionality.~~

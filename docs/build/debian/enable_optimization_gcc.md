@@ -1,6 +1,11 @@
-# 如何启用 T-Head 优化 GCC
+# 如何启用 T-Head 优化 GCC（暂时不可用）
 
-实验性 `feature` 如果发现问题可以进行[issue申报](https://github.com/revyos/revyos/issues)
+:::warning
+由于 RevyOS 系统 GCC 版本已升级到 14，故目前 T-Head 优化 GCC 所使用的仓库 `c910v` 已
+被弃用。**本文所述内容失效**，请等待后续更新。（[追踪链接 #124](https://github.com/revyos/revyos/issues/124)）
+:::
+
+~~实验性 `feature` 如果发现问题可以进行[issue申报](https://github.com/revyos/revyos/issues)~~
 
 ```bash
 # 增加优化源
@@ -13,7 +18,7 @@ sudo apt install -y build-essential gcc-13 g++-13
 sudo reboot
 ```
 
-## 测试 gcc-10 (gcc10.4 启用xtheadc+v0p7)
+## ~~测试 gcc-10 (gcc10.4 启用xtheadc+v0p7)~~
 
 ```
 gcc -v
@@ -27,7 +32,7 @@ Supported LTO compression algorithms: zlib zstd
 gcc version 10.4.0 (Debian 10.4.0-8revyos2.3)
 ```
 
-## 测试 gcc-13 (gcc13.2 启用xthead extension)
+## ~~测试 gcc-13 (gcc13.2 启用xthead extension)~~
 
 ```
 gcc-13 -v
@@ -41,7 +46,7 @@ Supported LTO compression algorithms: zlib zstd
 gcc version 13.2.0 (Debian 13.2.0-1revyos1)
 ```
 
-## gcc-10/gcc-13 区别
+## ~~gcc-10/gcc-13 区别~~
 
 除了v0p7 其他优化都可以用 gcc-13 代替 gcc-10
 
