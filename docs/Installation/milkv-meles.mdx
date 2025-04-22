@@ -20,6 +20,8 @@ import { DownloadLink } from "@site/src/components/ImageLinks";
 
 在查看此教程前，请对照下面的图片确认手中板卡是否和图片一致，请在确认一致后再继续按照教程操作。
 
+![Milk-V Meles 示例图](/img/image-for-flash/meles.png)
+
 ## 演示环境介绍
 
 此教程中所有镜像刷写的相关操作都使用以下环境:
@@ -98,6 +100,8 @@ Milk-V Meles 开发板上有一个 SPI nor Flash。它被用来存放 Bootloader
 
 当您更换了全新的 SPI Nor Flash 或者固件损坏时，您可能需要为其烧写镜像，这时您需要采用连接串口的方式进行烧录。
 
+关于串口如何连接请参考官方的[硬件介绍](https://milkv.io/zh/docs/meles/hardware/meles-main-board)，与主机应遵循TX到RX,RX到TX,GND到GND的接线。
+
 ### 准备工作
 
 首先需要安装 yoctools 到本地设备中，在演示环境下，可以直接通过pip命令安装
@@ -112,12 +116,16 @@ sudo pip install yoctools -U
 sudo apt install python3-pip
 ```
 
-安装完成后可以通过检查版本的方式查看是否安装成功，如果成功回显版本号则表示安装成功。
+![pip-install](/img/image-for-flash/pip-install.png)
+
+yoctools 安装完成后可以通过检查版本的方式查看是否安装成功，如果成功回显版本号则表示安装成功。
 
 ```bash
 yoc --version
 2.1.11
 ```
+
+![yoc-version](/img/image-for-flash/yoc-version.png)
 
 其次需要下载镜像烧录软件
 
@@ -144,14 +152,20 @@ sudo cct list -u /dev/ttyUSB0
 Wait ..............
 ```
 
+![cct-list](/img/image-for-flash/cct-list.png)
+
 此处输出的日志 “Wait ......” 代表 cct 程序正在等待 Meles 响应，在未接入串口的情况下会一直等待，直到接入串口后才会继续执行。所以是正常现象，按照下面的步骤继续执行操作即可。
+
+如果过长时间没有接入，终端会显示如下文字
+
+![timeout](/img/image-for-flash/timeout.png)
 
 - 首先将 USB to TTL 串口模块连接到 Meles 调试接口
     - 连接 TXD 到 RXD
     - 连接 RXD 到 TXD
     - 连接 GND 到 GND
 
-- 然后按住下载按钮，下载按钮如图所示
+- 然后按住下载按钮
 
 - 接入电源让 Meles 上电
 
@@ -166,11 +180,15 @@ Memory device list:
   dev = qspi0  , size =   16.0MB
 ```
 
+![cct-list1](/img/image-for-flash/cct-list1.png)
+
 然后我们将镜像烧录软件下载到 SRAM 中
 ```bash
 sudo cct download -u /dev/ttyUSB0 -d ram0 -f iw-single-line.bin -v checksum -r
 ```
 执行此命令后会有一个百分比进度条，请等待大约30秒
+
+![cct-download](/img/image-for-flash/cct-download.png)
 
 随后下载完成
 ```bash
@@ -184,6 +202,8 @@ checksum value is: 0x880572
 Start to run image...
 ``` 
 
+![cct-download1](/img/image-for-flash/cct-download1.png)
+
 最后将下载 Bootloader 到 SPI Nor Flash 中，在这步前请再一次确认板卡规格和下载好的```.bin```文件是否对应，演示使用的是8GB版本的板卡，所以下载的是```u-boot-with-spl-meles.bin```，复制命令时请自行替换文件名。
 
 同时请注意文件目录，演示文件在当前目录下，如果不在当前目录下请自行替换文件路径。
@@ -191,6 +211,8 @@ Start to run image...
 ```bash
 $ sudo cct download -u /dev/ttyUSB0 -d qspi0 -f u-boot-with-spl-meles.bin -v checksum -r -t 1200
 ```
+
+![cct-download2](/img/image-for-flash/cct-download2.png)
 
 执行此命令后同样会有一个百分比进度条，请等待大约一分钟。
 
@@ -206,7 +228,9 @@ checksum value is: 0x43bce40
 Start to run image...
 ```
 
-至此刷写完成，后续通过不同的启动方式分为[从SD card 启动](#从sd-card-启动)和[从 eMMC 启动](#从-emmc-启动)，请根据需要进行选择刷写。
+![cct-download3](/img/image-for-flash/cct-download3.png)
+
+至此刷写完成，后续通过不同的启动方式分为[从SD card 启动](#从-sd-card-启动)和[从 eMMC 启动](#从-emmc-启动)，请根据需要进行选择刷写。
 
 ## 从 SD card 启动
 
@@ -246,14 +270,20 @@ unzstd sdcard-meles-20250323_154525.img.zst
 把 SD 卡插入读卡器，并将其插入电脑。
 
 运行 BalenaEtcher用于写入镜像到SD 卡。
+
 在 BalenaEtcher 窗口中, 首先点击 "Flash from file" 来选择镜像文件。
 
+![BE5](/img/image-for-flash/BE5.png)
+
 选择完镜像文件后在第二栏选择需要写入的设备。
+
+![BE6](/img/image-for-flash/BE6.png)
 
 两项都选择完以后点击"Flash"写入镜像。
 
 在等待一段时间后会显示烧录已完成。
 
+![BE7](/img/image-for-flash/BE7.png)
 
 #### 使用dd写入镜像
 
@@ -269,7 +299,7 @@ lsblk
 
 SD 卡的设备名可能是 /dev/sda 或 /dev/mmcblk0，在演示环境中，在执行`lsblk`后确认sd卡分区为`/dev/sda`。
 
-![lsblk](/img/image-for-flash/lsblk.png)
+![lsblk-meles](/img/image-for-flash/lsblk-meles.png)
 
 在写入镜像前，需要卸载 SD 卡的挂载分区，如果有多个分区请逐一卸载：
 
@@ -281,17 +311,23 @@ sudo umount /dev/sda1
 
 在卸载分区后，建议运行`sudo sync`命令，确保所有数据已同步。
 
+![sync-meles](/img/image-for-flash/sync-meles.png)
+
 在执行完上述步骤后即可进行刷写，在刷写前请保证您在 `of=` 设置了正确的设备，在演示环境中，sd卡识别为sda，`of=`后请根据自身设备分区进行填写。
 
 ```bash
 sudo dd if=./sdcard-meles-20250323_154525.img of=/dev/sda bs=4M status=progress
 ```
 
+![dd-meles](/img/image-for-flash/dd-meles.png)
+
 在刷写完成后，也请执行`sudo sync`命令，保证数据已同步，然后需要确认sd卡是未挂载状态下，这两点执行完成后才可拔出sd卡，插入到开发板中。
 
 #### 通过SD卡启动系统
 
 在写入镜像完成后将SD 卡插入如图所示卡槽中。
+
+![SD卡槽](/img/image-for-flash/sd-card-slot.png)
 
 ## 从 eMMC 启动
 
@@ -353,7 +389,7 @@ sudo apt install fastboot
 
 此时可以根据`lsusb`中的输出内容判断设备是否正常连接。
 
-![lsusb](/img/image-for-flash/lsusb.png)
+![lsusb-meles](/img/image-for-flash/lsusb-meles.png)
 
 在正常连接后，`lsusb`命令下会显示如下设备`ID 2345:7654 T-HEAD USB download gadget`
 
@@ -364,6 +400,8 @@ fastboot reboot
 fastboot flash boot boot-meles-20250323_154525.ext4
 fastboot flash root root-meles-20250323_154525.ext4
 ```
+
+![fastboot-meles](/img/image-for-flash/fastboot-meles.png)
 
 刷写完成后即可正常启动。
 
