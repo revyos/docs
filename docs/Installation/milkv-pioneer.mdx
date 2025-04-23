@@ -5,62 +5,66 @@ sidebar_position: 3
 import { DownloadLink } from "@site/src/components/ImageLinks";
 
 
-# 在 Milk-V pioneer 上安装 RevyOS
+# 在 Milk-V Pioneer 上安装 RevyOS
 
-## 1.准备工作
+## 准备工作
 
 ### 工具准备
 
-- MicroSD卡
-- MicroSD读卡器
-- NVMe SSD读卡器
+- microSD 卡
+- microSD 读卡器
+- NVMe SSD 硬盘盒
 
 ### 镜像下载
 
 RevyOS 镜像目录：[镜像下载](https://mirror.iscas.ac.cn/revyos/extra/images/sg2042/)
 
-目前最新镜像版本为: {<DownloadLink device="Milk-V Pioneer" />}
+目前最新镜像版本为：{<DownloadLink device="Milk-V Pioneer" />}
 
-以下以20240819镜像目录为例：
+以下以 20241230 镜像目录为例：
 
 ![](/img/image-for-flash/pioneer-image-dir.png)
 
-RevyOS 镜像刷写遵循固件文件+系统文件的方式，因此会用到以下文件
+RevyOS 镜像刷写遵循固件文件 + 系统文件的方式，因此会用到以下文件。
 
-固件文件:
+其中，固件文件分为两部分，一部分包含 `zsbl`、`linuxboot`、设备树等内容，负责系统引导。
 
-- firmware_single_sg2042-v6.6-lts-v0p7.bin(刷写进SPI Flash中)
-- firmware_single_sg2042-v6.6-lts-v0p7.img(刷写进SD卡中)
+这部分固件可刷写到 SPI Flash 中，也可以刷写到 microSD 卡中：
 
-系统文件:
+- `firmware_single_sg2042-v6.6-lts-v0p7.bin`（刷写进 SPI Flash 中）
+- `firmware_single_sg2042-v6.6-lts-v0p7.img`（刷写进 SD 卡中）
 
-- revyos-pioneer-20240819-154656.img.zst
+另一部分是 MCU 固件，新版本解决了一些已知问题，推荐在刷写系统完成后进行更新。
 
-## 2.固件刷写
+- https://github.com/sophgo/mcu/releases
 
-### 刷写说明
+此外是系统镜像本体，这部分需刷写至 M.2 NVMe SSD 中：
 
-根据镜像下载中的说明，固件文件可以存放于 SPI Flash 或 SD卡中，因此下面将会进行分类说明。
+- `revyos-pioneer-20241230-212249.img.zst`
 
-### 将固件刷写到SD卡中
+## 固件刷写
+
+根据镜像下载中的说明，固件文件可以存放于 SPI Flash 或 SD 卡中，因此下面将会进行分类说明。
+
+### 将固件刷写到 SD 卡中
 
 操作环境：Ubuntu 22.04
 
 #### 使用 BalenaEtcher 写入
 
 1、选择文件 firmware_single_sg2042-v6.6-lts-v0p7.img
-2、选择目标SD卡
+2、选择目标 SD 卡
 3、点击烧录
 
 #### 通过命令行写入
 
-将SD卡插入读卡器并连接至电脑，确认是否正确连接以及设备路径
+将 SD 卡插入读卡器并连接至电脑，确认是否正确连接以及设备路径
 
-在存放firmware_single_sg2042-v6.6-lts-v0p7.img文件的目录下时，使用dd命令将文件刷写到SD卡中
+在存放 `firmware_single_sg2042-v6.6-lts-v0p7.img` 文件的目录下时，使用 dd 命令将文件刷写到 SD 卡中
 
-`
+```shell
 sudo dd if=firmware_single_sg2042-v6.6-lts-v0p7.img of=/dev/sda bs=4M status=progress
-`
+```
 
 `of=/dev/sda` 此项请根据设备路径进行更改
 
@@ -68,54 +72,88 @@ sudo dd if=firmware_single_sg2042-v6.6-lts-v0p7.img of=/dev/sda bs=4M status=pro
 
 ### 将固件刷写到 SPI Flash 中
 
-操作环境：RevyOS0819
+操作环境：RevyOS 20241230
 
-注意事项:首次使用时推荐使用SD卡存放固件
+注意事项：首次使用时推荐使用 SD 卡存放固件
 
 #### 通过命令行写入
 
-此方法是将.bin文件写入到mtd中，所以需要安装相关软件包以及加载相关模块
+此方法是将 `.bin` 文件写入到 `mtd` 中，所以需要安装相关软件包以及加载相关模块
 
-```
+```shell
 sudo apt install mtd-utils
 sudo modprobe mtdblock
 ```
 
 然后下载文件
-```
-wget https://mirror.iscas.ac.cn/revyos/extra/images/sg2042/20240819/firmware_single_sg2042-v6.6-lts-v0p7.bin
+
+```shell
+wget https://mirror.iscas.ac.cn/revyos/extra/images/sg2042/20241230/firmware_single_sg2042-v6.6-lts-v0p7.bin
 ```
 
 下载完成后切换到 firmware_single_sg2042-v6.6-lts-v0p7.bin 的下载目录下，执行以下命令
 
-```
+```shell
 sudo flashcp -v firmware_single_sg2042-v6.6-lts-v0p7.bin /dev/mtd1
 ```
 
 至此刷写完成
 
-## 3.镜像刷写
+## 镜像刷写
 
 操作环境：Ubuntu 22.04
 
 ### 通过命令行写入
 
-首先需要解压`revyos-pioneer-20240819-154656.img.zst`文件
+首先需要解压`revyos-pioneer-20241230-212249.img.zst`文件
 
+```shell
+unzstd revyos-pioneer-20241230-212249.img.zst
 ```
-unzstd revyos-pioneer-20240819-154656.img.zst
+
+得到`revyos-pioneer-20241230-212249.img`文件
+
+将 NVMe SSD 插入硬盘盒并连接至电脑，确认是否正确连接以及设备路径。
+
+在存放 `revyos-pioneer-20241230-212249.img` 文件的目录下时，使用 dd 命令将文件刷写到 NVMe SSD 中
+
+```shell
+sudo dd if=revyos-pioneer-20241230-212249.img of=/dev/nvme0n1 bs=4M status=progress
 ```
-
-得到`revyos-pioneer-20240819-154656.img`文件
-
-将NVMe SSD插入读卡器并连接至电脑，确认是否正确连接以及设备路径
-
-在存放revyos-pioneer-20240819-154656.img文件的目录下时，使用dd命令将文件刷写到NVMe SSD中
-
-`
-sudo dd if=revyos-pioneer-20240819-154656.img of=/dev/nvme0n1 bs=4M status=progress
-`
 
 `of=/dev/nvme0n1` 此项请根据设备路径进行更改
 
-刷写完成后请使用`sync`命令，确保数据写入到NVMe SSD中。
+刷写完成后请使用`sync`命令，确保数据写入到 NVMe SSD 中。
+
+## MCU 固件更新
+
+系统刷写完成开机后，打开终端或通过 SSH 连接。
+
+首先，安装 `wget`，下载 MCU 固件和烧写工具：
+
+```shell
+sudo apt update; sudo apt install -y wget
+mkdir mcu && cd mcu
+wget https://github.com/sophgo/mcu/releases/download/2025.01.20/mcu-util-riscv64
+# Milk-V Pioneer 请选择此固件，其他机器请参照 GitHub Release 页选择。
+wget https://github.com/sophgo/mcu/releases/download/2025.01.20/sg2042evb-mcu-v8-2025-01-20-10-21-22.bin
+```
+
+然后加载 `i2c-dev` 内核模块，开始刷写：
+
+```shell
+sudo modprobe i2c-dev
+chmod +x mcu-util-riscv64
+sudo ./mcu-util-riscv64 upgrade-full 1 0x17 sg2042evb-mcu-v8-2025-01-20-10-21-22.bin
+```
+
+如果一切正常，应当输出类似如下内容：
+
+```log
+erase page 0000e000
+program flash 00010000 100%
+read flash 00010000 100%
+verify flash data ok
+```
+
+刷写完成后，请关机并给机器完全断电，建议等待 1~5 分钟再重新上电开机。

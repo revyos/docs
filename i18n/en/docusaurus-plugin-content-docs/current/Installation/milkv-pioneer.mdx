@@ -7,13 +7,13 @@ import { DownloadLink } from "@site/src/components/ImageLinks";
 
 # Installing RevyOS on the Milk-V Pioneer
 
-## 1. Preparation
+## Preparation
 
 ### Required Tools
 
-- MicroSD card
-- MicroSD card reader
-- NVMe SSD reader
+- microSD card
+- microSD card reader
+- NVMe SSD adaptor
 
 ### Downloading the Image
 
@@ -21,26 +21,31 @@ RevyOS image directory: [Download Link](https://mirror.iscas.ac.cn/revyos/extra/
 
 Latest image version: {<DownloadLink device="Milk-V Pioneer" />}
 
-Example directory for the 20240819 image:
+Example directory for the 20241230 image:
 
 ![Image Directory](/img/image-for-flash/pioneer-image-dir.png)
 
-RevyOS requires flashing both firmware and system files, as listed below:
+RevyOS requires flashing both firmware and system files, as listed below.
+
+There are two separate firmware, one include `zsbl`, `linuxboot`, device trees and more, which handles the system boot process.
+
+This part of firmware can be flashed to either the SPI Flash or microSD card:
 
 - **Firmware files**:
   - `firmware_single_sg2042-v6.6-lts-v0p7.bin` (for SPI Flash)
   - `firmware_single_sg2042-v6.6-lts-v0p7.img` (for SD card)
 
-- **System file**:
-  - `revyos-pioneer-20240819-154656.img.zst`
+The other part is the MCU firmware. Newer versions of MCU firmware has fixed some known issues, an upgrade is recommended, after completing the system installation.
+
+- https://github.com/sophgo/mcu/releases
+
+And also the system image itself which needs to be flashed to M.2 NVMe SSD:
+
+- `revyos-pioneer-20241230-212249.img.zst`
 
 ---
 
-## 2. Flashing the Firmware
-
-### Flashing Options
-
-Firmware files can be stored on either the SPI Flash or an SD card, so the method will vary accordingly.
+## Flashing the Firmware
 
 ### Flashing Firmware to SD Card
 
@@ -58,7 +63,7 @@ Insert the SD card into a reader connected to your computer, then verify the dev
 
 Navigate to the directory with `firmware_single_sg2042-v6.6-lts-v0p7.img` and flash it with the following command:
 
-```bash
+```shell
 sudo dd if=firmware_single_sg2042-v6.6-lts-v0p7.img of=/dev/sda bs=4M status=progress
 ```
 
@@ -68,7 +73,7 @@ After flashing, use `sync` to ensure data is fully written to the SD card.
 
 ### Flashing Firmware to SPI Flash
 
-**Operating System**: RevyOS0819
+**Operating System**: RevyOS 20241230
 
 > **Note**: For first-time installation, using an SD card to store the firmware is recommended.
 
@@ -86,7 +91,7 @@ Install necessary packages:
 Download the firmware file:
 
    ```bash
-   wget https://mirror.iscas.ac.cn/revyos/extra/images/sg2042/20240819/firmware_single_sg2042-v6.6-lts-v0p7.bin
+   wget https://mirror.iscas.ac.cn/revyos/extra/images/sg2042/20241230/firmware_single_sg2042-v6.6-lts-v0p7.bin
    ```
 
 Navigate to the directory where `firmware_single_sg2042-v6.6-lts-v0p7.bin` was downloaded and run:
@@ -105,12 +110,45 @@ Flashing to SPI Flash is now complete.
 
 ### Using Command Line
 
-1. Decompress the `revyos-pioneer-20240819-154656.img.zst` file using `unzstd revyos-pioneer-20240819-154656.img.zst`. This produces the `revyos-pioneer-20240819-154656.img` file.
+1. Decompress the `revyos-pioneer-20241230-212249.img.zst` file using `unzstd revyos-pioneer-20241230-212249.img.zst`. This produces the `revyos-pioneer-20241230-212249.img` file.
 
 2. Insert the NVMe SSD into the reader and connect it to your computer, then confirm the device path.
 
-3. In the directory containing `revyos-pioneer-20240819-154656.img`, flash the image to the NVMe SSD with dd command: `sudo dd if=revyos-pioneer-20240819-154656.img of=/dev/nvme0n1 bs=4M status=progress`. Replace `of=/dev/nvme0n1` with the correct device path if different.
+3. In the directory containing `revyos-pioneer-20241230-212249.img`, flash the image to the NVMe SSD with dd command: `sudo dd if=revyos-pioneer-20241230-212249.img of=/dev/nvme0n1 bs=4M status=progress`. Replace `of=/dev/nvme0n1` with the correct device path if different.
 
 4. After flashing, use `sync` to ensure the data is fully written to the NVMe SSD.
 
+## MCU Firmware upgrade
 
+After you finished system installation process and successfully booted into the system, open up a terminal or connect via SSH.
+
+First, install `wget`, download the MCU firmware and `mcu-util`.
+
+```shell
+sudo apt update; sudo apt install -y wget
+mkdir mcu && cd mcu
+wget https://github.com/sophgo/mcu/releases/download/2025.01.20/mcu-util-riscv64
+# Use the file below for Milk-V Pioneer; for other boards please choose accordingly at the GitHub Release page.
+wget https://github.com/sophgo/mcu/releases/download/2025.01.20/sg2042evb-mcu-v8-2025-01-20-10-21-22.bin
+```
+
+Then load `i2c-dev` kernel module and start flashing:
+
+```shell
+sudo modprobe i2c-dev
+chmod +x mcu-util-riscv64
+sudo ./mcu-util-riscv64 upgrade-full 1 0x17 sg2042evb-mcu-v8-2025-01-20-10-21-22.bin
+```
+
+If everything goes fine then you should get log like this:
+
+```log
+erase page 0000e000
+program flash 00010000 100%
+read flash 00010000 100%
+verify flash data ok
+```
+
+After finishing the flashing process, please power off the board and cut off the AC power entirely.
+
+It is recommended to wait for around 1~5 minutes before plugging in and power on the board.
