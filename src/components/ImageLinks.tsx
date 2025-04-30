@@ -10,14 +10,14 @@ interface ImageLink {
 export const imageLinks = [
   {
     device: "Lichee Pi 4A",
-    version: "20250323",
-    downloadLink: "https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250323/",
+    version: "20250420",
+    downloadLink: "https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250420/",
     sdCardSupport: true,
   },
   {
     device: "Milk-V Meles",
-    version: "20250323",
-    downloadLink: "https://mirror.iscas.ac.cn/revyos/extra/images/meles/20250323/",
+    version: "20250420",
+    downloadLink: "https://mirror.iscas.ac.cn/revyos/extra/images/meles/20250420/",
     sdCardSupport: true,
   },
   {
@@ -55,13 +55,13 @@ export const imageLinks = [
 
 /**
  * 根据设备名称查找对应的下载链接，并渲染为 `<a>` 标签。
- * 
+ *
  * @param device 设备名称，仅允许 `DeviceName` 类型的值。
  * @returns 如果找到匹配的设备，则返回对应版本的下载链接；否则显示 "$device 暂无镜像"。
  */
 export const DownloadLink: React.FC<{device: string}> = ({ device }) => {
   const link = imageLinks.find((item) => item.device === device);
-  
+
   if (!link) return <span>${device} 暂无镜像</span>;
 
   return <a href={link.downloadLink}>{link.version}</a>;
