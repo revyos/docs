@@ -16,11 +16,12 @@ import { DownloadLink } from "@site/src/components/ImageLinks";
 | LicheePi4A (在 Windows 上刷写)| [Windows 刷写教程](../licheepi4a-windows/) |
 | Milk-V pioneer | [刷写教程](../milkv-pioneer/) |
 
-## 注意！
+:::warning
 
 在查看此教程前，请对照下面的图片确认手中板卡是否和图片一致，请在确认一致后再继续按照教程操作。
 
 ![Milk-V Meles 示例图](/img/image-for-flash/meles.png)
+:::
 
 ## 演示环境介绍
 
@@ -33,8 +34,10 @@ import { DownloadLink } from "@site/src/components/ImageLinks";
 
 在此环境中，本教程中的所有操作都是可复现的，如在此环境中进行镜像刷写遇到问题请参考[此页](../../issue/)提交issue。
 
+:::note
 请注意，python 版本过高可能导致将 Bootloader 写入 SPI Nor Flash中的操作失败，请使用 pyhton 3.12 前的版本进行操作
- 
+:::
+
 ## 工具安装
 
 此部分用于介绍后续在镜像的下载以及刷写过程中都需要用到的软件包和工具，请先通过下面的教程下载安装完成后再进行后续的镜像刷写操作。
@@ -57,7 +60,9 @@ sudo apt install wget
 
 ![wget-install](/img/image-for-flash/wget-install.png)
 
+:::note
 请注意，sudo命令执行时需要用户输入密码进行确认才可执行，请确保自己知道密码后再执行此命令，后续不再赘述。
+:::
 
 ### 文件解压工具
 
@@ -90,7 +95,9 @@ sudo apt install zstd
 
 Milk-V Meles 目前支持两种启动方式，分别是[从SD card 启动](#从sd-card-启动)和[从 eMMC 启动](#从-emmc-启动)，对于两种不同的启动方式，此教程中都有进行说明，请根据自己所需的刷写方式点击进行跳转查看。
 
+:::warning
 请注意，不论使用哪种刷写方式，原有的用户数据都会丢失，所以在进行刷写前请一定确保做好数据备份的工作！
+:::
 
 在介绍两种刷写方式前需要注意，不论使用那种刷写方式，都要确保 SPI Nor Flash 中刷入了正确的固件。接下来将介绍如何刷写 SPI Nor Flash 固件。
 
@@ -193,14 +200,14 @@ sudo cct download -u /dev/ttyUSB0 -d ram0 -f iw-single-line.bin -v checksum -r
 随后下载完成
 ```bash
 sudo cct download -u /dev/ttyUSB0 -d ram0 -f iw-single-line.bin -v checksum -r
-Wait 
+Wait
 Send file 'iw-single-line.bin' to 2:0 ...
-File iw-single-line.bin download success.     
+File iw-single-line.bin download success.
 Start to verify data with method:[checksum]
 checksum value is: 0x880572
 读出并校验成功!
 Start to run image...
-``` 
+```
 
 ![cct-download1](/img/image-for-flash/cct-download1.png)
 
@@ -219,9 +226,9 @@ $ sudo cct download -u /dev/ttyUSB0 -d qspi0 -f u-boot-with-spl-meles.bin -v che
 随后下载完成
 ```bash
 sudo cct download -u /dev/ttyUSB0 -d qspi0 -f u-boot-with-spl-meles.bin -v checksum -r -t 1200
-Wait 
+Wait
 Send file 'u-boot-with-spl-meles.bin' to 23:0 ...
-File u-boot-with-spl-meles.bin download success.     
+File u-boot-with-spl-meles.bin download success.
 Start to verify data with method:[checksum]
 checksum value is: 0x43bce40
 读出并校验成功!
@@ -404,4 +411,3 @@ fastboot flash root root-meles-20250323_154525.ext4
 ![fastboot-meles](/img/image-for-flash/fastboot-meles.png)
 
 刷写完成后即可正常启动。
-
