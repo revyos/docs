@@ -1,42 +1,32 @@
 # glmark2
 
-glmark2 is an OpenGL 2.0 and ES 2.0 benchmark.
-We will only use glmark2-es2 for relevant tests here . This is a testing tool for x11-glesv2. 
+glmark2 is a performance benchmark based on OpenGL 2.0 and ES 2.0.
 
-This software package is already pre-installed in the system.
+Here, we only use glmark2-es2, which is pre-installed in RevyOS for x11-glesv2 testing.
 
-`th1520` only support glmark-es2.
+`th1520` only supports glmark-es2.
 
-## Pre-steps
+## Preparation Steps
 
-If you need perfect performance, put your device into performance mode before you start, here's how to do it.
-
-
-Please execute the following commands in the terminal. This command requires a root account or `sudo`.
+Before starting, you need to set the chip to high-performance mode. Run the following commands in the terminal as root or with `sudo`:
 
 ```bash
-echo performance >  /sys/devices/system/cpu/cpufreq/policy0/scaling_governor 
-
+sudo -i
+echo performance >  /sys/devices/system/cpu/cpufreq/policy0/scaling_governor
 cat /sys/devices/system/cpu/cpufreq/policy0/cpuinfo_cur_freq
 ```
 
-After the execution is completed, you will see a series of numbers, such as "1848000".
+If you see the number "1848000" after execution, it means the performance mode is set and you can proceed.
 
+## Running the Test
 
-## Start operation
+Log in with any user, open a terminal, and enter `glmark2-es2`. Make sure HDMI is connected to a monitor; do not run via SSH.
 
+After entering the command, a new window with graphics will appear on the desktop.
 
-Open a terminal and enter `glmark2-es2`. This test allows the use of non-root accounts.
+When the test is complete, the extra window will close and the score will be output in the terminal as `glmark2 Score: xxx`.
 
-After entering the command, a new window will appear on your desktop with an active screen.
-
-Need to connect HDMI to the monitor, do not execute the command through SSH connection.
-
-
-After the test is completed, the additional activity screen will disappear and the score will be output in the terminal in the form of `glmark2 Score: xxx`.
-
-
-For example:
+Example output:
 
 ```
 debian@lpi4a:~/Desktop$ glmark2-es2
@@ -84,7 +74,7 @@ debian@lpi4a:~/Desktop$ glmark2-es2
 [loop] fragment-steps=5:fragment-uniform=false:vertex-steps=5: FPS: 1394 FrameTime: 0.717 ms
 [loop] fragment-steps=5:fragment-uniform=true:vertex-steps=5: FPS: 1379 FrameTime: 0.725 ms
 =======================================================
-                                  glmark2 Score: 950 
+                                  glmark2 Score: 950
 =======================================================
 
 ```
