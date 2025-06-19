@@ -11,10 +11,11 @@ Here, we only use glmark2-es2, which is pre-installed in RevyOS for x11-glesv2 t
 Before starting, you need to set the chip to high-performance mode. Run the following commands in the terminal as root or with `sudo`:
 
 ```bash
-sudo -i
-echo performance >  /sys/devices/system/cpu/cpufreq/policy0/scaling_governor
+echo performance | sudo tee /sys/devices/system/cpu/cpufreq/policy0/scaling_governor
 cat /sys/devices/system/cpu/cpufreq/policy0/cpuinfo_cur_freq
 ```
+
+> It is recommended to use `echo ... | sudo tee ...` directly, without entering a full root shell, to avoid missteps. If you have entered a root shell, you can run `exit` after the operation to return.
 
 If you see the number "1848000" after execution, it means the performance mode is set and you can proceed.
 
