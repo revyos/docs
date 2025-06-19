@@ -2,7 +2,7 @@
 
 glmark2 是基于 OpenGL 2.0 以及 ES 2.0 的一个性能测试.
 
-此处我们只使用 glmark2-es2 ，软件包已经预装在RevyOS中，用于 x11-glesv2 的测试. 
+此处我们只使用 glmark2-es2 ，软件包已经预装在RevyOS中，用于 x11-glesv2 的测试.
 
 
 `th1520` 只支持 glmark-es2.
@@ -13,8 +13,8 @@ glmark2 是基于 OpenGL 2.0 以及 ES 2.0 的一个性能测试.
 
 
 ```bash
-echo performance >  /sys/devices/system/cpu/cpufreq/policy0/scaling_governor 
-
+sudo -i
+echo performance >  /sys/devices/system/cpu/cpufreq/policy0/scaling_governor
 cat /sys/devices/system/cpu/cpufreq/policy0/cpuinfo_cur_freq
 ```
 
@@ -24,7 +24,7 @@ cat /sys/devices/system/cpu/cpufreq/policy0/cpuinfo_cur_freq
 ## 开始运行
 
 
-使用任意账户登陆系统，打开终端输入 `glmark2-es2`，需要将HDMI连接到显示器，请勿通过SSH连接执行. 
+使用任意账户登陆系统，打开终端输入 `glmark2-es2`，需要将HDMI连接到显示器，请勿通过SSH连接执行.
 
 输入命令后，桌面上会出现一个有图形活动的新窗口。
 
@@ -78,7 +78,7 @@ debian@lpi4a:~/Desktop$ glmark2-es2
 [loop] fragment-steps=5:fragment-uniform=false:vertex-steps=5: FPS: 1394 FrameTime: 0.717 ms
 [loop] fragment-steps=5:fragment-uniform=true:vertex-steps=5: FPS: 1379 FrameTime: 0.725 ms
 =======================================================
-                                  glmark2 Score: 950 
+                                  glmark2 Score: 950
 =======================================================
 
 ```

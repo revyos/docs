@@ -1,29 +1,29 @@
 # p7zip
 
-p7zip test is used to evaluate the decompression performance of the system, visually assess performance through data. The following are the steps to run the 7zip test.
+The p7zip test is used to evaluate the decompression performance of the system, providing a direct assessment of performance through data. Below are the steps to run the 7zip test.
 
-## Install 7zip
+## Installing 7zip
 
-First, you need to install p7zip in RevyOS.
+First, install p7zip in RevyOS:
 
 ```
 debian@lpi4a:~/Desktop$ sudo apt update
 debian@lpi4a:~/Desktop$ sudo apt install p7zip-full
 ```
 
-## Execute Performance Test
+## Running the Performance Test
 
-To conduct the p7zip test, enter the following command in the terminal to execute:
+To run the p7zip test, enter the following command in the terminal:
 
 ```
 debian@lpi4a:~/Desktop$ 7z b
 ```
 
-The system will begin testing and then output performance data.
+The system will start the test and output performance data.
 
 By following these steps, you can install and test the performance of 7zip on RevyOS.
 
-The following are reference test results, using the image version [RevyOS20231210](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20231210/) 16g version.
+Below is a reference test result, using the image version [RevyOS20231210](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20231210/) 16G version:
 
 ```
 debian@lpi4a:~/Desktop$ 7z b
