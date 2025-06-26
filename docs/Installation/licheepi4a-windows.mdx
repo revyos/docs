@@ -37,9 +37,17 @@ import { DownloadLink } from "@site/src/components/ImageLinks";
 
 ## 启动方式介绍
 
-LicheePi4A 目前支持两种启动方式，分别是[从SD card 启动](#从-sd-card-启动)和[从 eMMC 启动](#从-emmc-启动)，对于两种不同的启动方式，此教程中都有进行说明，请根据自己所需的刷写方式点击进行跳转查看。
+LicheePi4A 目前支持两种启动方式，分别是[从SD card 启动](#从-sd-card-启动)和[从 eMMC 启动](#从-emmc-启动)。对于两种不同的启动方式，此教程中都有说明，请根据所需方式点击跳转查看。
 
-请注意，不论使用哪种刷写方式，原有的用户数据都会丢失，所以在进行刷写前请一定确保做好数据备份的工作！
+:::warning
+无论使用哪种刷写方式，原有用户数据都会丢失，刷写前请务必备份数据！
+:::
+
+:::note
+**U-Boot 环境变量重置说明已集中至[镜像刷写需知](./intro)**
+
+如需重置U-Boot环境变量，请参考[镜像刷写需知](./intro)页面的相关说明。
+:::
 
 ## 从 SD card 启动
 
@@ -59,7 +67,7 @@ LicheePi4A 目前支持两种启动方式，分别是[从SD card 启动](#从-sd
 
 **有关SD卡兼容性的提示**
 
-部分 SD 卡在开发板上可能出现兼容性问题，请在 [LicheePi 4A SD卡兼容清单](../../miscellaneous/lpi4a-sdcard-list/) 查找您的 SD 卡是否有已知的兼容性问题。
+部分 SD 卡在开发板上可能存在兼容性问题，请在 [LicheePi 4A SD卡兼容清单](../../miscellaneous/lpi4a-sdcard-list/) 查找您的 SD 卡是否有已知问题。
 :::
 
 ### 准备工作
@@ -146,9 +154,9 @@ Get-FileHash -Algorithm MD5 .\sdcard-lpi4a-20250123_195216.img.zst
 ![使用Peazip解压镜像](/img/image-for-flash/peazip_extraction_illustration.png)
 
 :::warning
-**关于解压后的文件大小的提示**
+**关于解压后的文件大小提示**
 
-请注意，注意解压后的文件大小约为**10.2GB**，解压时请注意本地存储空间是否足够！
+解压后的文件大小约为**10.2GB**，请确保本地存储空间充足！
 :::
 
 #### 硬件准备
@@ -177,7 +185,7 @@ Get-FileHash -Algorithm MD5 .\sdcard-lpi4a-20250123_195216.img.zst
 :::warning
 **关于SD卡写入的提示**
 
-在拔出 SD 卡前，请确保 BalenaEtcher 的烧录过程已完成，并且 SD 卡的指示灯不再闪烁，并在系统托盘中弹出了SD卡。否则可能会导致 SD 卡损坏或数据丢失。
+拔出 SD 卡前，请确保 BalenaEtcher 烧录过程已完成，SD 卡指示灯不再闪烁，并在系统托盘中弹出 SD 卡，否则可能导致 SD 卡损坏或数据丢失。
 :::
 
 ### 通过SD卡启动系统
@@ -324,7 +332,7 @@ LicheePi4A 不同的内存版本的 uboot 文件不通用，可参照下表根�
 :::warning
 **关于刷写进度和耗时的提示**
 
-其中 uboot 文件和 boot 文件刷写较快，root 文件需要大约5分钟才能刷写完成。如果在刷写 root 文件时并非是30+的数据块，而是2000+或是3000+(如下图所示)，那么证明前面的刷写操作有误，在此情况下写入完成后也无法启动镜像，请重新进行刷写操作。
+uboot 和 boot 文件刷写较快，root 文件大约需 5 分钟。如果刷写 root 文件时数据块数量异常（如下图所示，2000+ 或 3000+），说明前面操作有误，请重新刷写。
 
 ![错误的fastboot刷写](/img/image-for-flash/bad-fastboot-flash.png)
 :::
