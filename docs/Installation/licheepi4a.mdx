@@ -88,9 +88,24 @@ sudo apt install zstd
 
 ## 启动方式介绍
 
-LicheePi4A 目前支持两种启动方式，分别是[从SD card 启动](#从sd-card-启动)和[从 eMMC 启动](#从-emmc-启动)，对于两种不同的启动方式，此教程中都有进行说明，请根据自己所需的刷写方式点击进行跳转查看。
+LicheePi4A 目前支持两种启动方式，分别是[从SD card 启动](#从sd-card-启动)和[从 eMMC 启动](#从-emmc-启动)。对于两种不同的启动方式，此教程中都有说明，请根据所需方式点击跳转查看。
 
-请注意，不论使用哪种刷写方式，原有的用户数据都会丢失，所以在进行刷写前请一定确保做好数据备份的工作！
+:::warning
+无论使用哪种刷写方式，原有用户数据都会丢失，刷写前请务必备份数据！
+:::
+
+:::warning
+**如果从镜像版本`20240720`及以前的版本升级，需要重置U-Boot环境变量**
+
+重置方法：
+连接开发板串口，插入电源，在进入U-Boot后按下回车中断启动，进入U-Boot命令行界面，输入以下命令：
+
+```bash
+env default -a -f; env save; reset
+```
+
+将重置所有U-Boot环境变量并重启。如此即完成重置操作。
+:::
 
 ## 从SD card 启动
 
@@ -110,7 +125,7 @@ LicheePi4A 目前支持两种启动方式，分别是[从SD card 启动](#从sd-
 
 **有关SD卡兼容性的提示**
 
-部分 SD 卡在开发板上可能出现兼容性问题，请在 [LicheePi 4A SD卡兼容清单](../../miscellaneous/lpi4a-sdcard-list/) 查找您的 SD 卡是否有已知的兼容性问题。
+部分 SD 卡在开发板上可能存在兼容性问题，请在 [LicheePi 4A SD卡兼容清单](../../miscellaneous/lpi4a-sdcard-list/) 查找您的 SD 卡是否有已知问题。
 :::
 
 ### 准备工作
@@ -156,11 +171,9 @@ wget https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250110/sdcard-lpi4a-
 在工具安装部分安装完 zstd 后，我们可对镜像文件进行解压。
 
 :::warning
-**关于解压后的文件大小的提示**
+**关于解压后的文件大小提示**
 
-请注意，注意解压后的文件大小约为**10.2GB**，解压时请注意本地存储空间是否足够！
-
-![img-size](/img/image-for-flash/sdcard-image.png)
+解压后的文件大小约为**10.2GB**，请确保本地存储空间充足！
 :::
 
 
@@ -202,6 +215,12 @@ sudo unzstd sdcard-lpi4a-20250110_151339.img.zst
 在等待一段时间后会显示烧录已完成。
 ![](/img/image-for-flash/BE4.png)
 
+:::warning
+**关于SD卡写入的提示**
+
+拔出 SD 卡前，请确保 BalenaEtcher 烧录过程已完成，SD 卡指示灯不再闪烁，否则可能导致 SD 卡损坏或数据丢失。
+:::
+
 #### 使用dd写入镜像
 
 dd 是 Linux 和类 Unix 系统中的一个功能强大的命令行工具，主要用于按指定大小和格式复制文件或数据，一般会预装在系统中。
@@ -240,6 +259,8 @@ sudo dd if=./sdcard-lpi4a-20250110_151339.img of=/dev/sda bs=4M status=progress
 
 :::warning
 **关于dd命令的注意事项**
+
+使用`dd`命令时，务必确认目标设备路径（如`/dev/sdX`），以防误选导致数据丢失。错误地选择了系统磁盘作为目标设备会导致不可恢复的数据损失。建议在执行前通过`lsblk`或`fdisk -l`等命令仔细核对SD卡的设备路径。
 
 在刷写完成后，也请执行`sudo sync`命令，保证数据已同步，并从操作系统中卸载SD卡。确认这两点后才可拔出sd卡，插入到开发板中。
 :::
@@ -383,7 +404,7 @@ fastboot flash root root-lpi4a-20240720_171951.ext4
 :::warning
 **关于刷写进度和耗时的提示**
 
-uboot 文件和 boot 文件刷写较快，而 root 文件需要大约5分钟才能刷写完成。如果在刷写 root 文件时并非是30+的数据块，而是2000+或是3000+，那么证明前面的刷写操作有误，在此情况下写入完成后也无法启动镜像，请重新进行刷写操作。
+uboot 和 boot 文件刷写较快，root 文件大约需 5 分钟。如果刷写 root 文件时数据块数量异常（如 2000+ 或 3000+），说明前面操作有误，请重新刷写。
 :::
 
 ![flash-root](/img/image-for-flash/flash-root.png)
@@ -493,11 +514,18 @@ boot，大小为 92886476 Bytes为例，可在 `cmd_parameter: boot, imagesize: 
 
 ### 大版本升级后出现问题
 
-如果 **使用串口进入 uboot** 并启动 fastboot 刷入（见[此处](#写入镜像到emmc接入串口)），可能是 uboot 保留了旧版本的环境变量导致了问题，请在串口的 uboot 控制台中输入
-```
+如果大版本升级后出现问题，则可能需要重置U-Boot环境变量。
+
+重置方法：
+连接开发板串口，插入电源，在进入U-Boot后按下回车中断启动，进入U-Boot命令行界面，输入以下命令：
+
+```bash
 env default -a -f; env save; reset
 ```
-如果有此版本有分区表变化，请额外运行：`run gpt_partition`
+
+将重置所有U-Boot环境变量并重启。如此即完成重置操作。
+
+如果升级后的系统版本较升级前的系统版本有分区表变化，请额外运行：`run gpt_partition`
 
 ## 用户登录
 
