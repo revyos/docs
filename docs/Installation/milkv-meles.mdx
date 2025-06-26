@@ -34,7 +34,7 @@ import { DownloadLink } from "@site/src/components/ImageLinks";
 
 在此环境中，本教程中的所有操作都是可复现的，如在此环境中进行镜像刷写遇到问题请参考[此页](../../issue/)提交issue。
 
-:::note
+:::warning
 请注意，python 版本过高可能导致将 Bootloader 写入 SPI Nor Flash中的操作失败，请使用 pyhton 3.12 前的版本进行操作
 :::
 
@@ -249,7 +249,15 @@ Start to run image...
 
 ### SD 卡镜像准备
 
-最新版本的 SD 卡镜像为20250323，可通过以下命令下载：
+从以下链接下载 Meles 的系统镜像：
+
+- [RevyOS 20240720（5.10内核）](https://mirror.iscas.ac.cn/revyos/extra/images/meles/20240720/)
+
+- 最新版本（6.6内核）：{<DownloadLink device="Milk-V Meles" />}
+
+其中前缀为`sdcard-meles-`的镜像为 SD card 启动系统镜像。
+
+以RevyOS 20250323为例，SD卡镜像可通过以下命令下载：
 
 ```bash
 wget https://fast-mirror.isrc.ac.cn/revyos/extra/images/meles/20250323/sdcard-meles-20250323_154525.img.zst
@@ -342,7 +350,18 @@ sudo dd if=./sdcard-meles-20250323_154525.img of=/dev/sda bs=4M status=progress
 
 ### eMMC镜像准备
 
-最新版本的 eMMC 镜像为20250323，可通过以下命令下载：
+从以下链接下载 Meles 的系统镜像：
+
+- [RevyOS 20240720（5.10内核）](https://mirror.iscas.ac.cn/revyos/extra/images/meles/20240720/)
+
+- 最新版本（6.6内核）：{<DownloadLink device="Milk-V Meles" />}
+
+需要下载的文件有三个，分别是 u-boot 引导文件、boot 分区和 root 分区的镜像文件，其文件名格式分别为
+- `u-boot-with-spl-meles.bin`：u-boot引导文件
+- `boot-meles-*.ext4.zst`：boot 分区镜像文件
+- `root-meles-*.ext4.zst`：root 分区镜像文件
+
+以20250323版本为例，可通过以下命令下载：
 
 ```bash
 wget https://fast-mirror.isrc.ac.cn/revyos/extra/images/meles/20250323/u-boot-with-spl-meles.bin

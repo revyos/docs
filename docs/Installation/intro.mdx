@@ -5,7 +5,20 @@ sidebar_position: 1
 
 # 镜像刷写需知
 
-RevyOS目前支持多个设备，以下表格是针对于每个设备的镜像刷写教程的支持情况，请根据需求点击查看。其中部分处于编写中的状态，请期待后续补全。
+RevyOS目前支持多个设备，以下表格是针对于每个设备的镜像刷写教程的支持情况，请根据需求点击查看。其中部分处于编写中的状态，请等待后续补全。
+
+:::warning
+**如果从镜像版本`20240720`及以前的版本升级，需要重置U-Boot环境变量**
+
+重置方法：
+连接开发板串口，插入电源，在进入U-Boot后按下回车中断启动，进入U-Boot命令行界面，输入以下命令：
+
+```bash
+env default -a -f; env save; reset
+```
+
+将重置所有U-Boot环境变量并重启。如此即完成重置操作。
+:::
 
 ## 刷写教程支持情况
 
@@ -22,4 +35,3 @@ import { RedirectBasedOnUA } from "@site/src/components/RedirectBasedOnUA";
 | Lichee Book 4A    | {<DownloadLink device="Lichee Book 4A" />}     | 编写中 |
 | Beagle-Ahead      | {<DownloadLink device="Beagle-Ahead" />}       | 编写中 |
 | Huiwei book       | {<DownloadLink device="Huiwei book" />}        | 编写中 |
-
