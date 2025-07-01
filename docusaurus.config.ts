@@ -127,8 +127,7 @@ const config: Config = {
       copyright: `Copyright © 2023 - ${new Date().getFullYear()} RevyOS by PLCT Lab. Built with Docusaurus.`,
     },
     prism: {
-      theme: prismThemes.github,
-      darkTheme: prismThemes.dracula,
+      additionalLanguages: ['bash', 'shell-session']
     },
   } satisfies Preset.ThemeConfig,
   themes: [
