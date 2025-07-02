@@ -441,7 +441,7 @@ fastboot flash root root-meles-20250323_154525.ext4
 可以尝试使用 `sudo` 执行 `GPIO` 指令手动切换至板载天线。
 
 ```
-sudo apt update & sudo apt upgrade -y
+sudo apt update && sudo apt upgrade -y
 sudo apt install -y gpiod # 安装gpiod工具
 sudo gpioset 5 24=1 # 设置chip 5的第24号引脚为高电平
 ```
