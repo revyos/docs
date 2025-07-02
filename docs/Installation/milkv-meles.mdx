@@ -411,3 +411,31 @@ fastboot flash root root-meles-20250323_154525.ext4
 ![fastboot-meles](/img/image-for-flash/fastboot-meles.png)
 
 刷写完成后即可正常启动。
+
+
+### 可能出现的问题
+
+#### 最新版本内核中 Wi-Fi 信号弱问题
+
+在 `Milk-V Meles` 刷写系统中若使用了[最新 `RevyOS` 内核](https://fast-mirror.isrc.ac.cn/revyos/extra/images/meles/20250526/)（截止编写时为 6.6.82），开发板默认使用的是外置天线而非板载陶瓷天线。如果没有在同轴/IPEX 座上连接外置天线，会导致 Wi-Fi 信号很弱，甚至完全搜不到 Wi-Fi 信号。
+
+可以尝试使用 `suudo` 执行 `GPIO` 指令手动切换至板载天线。
+
+```
+sudo apt update & sudo apt upgrade -y
+sudo apt install -y gpiod # 安装gpiod工具
+sudo gpioset 5 24=1 # 设置chip 5的第24号引脚为高电平
+```
+
+**注意**：你在重启之后需要重新执行。
+
+### 用户登录
+
+下面是默认的系统账户以及密码
+
+- 登录账户：debian
+- 账户密码：debian
+
+在初次启动镜像时可使用以上的用户密码进行登录。
+
+出于安全性考虑，请在初次登录后一定修改密码，避免出现问题。
