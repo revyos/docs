@@ -413,3 +413,41 @@ fastboot flash root root-meles-20250323_154525.ext4
 ![fastboot-meles](/img/image-for-flash/fastboot-meles.png)
 
 After the flashing is completed, it can be started normally.
+
+
+### Potential Issues
+
+#### weak Wi-Fi signal / using external antenna by default
+
+On `Milk-V Meles` with the [latest kernel](https://fast-mirror.isrc.ac.cn/revyos/extra/images/meles/20250526/) (6.6.82 by the time writing this), the board is using the external antenna by default, rather than the on board ceramic/chip antenna.
+
+As a result, the Wi-Fi signal is very weak without external antenna connected to the coax/ipex connector.Or not picking up any Wi-Fi signal at all.
+
+
+You can try using 'sudo' to execute the 'GPIO' command to manually switch to the on-board antenna.
+
+```
+sudo apt update && sudo apt upgrade -y
+sudo apt install -y gpiod # Install the gpiod tool.
+sudo gpioset 5 24=1 # Set pin 24 of chip 5 to high level.
+```
+
+:::warning
+
+You need to re-execute after reboot!
+
+:::
+
+
+### User Login
+
+- Login account: `debian`
+- Password: `debian`
+
+When starting the image for the first time, you can log in with the above user password. 
+
+For security reasons, please be sure to change your password after your first login to avoid any problems.
+
+
+
+
