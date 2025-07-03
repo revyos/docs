@@ -146,7 +146,7 @@ $ scp -r ../resnet50/ debian@<开发板IP>:/home/debian/resnet50/
 
 你也可以采取其他方式上传文件，如使用 USB 存储设备或通过网络共享等。
 
-## 运行程序
+### 运行程序
 
 进入开发板的 `/home/debian/resnet50` 目录，确保你已经在 RevyOS 上安装了 SHL 库并配置了 `LD_LIBRARY_PATH`。然后运行以下命令：
 
@@ -168,6 +168,22 @@ hhb_out/hhb_runtime: error while loading shared libraries: libshl_th1520.so.2: c
 ```shell-session
 $ pip install shl-python==2.6.17
 ```
+:::
+
+:::info[关于 NPU 设备权限]
+如果运行时出现以下错误：
+
+```shell-session
+FATAL: could not open driver '/dev/vha0': Permission denied
+```
+
+请检查当前用户是否能够读写 NPU 设备 `/dev/vha0` 。你可以使用以下命令将设备权限改为 0666（所有用户可读写）：
+
+```shell-session
+$ sudo chmod 0666 /dev/vha0
+```
+
+建议配置 `udev` 规则来自动设置设备权限。你可以询问 AI 如何配置 `udev` 规则。
 :::
 
 :::info[关于 NPU 推理运行时间过长的解释]
