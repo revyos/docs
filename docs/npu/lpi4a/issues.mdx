@@ -1,0 +1,47 @@
+---
+title: 常见问题和解决方案
+sidebar_position: 3
+---
+
+# 常见问题和解决方案
+
+## NPU 推理运行时间过长
+
+### 问题描述
+
+在使用 NPU 进行模型推理时，程序运行的时间极长，甚至超过 5 分钟。
+
+程序通常卡在模型推理之前，预处理之后。以 Res50 测试程序为例，程序会卡在如下位置超过 5 分钟：
+
+```shell-session
+$ ./resnet50_example
+ ********** preprocess image **********
+ ********** run model **********
+```
+
+此后程序将正常运行并输出结果。
+
+### 原理
+
+HHB 运行时 `hhb_runtime` 程序被设计为在 NPU 上第一次运行时进行 JIT 编译，将模型转换为更加高效的方式。这导致了第一次运行时的时间非常长。
+
+然而，由于 HHB 运行时的设计缺陷，每次运行都会重新 JIT 编译模型，这使得每次运行的时间都很长。
+
+`hhb_runtime` 程序的源代码位于 `hhb_out/main.c`。你可以在函数 `void *create_graph(char *params_path)` 中找到 JIT 逻辑。
+
+### 解决方案
+
+为了解决这个问题，你可以将 `hhb_runtime` 程序的输入改为已经优化后的模型 `shl.hhb.bm`。它会在使用 `hhb.bm` 作为参数运行 `hhb_runtime` 或 `hhb_jit` 程序时在当前文件夹下生成。
+
+以下命令分别展示了使用原始模型和 JIT 模型运行 `hhb_runtime`：
+
+```shell-session {2}
+$ hhb_out/hhb_runtime hhb_out/hhb.bm input_img.tensor # 使用原始模型运行
+$ hhb_out/hhb_runtime shl.hhb.bm input_img.tensor # 使用 JIT 模型运行
+```
+
+对于 Resnet50 示例程序，可以将应用程序源码 `main.cpp` 中 `main` 函数中的 `system()` 函数调用的参数改为上述代码块高亮命令。
+
+:::info[提示]
+`shl.hhb.bm` 仅会在 NPU 推理时生成，CPU推理无此文件，且在 CPU 推理时，`hhb_runtime` 程序会直接使用 `hhb.bm` 模型文件，不需要 JIT 编译。
+:::

@@ -1,0 +1,9 @@
+{
+  "label": "姿态估计",
+  "position": 4,
+  "link": {
+    "type": "generated-index",
+    "title": "姿态估计示例",
+    "description": "本目录收录荔枝派4A平台下 NPU 姿态估计相关文档。"
+  }
+}

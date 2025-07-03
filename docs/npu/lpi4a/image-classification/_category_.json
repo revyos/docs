@@ -1,0 +1,9 @@
+{
+  "label": "图像分类",
+  "position": 1,
+  "link": {
+    "type": "generated-index",
+    "title": "图像分类示例",
+    "description": "本目录收录荔枝派4A平台下 NPU 图像分类相关文档。"
+  }
+}
