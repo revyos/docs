@@ -34,8 +34,8 @@ import { DownloadLink } from "@site/src/components/ImageLinks";
 
 在此环境中，本教程中的所有操作都是可复现的，如在此环境中进行镜像刷写遇到问题请参考[此页](../../issue/)提交issue。
 
-:::note
-请注意，python 版本过高可能导致将 Bootloader 写入 SPI Nor Flash中的操作失败，请使用 pyhton 3.12 前的版本进行操作
+:::warning
+请注意，python 版本过高可能导致将 Bootloader 写入 SPI Nor Flash中的操作失败，请使用 python 3.12 前的版本进行操作
 :::
 
 ## 工具安装
@@ -93,7 +93,7 @@ sudo apt install zstd
 
 ## 启动方式介绍
 
-Milk-V Meles 目前支持两种启动方式，分别是[从SD card 启动](#从sd-card-启动)和[从 eMMC 启动](#从-emmc-启动)，对于两种不同的启动方式，此教程中都有进行说明，请根据自己所需的刷写方式点击进行跳转查看。
+Milk-V Meles 目前支持两种启动方式，分别是[从SD card 启动](#从-sd-card-启动)和[从 eMMC 启动](#从-emmc-启动)，对于两种不同的启动方式，此教程中都有进行说明，请根据自己所需的刷写方式点击进行跳转查看。
 
 :::warning
 请注意，不论使用哪种刷写方式，原有的用户数据都会丢失，所以在进行刷写前请一定确保做好数据备份的工作！
@@ -249,7 +249,15 @@ Start to run image...
 
 ### SD 卡镜像准备
 
-最新版本的 SD 卡镜像为20250323，可通过以下命令下载：
+从以下链接下载 Meles 的系统镜像：
+
+- [RevyOS 20240720（5.10内核）](https://mirror.iscas.ac.cn/revyos/extra/images/meles/20240720/)
+
+- 最新版本（6.6内核）：{<DownloadLink device="Milk-V Meles" />}
+
+其中前缀为`sdcard-meles-`的镜像为 SD card 启动系统镜像。
+
+以RevyOS 20250323为例，SD卡镜像可通过以下命令下载：
 
 ```bash
 wget https://fast-mirror.isrc.ac.cn/revyos/extra/images/meles/20250323/sdcard-meles-20250323_154525.img.zst
@@ -342,7 +350,18 @@ sudo dd if=./sdcard-meles-20250323_154525.img of=/dev/sda bs=4M status=progress
 
 ### eMMC镜像准备
 
-最新版本的 eMMC 镜像为20250323，可通过以下命令下载：
+从以下链接下载 Meles 的系统镜像：
+
+- [RevyOS 20240720（5.10内核）](https://mirror.iscas.ac.cn/revyos/extra/images/meles/20240720/)
+
+- 最新版本（6.6内核）：{<DownloadLink device="Milk-V Meles" />}
+
+需要下载的文件有三个，分别是 u-boot 引导文件、boot 分区和 root 分区的镜像文件，其文件名格式分别为
+- `u-boot-with-spl-meles.bin`：u-boot引导文件
+- `boot-meles-*.ext4.zst`：boot 分区镜像文件
+- `root-meles-*.ext4.zst`：root 分区镜像文件
+
+以20250323版本为例，可通过以下命令下载：
 
 ```bash
 wget https://fast-mirror.isrc.ac.cn/revyos/extra/images/meles/20250323/u-boot-with-spl-meles.bin
@@ -411,3 +430,36 @@ fastboot flash root root-meles-20250323_154525.ext4
 ![fastboot-meles](/img/image-for-flash/fastboot-meles.png)
 
 刷写完成后即可正常启动。
+
+
+### 可能出现的问题
+
+#### 最新版本内核中 Wi-Fi 信号弱问题
+
+在 `Milk-V Meles` 刷写系统中若使用了[最新 `RevyOS` 内核](https://fast-mirror.isrc.ac.cn/revyos/extra/images/meles/20250526/)（截止编写时为 6.6.82），开发板默认使用的是外置天线而非板载陶瓷天线。如果没有在同轴/IPEX 座上连接外置天线，会导致 Wi-Fi 信号很弱，甚至完全搜不到 Wi-Fi 信号。
+
+可以尝试使用 `sudo` 执行 `GPIO` 指令手动切换至板载天线。
+
+```
+sudo apt update && sudo apt upgrade -y
+sudo apt install -y gpiod # 安装gpiod工具
+sudo gpioset 5 24=1 # 设置chip 5的第24号引脚为高电平
+```
+
+:::warning
+
+你在重启之后需要重新执行！
+
+:::
+
+
+### 用户登录
+
+下面是默认的系统账户以及密码
+
+- 登录账户：debian
+- 账户密码：debian
+
+在初次启动镜像时可使用以上的用户密码进行登录。
+
+出于安全性考虑，请在初次登录后一定修改密码，避免出现问题。
