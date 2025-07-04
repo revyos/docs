@@ -1,7 +1,6 @@
 ---
 title: EfficientNet
 description: Tutorial for running the EfficientNet model on RevyOS
-
 sidebar_position: 3
 ---
 
@@ -28,7 +27,9 @@ The relevant code for this tutorial is located in the `classification/efficientn
 
 ## Obtaining the Model
 
+
 The model used in this tutorial is from the [efficientnet-pytorch model repository](https://github.com/rwightman/gen-efficientnet-pytorch). Download the EfficientNet model with the following commands:
+
 
 ```shell-session
 $ git clone https://github.com/rwightman/gen-efficientnet-pytorch.git
@@ -64,10 +65,6 @@ In this step, the `onnx` model is converted into a format compatible with the HH
 
 Navigate to the `classification/efficientnet` directory and execute the following commands:
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 29dad02 (校对修正和补充)
 
 ```shell-session
 $ hhb -D --model-file ./efficientnet_b0.onnx \
@@ -76,11 +73,6 @@ $ hhb -D --model-file ./efficientnet_b0.onnx \
     --input-name "input0" --output-name "output0" \
     --input-shape "1 3 224 224" --quantization-scheme float16
 ```
-
-<<<<<<< HEAD
-=======
-
->>>>>>> 29dad02 (校对修正和补充)
 
 :::info[HHB Parameter Description]
 
@@ -201,9 +193,16 @@ It is recommended to configure `udev` rules for automatic permission setting. Co
 :::info[About Long NPU Inference Time]
 In theory, the program should run quickly. However, the first run may take over 5 minutes due to JIT compilation when loading the model on the NPU. Due to HHB runtime design, JIT compilation occurs on every run, resulting in long execution times.
 
+<<<<<<< HEAD
 For more details, refer to [Common Issues and Solutions](../../issues#npu-推理运行时间过长).
 :::
 
+=======
+For more details, refer to [Common Issues and Solutions](../../issues#excessive-npu-inference-time).
+:::
+
+
+>>>>>>> a1ba329 (Added new npu files to the docs)
 ### Sample output:
 
 In this tutorial, the input is a picture of a Persian cat. The expected result for ResNet50 is that the largest value is at index 283, corresponding to `Persian cat`. 

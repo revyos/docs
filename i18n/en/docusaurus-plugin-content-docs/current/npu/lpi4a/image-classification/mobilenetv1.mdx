@@ -7,10 +7,18 @@ sidebar_position: 6
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> a1ba329 (Added new npu files to the docs)
 # MobilenetV1
 
 This tutorial provides guidance on running the MobilenetV1 model on RevyOS using either the CPU or NPU. MobiMobilenetV1lenetv1 is an efficient deep neural network model, widely used for optimization on mobile and embedded systems.
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> a1ba329 (Added new npu files to the docs)
 :::info[Initial Environment Setup]
 Before proceeding, please ensure you have completed the [environment setup](../../env) section.
 :::
@@ -194,14 +202,25 @@ It is recommended to configure `udev` rules for automatic permission setting. Co
 :::info[About Long NPU Inference Time]
 In theory, the program should run quickly. However, the first run may take over 5 minutes due to JIT compilation when loading the model on the NPU. Due to HHB runtime design, JIT compilation occurs on every run, resulting in long execution times.
 
+<<<<<<< HEAD
 For more details, refer to [Common Issues and Solutions](../../issues#npu-推理运行时间过长).
 :::
 
+=======
+For more details, refer to [Common Issues and Solutions](../../issues#excessive-npu-inference-time).
+:::
+
+
+>>>>>>> a1ba329 (Added new npu files to the docs)
 ### Sample output:
 
 In this tutorial, the input is a picture of a Persian cat. The expected result for ResNet50 is that the largest value is at index 283, corresponding to `Persian cat`. 
 ![Persian cat](/img/image-for-flash/persian_cat.png)
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> a1ba329 (Added new npu files to the docs)
 <Tabs
   groupId='npu-version'
   defaultValue="npu"

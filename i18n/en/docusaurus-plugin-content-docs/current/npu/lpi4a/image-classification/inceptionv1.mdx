@@ -7,6 +7,10 @@ sidebar_position: 9
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> a1ba329 (Added new npu files to the docs)
 # InceptionV1
 
 This tutorial provides guidance on running the InceptionV1 model on RevyOS using either the CPU or NPU. InceptionV1 is a multi-branch convolutional neural network architecture capable of efficiently extracting multi-scale features for image classification tasks.
@@ -27,8 +31,15 @@ The relevant code for this tutorial is located in the `classification/inceptionv
 
 ## Obtaining the Model
 
+<<<<<<< HEAD
 The model used in this tutorial is from the [TensorFlow model repository](https://github.com/tensorflow/models/tree/master/research/slim). You can download the InceptionV1 model using the following commands:
 
+=======
+
+The model used in this tutorial is from the [TensorFlow model repository](https://github.com/tensorflow/models/tree/master/research/slim). You can download the InceptionV1 model using the following commands:
+
+
+>>>>>>> a1ba329 (Added new npu files to the docs)
 ### Environment Preparation
 
 Before downloading the model, please ensure that the TensorFlow environment is properly set up. It is recommended to use a virtual environment.
@@ -232,7 +243,11 @@ It is recommended to configure `udev` rules for automatic permission setting. Co
 :::info[About Long NPU Inference Time]
 In theory, the program should run quickly. However, the first run may take over 5 minutes due to JIT compilation when loading the model on the NPU. Due to HHB runtime design, JIT compilation occurs on every run, resulting in long execution times.
 
+<<<<<<< HEAD
 For more details, refer to [Common Issues and Solutions](../../issues#npu-推理运行时间过长).
+=======
+For more details, refer to [Common Issues and Solutions](../../issues#excessive-npu-inference-time).
+>>>>>>> a1ba329 (Added new npu files to the docs)
 :::
 
 ### Sample output:
@@ -240,6 +255,11 @@ For more details, refer to [Common Issues and Solutions](../../issues#npu-推理
 In this tutorial, the input is a picture of a Persian cat. The expected result for ResNet50 is that the largest value is at index 283, corresponding to `Persian cat`. 
 ![Persian cat](/img/image-for-flash/persian_cat.png)
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> a1ba329 (Added new npu files to the docs)
 <Tabs
   groupId='npu-version'
   defaultValue="npu"
@@ -280,7 +300,11 @@ tiger cat
 Egyptian cat
 ```
 </TabItem>
+<<<<<<< HEAD
 <TabItem value="npu">
+=======
+  <TabItem value="npu">
+>>>>>>> a1ba329 (Added new npu files to the docs)
 ```shell-session
 $ ./inceptionv3_example
  ********** preprocess image **********
@@ -318,4 +342,9 @@ lynx, catamount
 background
 tench, Tinca tinca
 ```
+<<<<<<< HEAD
 </TabItem>
+=======
+    </TabItem>
+</Tabs>
+>>>>>>> a1ba329 (Added new npu files to the docs)

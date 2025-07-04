@@ -9,16 +9,29 @@ import TabItem from '@theme/TabItem';
 
 # RTMPose Real-Time Demonstration
 
+<<<<<<< HEAD
 This tutorial guides you through real-time acquisition and demonstration of the RTMPose model on RevyOS. RTMPose is a high-performance human pose estimation model based on the MMPose framework.
 
+=======
+
+This tutorial guides you through real-time acquisition and demonstration of the RTMPose model on RevyOS. RTMPose is a high-performance human pose estimation model based on the MMPose framework.
+
+
+>>>>>>> a1ba329 (Added new npu files to the docs)
 :::info[Initial Environment Setup]
 Before proceeding, please ensure you have completed the [environment setup](../../env) section.
 :::
 
 ## Real-Time Image Acquisition
+<<<<<<< HEAD
 
 For RevyOS on LPi4A, it is recommended to use a USB camera for plug-and-play functionality. The camera input is used as the model input, and each captured frame is preprocessed and fed to the model for inference. In previous tutorials, you have already run the model using images. Next, you will use the OpenCV interface to acquire input from the camera and demonstrate the model in real time.
 
+=======
+For RevyOS on LPi4A, it is recommended to use a USB camera for plug-and-play functionality. The camera input is used as the model input, and each captured frame is preprocessed and fed to the model for inference. In previous tutorials, you have already run the model using images. Next, you will use the OpenCV interface to acquire input from the camera and demonstrate the model in real time.
+
+
+>>>>>>> a1ba329 (Added new npu files to the docs)
 Simply copy main_2.py from Tutorial 2 to main_3.py, and replace the main function with the following code:
 
 ```python
@@ -90,6 +103,10 @@ Run the program with the following command. Upon successful execution, the outpu
 $ python3 camera.py rtmpose0.onnx
 ```
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> a1ba329 (Added new npu files to the docs)
 :::note[Note:]
 Before running the program, please ensure the camera is connected to the development board and the camera driver is correctly installed. You can check if the camera device exists using the following command:
 ```shell-session
@@ -134,4 +151,8 @@ cv2.destroyAllWindows()
 
 After main_3.py runs successfully, if a person appears in front of the camera, the model will perform inference and dynamic pose analysis on the captured image.
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> a1ba329 (Added new npu files to the docs)
 ![rtmpose-dynamic](/img/image-for-flash/rtmpose-dynamic.png)
