@@ -17,7 +17,7 @@ CoreMark是一个综合基准，用于测量嵌入式系统中使用的中央处
 ├── core_list_join.c	--列表操作程序
 ├── core_main.c			--主程序
 ├── coremark.h			--项目配置与数据结构的定义头文件
-├── coremark.md5		
+├── coremark.md5
 ├── core_matrix.c		--矩阵运算程序
 ├── core_state.c		--状态机控制程序
 ├── core_util.c			--CRC计算程序
@@ -34,7 +34,7 @@ CoreMark是一个综合基准，用于测量嵌入式系统中使用的中央处
 │   ├── ...
 ├── macos
 │   ├── ...
-├── Makefile			
+├── Makefile
 ├── README.md			--自述文件，CoreMark项目的基本介绍
 ├── rtems
 │   ├── ...
@@ -94,6 +94,11 @@ CoreMark 1.0 : 8517.228029 / GCC13.1.0 -O2 -DPERFORMANCE_RUN=1  -lrt / Heap
 
 ### GCC 10.4 + xtheadc
 
+:::warning
+由于 RevyOS 系统 GCC 版本已升级到 14，故目前 T-Head 优化 GCC 所使用的仓库 `c910v` 已
+被弃用。**本节所述内容失效**，请等待后续更新。（[追踪链接 #124](https://github.com/revyos/revyos/issues/124)）
+:::
+
 ```bash
 make XCFLAGS="-march=rv64gv0p7_zfh_xtheadc -O3 -funroll-all-loops -finline-limit=500 -fgcse-sm -fno-schedule-insns  -msignedness-cmpiv -fno-code-hoisting -mno-thread-jumps1 -mno-iv-adjust-addr-cost -mno-expand-split-imm"
 ```
@@ -118,28 +123,28 @@ Correct operation validated. See README.md for run and reporting rules.
 CoreMark 1.0 : 13219.644392 / GCC10.4.0 -O2 -march=rv64gv0p7_zfh_xtheadc -O3 -funroll-all-loops -finline-limit=500 -fgcse-sm -fno-schedule-insns  -msignedness-cmpiv -fno-code-hoisting -mno-thread-jumps1 -mno-iv-adjust-addr-cost -mno-expand-split-imm -DPERFORMANCE_RUN=1  -lrt / Heap
 ```
 
-### GCC 13.1 + xthead matrix
+### GCC 14.2 + xthead matrix
 
 ```bash
-make XCFLAGS="-march=rv64imafd_xtheadba_xtheadbb_xtheadbs_xtheadcmo_xtheadcondmov_xtheadfmemidx_xtheadfmv_xtheadint_xtheadmac_xtheadmemidx_xtheadmempair_xtheadsync -O3 -funroll-all-loops -finline-limit=500 -fgcse-sm -fno-schedule-insns -fno-code-hoisting -mno-thread-jumps"
+make XCFLAGS="-march=rv64imafd_xtheadba_xtheadbb_xtheadbs_xtheadcmo_xtheadcondmov_xtheadfmemidx_xtheadfmv_xtheadint_xtheadmac_xtheadmemidx_xtheadmempair_xtheadsync -O3 -funroll-all-loops -finline-limit=500 -fgcse-sm -fno-schedule-insns -fno-code-hoisting -fno-thread-jumps"
 ```
 
 ```
 2K performance run parameters for coremark.
 CoreMark Size    : 666
-Total ticks      : 11897
-Total time (secs): 11.897000
-Iterations/Sec   : 9246.028411
+Total ticks      : 15794
+Total time (secs): 15.794000
+Iterations/Sec   : 6964.670128
 Iterations       : 110000
-Compiler version : GCC13.1.0
-Compiler flags   : -O2 -march=rv64imafd_xtheadba_xtheadbb_xtheadbs_xtheadcmo_xtheadcondmov_xtheadfmemidx_xtheadfmv_xtheadint_xtheadmac_xtheadmemidx_xtheadmempair_xtheadsync -O3 -funroll-all-loops -finline-limit=500 -fgcse-sm -fno-schedule-insns -fno-code-hoisting -DPERFORMANCE_RUN=1  -lrt
+Compiler version : GCC14.2.0
+Compiler flags   : -O2 -march=rv64imafd_xtheadba_xtheadbb_xtheadbs_xtheadcmo_xtheadcondmov_xtheadfmemidx_xtheadfmv_xtheadint_xtheadmac_xtheadmemidx_xtheadmempair_xtheadsync -O3 -funroll-all-loops -finline-limit=500 -fgcse-sm -fno-schedule-insns -fno-code-hoisting -fno-thread-jumps -DPERFORMANCE_RUN=1  -lrt
 Memory location  : Please put data memory location here
-			(e.g. code in flash, data on heap etc)
+                        (e.g. code in flash, data on heap etc)
 seedcrc          : 0xe9f5
 [0]crclist       : 0xe714
 [0]crcmatrix     : 0x1fd7
 [0]crcstate      : 0x8e3a
 [0]crcfinal      : 0x33ff
 Correct operation validated. See README.md for run and reporting rules.
-CoreMark 1.0 : 9246.028411 / GCC13.1.0 -O2 -march=rv64imafd_xtheadba_xtheadbb_xtheadbs_xtheadcmo_xtheadcondmov_xtheadfmemidx_xtheadfmv_xtheadint_xtheadmac_xtheadmemidx_xtheadmempair_xtheadsync -O3 -funroll-all-loops -finline-limit=500 -fgcse-sm -fno-schedule-insns -fno-code-hoisting -DPERFORMANCE_RUN=1  -lrt / Heap
+CoreMark 1.0 : 6964.670128 / GCC14.2.0 -O2 -march=rv64imafd_xtheadba_xtheadbb_xtheadbs_xtheadcmo_xtheadcondmov_xtheadfmemidx_xtheadfmv_xtheadint_xtheadmac_xtheadmemidx_xtheadmempair_xtheadsync -O3 -funroll-all-loops -finline-limit=500 -fgcse-sm -fno-schedule-insns -fno-code-hoisting -fno-thread-jumps -DPERFORMANCE_RUN=1  -lrt / Heap
 ```

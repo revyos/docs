@@ -22,6 +22,10 @@ title: LMbench
 
 ## 测试准备
 
+:::warning
+运行完整测试耗时较长（在荔枝派4A上约为5小时），这是预期行为。
+:::
+
 下载测试工具：
 
 ```
@@ -34,7 +38,7 @@ git clone https://github.com/revyos/lmbench3.git
 在开始测试前，需要先安装依赖：
 
 ```
-sudo apt install gcc make libntirpc-dev -y
+sudo apt install gcc make libtirpc-dev -y
 ```
 
 ## 测试执行
@@ -61,10 +65,10 @@ multiple copies of lmbench in parallel, you can specify how many here.
 
 Using this option will make the benchmark run 100x slower (sorry).
 
-NOTE:  WARNING! This feature is experimental and many results are 
+NOTE:  WARNING! This feature is experimental and many results are
 	known to be incorrect or random!
 
-MULTIPLE COPIES [default 1]: 
+MULTIPLE COPIES [default 1]:
 =====================================================================
 ```
 
@@ -95,10 +99,10 @@ processes for each benchmark process.  For example, bw_pipe
 needs a second process to send data down the pipe to be read
 by the benchmark process.  If you have three copies of the
 benchmark process running, then you actually have six processes;
-three attendent child processes sending data down the pipes and 
+three attendent child processes sending data down the pipes and
 three benchmark processes reading data and doing the measurements.
 
-Job placement selection [default 1]: 
+Job placement selection [default 1]:
 =====================================================================
 ```
 
@@ -114,7 +118,7 @@ on your system.   It should be no more than 80% of your physical memory.
 The bigger the range, the more accurate the results, but larger sizes
 take somewhat longer to run the benchmark.
 
-MB [default 686]: 
+MB [default 686]:
 Checking to see if you have 686 MB; please wait for a moment...
 686MB OK
 686MB OK
@@ -140,7 +144,7 @@ which is useful during operating system development.
 Please remember that if you intend to publish the results you either need
 to do a full run or one of the predefined OS or hardware subsets.
 
-SUBSET (ALL|HARWARE|OS|DEVELOPMENT) [default all]: 
+SUBSET (ALL|HARWARE|OS|DEVELOPMENT) [default all]:
 =====================================================================
 ```
 
@@ -157,9 +161,9 @@ is greater than 128 bytes.
 If you are planning on sending in these results, please don't do a fast
 run.
 
-Answering yes means that we measure memory latency with a 128 byte stride.  
+Answering yes means that we measure memory latency with a 128 byte stride.
 
-FASTMEM [default no]: 
+FASTMEM [default no]:
 =====================================================================
 ```
 
@@ -178,7 +182,7 @@ run.
 
 If you want to skip the file system latency tests, answer "yes" below.
 
-SLOWFS [default no]: 
+SLOWFS [default no]:
 =====================================================================
 ```
 
@@ -189,22 +193,22 @@ SLOWFS [default no]:
 
 This benchmark can measure disk zone bandwidths and seek times.  These can
 be turned into whizzy graphs that pretty much tell you everything you might
-need to know about the performance of your disk.  
+need to know about the performance of your disk.
 
-This takes a while and requires read access to a disk drive.  
+This takes a while and requires read access to a disk drive.
 Write is not measured, see disk.c to see how if you want to do so.
 
 If you want to skip the disk tests, hit return below.
 
 If you want to include disk tests, then specify the path to the disk
 device, such as /dev/sda.  For each disk that is readable, you'll be
-prompted for a one line description of the drive, i.e., 
+prompted for a one line description of the drive, i.e.,
 
 	Iomega IDE ZIP
 or
 	HP C3725S 2GB on 10MB/sec NCR SCSI bus
 
-DISKS [default none]: 
+DISKS [default none]:
 =====================================================================
 ```
 
@@ -219,7 +223,7 @@ and you have rsh access to them, then you should run the network part
 of the benchmarks to them.  Please specify any such systems as a space
 separated list such as: ether-host fddi-host hippi-host.
 
-REMOTE [default none]: 
+REMOTE [default none]:
 =====================================================================
 ```
 
@@ -229,20 +233,20 @@ REMOTE [default none]:
 =====================================================================
 
 Calculating mhz, please wait for a moment...
-I think your CPU mhz is 
+I think your CPU mhz is
 
 	999 MHz, 1.0010 nanosec clock
-	
+
 but I am frequently wrong.  If that is the wrong Mhz, type in your
 best guess as to your processor speed.  It doesn't have to be exact,
-but if you know it is around 800, say 800.  
+but if you know it is around 800, say 800.
 
 Please note that some processors, such as the P4, have a core which
 is double-clocked, so on those processors the reported clock speed
 will be roughly double the advertised clock rate.  For example, a
 1.8GHz P4 may be reported as a 3592MHz processor.
 
-Processor mhz [default 999 MHz, 1.0010 nanosec clock]: 
+Processor mhz [default 999 MHz, 1.0010 nanosec clock]:
 =====================================================================
 ```
 
@@ -257,7 +261,7 @@ memory resident file system (i.e., tmpfs), pick a different place.
 Please specify a directory that has enough space and is a local file
 system.
 
-FSDIR [default /usr/tmp]: 
+FSDIR [default /usr/tmp]:
 =====================================================================
 ```
 
@@ -270,7 +274,7 @@ lmbench outputs status information as it runs various benchmarks.
 By default this output is sent to /dev/tty, but you may redirect
 it to any file you wish (such as /dev/null...).
 
-Status output file [default /dev/tty]: 
+Status output file [default /dev/tty]:
 =====================================================================
 ```
 
