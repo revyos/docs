@@ -1,0 +1,9 @@
+{
+  "label": "目标检测",
+  "position": 2,
+  "link": {
+    "type": "generated-index",
+    "title": "目标检测示例",
+    "description": "本目录收录荔枝派4A平台下 NPU 目标检测相关文档。"
+  }
+}

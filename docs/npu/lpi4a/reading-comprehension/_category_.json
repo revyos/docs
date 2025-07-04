@@ -1,0 +1,9 @@
+{
+  "label": "阅读理解",
+  "position": 3,
+  "link": {
+    "type": "generated-index",
+    "title": "阅读理解示例",
+    "description": "本目录收录荔枝派4A平台下 NPU 阅读理解相关文档。"
+  }
+}

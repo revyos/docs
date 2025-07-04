@@ -4,7 +4,7 @@ sidebar_position: 4
 
 import { DownloadLink } from "@site/src/components/ImageLinks";
 
-# LicheePi4A在Windows上的镜像刷写教程
+# LicheePi4A镜像刷写教程(Windows)
 
 此页面是 LicheePi4A 镜像刷写教程，适用于 Windows
 
@@ -12,15 +12,16 @@ import { DownloadLink } from "@site/src/components/ImageLinks";
 
 | 其他刷写教程 |   链接     |
 | ------- | -------------- |
-| LicheePi4A (在 Linux 上刷写)| [Linux 刷写教程](../licheepi4a/) |
+| LicheePi4A镜像刷写教程(Linux)| [Linux 刷写教程](../licheepi4a/) |
 | Milk-V pioneer | [刷写教程](../milkv-pioneer/) |
 | Milk-V Meles | [刷写教程](../milkv-meles/) |
 
-## 注意！
+:::warning
 
-在查看此教程前，请对照下面的图片确认手中板卡是否和图片一致，请在确认一致后再继续按照教程操作。
+在查看此教程前，**请对照下面的图片确认手中板卡是否和图片一致**，请在确认一致后再继续按照教程操作。
 
 ![LicheePi4A 示例图](/img/image-for-flash/lpi4a.png)
+:::
 
 ## 演示环境介绍
 
@@ -30,27 +31,53 @@ import { DownloadLink } from "@site/src/components/ImageLinks";
 - 架构：x86_64
 - LiCheePi4A 板卡规格：16G RAM + 128G eMMC
 
-在此环境中，本教程中的所有操作都是可复现的。在本环境中进行镜像刷写遇到问题请参考[此页](../issue.md)提交issue。
+:::note
+在此环境中，本教程中的所有操作都是可复现的。在刷写过程中遇到任何问题，请参考[此页](../../issue/)提交issue。
+:::
 
 ## 启动方式介绍
 
-LicheePi4A 目前支持两种启动方式，分别是[从SD card 启动](#从-sd-card-启动)和[从 eMMC 启动](#从-emmc-启动)，对于两种不同的启动方式，此教程中都有进行说明，请根据自己所需的刷写方式点击进行跳转查看。
+LicheePi4A 目前支持两种启动方式，分别是[从SD card 启动](#从-sd-card-启动)和[从 eMMC 启动](#从-emmc-启动)。对于两种不同的启动方式，此教程中都有说明，请根据所需方式点击跳转查看。
 
-请注意，不论使用哪种刷写方式，原有的用户数据都会丢失，所以在进行刷写前请一定确保做好数据备份的工作！
+:::warning
+无论使用哪种刷写方式，原有用户数据都会丢失，刷写前请务必备份数据！
+:::
 
 ## 从 SD card 启动
 
-注意！从sd卡启动不需要改变拨码开关！按照eMMC拨码开关进行设置！
+:::warning
+**有关开发板拨码开关设置的提示**
+
+从sd卡启动不需要改变拨码开关，请按照eMMC拨码开关进行设置。
 
 ![拨码开关示例图](/img/image-for-flash/Switch.png)
 
-拨码开关存在于核心板下方，需要取出核心板后才能看到，正确设置应为两个按钮全部对准下方，即`BOOT_SEL[1:0]=0 0`。
+拨码开关存在于板卡下方，需要取出板卡后才能看到，正确设置应为两个按钮全部对准下方。
 
-**注意！** 部分早期版本的 LicheePi4A 板卡没有拨码开关。
+**注意：** 部分早期版本的 LicheePi4A 板卡没有拨码开关。
+:::
 
-另外 SD 卡可能出现兼容性问题，请在 [LicheePi 4A SD卡兼容清单](../../miscellaneous/lpi4a-sdcard-list/) 查找您的 SD 卡是否有已知的兼容性问题。
+:::warning
+
+**有关SD卡兼容性的提示**
+
+部分 SD 卡在开发板上可能存在兼容性问题，请在 [LicheePi 4A SD卡兼容清单](../../miscellaneous/lpi4a-sdcard-list/) 查找您的 SD 卡是否有已知问题。
+:::
 
 ### 准备工作
+
+:::warning
+**如果从镜像版本`20240720`及以前的版本升级，需要重置U-Boot环境变量**
+
+重置方法：
+连接开发板串口，插入电源，在进入U-Boot后按下回车中断启动，进入U-Boot命令行界面，输入以下命令：
+
+```bash
+env default -a -f; env save; reset
+```
+
+将重置所有U-Boot环境变量并重启。如此即完成重置操作。
+:::
 
 #### 获取 SD card 镜像
 
@@ -58,15 +85,15 @@ LicheePi4A 目前支持两种启动方式，分别是[从SD card 启动](#从-sd
 
 - [RevyOS20240720（5.10内核）](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20240720/)
 
-- [RevyOS20250123（6.6内核）](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250123/)
+- 最新版本（6.6内核）：{<DownloadLink device="Lichee Pi 4A" />}
 
-- 最新版本：{<DownloadLink device="Lichee Pi 4A" />}
+:::note
+**有关RevyOS镜像内核版本的说明**
 
 20240720镜像使用的是5.10内核，目前5.10内核处于较为成熟的状态，在视频的编解码以及各种应用上表现都更加稳定。
 
-20250123镜像使用的是6.6内核，6.6内核可能会出现一些未知的问题，已知的有视频方面卡顿以及usb失去供电等问题，目前正在修复当中。
-
-请在看完上述说明后，根据需求选择相应的镜像。
+最新版本镜像使用的是6.6内核，6.6内核可能会出现一些未知的问题，已知的有视频方面卡顿以及usb失去供电等问题，目前正在修复当中。
+:::
 
 以20250123镜像为例进行演示：
 
@@ -82,7 +109,9 @@ LicheePi4A 目前支持两种启动方式，分别是[从SD card 启动](#从-sd
 curl.exe -OL https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250123/sdcard-lpi4a-20250123_195216.img.zst
 ```
 
-> **注**：`curl.exe`[从Windows 10起作为一个默认组件存在于Windows系统中](https://curl.se/windows/microsoft.html)。如果找不到`curl.exe`，可以使用浏览器下载的方法作为替代。
+:::note
+`curl.exe`[从Windows 10起作为一个默认组件存在于Windows系统中](https://curl.se/windows/microsoft.html)。如果找不到`curl.exe`，可以使用浏览器下载的方法作为替代。
+:::
 
 即可下载。等待进度到达100%即表示下载完成。
 
@@ -118,13 +147,19 @@ Get-FileHash -Algorithm MD5 .\sdcard-lpi4a-20250123_195216.img.zst
 
 ![使用Peazip解压镜像](/img/image-for-flash/peazip_extraction_illustration.png)
 
-**注意**：解压镜像后，镜像本身和压缩包会占用约**10.2GB**空间，请保证空间足够！
+:::warning
+**关于解压后的文件大小提示**
+
+解压后的文件大小约为**10.2GB**，请确保本地存储空间充足！
+:::
 
 #### 硬件准备
 
 准备MicroSD 读卡器和一张MicroSD 卡,目前 MicroSD 卡存在兼容性问题，RevyOS 提供了目前已测试过的 [MicroSD 卡列表](https://github.com/revyos/revyos/blob/main/Installation/card%20list.md)。
 
-如果您使用的 MicroSD 卡不在已知可用的列表上，出现无法正确刷写镜像和刷写后无法启动镜像的问题，请参考[此页](../issue.md)提交issue，并尝试参考[从 eMMC 启动](#从-emmc-启动)镜像的刷写教程进行镜像刷写。
+:::note
+如果您使用的 MicroSD 卡不在已知可用的列表上，出现无法正确刷写镜像和刷写后无法启动镜像的问题，请参考[此页](../../issue/)提交issue，并尝试参考[从 eMMC 启动](#从-emmc-启动)镜像的刷写教程进行镜像刷写。
+:::
 
 #### 使用BalenaEtcher写入镜像到 MicroSD 卡
 
@@ -141,20 +176,42 @@ Get-FileHash -Algorithm MD5 .\sdcard-lpi4a-20250123_195216.img.zst
 
 ![BalenaEtcher烧录流程](/img/image-for-flash/balenaetcher-flashing-guide.png)
 
+:::warning
+**关于SD卡写入的提示**
+
+拔出 SD 卡前，请确保 BalenaEtcher 烧录过程已完成，SD 卡指示灯不再闪烁，并在系统托盘中弹出 SD 卡，否则可能导致 SD 卡损坏或数据丢失。
+:::
+
 ### 通过SD卡启动系统
 
 在写入镜像完成后将SD 卡插入如图所示卡槽中。
 ![](/img/image-for-flash/lpi4a5.png)
 
-需要先将hdmi线（如果有外接显示器需求）进行连接，然后将随箱附赠的USB-A接口到USB-C接口的数据线中的C口一端接入到开发板上，另一端接入至少5V2A 输出的 USB 电源上，即可启动。
+需要先将HDMI线（如果有外接显示器需求）进行连接，然后将随箱附赠的USB-A接口到USB-C接口的数据线中的C口一端接入到开发板上，另一端接入至少5V2A 输出的 USB 电源上，即可启动。
 
 ## 从 eMMC 启动
 
 从eMMC启动镜像时，刷写镜像的途径分为连接串口进行刷写与不连接串口进行刷写两种情况。考虑到接入串口进行刷写不是必须行为，所以默认是使用不连接串口的刷写方式，如果手上有串口线的情况下也可以选择查看连接串口刷写的部分。其中进行的操作有些许区别，如您想连接串口线刷机，请参考[Linux刷写教程](./licheepi4a.mdx)中的相关章节。
 
-请注意！从 eMMC 启动前应当先取出 SD Card！
+:::warning
+
+从 eMMC 启动前应当先取出 SD Card！
+:::
 
 ### 准备工作
+
+:::warning
+**如果从镜像版本`20240720`及以前的版本升级，需要重置U-Boot环境变量**
+
+重置方法：
+连接开发板串口，插入电源，在进入U-Boot后按下回车中断启动，进入U-Boot命令行界面，输入以下命令：
+
+```bash
+env default -a -f; env save; reset
+```
+
+将重置所有U-Boot环境变量并重启。如此即完成重置操作。
+:::
 
 #### 安装镜像刷写工具
 
@@ -170,9 +227,24 @@ Get-FileHash -Algorithm MD5 .\sdcard-lpi4a-20250123_195216.img.zst
 
 #### 获取镜像
 
-通过上述链接下载 LicheePi4A 的系统镜像。
+从以下链接下载 LicheePi4A 的系统镜像。
 
-**注意**：LicheePi4A 不同的内存版本的 uboot 文件不通用，请根据您的核心板的板卡版本选择对应镜像
+- [RevyOS20240720（5.10内核）](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20240720/)
+
+- 最新版本（6.6内核）：{<DownloadLink device="Lichee Pi 4A" />}
+
+:::note
+**有关RevyOS镜像内核版本的说明**
+
+20240720镜像使用的是5.10内核，目前5.10内核处于较为成熟的状态，在视频的编解码以及各种应用上表现都更加稳定。
+
+最新版本镜像使用的是6.6内核，6.6内核可能会出现一些未知的问题，已知的有视频方面卡顿以及usb失去供电等问题，目前正在修复当中。
+:::
+
+:::warning
+**有关u-boot固件文件的提示**
+
+LicheePi4A 不同的内存版本的 uboot 文件不通用，可参照下表根据您的核心板的板卡版本选择对应镜像。
 
 |内存存储组合|对应的uboot镜像|
 |---|---|
@@ -191,6 +263,7 @@ Get-FileHash -Algorithm MD5 .\sdcard-lpi4a-20250123_195216.img.zst
 ![Core board-info](/img/image-for-flash/card-info.png)
 
 扫描后的结果中，第二部分的数字便是核心板的内存+存储配置。
+:::
 
 确认好板卡规格后，下载、校验并解压对应的 uboot、boot以及root文件（uboot文件不需要解压）。这部分可参考上面的“从SD卡启动”章节。
 
@@ -220,6 +293,8 @@ Get-FileHash -Algorithm MD5 .\sdcard-lpi4a-20250123_195216.img.zst
 
 若上述步骤出现问题，请回到设备管理器找到该设备，点击“卸载驱动程序”，然后重新插拔开发板并重试。
 
+### 刷写镜像
+
 回到包含`fastboot.exe`的Powershell终端，输入下面的命令，程序应当输出一行信息代表有一个设备已经连接。
 
 ```powershell
@@ -227,6 +302,8 @@ Get-FileHash -Algorithm MD5 .\sdcard-lpi4a-20250123_195216.img.zst
 ```
 
 ![fastboot设备检测](/img/image-for-flash/fastboot_device_detection.png)
+
+输入下面的命令以刷写并重启到临时uboot：
 
 ```powershell
 .\fastboot.exe flash ram .\u-boot-with-spl-lpi4a-16g.bin # 替换为您的板卡规格对应的 uboot 文件的路径，可在资源管理器中将文件拖放到终端以快捷输入文件的路径
@@ -246,13 +323,17 @@ Get-FileHash -Algorithm MD5 .\sdcard-lpi4a-20250123_195216.img.zst
 
 ![fastboot刷入系统](/img/image-for-flash/fastboot_installation_guide.png)
 
-其中 uboot 文件和 boot 文件刷写较快，root 文件需要大约5分钟才能刷写完成。如果在刷写 root 文件时并非是30+的数据块，而是2000+或是3000+(如下图所示)，那么证明前面的刷写操作有误，在此情况下写入完成后也无法启动镜像，请重新进行刷写操作。
+:::warning
+**关于刷写进度和耗时的提示**
+
+uboot 和 boot 文件刷写较快，root 文件大约需 5 分钟。如果刷写 root 文件时数据块数量异常（如下图所示，2000+ 或 3000+），说明前面操作有误，请重新刷写。
 
 ![错误的fastboot刷写](/img/image-for-flash/bad-fastboot-flash.png)
+:::
 
 至此镜像刷写完成，可以通过重新拔插电源线的方式启动系统。
 
-### 用户登录
+## 用户登录
 
 下面是默认的系统账户以及密码
 
