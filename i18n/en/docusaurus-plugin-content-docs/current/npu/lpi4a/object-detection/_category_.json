@@ -1,0 +1,9 @@
+{
+  "label": "Object Detection",
+  "position": 2,
+  "link": {
+    "type": "generated-index",
+    "title": "Object Detection Examples",
+    "description": "This directory contains documentation related to NPU-based object detection on the LicheePi 4A platform."
+  }
+}

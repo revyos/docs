@@ -1,0 +1,9 @@
+{
+  "label": "Reading Comprehension",
+  "position": 3,
+  "link": {
+    "type": "generated-index",
+    "title": "Reading Comprehension Examples",
+    "description": "This directory contains documentation related to NPU-based reading comprehension on the LicheePi 4A platform."
+  }
+}
