@@ -1,0 +1,9 @@
+{
+  "label": "Pose Estimation",
+  "position": 4,
+  "link": {
+    "type": "generated-index",
+    "title": "Pose Estimation Examples",
+    "description": "This directory contains documentation related to NPU-based pose estimation on the LicheePi 4A platform."
+  }
+}
