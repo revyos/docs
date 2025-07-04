@@ -9,6 +9,10 @@ import TabItem from '@theme/TabItem';
 
 # RTMPose Performance Optimization
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> a1ba329 (Added new npu files to the docs)
 This tutorial guides you through optimizing the inference latency of the RTMPose model on RevyOS.
 
 The tutorial includes:
@@ -16,6 +20,10 @@ The tutorial includes:
 - Quantizing the first sub-model to int16 and running it on the NPU
 - Quantizing the second sub-model to float16 and running it on the CPU
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> a1ba329 (Added new npu files to the docs)
 ## Environment Preparation
 
 ### Installing Dependencies
@@ -63,6 +71,10 @@ onnx.utils.extract_model(input_path, output_path, input_names, output_names)
 
 Run the script locally to generate the rtmpose1.onnx model.
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> a1ba329 (Added new npu files to the docs)
 ## NPU Quantization and Execution
 
 NPU quantization requires collecting calibration data before quantizing and generating a model file executable on LPi4A NPU.
@@ -71,6 +83,18 @@ NPU quantization requires collecting calibration data before quantizing and gene
 
 Copy main.py to npz.py and replace the main function with the following code:
 
+<<<<<<< HEAD
+=======
+## NPU Quantization and Execution
+
+NPU quantization requires collecting calibration data before quantizing and generating a model file executable on LPi4A NPU.
+
+### Collecting Quantization Data
+
+Copy main.py to npz.py and replace the main function with the following code:
+
+
+>>>>>>> a1ba329 (Added new npu files to the docs)
 ```python
 def main():
     args = parse_args()
@@ -100,8 +124,15 @@ def main():
     np.savez("test.npz", input=resized_img_npz)
 ```
 
+<<<<<<< HEAD
 After replacing the function, run npz.py to obtain the calibration data required for quantization. The preprocessed result of the input image will be saved as test.npz in the current directory:
 
+=======
+
+After replacing the function, run npz.py to obtain the calibration data required for quantization. The preprocessed result of the input image will be saved as test.npz in the current directory:
+
+
+>>>>>>> a1ba329 (Added new npu files to the docs)
 ```shell-session
 $ python3 npz.py rtmpose0.onnx human-pose.jpeg
 ```
@@ -123,8 +154,15 @@ Copy the hhb_out directory to the development board and execute `hhb_runtime`. U
 $ ./hhb_runtime hhb.bm input.0.bin
 ```
 
+<<<<<<< HEAD
 ## CPU Quantization and Execution
 
+=======
+
+## CPU Quantization and Execution
+
+
+>>>>>>> a1ba329 (Added new npu files to the docs)
 ### Model Quantization
 
 Quantize the second part of the model to float16 using the following script (rtmpose1_fp16.py):
@@ -142,8 +180,15 @@ Run the script locally to generate the rtmpose1_fp16.onnx model.
 
 ## Model Chaining
 
+<<<<<<< HEAD
 After quantized execution on both NPU and CPU, chain the two models for sequential execution. Copy main.py to main_2.py and replace the main function with the following code:
 
+=======
+
+After quantized execution on both NPU and CPU, chain the two models for sequential execution. Copy main.py to main_2.py and replace the main function with the following code:
+
+
+>>>>>>> a1ba329 (Added new npu files to the docs)
 ```python
 def main():
     args = parse_args()
@@ -196,6 +241,10 @@ def main():
     logger.info('Done...')
 ```
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> a1ba329 (Added new npu files to the docs)
 Run the following command to execute the program:
 
 ```shell-session
@@ -206,6 +255,10 @@ After successful execution, the output will be similar to that of Part 1 of this
 
 The output image `output.jpg` will be generated locally, with the same effect as in Tutorial 1. After the above performance optimization steps, the expected processing time per frame can be reduced to within 100 ms.
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> a1ba329 (Added new npu files to the docs)
 Upon successful execution, you will see the output image `output.jpg`.
 
 ![rtmpose](/img/image-for-flash/rtmpose.png)

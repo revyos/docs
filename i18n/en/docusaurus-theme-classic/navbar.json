@@ -12,7 +12,8 @@
     "description": "Navbar item with label 文档"
   },
   "item.label.项目列表": {
-    "message": "Projects"
+    "message": "Projects",
+    "description": "Navbar item with label 项目列表"
   },
   "item.label.提交问题与已知问题": {
     "message": "Issues",

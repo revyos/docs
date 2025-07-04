@@ -65,12 +65,20 @@ onnx.utils.extract_model(input_path, output_path, input_names, output_names)
 
 ## NPU量化执行
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> a1ba329 (Added new npu files to the docs)
 NPU 的量化执行需要手机量化数据之后再进行量化，并将量化后的模型生成 LPi4A NPU 能执行的模型文件。
 
 ### 收集量化数据
 
 HHB 量化时需要一些校准参数确定量化参数，通过拷贝一份 main.py 文件为 npz.py ，并将以下 main 函数中的内容进行替换执行获取：
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> a1ba329 (Added new npu files to the docs)
 ```python
 def main():
     args = parse_args()
@@ -197,12 +205,20 @@ def main():
     logger.info('Done...')
 ```
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> a1ba329 (Added new npu files to the docs)
 执行命令
 
 ```shell-session
 python3 main_3.py rtmpose.onnx human-pose.jpeg
 ```
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> a1ba329 (Added new npu files to the docs)
 模型正确执行后，将输出与本教程第一部分类似的输出。
 
 并在本地正常执行生成 output.jpg 的输出图像并如教程1相同效果，且经过上述的性能优化工作后，每帧的处理时间预期能降低到 100 ms 以内。
