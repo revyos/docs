@@ -1,0 +1,367 @@
+---
+title: InceptionV4
+description: 在 RevyOS 系统上运行 InceptionV4 模型的教程
+sidebar_position: 12
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+
+# InceptionV4
+
+本教程将引导你如何通过 CPU 或 NPU 在 RevyOS 系统上运行 InceptionV4 模型。 InceptionV4 是一种多分支卷积神经网络，能高效提取多尺度特征，用于图像分类任务。
+
+
+:::info[初始环境配置]
+在按照本教程操作前，请确保你已经完成了[环境配置](../../env)部分的内容。
+:::
+
+## 示例代码获取
+
+本教程配套的示例代码已更新到 [Github](https://github.com/zhangwm-pt/lpi4a-example) 中，使用 `git` 命令将其克隆到本地。
+
+```shell-session
+$ git clone https://github.com/zhangwm-pt/lpi4a-example.git
+```
+
+适用于本教程的代码位于 `classification/inceptionv4` 目录下。
+
+## 模型获取
+
+
+我们使用的模型来自 [tensorflow 模型仓库](https://github.com/tensorflow/models/tree/master/research/slim)，可以通过以下命令下载 InceptionV4 模型：
+
+
+### 环境准备
+
+在下载模型之前，请确保 TensorFlow 环境已经准备好，并建议使用虚拟环境进行配置。
+
+```shell-session
+$ python3 -m venv tf
+$ source tf/bin/activate
+$ pip install tensorflow==1.15 tf_slim pytest
+```
+
+
+### 获取模型权重文件
+
+通过以下步骤能获取到 TensorFlow 模型权重文件：
+
+```shell-session
+$ git clone https://github.com/tensorflow/models.git
+$ cd models/research/slim
+$ wget http://download.tensorflow.org/models/inception_v4_2016_09_09.tar.gz
+$ tar xzvf inception_v4_2016_09_09.tar.gz
+```
+
+通过以下步骤将 TensorFlow 模型转换为 PyTorch 模型权重文件：
+
+```shell-session
+$ python export_inference_graph.py \
+    --alsologtostderr \
+    --model_name=inception_v4 \
+    --output_file=./inception_v4_inf_graph.pb
+```
+
+通过以下步骤能将图结构模型与权重文件合并为一个冻结的模型：
+
+```shell-session
+$ python -m tensorflow.python.tools.freeze_graph \
+    --input_graph=./inception_v4_inf_graph.pb \
+    --input_checkpoint=./inception_v4.ckpt \
+    --input_binary=true \
+    --output_graph=./inception_v4.pb \
+    --output_node_names=InceptionV4/Logits/Predictions
+```
+
+:::note[关于各类文件的关系和转换]
+- `inception_v4.ckpt`： TensorFlow 1.x 保存的训练权重文件，需配合模型结构使用，不能单独用于推理。
+- `inception_v4_info_graph.pt` ：导出的模型计算图结构，不含权重，不能直接运行，仅用于冻结模型时作为结构输入。
+- `inception_v4.pb` ：已冻结的完整推理模型，包含结构和参数，适用于部署和 HHB 模型编译。
+:::
+
+:::note[关于 Github 的网络代理]
+如果你在中国大陆访问 GitHub 时遇到网络问题，可以考虑使用网络代理工具来加速访问。
+:::
+
+### 模型基本信息
+
+| GFLOPs | params | accuracy | input name | output name | shape | layout | channel order | scale value | mean values |
+| -------- | -------- | ---------- | ------------ | ------------- | ------- | -------- | ----------------|-------------| --------------- |
+| 24.6    | 42.6M    | top1 80.2%, top5 95.2% | input       | InceptionV4/Logits/Predictions/Reshape_1 | 1, 299, 299, 3 | NHWC   | RGB | 0.0039 | 127.5 127.5 127.5 |
+
+## 转换和编译模型
+
+在 x86 机器上，使用 HHB 工具将 pt 模型转换为适用于 RevyOS 的计算图和胶水代码。在进行下面的操作前，请确保你已经按照[环境配置](../../env)部分的内容启动 HHB 容器，并克隆好示例仓库。
+
+
+
+### HHB 转换模型
+
+在本步骤中，我们会将 `pt` 模型转换为 HHB 平台能够使用的格式。
+
+进入 `classification/inceptionv4` 目录，执行以下命令：
+
+<Tabs
+  groupId='npu-version'
+  defaultValue="npu"
+  values={[
+    {label: 'NPU', value: 'npu'},
+    {label: 'CPU', value: 'cpu'},
+  ]}>
+<TabItem value="cpu">
+```shell-session
+$ hhb -D --model-file ./inception_v4.pb --data-scale 0.0039 --data-mean "127.5 127.5 127.5"  \
+    --board c920  --postprocess save_and_top5 --input-name "input" --output-name "InceptionV4/Logits/Predictions" \
+    --input-shape "1 299 299 3" --quantization-scheme float16
+```
+</TabItem>
+    <TabItem value="npu">
+```shell-session
+$ hhb -D --model-file ./inception_v4.pb --data-scale 0.0039 --data-mean "127.5 127.5 127.5"  \
+    --board th1520  --postprocess save_and_top5 --input-name "input" --output-name "InceptionV4/Logits/Predictions" \
+    --input-shape "1 299 299 3" --calibrate-dataset persian_cat.jpg  --quantization-scheme "int8_asym"
+```
+    </TabItem>
+</Tabs>
+
+:::info[关于参数]
+- `-D`：指定 HHB 流程执行到生成可执行文件的阶段为止
+- `--model-file`：指定输入模型文件
+- `--data-mean`：指定均值
+- `--data-scale`：指定缩放值
+- `--board`：指定目标平台为 C920（CPU） 或 TH1520（NPU)
+- `--input-name`： 模型的输入 tensor 名
+- `--output-name`：模型的输出 tensor 名
+- `--input-shape`：模型的输入 tensor 形状
+- `--postprocess`：指定 HHB 生成的胶水代码的后处理行为。`save_and_top5` 表示保存输出结果，并且打印 top5 结果
+- `--quantization-scheme`：指定量化类型
+
+你可以通过运行 `hhb --help` 查看所有可用的参数和选项。
+:::
+
+:::info[关于 HHB 生成的文件]
+命令执行完成后，会在当前目录生成 hhb_out 子目录，里面的包括了 `hhb_runtime` `model.c` 等多个文件：
+
+- `hhb.bm`：HHB 的模型文件，包括了量化后的权重数据等信息
+- `hhb_runtime`：适用于开发板的可执行文件，由目录中的C文件编译而成
+- `main.c`：HHB 生成的示例程序的参考入口
+- `model.c`：HHB 模型结构表示文件，与模型结构相关
+- `model.params`：模型权重文件
+- `io.c`：HHB 生成的示例程序，包含读写文件的辅助函数
+- `io.h`：HHB 生成的示例程序，包含读写文件的辅助函数声明
+- `process.c`：HHB 生成的示例程序，包含图像预处理函数
+- `process.h`：HHB 生成的示例程序，包含图像预处理函数声明
+:::
+
+### 编译应用程序
+
+HHB 生成的胶水代码仅仅能够测试模型的功能。为了完成图像的前处理和后处理，我们利用 OpenCV 编写了一个应用程序来加载模型并执行推理。
+
+在 `classification/inceptionv4` 目录下，使用以下命令编译应用程序：
+
+```shell-session
+$ export OPENCV_DIR=../../modules/opencv/ # 配置 OpenCV 的路径
+    $ riscv64-unknown-linux-gnu-g++ main.cpp -I${OPENCV_DIR}/include/opencv4 -L${OPENCV_DIR}/lib  \
+        -lopencv_imgproc   -lopencv_imgcodecs -L${OPENCV_DIR}/lib/opencv4/3rdparty/ -llibjpeg-turbo \
+        -llibwebp -llibpng -llibtiff -llibopenjp2    -lopencv_core -ldl  -lpthread -lrt -lzlib \
+        -lcsi_cv -latomic -static -o inceptionv4_example
+```
+
+:::info[关于 OpenCV]
+本教程的示例代码中调用了 OpenCV 做模型输入的预处理，因此需要链接到预编译好的 OpenCV 静态库。请参照[环境配置](../../env)部分的内容，确保你已经安装了 OpenCV。
+:::
+
+:::info[编译参数说明]
+- -I../prebuilt_opencv/include/opencv4：头文件的搜索路径，指定到 opencv 的头文件路径
+- -L../prebuilt_opencv/lib: 库的搜索路径，指定到预编译好的 opencv 的二进制库路径
+- -lopencv_imgproc -lopencv_imgcodecs -lopencv_core：opencv 的库
+- -llibjpeg-turbo -llibwebp -llibpng -llibtiff -llibopenjp2 -lcsi_cv： opencv 的依赖库
+- -static：指定为静态链接
+- -o inceptionv4_example：指定生成名为 inceptionv4_example 的可执行文件
+
+编译命令正确执行完成后会在示例目录生成 `inceptionv4_example` 文件
+
+:::
+
+:::info[关于 OpenCV]
+本教程的示例代码中调用了 OpenCV 做模型输入的预处理，因此需要链接到预编译好的 OpenCV 静态库。请参照[环境配置](../../env)部分的内容，确保你已经安装了 OpenCV。
+:::
+
+## 上传并运行应用程序
+
+### 上传到开发板
+
+将本目录中的所有文件打包上传到开发板中。例如，可以使用 `scp` 命令将文件上传到开发板的 `/home/debian/inceptionv4` 目录下：
+
+```shell-session
+$ scp -r ../inceptionv4/ debian@<开发板IP>:/home/debian/inceptionv4/
+```
+
+你也可以采取其他方式上传文件，如使用 USB 存储设备或通过网络共享等。
+
+### 运行程序
+
+进入开发板的 `/home/debian/inceptionv4` 目录，确保你已经在 RevyOS 上安装了 SHL 库并配置了 `LD_LIBRARY_PATH`。然后运行以下命令：
+
+```shell-session
+$ ./inceptionv4_example
+```
+
+:::info[hhb_runtime报错]
+如果运行时出现以下错误：
+
+```shell-session
+hhb_out/hhb_runtime: error while loading shared libraries: libshl_th1520.so.2: cannot open shared object file: No such file or directory
+```
+
+请确保你已经正确配置了 `LD_LIBRARY_PATH`。如果仍然出现此情况，请运行 `pip show shl-python` 检查 `shl-python` 版本。
+
+如果版本显示为 `3.x.x`，说明 SHL 版本太高。Resnet50 程序需要 `shl-python` 2.x 版本。你需要降级安装 `shl-python` 版本：
+
+```shell-session
+$ pip install shl-python==2.6.17
+```
+:::
+
+:::info[关于 NPU 设备权限]
+如果运行时出现以下错误：
+
+```shell-session
+FATAL: could not open driver '/dev/vha0': Permission denied
+```
+
+请检查当前用户是否能够读写 NPU 设备 `/dev/vha0` 。你可以使用以下命令将设备权限改为 0666（所有用户可读写）：
+
+```shell-session
+$ sudo chmod 0666 /dev/vha0
+```
+
+建议配置 `udev` 规则来自动设置设备权限。你可以询问 AI 如何配置 `udev` 规则。
+:::
+
+:::info[关于 NPU 推理运行时间过长的解释]
+理论上来说，程序的运行时间应当很短。然而，当你实际运行程序时会发现，程序的运行时间可能超过 5 分钟。这不是 NPU 等组件出现了问题，而是因为 HHB 运行时在 NPU 上第一次加载模型时会先进行 JIT 编译，这就导致程序第一次运行时间会很长。
+
+然而，由于 HHB 运行时的设计缺陷，HHB 在每次运行时都会重新 JIT 编译模型，因此每次运行的时间都很长。
+
+有关更多内容，请参考[常见问题和解决方案](../../issues#npu-推理运行时间过长)。
+:::
+
+
+
+### 样例输出如下：
+
+本教程中输入使用的是一个波斯猫的图片，预期 resnet50 的分类结果是第 283 项最大，对应于 `Persian cat`。
+![Persian cat](/img/image-for-flash/persian_cat.png)
+
+
+<Tabs
+  groupId='npu-version'
+  defaultValue="npu"
+  values={[
+    {label: 'NPU', value: 'npu'},
+    {label: 'CPU', value: 'cpu'},
+  ]}>
+<TabItem value="cpu">
+```shell-session
+$ ./inceptionv4_example
+ ********** preprocess image **********
+ ********** run model **********
+Run graph execution time: 1537.36792ms, FPS=0.65
+
+=== tensor info ===
+shape: 1 3 299 299
+data pointer: 0x8ee230
+
+=== tensor info ===
+shape: 1 1001
+data pointer: 0x9aa9b0
+The max_value of output: 0.921875
+The min_value of output: 0.000000
+The mean_value of output: 0.001003
+The std_value of output: 0.000848
+ ============ top5: ===========
+284: 0.921875
+282: 0.002235
+288: 0.000888
+286: 0.000790
+589: 0.000476
+ ********** postprocess result **********
+ ********** probability top5: **********
+Persian cat
+tabby, tabby cat
+lynx, catamount
+Egyptian cat
+hamper
+```
+</TabItem>
+    <TabItem value="npu">
+```shell-session
+$ ./inceptionv4_example
+ ********** preprocess image **********
+ ********** run model **********
+Run graph execution time: 1537.36792ms, FPS=0.65
+
+=== tensor info ===
+shape: 1 3 299 299
+data pointer: 0x8ee230
+
+=== tensor info ===
+shape: 1 1001
+data pointer: 0x9aa9b0
+The max_value of output: 0.921875
+The min_value of output: 0.000000
+The mean_value of output: 0.001003
+The std_value of output: 0.000848
+ ============ top5: ===========
+284: 0.921875
+282: 0.002235
+288: 0.000888
+286: 0.000790
+589: 0.000476
+ ********** postprocess result **********
+ ********** probability top5: **********
+Persian cat
+tabby, tabby cat
+lynx, catamount
+Egyptian cat
+hamper
+(rtmpose) revyos-lpi4a% cd ..
+(rtmpose) revyos-lpi4a% cd inceptionv4
+(rtmpose) revyos-lpi4a% ./inceptionv4_example
+ ********** preprocess image **********
+ ********** run model **********
+INFO: NNA clock:363733 [kHz]
+INFO: Heap :anonymous (0x2)
+INFO: Heap :dmabuf (0x2)
+INFO: Heap :unified (0x5)
+
+=== tensor info ===
+shape: 1 3 299 299
+data pointer: 0x3b04eb60
+
+=== tensor info ===
+shape: 1 1001
+data pointer: 0x3faa06b000
+The max_value of output: 0.059608
+The min_value of output: 0.000000
+The mean_value of output: 0.000574
+The std_value of output: 0.000006
+ ============ top5: ===========
+284: 0.059608
+261: 0.021038
+  6: 0.017532
+292: 0.017532
+ 42: 0.010519
+ ********** postprocess result **********
+ ********** probability top5: **********
+Persian cat
+chow, chow chow
+electric ray, crampfish, numbfish, torpedo
+lion, king of beasts, Panthera leo
+whiptail, whiptail lizard
+```
+    </TabItem>
+</Tabs>

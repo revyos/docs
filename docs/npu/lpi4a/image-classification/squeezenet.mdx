@@ -1,15 +1,17 @@
 ---
-title: ResNet50
-description: 在 RevyOS 系统上运行 ResNet50 模型的教程
-sidebar_position: 1
+title: SqueezeNet
+description: 在 RevyOS 系统上运行 SqueezeNet 模型的教程
+sidebar_position: 7
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# ResNet50
 
-本教程将引导你如何通过 CPU 或 NPU 在 RevyOS 系统上运行 ResNet50 模型。ResNet50 是一种常用的卷积神经网络（CNN）架构，广泛应用于图像分类任务。
+# SqueezeNet
+
+本教程将引导你如何通过 CPU 或 NPU 在 RevyOS 系统上运行 SqueezeNet 模型。 SqueezeNet 是一种极度轻量化的卷积神经网络（CNN）架构，广泛应用于图像分类任务。
+
 
 :::info[初始环境配置]
 在按照本教程操作前，请确保你已经完成了[环境配置](../../env)部分的内容。
@@ -23,14 +25,17 @@ import TabItem from '@theme/TabItem';
 $ git clone https://github.com/zhangwm-pt/lpi4a-example.git
 ```
 
-适用于本教程的代码位于 `classification/resnet50` 目录下。
+适用于本教程的代码位于 `classification/squeezenet` 目录下。
 
 ## 模型获取
 
-我们使用的模型来自 [ONNX 模型仓库](https://github.com/onnx/models/blob/main/validated/vision/classification/resnet/model/resnet50-v1-7.onnx)，可以通过以下命令下载 ResNet50 模型：
+
+我们使用的模型来自 [Caffe 模型仓库](https://github.com/forresti/SqueezeNet)，可以通过以下命令下载 SqueezeNet 模型：
+
 
 ```shell-session
-$ curl -OL https://github.com/onnx/models/raw/refs/heads/main/validated/vision/classification/resnet/model/resnet50-v1-7.onnx
+$ wget https://raw.githubusercontent.com/forresti/SqueezeNet/master/SqueezeNet_v1.1/deploy.prototxt -O squeezenet_v1.1_deploy.prototxt
+$ wget https://raw.githubusercontent.com/forresti/SqueezeNet/master/SqueezeNet_v1.1/squeezenet_v1.1.caffemodel -O squeezenet_v1.1.caffemodel
 ```
 
 :::note[关于 Github 的网络代理]
@@ -39,23 +44,21 @@ $ curl -OL https://github.com/onnx/models/raw/refs/heads/main/validated/vision/c
 
 ### 模型基本信息
 
-| GFLOPs | params | accuracy | input name | output name | shape | layout | channel order | scale values | mean values |
-| -------- | -------- | ---------- | ------------ | ------------- | ------- | -------- | ---------------- | ---------------| --------------- |
-| 8.2    | 25M    | top1 74.9%, top5 92.3% | data       | resnetv17_dense0_fwd | 1, 3, 224, 224 | NCHW   | RGB | 0.017         | 124, 117, 104 |
+| GFLOPs | params | accuracy | input name | output name | shape | layout | channel order | mean values |
+| -------- | -------- | ---------- | ------------ | ------------- | ------- | -------- | ----------------| --------------- |
+| 1.7    | 1.2    | top1 57.6%, top5 80.4% | data       | prob | 1, 3, 227, 227 | NCHW   | BGR | 104, 117, 123 |
 
 ## 转换和编译模型
 
-在 x86 机器上，使用 HHB 工具将 ONNX 模型转换为适用于 RevyOS 的计算图和胶水代码。在进行下面的操作前，请确保你已经按照[环境配置](../../env)部分的内容启动 HHB 容器，并克隆好示例仓库。
+在 x86 机器上，使用 HHB 工具将 caffemodel 模型转换为适用于 RevyOS 的计算图和胶水代码。在进行下面的操作前，请确保你已经按照[环境配置](../../env)部分的内容启动 HHB 容器，并克隆好示例仓库。
 
-:::info[快速编译脚本]
-为了简化操作，你可以使用目录下的 `cpu_build.sh` 和 `npu_build.sh` 脚本来自动执行模型转换和编译过程。若需要对转换和编译参数进行调整，请按照下文手动操作。
-:::
+
 
 ### HHB 转换模型
 
-在本步骤中，我们会将 `onnx` 模型转换为 HHB 平台能够使用的格式。
+在本步骤中，我们会将 `caffemodel` 模型转换为 HHB 平台能够使用的格式。
 
-进入 `classification/resnet50` 目录，执行以下命令：
+进入 `classification/squeezenet` 目录，执行以下命令：
 
 <Tabs
   groupId='npu-version'
@@ -66,22 +69,18 @@ $ curl -OL https://github.com/onnx/models/raw/refs/heads/main/validated/vision/c
   ]}>
 <TabItem value="cpu">
 ```shell-session
-$ hhb -D --model-file resnet50-v1-7.onnx \
-    --data-scale 0.017 --data-mean "124 117 104"  \
-    --board c920  --postprocess save_and_top5 \
-    --input-name "data" --output-name "resnetv17_dense0_fwd" \
-    --input-shape "1 3 224 224" --calibrate-dataset persian_cat.jpg\
-     --quantization-scheme float16
+$ hhb -D --model-file squeezenet_v1.1.caffemodel squeezenet_v1.1_deploy.prototxt \
+    --data-scale 1 --data-mean "104 117 124"  --board c920  --postprocess save_and_top5 \
+    --input-name "data" --output-name "prob" --input-shape "1 3 227 227" \
+    --quantization-scheme float16 --pixel-format BGR
 ```
 </TabItem>
     <TabItem value="npu">
 ```shell-session
-$ hhb -D --model-file resnet50-v1-7.onnx \
-    --data-scale 0.017 --data-mean "124 117 104"  \
-    --board th1520  --postprocess save_and_top5 \
-    --input-name "data" --output-name "resnetv17_dense0_fwd" \
-    --input-shape "1 3 224 224" --calibrate-dataset persian_cat.jpg  \
-    --quantization-scheme "int8_asym"
+$ hhb -D --model-file squeezenet_v1.1.caffemodel squeezenet_v1.1_deploy.prototxt \
+    --data-scale 1 --data-mean "104 117 124"  --board th1520  --postprocess save_and_top5 \
+    --input-name "data" --output-name "prob" --input-shape "1 3 227 227" \
+    --calibrate-dataset persian_cat.jpg  --quantization-scheme "int8_asym" --pixel-format BGR
 ```
     </TabItem>
 </Tabs>
@@ -119,16 +118,32 @@ $ hhb -D --model-file resnet50-v1-7.onnx \
 
 HHB 生成的胶水代码仅仅能够测试模型的功能。为了完成图像的前处理和后处理，我们利用 OpenCV 编写了一个应用程序来加载模型并执行推理。
 
-在 `classification/resnet50` 目录下，使用以下命令编译应用程序：
+在 `classification/squeezenet` 目录下，使用以下命令编译应用程序：
 
 ```shell-session
 $ export OPENCV_DIR=../../modules/opencv/ # 配置 OpenCV 的路径
-$ riscv64-unknown-linux-gnu-g++ main.cpp -I${OPENCV_DIR}/include/opencv4 -L${OPENCV_DIR}/lib \
-    -lopencv_imgproc   -lopencv_imgcodecs -L${OPENCV_DIR}/lib/opencv4/3rdparty/ \
-    -llibjpeg-turbo -llibwebp -llibpng -llibtiff -llibopenjp2 \
-    -lopencv_core -ldl  -lpthread -lrt -lzlib -lcsi_cv -latomic -static \
-    -o resnet50_example # 编译程序
+$ riscv64-unknown-linux-gnu-g++ main.cpp -I${OPENCV_DIR}/include/opencv4 \
+    -L${OPENCV_DIR}/lib -L${OPENCV_DIR}/lib/opencv4/3rdparty/ -Wl,--start-group \
+    -lopencv_imgproc -lopencv_imgcodecs -llibjpeg-turbo -llibwebp -llibpng -llibtiff \
+    -llibopenjp2 -lopencv_core -Wl,--end-group -ldl  -lpthread -lrt -lzlib -lcsi_cv \
+    -latomic -static -o squeezenet_example
 ```
+
+:::info[关于 OpenCV]
+本教程的示例代码中调用了 OpenCV 做模型输入的预处理，因此需要链接到预编译好的 OpenCV 静态库。请参照[环境配置](../../env)部分的内容，确保你已经安装了 OpenCV。
+:::
+
+:::info[编译参数说明]
+- -I../prebuilt_opencv/include/opencv4：头文件的搜索路径，指定到 opencv 的头文件路径
+- -L../prebuilt_opencv/lib: 库的搜索路径，指定到预编译好的 opencv 的二进制库路径
+- -lopencv_imgproc -lopencv_imgcodecs -lopencv_core：opencv 的库
+- -llibjpeg-turbo -llibwebp -llibpng -llibtiff -llibopenjp2 -lcsi_cv： opencv 的依赖库
+- -static：指定为静态链接
+- -o squeezenet_example：指定生成名为 squeezenet_example 的可执行文件
+
+编译命令正确执行完成后会在示例目录生成 `squeezenet_example` 文件
+
+:::
 
 :::info[关于 OpenCV]
 本教程的示例代码中调用了 OpenCV 做模型输入的预处理，因此需要链接到预编译好的 OpenCV 静态库。请参照[环境配置](../../env)部分的内容，确保你已经安装了 OpenCV。
@@ -141,17 +156,17 @@ $ riscv64-unknown-linux-gnu-g++ main.cpp -I${OPENCV_DIR}/include/opencv4 -L${OPE
 将本目录中的所有文件打包上传到开发板中。例如，可以使用 `scp` 命令将文件上传到开发板的 `/home/debian/npu` 目录下：
 
 ```shell-session
-$ scp -r ../resnet50/ debian@<开发板IP>:/home/debian/resnet50/
+$ scp -r ../squeezenet/ debian@<开发板IP>:/home/debian/squeezenet/
 ```
 
 你也可以采取其他方式上传文件，如使用 USB 存储设备或通过网络共享等。
 
 ### 运行程序
 
-进入开发板的 `/home/debian/resnet50` 目录，确保你已经在 RevyOS 上安装了 SHL 库并配置了 `LD_LIBRARY_PATH`。然后运行以下命令：
+进入开发板的 `/home/debian/squeezenet` 目录，确保你已经在 RevyOS 上安装了 SHL 库并配置了 `LD_LIBRARY_PATH`。然后运行以下命令：
 
 ```shell-session
-$ ./resnet50_example
+$ ./squeezenet_example
 ```
 
 :::info[hhb_runtime报错]
@@ -195,7 +210,6 @@ $ sudo chmod 0666 /dev/vha0
 :::
 
 
-
 ### 样例输出如下：
 
 本教程中输入使用的是一个波斯猫的图片，预期 resnet50 的分类结果是第 283 项最大，对应于 `Persian cat`。
@@ -211,75 +225,71 @@ $ sudo chmod 0666 /dev/vha0
   ]}>
 <TabItem value="cpu">
 ```shell-session
-$ ./resnet50_example
+$ ./squeezenet_example
  ********** preprocess image **********
  ********** run model **********
-Run graph execution time: 360.10297ms, FPS=2.78
+Run graph execution time: 68.92180ms, FPS=14.51
 
 === tensor info ===
-shape: 1 3 224 224
-data pointer: 0xd205830
+shape: 1 3 227 227
+data pointer: 0x3559d850
 
 === tensor info ===
-shape: 1 1000
-data pointer: 0xd24f040
-The max_value of output: 14.281250
-The min_value of output: -4.507812
-The mean_value of output: 0.002987
-The std_value of output: 3.448585
+shape: 1 1000 1 1
+data pointer: 0x3555e390
+The max_value of output: 0.940430
+The min_value of output: 0.000000
+The mean_value of output: 0.001000
+The std_value of output: 0.000885
  ============ top5: ===========
-283: 14.281250
-287: 10.132812
-281: 9.312500
-282: 8.406250
-285: 7.503906
+283: 0.940430
+281: 0.026260
+287: 0.025452
+260: 0.001605
+282: 0.001002
  ********** postprocess result **********
  ********** probability top5: **********
 n02123394 Persian cat
-n02127052 lynx, catamount
 n02123045 tabby, tabby cat
+n02127052 lynx, catamount
+n02112137 chow, chow chow
 n02123159 tiger cat
-n02124075 Egyptian cat
 ```
 </TabItem>
     <TabItem value="npu">
 ```shell-session
-$ ./resnet50_example
+$ ./squeezenet_example
  ********** preprocess image **********
  ********** run model **********
-INFO: NNA clock:422733 [kHz]
+INFO: NNA clock:406105 [kHz]
 INFO: Heap :anonymous (0x2)
 INFO: Heap :dmabuf (0x2)
 INFO: Heap :unified (0x5)
-Run graph execution time: 17.87514ms, FPS=55.94
 
 === tensor info ===
-shape: 1 3 224 224
-data pointer: 0x1545f660
+shape: 1 3 227 227
+data pointer: 0x1640d340
 
 === tensor info ===
-shape: 1 1000
-data pointer: 0x3fab119000
-The max_value of output: 13.562714
-The min_value of output: -4.641784
-The mean_value of output: 0.001088
-The std_value of output: 3.407064
+shape: 1 1000 1 1
+data pointer: 0x3f9d77e000
+The max_value of output: 0.927245
+The min_value of output: 0.000000
+The mean_value of output: 0.000956
+The std_value of output: 0.000859
  ============ top5: ===========
-283: 13.562714
-287: 9.936319
-281: 9.211040
-282: 8.195650
-285: 7.542899
+283: 0.927245
+281: 0.014545
+287: 0.014545
+  0: 0.000000
+  1: 0.000000
  ********** postprocess result **********
  ********** probability top5: **********
 n02123394 Persian cat
-n02127052 lynx, catamount
 n02123045 tabby, tabby cat
-n02123159 tiger cat
-n02124075 Egyptian cat
+n02127052 lynx, catamount
+n01440764 tench, Tinca tinca
+n01443537 goldfish, Carassius auratus
 ```
     </TabItem>
 </Tabs>
-
-
-

@@ -1,0 +1,278 @@
+---
+title: ResNet50
+description: Tutorial for running the ResNet50 model on RevyOS
+sidebar_position: 1
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# ResNet50
+
+This tutorial guides you through running the ResNet50 model on RevyOS using either the CPU or NPU. ResNet50 is a widely used convolutional neural network (CNN) architecture, commonly applied to image classification tasks.
+
+:::info[Initial Environment Setup]
+Before proceeding, please ensure you have completed the [environment setup](../../env) section.
+:::
+
+## Obtaining Example Code
+
+The example code for this tutorial is available on [Github](https://github.com/zhangwm-pt/lpi4a-example). Clone it locally using the `git` command:
+
+```shell-session
+$ git clone https://github.com/zhangwm-pt/lpi4a-example.git
+```
+
+The relevant code for this tutorial is located in the `classification/resnet50` directory.
+
+## Obtaining the Model
+
+The model used in this tutorial is from the [ONNX Model Zoo](https://github.com/onnx/models/blob/main/validated/vision/classification/resnet/model/resnet50-v1-7.onnx). Download the ResNet50 model with the following command:
+
+```shell-session
+$ curl -OL https://github.com/onnx/models/raw/refs/heads/main/validated/vision/classification/resnet/model/resnet50-v1-7.onnx
+```
+
+:::note[About Github Network Proxy]
+If you encounter network issues accessing GitHub from mainland China, consider using a network proxy tool to accelerate access.
+:::
+
+### Model Information
+
+| GFLOPs | params | accuracy | input name | output name | shape | layout | channel order | scale values | mean values |
+| -------- | -------- | ---------- | ------------ | ------------- | ------- | -------- | ---------------- | ---------------| --------------- |
+| 8.2    | 25M    | top1 74.9%, top5 92.3% | data       | resnetv17_dense0_fwd | 1, 3, 224, 224 | NCHW   | RGB | 0.017         | 124, 117, 104 |
+
+## Model Conversion and Compilation
+
+On an x86 machine, use the HHB tool to convert the ONNX model into a computation graph and glue code suitable for RevyOS. Before proceeding, ensure you have started the HHB container and cloned the example repository as described in the [environment setup](../../env) section.
+
+:::info[Quick Build Scripts]
+To simplify the process, you may use the `cpu_build.sh` and `npu_build.sh` scripts in the directory for automated model conversion and compilation. For custom parameters, refer to the manual steps below.
+:::
+
+### Model Conversion with HHB
+
+In this step, the `onnx` model is converted into a format compatible with the HHB platform.
+
+Navigate to the `classification/resnet50` directory and execute the following commands:
+
+<Tabs
+  groupId='npu-version'
+  defaultValue="npu"
+  values={[
+    {label: 'NPU', value: 'npu'},
+    {label: 'CPU', value: 'cpu'},
+  ]}>
+<TabItem value="cpu">
+```shell-session
+$ hhb -D --model-file resnet50-v1-7.onnx \
+    --data-scale 0.017 --data-mean "124 117 104"  \
+    --board c920  --postprocess save_and_top5 \
+    --input-name "data" --output-name "resnetv17_dense0_fwd" \
+    --input-shape "1 3 224 224" --calibrate-dataset persian_cat.jpg\
+     --quantization-scheme float16
+```
+</TabItem>
+    <TabItem value="npu">
+```shell-session
+$ hhb -D --model-file resnet50-v1-7.onnx \
+    --data-scale 0.017 --data-mean "124 117 104"  \
+    --board th1520  --postprocess save_and_top5 \
+    --input-name "data" --output-name "resnetv17_dense0_fwd" \
+    --input-shape "1 3 224 224" --calibrate-dataset persian_cat.jpg  \
+    --quantization-scheme "int8_asym"
+```
+    </TabItem>
+</Tabs>
+
+:::info[About Parameters]
+- `-D`: Specifies the HHB process to stop at the executable generation stage
+- `--model-file`: Specifies the input model file
+- `--data-mean`: Specifies the mean values
+- `--data-scale`: Specifies the scale value
+- `--board`: Target platform, C920 (CPU) or TH1520 (NPU)
+- `--input-name`: Model input tensor name
+- `--output-name`: Model output tensor name
+- `--input-shape`: Model input tensor shape
+- `--postprocess`: Specifies the post-processing behavior for the generated glue code. `save_and_top5` saves the output and prints the top 5 results
+- `--quantization-scheme`: Specifies the quantization type
+
+For all available parameters and options, run `hhb --help`.
+:::
+
+:::info[About HHB Generated Files]
+After execution, a `hhb_out` subdirectory will be generated, containing files such as `hhb_runtime`, `model.c`, and others:
+
+- `hhb.bm`: HHB model file, including quantized weights and related data
+- `hhb_runtime`: Executable for the development board, compiled from the C files in the directory
+- `main.c`: Reference entry for the generated example program
+- `model.c`: Model structure representation file
+- `model.params`: Model weights file
+- `io.c`: Example program with file I/O helper functions
+- `io.h`: Declarations for I/O helper functions
+- `process.c`: Example program with image preprocessing functions
+- `process.h`: Declarations for preprocessing functions
+:::
+
+### Compiling the Application
+
+The glue code generated by HHB only tests the model's functionality. For complete image preprocessing and postprocessing, an application using OpenCV is provided to load the model and perform inference.
+
+In the `classification/resnet50` directory, compile the application with:
+
+```shell-session
+$ export OPENCV_DIR=../../modules/opencv/ # Set the path to OpenCV
+$ riscv64-unknown-linux-gnu-g++ main.cpp -I${OPENCV_DIR}/include/opencv4 -L${OPENCV_DIR}/lib \
+    -lopencv_imgproc   -lopencv_imgcodecs -L${OPENCV_DIR}/lib/opencv4/3rdparty/ \
+    -llibjpeg-turbo -llibwebp -llibpng -llibtiff -llibopenjp2 \
+    -lopencv_core -ldl  -lpthread -lrt -lzlib -lcsi_cv -latomic -static \
+    -o resnet50_example # Compile the program
+```
+
+:::info[About OpenCV]
+The example code uses OpenCV for model input preprocessing. Please ensure OpenCV is installed as described in the [environment setup](../../env) section.
+:::
+
+## Uploading and Running the Application
+
+### Upload to the Development Board
+
+Package all files in this directory and upload them to the development board. For example, use `scp` to upload to `/home/debian/npu`:
+
+```shell-session
+$ scp -r ../resnet50/ debian@<board_ip>:/home/debian/resnet50/
+```
+
+Alternatively, use a USB storage device or network sharing.
+
+### Running the Program
+
+On the development board, navigate to `/home/debian/resnet50`. Ensure the SHL library is installed and `LD_LIBRARY_PATH` is configured. Then run:
+
+```shell-session
+$ ./resnet50_example
+```
+
+:::info[hhb_runtime Error]
+If you encounter the following error:
+
+```shell-session
+hhb_out/hhb_runtime: error while loading shared libraries: libshl_th1520.so.2: cannot open shared object file: No such file or directory
+```
+
+Ensure `LD_LIBRARY_PATH` is correctly set. If the issue persists, run `pip show shl-python` to check the version.
+
+If the version is `3.x.x`, it is too high. The Resnet50 program requires `shl-python` version 2.x. Downgrade with:
+
+```shell-session
+$ pip install shl-python==2.6.17
+```
+:::
+
+:::info[About NPU Device Permissions]
+If you encounter the following error:
+
+```shell-session
+FATAL: could not open driver '/dev/vha0': Permission denied
+```
+
+Check if the current user has read/write permissions for `/dev/vha0`. Set permissions with:
+
+```shell-session
+$ sudo chmod 0666 /dev/vha0
+```
+
+It is recommended to configure `udev` rules for automatic permission setting. Consult AI or documentation for `udev` configuration.
+:::
+
+:::info[About Long NPU Inference Time]
+In theory, the program should run quickly. However, the first run may take over 5 minutes due to JIT compilation when loading the model on the NPU. Due to HHB runtime design, JIT compilation occurs on every run, resulting in long execution times.
+
+For more details, refer to [Common Issues and Solutions](../../issues#excessive-npu-inference-time).
+:::
+
+### Sample output:
+
+In this tutorial, the input is a picture of a Persian cat. The expected result for ResNet50 is that the largest value is at index 283, corresponding to `Persian cat`. 
+![Persian cat](/img/image-for-flash/persian_cat.png)
+
+<Tabs
+  groupId='npu-version'
+  defaultValue="npu"
+  values={[
+    {label: 'NPU', value: 'npu'},
+    {label: 'CPU', value: 'cpu'},
+  ]}>
+<TabItem value="cpu">
+```shell-session
+$ ./resnet50_example
+ ********** preprocess image **********
+ ********** run model **********
+Run graph execution time: 360.10297ms, FPS=2.78
+
+=== tensor info ===
+shape: 1 3 224 224
+data pointer: 0xd205830
+
+=== tensor info ===
+shape: 1 1000
+data pointer: 0xd24f040
+The max_value of output: 14.281250
+The min_value of output: -4.507812
+The mean_value of output: 0.002987
+The std_value of output: 3.448585
+ ============ top5: ===========
+283: 14.281250
+287: 10.132812
+281: 9.312500
+282: 8.406250
+285: 7.503906
+ ********** postprocess result **********
+ ********** probability top5: **********
+n02123394 Persian cat
+n02127052 lynx, catamount
+n02123045 tabby, tabby cat
+n02123159 tiger cat
+n02124075 Egyptian cat
+```
+</TabItem>
+    <TabItem value="npu">
+```shell-session
+$ ./resnet50_example
+ ********** preprocess image **********
+ ********** run model **********
+INFO: NNA clock:422733 [kHz]
+INFO: Heap :anonymous (0x2)
+INFO: Heap :dmabuf (0x2)
+INFO: Heap :unified (0x5)
+
+Run graph execution time: 17.87514ms, FPS=55.94
+
+=== tensor info ===
+shape: 1 3 224 224
+data pointer: 0x1545f660
+
+=== tensor info ===
+shape: 1 1000
+data pointer: 0x3fab119000
+The max_value of output: 13.562714
+The min_value of output: -4.641784
+The mean_value of output: 0.001088
+The std_value of output: 3.407064
+ ============ top5: ===========
+283: 13.562714
+287: 9.936319
+281: 9.211040
+282: 8.195650
+285: 7.542899
+ ********** postprocess result **********
+ ********** probability top5: **********
+n02123394 Persian cat
+n02127052 lynx, catamount
+n02123045 tabby, tabby cat
+n02123159 tiger cat
+n02124075 Egyptian cat
+```
+    </TabItem>
+</Tabs>

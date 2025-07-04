@@ -57,6 +57,50 @@
   },
   "sidebar.documentSidebar.category.典型应用": {
     "message": "Typical Applications",
-    "description": "The label for category Typical Applications in sidebar documentSidebar"
+    "description": "The label for category 典型应用 in sidebar documentSidebar"
+  },
+  "sidebar.documentSidebar.category.使用RevyOS推理模型": {
+    "message": "Model Inference",
+    "description": "The label for category 使用RevyOS推理模型 in sidebar documentSidebar"
+  },
+  "sidebar.documentSidebar.category.LicheePi 4A": {
+    "message": "LicheePi 4A",
+    "description": "The label for category LicheePi 4A in sidebar documentSidebar"
+  },
+  "sidebar.documentSidebar.category.图像分类": {
+    "message": "Image Classification",
+    "description": "The label for category Image Classification in sidebar documentSidebar"
+  },
+  "sidebar.documentSidebar.category.图像分类.link.generated-index.title": {
+    "message": "Image Classification Examples",
+    "description": "The generated-index page title for category 图像分类 in sidebar documentSidebar"
+  },
+  "sidebar.documentSidebar.category.图像分类.link.generated-index.description": {
+    "message": "This catalogue includes the relevant documents on NPU image classification under the LiCheePi 4A platform.",
+    "description": "The generated-index page description for category 图像分类 in sidebar documentSidebar"
+  },
+  "sidebar.documentSidebar.category.阅读理解": {
+    "message": "Reading Comprehension",
+    "description": "The label for category Reading Comprehension in sidebar documentSidebar"
+  },
+  "sidebar.documentSidebar.category.阅读理解.link.generated-index.title": {
+    "message": "Reading Comprehension Examples",
+    "description": "The generated-index page title for category 阅读理解 in sidebar documentSidebar"
+  },
+  "sidebar.documentSidebar.category.阅读理解.link.generated-index.description": {
+    "message": "This catalogue includes the relevant documents on NPU reading comprehension under the LiCheePi 4A platform.",
+    "description": "The generated-index page description for category 阅读理解 in sidebar documentSidebar"
+  },
+  "sidebar.documentSidebar.category.姿态估计": {
+    "message": "Pose Estimation",
+    "description": "The label for category Pose Estimation in sidebar documentSidebar"
+  },
+  "sidebar.documentSidebar.category.姿态估计.link.generated-index.title": {
+    "message": "Pose Estimation Examples",
+    "description": "The generated-index page title for category 姿态估计 in sidebar documentSidebar"
+  },
+  "sidebar.documentSidebar.category.姿态估计.link.generated-index.description": {
+    "message": "This catalogue includes the documents related to NPU posture estimation under the LiCheePi 4A platform.",
+    "description": "The generated-index page description for category 姿态估计 in sidebar documentSidebar"
   }
 }

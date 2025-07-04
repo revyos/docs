@@ -1,0 +1,356 @@
+---
+title: InceptionV4
+description: Tutorial for running the InceptionV4 model on RevyOS
+sidebar_position: 11
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+
+# InceptionV4
+
+This tutorial provides guidance on running the InceptionV4 model on RevyOS using either the CPU or NPU. InceptionV4 is a multi-branch convolutional neural network architecture, capable of efficiently extracting multi-scale features for image classification tasks.
+
+
+:::info[Initial Environment Setup]
+Before proceeding, please ensure you have completed the [environment setup](../../env) section.
+:::
+
+## Obtaining Example Code
+
+The example code for this tutorial is available on [Github](https://github.com/zhangwm-pt/lpi4a-example). Clone it locally using the following command:
+
+```shell-session
+$ git clone https://github.com/zhangwm-pt/lpi4a-example.git
+```
+
+The relevant code for this tutorial is located in the `classification/inceptionv4` directory.
+
+## Obtaining the Model
+
+
+The model used in this tutorial is from the [TensorFlow model repository](https://github.com/tensorflow/models/tree/master/research/slim). You can download the InceptionV4 model using the following commands:
+
+
+### Environment Preparation
+
+Before downloading the model, please ensure that the TensorFlow environment is properly set up. It is recommended to use a virtual environment.
+
+```shell-session
+$ python3 -m venv tf
+$ source tf/bin/activate
+$ pip install tensorflow==1.15 tf_slim pytest
+```
+
+### Downloading Model Weights
+
+Follow these steps to obtain the TensorFlow model weights:
+
+```shell-session
+$ git clone https://github.com/tensorflow/models.git
+$ cd models/research/slim
+$ wget http://download.tensorflow.org/models/inception_v4_2016_09_09.tar.gz
+$ tar xzvf inception_v4_2016_09_09.tar.gz
+```
+
+Export the TensorFlow model graph using:
+
+```shell-session
+$ python export_inference_graph.py \
+    --alsologtostderr \
+    --model_name=inception_v4 \
+    --output_file=./inception_v4_inf_graph.pb
+```
+
+Freeze the model graph and weights into a single model file:
+
+```shell-session
+$ python -m tensorflow.python.tools.freeze_graph \
+    --input_graph=./inception_v4_inf_graph.pb \
+    --input_checkpoint=./inception_v4.ckpt \
+    --input_binary=true \
+    --output_graph=./inception_v4.pb \
+    --output_node_names=InceptionV4/Logits/Predictions
+```
+
+:::note[About File Relationships and Conversion]
+- `inception_v4.ckpt`: TensorFlow 1.x checkpoint file containing training weights; must be used with the model structure and cannot be used for inference alone.
+- `inception_v4_info_graph.pt`: Exported model computation graph structure, does not contain weights, cannot be run directly, only used as input for freezing the model.
+- `inception_v4.pb`: The frozen inference model, containing both structure and parameters, suitable for deployment and HHB model compilation.
+:::
+
+:::note[About Github Network Proxy]
+If you encounter network issues accessing GitHub from mainland China, consider using a network proxy tool to accelerate access.
+:::
+
+### Model Information
+
+| GFLOPs | params | accuracy | input name | output name | shape | layout | channel order | scale value | mean values |
+|--------|--------|----------|------------|-------------|-------|--------|--------------|-------------|-------------|
+| 24.6   | 42.6M  | top1 80.2%, top5 95.2% | input | InceptionV4/Logits/Predictions/Reshape_1 | 1, 299, 299, 3 | NHWC | RGB | 0.0039 | 127.5 127.5 127.5 |
+
+## Model Conversion and Compilation
+
+On an x86 machine, use the HHB tool to convert the `.pb` model into a computation graph and glue code suitable for RevyOS. Before proceeding, ensure you have started the HHB container and cloned the example repository as described in the [environment setup](../../env) section.
+
+### Model Conversion with HHB
+
+In this step, the `.pb` model is converted into a format compatible with the HHB platform.
+
+Navigate to the `classification/inceptionv4` directory and execute the following commands:
+
+<Tabs
+  groupId='npu-version'
+  defaultValue="npu"
+  values={[
+    {label: 'NPU', value: 'npu'},
+    {label: 'CPU', value: 'cpu'},
+  ]}>
+<TabItem value="cpu">
+```shell-session
+$ hhb -D --model-file ./inception_v4.pb --data-scale 0.0039 --data-mean "127.5 127.5 127.5"  \
+    --board c920  --postprocess save_and_top5 --input-name "input" --output-name "InceptionV4/Logits/Predictions" \
+    --input-shape "1 299 299 3" --quantization-scheme float16
+```
+</TabItem>
+<TabItem value="npu">
+```shell-session
+$ hhb -D --model-file ./inception_v4.pb --data-scale 0.0039 --data-mean "127.5 127.5 127.5"  \
+    --board th1520  --postprocess save_and_top5 --input-name "input" --output-name "InceptionV4/Logits/Predictions" \
+    --input-shape "1 299 299 3" --calibrate-dataset persian_cat.jpg  --quantization-scheme "int8_asym"
+```
+</TabItem>
+</Tabs>
+
+:::info[About Parameters]
+- `-D`: Specifies the HHB process to stop at the executable generation stage
+- `--model-file`: Specifies the input model file
+- `--data-mean`: Specifies the mean values
+- `--data-scale`: Specifies the scale value
+- `--board`: Target platform, C920 (CPU) or TH1520 (NPU)
+- `--input-name`: Model input tensor name
+- `--output-name`: Model output tensor name
+- `--input-shape`: Model input tensor shape
+- `--postprocess`: Specifies the post-processing behavior for the generated glue code. `save_and_top5` saves the output and prints the top 5 results
+- `--quantization-scheme`: Specifies the quantization type
+
+You can run `hhb --help` to view all available parameters and options.
+:::
+
+:::info[About HHB Generated Files]
+After execution, an `hhb_out` subdirectory will be generated in the current directory, containing files such as `hhb_runtime`, `model.c`, and others:
+
+- `hhb.bm`: HHB model file, including quantized weights and related data
+- `hhb_runtime`: Executable for the development board, compiled from the C files in the directory
+- `main.c`: Reference entry for the generated example program
+- `model.c`: Model structure representation file
+- `model.params`: Model weights file
+- `io.c`: Example program with file I/O helper functions
+- `io.h`: Declarations for I/O helper functions
+- `process.c`: Example program with image preprocessing functions
+- `process.h`: Declarations for preprocessing functions
+:::
+
+### Compiling the Application
+
+The glue code generated by HHB only tests the model's functionality. For complete image preprocessing and postprocessing, an application using OpenCV is provided to load the model and perform inference.
+
+In the `classification/inceptionv4` directory, compile the application with:
+
+```shell-session
+$ export OPENCV_DIR=../../modules/opencv/ # Set the path to OpenCV
+$ riscv64-unknown-linux-gnu-g++ main.cpp -I${OPENCV_DIR}/include/opencv4 -L${OPENCV_DIR}/lib  \
+    -lopencv_imgproc   -lopencv_imgcodecs -L${OPENCV_DIR}/lib/opencv4/3rdparty/ -llibjpeg-turbo \
+    -llibwebp -llibpng -llibtiff -llibopenjp2    -lopencv_core -ldl  -lpthread -lrt -lzlib \
+    -lcsi_cv -latomic -static -o inceptionv4_example
+```
+
+:::info[About OpenCV]
+The example code uses OpenCV for model input preprocessing. Please ensure OpenCV is installed as described in the [environment setup](../../env) section.
+:::
+
+:::info[Compilation Parameter Description]
+- -I../prebuilt_opencv/include/opencv4: Header file search path, pointing to the OpenCV headers
+- -L../prebuilt_opencv/lib: Library search path, pointing to the precompiled OpenCV binaries
+- -lopencv_imgproc -lopencv_imgcodecs -lopencv_core: OpenCV libraries
+- -llibjpeg-turbo -llibwebp -llibpng -llibtiff -llibopenjp2 -lcsi_cv: OpenCV dependencies
+- -static: Static linking
+- -o inceptionv4_example: Output executable name
+
+After successful compilation, the `inceptionv4_example` file will be generated in the example directory.
+:::
+
+## Uploading and Running the Application
+
+### Upload to the Development Board
+
+Package all files in this directory and upload them to the development board. For example, use the `scp` command to upload to `/home/debian/inceptionv4`:
+
+```shell-session
+$ scp -r ../inceptionv4/ debian@<board_ip>:/home/debian/inceptionv4/
+```
+
+Alternatively, you may use other methods such as USB storage devices or network sharing.
+
+### Running the Program
+
+On the development board, navigate to `/home/debian/inceptionv4`. Ensure the SHL library is installed and `LD_LIBRARY_PATH` is configured. Then run:
+
+```shell-session
+$ ./inceptionv4_example
+```
+
+:::info[hhb_runtime Error]
+If you encounter the following error:
+
+```shell-session
+hhb_out/hhb_runtime: error while loading shared libraries: libshl_th1520.so.2: cannot open shared object file: No such file or directory
+```
+
+Ensure `LD_LIBRARY_PATH` is correctly set. If the issue persists, run `pip show shl-python` to check the version.
+
+If the version is `3.x.x`, it is too high. The program requires `shl-python` version 2.x. Downgrade with:
+
+```shell-session
+$ pip install shl-python==2.6.17
+```
+:::
+
+:::info[About NPU Device Permissions]
+If you encounter the following error:
+
+```shell-session
+FATAL: could not open driver '/dev/vha0': Permission denied
+```
+
+Check if the current user has read/write permissions for `/dev/vha0`. Set permissions with:
+
+```shell-session
+$ sudo chmod 0666 /dev/vha0
+```
+
+It is recommended to configure `udev` rules for automatic permission setting. Consult AI or documentation for `udev` configuration.
+:::
+
+:::info[About Long NPU Inference Time]
+In theory, the program should run quickly. However, the first run may take over 5 minutes due to JIT compilation when loading the model on the NPU. Due to HHB runtime design, JIT compilation occurs on every run, resulting in long execution times.
+
+For more details, refer to [Common Issues and Solutions](../../issues#excessive-npu-inference-time).
+:::
+
+
+### Sample output:
+
+In this tutorial, the input is a picture of a Persian cat. The expected result for ResNet50 is that the largest value is at index 283, corresponding to `Persian cat`. 
+![Persian cat](/img/image-for-flash/persian_cat.png)
+
+
+<Tabs
+  groupId='npu-version'
+  defaultValue="npu"
+  values={[
+    {label: 'NPU', value: 'npu'},
+    {label: 'CPU', value: 'cpu'},
+  ]}>
+<TabItem value="cpu">
+```shell-session
+$ ./inceptionv4_example
+ ********** preprocess image **********
+ ********** run model **********
+Run graph execution time: 1537.36792ms, FPS=0.65
+
+=== tensor info ===
+shape: 1 3 299 299
+data pointer: 0x8ee230
+
+=== tensor info ===
+shape: 1 1001
+data pointer: 0x9aa9b0
+The max_value of output: 0.921875
+The min_value of output: 0.000000
+The mean_value of output: 0.001003
+The std_value of output: 0.000848
+ ============ top5: ===========
+284: 0.921875
+282: 0.002235
+288: 0.000888
+286: 0.000790
+589: 0.000476
+ ********** postprocess result **********
+ ********** probability top5: **********
+Persian cat
+tabby, tabby cat
+lynx, catamount
+Egyptian cat
+hamper
+```
+</TabItem>
+<TabItem value="npu">
+```shell-session
+$ ./inceptionv4_example
+ ********** preprocess image **********
+ ********** run model **********
+Run graph execution time: 1537.36792ms, FPS=0.65
+
+=== tensor info ===
+shape: 1 3 299 299
+data pointer: 0x8ee230
+
+=== tensor info ===
+shape: 1 1001
+data pointer: 0x9aa9b0
+The max_value of output: 0.921875
+The min_value of output: 0.000000
+The mean_value of output: 0.001003
+The std_value of output: 0.000848
+ ============ top5: ===========
+284: 0.921875
+282: 0.002235
+288: 0.000888
+286: 0.000790
+589: 0.000476
+ ********** postprocess result **********
+ ********** probability top5: **********
+Persian cat
+tabby, tabby cat
+lynx, catamount
+Egyptian cat
+hamper
+(rtmpose) revyos-lpi4a% cd ..
+(rtmpose) revyos-lpi4a% cd inceptionv4
+(rtmpose) revyos-lpi4a% ./inceptionv4_example
+ ********** preprocess image **********
+ ********** run model **********
+INFO: NNA clock:363733 [kHz]
+INFO: Heap :anonymous (0x2)
+INFO: Heap :dmabuf (0x2)
+INFO: Heap :unified (0x5)
+
+=== tensor info ===
+shape: 1 3 299 299
+data pointer: 0x3b04eb60
+
+=== tensor info ===
+shape: 1 1001
+data pointer: 0x3faa06b000
+The max_value of output: 0.059608
+The min_value of output: 0.000000
+The mean_value of output: 0.000574
+The std_value of output: 0.000006
+ ============ top5: ===========
+284: 0.059608
+261: 0.021038
+  6: 0.017532
+292: 0.017532
+ 42: 0.010519
+ ********** postprocess result **********
+ ********** probability top5: **********
+Persian cat
+chow, chow chow
+electric ray, crampfish, numbfish, torpedo
+lion, king of beasts, Panthera leo
+whiptail, whiptail lizard
+```
+</TabItem>
+</Tabs>
