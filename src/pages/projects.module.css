@@ -17,7 +17,9 @@
   --background-color: #f9f9f9;
   --text-color: #333;
   --card-background: #fff;
-  --card-shadow: rgba(0, 0, 0, 0.1);
+  --card-shadow: rgba(0, 0, 0, 0.3);
+  --intro-background: #f5f5f5;
+  --intro-text-color: #333;
 }
 
 [data-theme='dark'] {
@@ -25,6 +27,35 @@
   --text-color: #fff;
   --card-background: #2a2a2a;
   --card-shadow: rgba(0, 0, 0, 0.3);
+  --intro-background: #2a2a2a;
+  --intro-text-color: #fff;
+}
+
+.intro {
+  background-color: var(--intro-background);
+  color: var(--intro-text-color);
+  padding: 2rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  width: 80%;
+  max-width: 1200px;
+  text-align: center;
+}
+
+.introTitle {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.introSubtitle {
+  font-size: 1.2rem;
+  color: grey;
+  margin-bottom: 1rem;
+}
+
+.introDescription {
+  font-size: 1rem;
 }
 
 /* 卡片列表容器 */
