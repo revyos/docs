@@ -37,11 +37,42 @@
   box-shadow: 0 4px 10px var(--card-shadow);
   padding: 20px;
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-  cursor: pointer;
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .card:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 20px var(--card-shadow);
+}
+
+.cardActions {
+  margin-top: 1rem;
+  text-align: right;
+}
+
+.visitButton {
+  background-color: transparent;
+  border: 1px solid var(--ifm-color-primary-dark);
+  color: var(--ifm-color-primary);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.visitButton:hover {
+  background-color: var(--ifm-color-primary-dark);
+  color: #fff;
+}
+
+[data-theme='dark'] .visitButton {
+  border-color: var(--ifm-color-primary-light);
+  color: var(--ifm-color-primary-light);
+}
+
+[data-theme='dark'] .visitButton:hover {
+  background-color: var(--ifm-color-primary-light);
+  color: #000;
 }
