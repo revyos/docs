@@ -65,8 +65,8 @@ export const InfoCard: React.FC<InfoCardProps> = ({ title, title_en, logo, subti
 const InfoCardList: React.FC<{ items: InfoCardProps[] }> = ({ items }) => {
   return (
     <>
-      {items.map((item, index) => (
-        <InfoCard key={index} {...item} />
+      {items.map((item) => (
+        <InfoCard key={item.subtitle || item.link} {...item} />
       ))}
     </>
   );
