@@ -1,0 +1,187 @@
+---
+title: BERT
+description: 在 LicheePi 4A 芯片平台上部署 BERT 模型完成阅读理解的示例
+sidebar_position: 1
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# BERT
+
+本教程将引导你如何在 RevyOS 系统上运行 BERT 模型。BERT 模型是一种常用的自然语言处理模型（NLP），广泛应用于各种自然语言处理任务（如问答、分类、翻译等）：
+
+:::info[初始环境配置]
+在按照本教程操作前，请确保你已经完成了[环境配置](../../env)部分的内容。
+:::
+
+## 示例代码获取
+
+本教程配套的示例代码已更新到 [Github](https://github.com/zhangwm-pt/lpi4a-example) 中，使用 `git` 命令将其克隆到本地。
+
+```shell-session
+$ git clone https://github.com/zhangwm-pt/lpi4a-example.git
+```
+
+本教程的 CPU 示例位于 `reading_comprehension/bert` 目录。
+
+## 模型获取
+
+本教程使用的模型来自 Google BERT 仓库，已转换为 [ONNX 版本](https://github.com/zhangwm-pt/bert/releases/download/onnx/bert_small_int32_input.onnx)，可通过如下命令下载：
+
+```shell-session
+$ wget https://github.com/zhangwm-pt/bert/releases/download/onnx/bert_small_int32_input.onnx
+```
+
+:::note[关于 Github 的网络代理]
+如果你在中国大陆访问 GitHub 时遇到网络问题，可以考虑使用网络代理工具来加速访问。
+:::
+
+
+## 转换和编译模型
+
+在 x86 机器上，使用 HHB 工具将 ONNX 模型转换为适用于 RevyOS 的计算图和胶水代码。在进行下面的操作前，请确保你已经按照[环境配置](../../env)部分的内容启动 HHB 容器，并克隆好示例仓库。
+
+
+### HHB 编译模型
+
+环境配置完成后，可使用 HHB 将模型编译为 c920 上的可执行程序。命令如下：
+
+进入 `reading_comprehension/bert` 目录，执行以下命令：
+
+```shell-session
+$ hhb --model-file bert_small_int32_input.onnx \
+  --input-name "input_ids;input_mask;segment_ids" \
+  --input-shape '1 384;1 384;1 384' \
+  --output-name "output_start_logits;output_end_logits" \
+  --board c920 \
+  --quantization-scheme "float16" \
+  --postprocess save_and_top5 \
+  -D \
+  --without-preprocess
+```
+
+:::info[关于参数]
+- `-D`：指定 HHB 流程执行到生成可执行文件的阶段为止
+- `--model-file`：指定当前目录中已下载的 BERT 模型
+- `--data-scale-div`：指定缩放值
+- `--board`：指定目标平台为 c920
+- `--input-name`：模型输入名
+- `--output-name`：模型输出名
+- `--input-shape`：模型输入大小
+- `--without-preprocess`：忽略预处理
+- `--quantization-scheme`：量化方式
+
+你可以通过运行 `hhb --help` 查看所有可用的参数和选项。
+:::
+
+
+:::info[关于 HHB 生成的文件]
+命令执行完成后，会在当前目录生成 `hhb_out` 子目录，包含如下文件：
+
+- `hhb.bm`：HHB 模型文件，包含量化权重等信息
+- `hhb_runtime`：c920 CPU 平台可执行文件，由目录中的 C 文件编译而成
+- `main.c`：示例程序参考入口
+- `model.c`：模型结构文件
+- `model.params`：权重文件
+- `io.c`：读写文件辅助函数
+- `io.h`：辅助函数声明
+- `process.c`：预处理函数
+- `process.h`：预处理函数声明
+
+更详细的 HHB 选项说明可参考 HHB 用户手册。
+:::
+
+## 上传并运行应用程序
+
+### 上传到开发板
+
+本目录中的所有文件打包上传到开发板中。例如，可以使用 `scp` 命令将文件上传到开发板的 `/home/debian/npu` 目录下：
+
+```shell-session
+$ scp -r bert debian20@10.63.x.x:/home/debian/bert/
+```
+
+你也可以采取其他方式上传文件，如使用 USB 存储设备或通过网络共享等。
+
+### 运行程序
+
+在开发板的 `/home/debian/bert` 目录，命令行终端进入示例目录，执行：
+
+```shell-session
+$ python3 inference.py
+```
+
+执行过程中，终端会提示各阶段进度：
+
+- 预处理
+- 模型执行
+- 后处理
+
+:::info[`inference.py` 会用到以下文件]
+
+- `test1.json`：测试数据，截取自 SQuAD 1.1 第一项
+- `sample_0_input_ids.bin`、`sample_0_input_mask.bin`、`sample_0_segment_ids.bin`：预处理阶段生成的中间结果
+- `hhb_out/hhb_runtime`：模型执行阶段所用文件，由 x86 主机 HHB 生成
+- `hhb_out/hhb.bm`：模型执行阶段所用文件，由 x86 主机 HHB 生成
+- `sample_0_input_ids.bin_output0_1_384.txt`、`sample_0_input_ids.bin_output1_1_384.txt`：模型执行阶段输出文件
+- `vocab.txt`：BERT 模型词表
+- `bert`：前后处理用到的 Python 脚本，由原 BERT 项目同名文件修改而来
+:::
+
+## 参考结果
+
+本示例参考输入来自 SQuAD 数据集。SQuAD 是一个阅读理解数据集，由一组维基百科文章提出的问题组成，每个问题的答案均为相应文章或问题中的一段文本。
+
+程序的样例输出如下：
+
+```shell-session
+$ python3 inference.py
+ ********** preprocess test **********
+[Context]:  Super Bowl 50 was an American football game to determine the champion of the National Football League (NFL) for the 2015 season. The American Football Conference (AFC) champion Denver Broncos defeated the National Football Conference (NFC) champion Carolina Panthers 24–10 to earn their third Super Bowl title. The game was played on February 7, 2016, at Levi's Stadium in the San Francisco Bay Area at Santa Clara, California. As this was the 50th Super Bowl, the league emphasized the "golden anniversary" with various gold-themed initiatives, as well as temporarily suspending the tradition of naming each Super Bowl game with Roman numerals (under which the game would have been known as "Super Bowl L"), so that the logo could prominently feature the Arabic numerals 50.
+[Question]:  Which NFL team represented the AFC at Super Bowl 50?
+ ******* run bert *******
+
+data pointer: 0x33a2ff70
+
+=== tensor info ===
+shape: 1 384
+data pointer: 0x33a31590
+
+=== tensor info ===
+shape: 1 384
+data pointer: 0x33a32bb0
+
+=== tensor info ===
+shape: 1 384
+data pointer: 0x33b54820
+The max_value of output: 3.794922
+The min_value of output: -9.976562
+The mean_value of output: -8.417037
+The std_value of output: 5.098144
+ ============ top5: ===========
+ 46: 3.794922
+ 57: 3.113281
+ 39: 1.210938
+ 38: 1.121094
+ 27: 0.603027
+
+=== tensor info ===
+shape: 1 384
+data pointer: 0x33b54510
+The max_value of output: 3.550781
+The min_value of output: -9.632812
+The mean_value of output: -7.799953
+The std_value of output: 4.787047
+ ============ top5: ===========
+ 47: 3.550781
+ 58: 3.437500
+ 32: 2.523438
+ 29: 1.539062
+ 41: 1.395508
+ ********** postprocess **********
+[Answer]:  Denver Broncoss
+```
+
+**预期输出：**  
+[Answer]:  Denver Broncoss
