@@ -48,16 +48,6 @@
   margin-bottom: 1rem;
 }
 
-.introSubtitle {
-  font-size: 1.2rem;
-  color: grey;
-  margin-bottom: 1rem;
-}
-
-.introDescription {
-  font-size: 1rem;
-}
-
 /* 卡片列表容器 */
 .cardListContainer {
   display: grid;
