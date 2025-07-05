@@ -1,0 +1,46 @@
+---
+title: Common Issues and Solutions
+sidebar_position: 3
+---
+
+# Common Issues and Solutions
+
+## Excessive NPU Inference Time
+
+### Problem Description
+
+When performing model inference using the NPU, the program may exhibit extremely long execution times, sometimes exceeding 5 minutes.
+
+Typically, the program stalls after preprocessing and before model inference. For example, in the ResNet50 test program, the process may pause at the following stage for over 5 minutes:
+
+```shell-session
+$ ./resnet50_example
+ ********** preprocess image **********
+ ********** run model **********
+```
+
+After this period, the program will proceed normally and output results.
+
+### Underlying Principle
+
+The HHB runtime (`hhb_runtime`) is designed to perform Just-In-Time (JIT) compilation on the NPU during the first execution, converting the model into a more efficient format. This results in a significantly prolonged initial run time.
+
+However, due to a design limitation in the HHB runtime, JIT compilation is performed on every execution, causing consistently long inference times.
+
+The source code for the `hhb_runtime` program can be found in `hhb_out/main.c`. The JIT logic is located within the function `void *create_graph(char *params_path)`.
+
+### Solution
+
+To address this issue, it is recommended to use the optimized model file `shl.hhb.bm` as input to the `hhb_runtime` program. This file is generated in the current directory when running `hhb_runtime` or `hhb_jit` with `hhb.bm` as an argument.
+
+The following commands demonstrate running `hhb_runtime` with the original and JIT-optimized models, respectively:
+
+```shell-session {2}
+$ hhb_out/hhb_runtime hhb_out/hhb.bm input_img.tensor # Run with the original model
+$ hhb_out/hhb_runtime shl.hhb.bm input_img.tensor     # Run with the JIT-optimized model
+```
+
+For the ResNet50 example program, modify the argument of the `system()` function call in the `main` function of `main.cpp` to use the highlighted command above.
+
+:::info[Note]
+The file `shl.hhb.bm` is generated only during NPU inference. For CPU inference, this file is not produced, and the `hhb_runtime` program directly utilizes the `hhb.bm` model file without requiring JIT compilation.
