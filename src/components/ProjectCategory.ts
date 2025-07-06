@@ -5,6 +5,7 @@ export enum ProjectCategory {
   Documentation = 'Documentation',
   Electron = 'Electron',
   Benchmark = 'Benchmark',
+  Uncategorized = 'Uncategorized',
 }
 
 export const ProjectCategoryLabels: Record<ProjectCategory, { zh: string; en: string }> = {
@@ -14,4 +15,5 @@ export const ProjectCategoryLabels: Record<ProjectCategory, { zh: string; en: st
   [ProjectCategory.Documentation]: { zh: '文档', en: 'Documentation' },
   [ProjectCategory.Electron]: { zh: 'Electron', en: 'Electron' },
   [ProjectCategory.Benchmark]: { zh: '基准测试', en: 'Benchmark' },
+  [ProjectCategory.Uncategorized]: { zh: '未分类', en: 'Uncategorized' },
 };
