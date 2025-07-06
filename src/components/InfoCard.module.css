@@ -76,3 +76,12 @@
   background-color: var(--ifm-color-primary-light);
   color: #000;
 }
+
+/* 分类标签样式 */
+.categoryLabelDark {
+  color: #aaa;
+}
+
+.categoryLabelLight {
+  color: #555;
+}

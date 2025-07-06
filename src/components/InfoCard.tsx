@@ -16,7 +16,7 @@ export type InfoCardProps = {
   description?: string;
   description_en?: string;
   link: string;         // Link
-  category?: ProjectCategory; // 分类枚举
+  category: ProjectCategory; // 分类枚举，必填
 };
 
 export const InfoCard: React.FC<InfoCardProps> = ({ title, title_en, logo, subtitle, subtitle_en, description, description_en, link, category }) => {
@@ -30,7 +30,7 @@ export const InfoCard: React.FC<InfoCardProps> = ({ title, title_en, logo, subti
     i18n: { currentLocale },
   } = useDocusaurusContext();
   const isEn = currentLocale === 'en';
-  const categoryLabel = category ? (isEn ? ProjectCategoryLabels[category].en : ProjectCategoryLabels[category].zh) : undefined;
+  const categoryLabel = isEn ? ProjectCategoryLabels[category].en : ProjectCategoryLabels[category].zh;
 
   return (
     <div className={styles.card}>
@@ -50,7 +50,12 @@ export const InfoCard: React.FC<InfoCardProps> = ({ title, title_en, logo, subti
             <p className={styles.subTitle} style={{ margin: 0 }}>
               {isEn ? (subtitle_en != null ? subtitle_en : subtitle) : subtitle}
             </p>
-            {category && <p className={styles.categoryLabel} style={{ margin: '4px 0 0', fontSize: '0.85em', color: dark ? '#aaa' : '#555' }}>{categoryLabel}</p>}
+            <p
+              className={`${styles.categoryLabel} ${dark ? styles.categoryLabelDark : styles.categoryLabelLight}`}
+              style={{ margin: '4px 0 0', fontSize: '0.85em' }}
+            >
+              {categoryLabel}
+            </p>
           </div>
         </div>
         <p style={{ margin: '10px 0 0', fontSize: '0.85em', color: dark ? '#aaa' : '#555' }}>
