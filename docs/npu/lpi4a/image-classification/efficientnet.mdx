@@ -76,7 +76,6 @@ $ hhb -D --model-file ./efficientnet_b0.onnx \
 ```
 
 
-
 :::info[HHB参数说明]
 
 - `-D`：指定 HHB 流程执行到生成可执行文件的阶段为止
@@ -113,7 +112,11 @@ $ hhb -D --model-file ./efficientnet_b0.onnx \
 
 HHB 生成的胶水代码仅仅能够测试模型的功能。为了完成图像的前处理和后处理，我们利用 OpenCV 编写了一个应用程序来加载模型并执行推理。
 
+<<<<<<< HEAD
 在 `classification/efficientnet` 目录下，使用以下命令编译应用程序：
+=======
+在 `classification/mobilenetv2` 目录下，使用以下命令编译应用程序：
+>>>>>>> dced023 (修改resnet50模型和添加efficientnet模型cpu复现及中英文档移植)
 
 ```shell-session
 $ export OPENCV_DIR=../../modules/opencv/ # 配置 OpenCV 的路径
