@@ -206,41 +206,16 @@ $ sudo chmod 0666 /dev/vha0
 有关更多内容，请参考[常见问题和解决方案](../../issues#npu-推理运行时间过长)。
 :::
 
-NPU 程序的样例输出如下：
+样例输出如下：
 
-```shell-session
-$ ./mobilenetv2_example
- ********** preprocess image **********
- ********** run mobilenetv2 **********
-Run graph execution time: 82.31609ms, FPS=12.15
-
-=== tensor info ===
-shape: 1 3 224 224
-data pointer: 0x30762380
-
-=== tensor info ===
-shape: 1 1000
-data pointer: 0x306ce340
-The max_value of output: 16.843750
-The min_value of output: -7.414062
-The mean_value of output: 0.001131
-The std_value of output: 9.056762
- ============ top5: ===========
-283: 16.843750
-281: 13.789062
-287: 12.257812
-282: 10.898438
-285: 10.765625
- ********** postprocess result **********
- ********** probability top5: **********
-n02123394 Persian cat
-n02123045 tabby, tabby cat
-n02127052 lynx, catamount
-n02123159 tiger cat
-n02124075 Egyptian cat
-```
-CPU 程序的样例输出如下：
-
+<Tabs
+  groupId='npu-version'
+  defaultValue="npu"
+  values={[
+    {label: 'NPU', value: 'npu'},
+    {label: 'CPU', value: 'cpu'},
+  ]}>
+<TabItem value="cpu">
 ```shell-session
 ./mobilenetv2_example
  ********** preprocess image **********
@@ -276,3 +251,40 @@ n02127052 lynx, catamount
 n02124075 Egyptian cat
 n02123159 tiger cat
 ```
+</TabItem>
+    <TabItem value="npu">
+```shell-session
+$ ./mobilenetv2_example
+ ********** preprocess image **********
+ ********** run mobilenetv2 **********
+Run graph execution time: 82.31609ms, FPS=12.15
+
+=== tensor info ===
+shape: 1 3 224 224
+data pointer: 0x30762380
+
+=== tensor info ===
+shape: 1 1000
+data pointer: 0x306ce340
+The max_value of output: 16.843750
+The min_value of output: -7.414062
+The mean_value of output: 0.001131
+The std_value of output: 9.056762
+ ============ top5: ===========
+283: 16.843750
+281: 13.789062
+287: 12.257812
+282: 10.898438
+285: 10.765625
+ ********** postprocess result **********
+ ********** probability top5: **********
+n02123394 Persian cat
+n02123045 tabby, tabby cat
+n02127052 lynx, catamount
+n02123159 tiger cat
+n02124075 Egyptian cat
+```
+    </TabItem>
+</Tabs>
+
+
