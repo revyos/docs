@@ -1,21 +1,21 @@
 ---
-title: Efficientnet
-description: 在 RevyOS 系统上运行 Efficientnet 模型的教程
-sidebar_position: 3
+title: VGG16
+description: 在 RevyOS 系统上运行 VGG16 模型的教程
+sidebar_position: 8
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Efficientnet
+# VGG16
 
-本教程将引导你如何通过 CPU 或 NPU 在 RevyOS 系统上运行 Efficientnet b0 模型。Efficientnet 是一种高效的深度神经网络模型，广泛应用于移动设备和嵌入式系统优化。
+本教程将引导你如何通过 CPU 或 NPU 在 RevyOS 系统上运行 VGG16 模型。VGG16 是一种深层卷积神经网络（CNN）架构，以其简单、统一的架构在图像分类任务中取得了优异表现。
 
 :::info[初始环境配置]
 在按照本教程操作前，请确保你已经完成了[环境配置](../../env)部分的内容。
 :::
 
-## 示例获取
+## 示例代码获取
 
 本教程配套的示例代码已更新到 [Github](https://github.com/zhangwm-pt/lpi4a-example) 中，使用 `git` 命令将其克隆到本地。
 
@@ -23,25 +23,18 @@ import TabItem from '@theme/TabItem';
 $ git clone https://github.com/zhangwm-pt/lpi4a-example.git
 ```
 
-适用于本教程的代码位于 `classification/efficientnet` 目录下。
+适用于本教程的代码位于 `classification/vgg16` 目录下。
 
 ## 模型获取
 
-我们使用的模型来自 [efficientnet-pytorch 模型仓库](https://github.com/rwightman/gen-efficientnet-pytorch)，可以通过以下命令下载 Efficientnet 模型：
-
-
-```shell-session
-$ git clone https://github.com/rwightman/gen-efficientnet-pytorch.git
-$ cd gen-efficientnet-pytorch
-```
-
-因版本问题，需要进入到 `onnx_export.py` 文件中修改第97行的 `torch_out = torch.onnx._export` 为 `torch_out = torch.onnx.export`，再进行模型导出。
-
-```python
+我们使用的模型来自 [Caffe 模型仓库](https://github.com/davidgengenbach/vgg-caffe)，可以通过以下命令下载 VGG16 模型：
 
 ```shell-session
-$ nano onnx_export.py # 将第97行的 torch_out = torch.onnx._export 为 torch_out = torch.onnx.export
-$ python3 onnx_export.py --model efficientnet_b0 efficientnet_b0.onnx
+$ git clone https://github.com/davidgengenbach/vgg-caffe.git
+$ cd vgg-caffe/model
+$ ls VGG_ILSVRC_16_layers_deploy.prototxt
+$ wget --show-progress \ # 下载权重
+     http://www.robots.ox.ac.uk/~vgg/software/very_deep/caffe/VGG_ILSVRC_16_layers.caffemodel
 ```
 
 :::note[关于 Github 的网络代理]
@@ -50,22 +43,21 @@ $ python3 onnx_export.py --model efficientnet_b0 efficientnet_b0.onnx
 
 ### 模型基本信息
 
-| input name | output name | input shape    | layout | channel order | scale value | mean values   |
-| ---------- | ----------- | -------------- | ------ | ------------- | ----------- | ------------- |
-| input0     | output0     | 1, 3, 224, 224 | NCHW   | RGB           | 0.017       | 124, 117, 104 |
-
----
+| GFLOPs | params | accuracy | input name | output name | shape | layout | channel order | mean values |
+| -------- | -------- | ---------- | ------------ | ------------- | ------- | -------- | ----------------| --------------- |
+| 30    | 138    | top1 70.9%, top5 89.8% | data       | prob | 1, 3, 224, 224 | NCHW   | BGR | 104, 117, 123 |
 
 ## 转换和编译模型
 
-在 x86 机器上，使用 HHB 工具将 ONNX 模型转换为适用于 RevyOS 的计算图和胶水代码。在进行下面的操作前，请确保你已经按照[环境配置](../../env)部分的内容启动 HHB 容器，并克隆好示例仓库。
+在 x86 机器上，使用 HHB 工具将 caffemodel 模型转换为适用于 RevyOS 的计算图和胶水代码。在进行下面的操作前，请确保你已经按照[环境配置](../../env)部分的内容启动 HHB 容器，并克隆好示例仓库。
+
+
 
 ### HHB 转换模型
 
-在本步骤中，我们会将 `onnx` 模型转换为 HHB 平台能够使用的格式。
+在本步骤中，我们会将 `caffemodel` 模型转换为 HHB 平台能够使用的格式。
 
-
-进入 `classification/efficientnet` 目录，执行以下命令：
+进入 `classification/vgg16` 目录，执行以下命令：
 
 <Tabs
   groupId='npu-version'
@@ -75,33 +67,24 @@ $ python3 onnx_export.py --model efficientnet_b0 efficientnet_b0.onnx
     {label: 'CPU', value: 'cpu'},
   ]}>
 <TabItem value="cpu">
-
 ```shell-session
-$ hhb -D --model-file ./efficientnet_b0.onnx \
-    --data-scale 0.017 --data-mean "124 117 104"  \
-    --board c920  --postprocess save_and_top5 \
-    --input-name "input0" --output-name "output0" \
-    --input-shape "1 3 224 224" --quantization-scheme float16
+$ hhb -D --model-file VGG_ILSVRC_16_layers.caffemodel VGG_ILSVRC_16_layers_deploy.prototxt \
+    --data-scale 1 --data-mean "104 117 124"  --board c920  --postprocess save_and_top5 \
+    --input-name "data" --output-name "prob" --input-shape "1 3 224 224" \
+    --quantization-scheme float32 --pixel-format BGR
 ```
-
 </TabItem>
     <TabItem value="npu">
-
 ```shell-session
-$ hhb -D --model-file mobilenetv2-12.onnx \
-    --data-scale 0.017 --data-mean "124 117 104" \
-    --board th1520  --postprocess save_and_top5 \
-    --input-name "input" --output-name "output" \
-    --input-shape "1 3 224 224" --calibrate-dataset persian_cat.jpg  \
-    --quantization-scheme "int8_asym"
+$ hhb -D --model-file VGG_ILSVRC_16_layers.caffemodel VGG_ILSVRC_16_layers_deploy.prototxt \
+    --data-scale 1 --data-mean "104 117 124"  --board th1520  --postprocess save_and_top5 \
+    --input-name "data" --output-name "prob" --input-shape "1 3 224 224" --calibrate-dataset persian_cat.jpg  \
+    --quantization-scheme "int8_asym" --pixel-format BGR
 ```
-
     </TabItem>
-
 </Tabs>
 
-:::info[HHB参数说明]
-
+:::info[关于参数]
 - `-D`：指定 HHB 流程执行到生成可执行文件的阶段为止
 - `--model-file`：指定输入模型文件
 - `--data-mean`：指定均值
@@ -111,7 +94,7 @@ $ hhb -D --model-file mobilenetv2-12.onnx \
 - `--output-name`：模型的输出 tensor 名
 - `--input-shape`：模型的输入 tensor 形状
 - `--postprocess`：指定 HHB 生成的胶水代码的后处理行为。`save_and_top5` 表示保存输出结果，并且打印 top5 结果
-- `--quantization-scheme`：指定量化类型为 float16
+- `--quantization-scheme`：指定量化类型
 
 你可以通过运行 `hhb --help` 查看所有可用的参数和选项。
 :::
@@ -128,40 +111,40 @@ $ hhb -D --model-file mobilenetv2-12.onnx \
 - `io.h`：HHB 生成的示例程序，包含读写文件的辅助函数声明
 - `process.c`：HHB 生成的示例程序，包含图像预处理函数
 - `process.h`：HHB 生成的示例程序，包含图像预处理函数声明
-
-更详细的 HHB 选项说明可以参考 HHB 用户手册中的命令行参数说明。
 :::
 
 ### 编译应用程序
 
 HHB 生成的胶水代码仅仅能够测试模型的功能。为了完成图像的前处理和后处理，我们利用 OpenCV 编写了一个应用程序来加载模型并执行推理。
 
-在 `classification/mobilenetv2` 目录下，使用以下命令编译应用程序：
+在 `classification/squeezenet` 目录下，使用以下命令编译应用程序：
 
 ```shell-session
 $ export OPENCV_DIR=../../modules/opencv/ # 配置 OpenCV 的路径
-$ riscv64-unknown-linux-gnu-g++ main.cpp -I${OPENCV_DIR}/include/opencv4 -L${OPENCV_DIR}/lib   \
-    -lopencv_imgproc   -lopencv_imgcodecs -L${OPENCV_DIR}/lib/opencv4/3rdparty/ \
-    -llibjpeg-turbo -llibwebp -llibpng -llibtiff -llibopenjp2    -lopencv_core -ldl  \
-    -lpthread -lrt -lzlib -lcsi_cv -latomic -static -o efficientnet_example
+$ riscv64-unknown-linux-gnu-g++ main.cpp -I${OPENCV_DIR}/include/opencv4 -L${OPENCV_DIR}/lib \
+    -L${OPENCV_DIR}/lib/opencv4/3rdparty/ -Wl,--start-group -lopencv_imgproc -lopencv_imgcodecs \
+    -llibjpeg-turbo -llibwebp -llibpng -llibtiff -llibopenjp2 -lopencv_core -Wl,--end-group -ldl  \
+    -lpthread -lrt -lzlib -lcsi_cv -latomic -static -o vgg16_example
 ```
-
 
 :::info[关于 OpenCV]
 本教程的示例代码中调用了 OpenCV 做模型输入的预处理，因此需要链接到预编译好的 OpenCV 静态库。请参照[环境配置](../../env)部分的内容，确保你已经安装了 OpenCV。
 :::
 
 :::info[编译参数说明]
-
 - -I../prebuilt_opencv/include/opencv4：头文件的搜索路径，指定到 opencv 的头文件路径
 - -L../prebuilt_opencv/lib: 库的搜索路径，指定到预编译好的 opencv 的二进制库路径
 - -lopencv_imgproc -lopencv_imgcodecs -lopencv_core：opencv 的库
 - -llibjpeg-turbo -llibwebp -llibpng -llibtiff -llibopenjp2 -lcsi_cv： opencv 的依赖库
 - -static：指定为静态链接
-- -o efficientnet_example：指定生成名为 efficientnet_example 的可执行文件
+- -o vgg16_example：指定生成名为 vgg16_example 的可执行文件
 
-编译命令正确执行完成后会在示例目录生成 `efficientnet_example` 文件
+编译命令正确执行完成后会在示例目录生成 `vgg16_example` 文件
 
+:::
+
+:::info[关于 OpenCV]
+本教程的示例代码中调用了 OpenCV 做模型输入的预处理，因此需要链接到预编译好的 OpenCV 静态库。请参照[环境配置](../../env)部分的内容，确保你已经安装了 OpenCV。
 :::
 
 ## 上传并运行应用程序
@@ -171,17 +154,17 @@ $ riscv64-unknown-linux-gnu-g++ main.cpp -I${OPENCV_DIR}/include/opencv4 -L${OPE
 将本目录中的所有文件打包上传到开发板中。例如，可以使用 `scp` 命令将文件上传到开发板的 `/home/debian/npu` 目录下：
 
 ```shell-session
-$ scp -r ../efficientnet/ debian@<开发板IP>:/home/debian/efficientnet/
+$ scp -r ../vgg16/ debian@<开发板IP>:/home/debian/vgg16/
 ```
 
 你也可以采取其他方式上传文件，如使用 USB 存储设备或通过网络共享等。
 
 ### 运行程序
 
-进入开发板的 `/home/debian/efficientnet` 目录，确保你已经在 RevyOS 上安装了 SHL 库并配置了 `LD_LIBRARY_PATH`。然后运行以下命令：
+进入开发板的 `/home/debian/vgg16` 目录，确保你已经在 RevyOS 上安装了 SHL 库并配置了 `LD_LIBRARY_PATH`。然后运行以下命令：
 
 ```shell-session
-$ ./efficientnet_example
+$ ./vgg16_example
 ```
 
 :::info[hhb_runtime报错]
@@ -198,7 +181,6 @@ hhb_out/hhb_runtime: error while loading shared libraries: libshl_th1520.so.2: c
 ```shell-session
 $ pip install shl-python==2.6.17
 ```
-
 :::
 
 :::info[关于 NPU 设备权限]
@@ -225,6 +207,7 @@ $ sudo chmod 0666 /dev/vha0
 有关更多内容，请参考[常见问题和解决方案](../../issues#npu-推理运行时间过长)。
 :::
 
+
 样例输出如下：
 
 <Tabs
@@ -236,43 +219,72 @@ $ sudo chmod 0666 /dev/vha0
   ]}>
 <TabItem value="cpu">
 ```shell-session
-$ ./efficientnet_example
+$ ./vgg16_example
  ********** preprocess image **********
  ********** run model **********
-Run graph execution time: 191.89818ms, FPS=5.21
+Run graph execution time: 1886.13647ms, FPS=0.53
 
 === tensor info ===
 shape: 1 3 224 224
-data pointer: 0x28c5daf0
+data pointer: 0x4ad6bf0
 
 === tensor info ===
 shape: 1 1000
-data pointer: 0x28caaa50
-The max_value of output: 9.648438
-The min_value of output: -2.396484
-The mean_value of output: -0.043881
-The std_value of output: 0.778041
+data pointer: 0x4b69c00
+The max_value of output: 0.737658
+The min_value of output: 0.000000
+The mean_value of output: 0.001000
+The std_value of output: 0.000576
  ============ top5: ===========
-283: 9.648438
-281: 6.589844
-287: 5.355469
-282: 4.910156
-285: 4.437500
+283: 0.737658
+281: 0.178942
+282: 0.023457
+285: 0.015914
+287: 0.010356
  ********** postprocess result **********
  ********** probability top5: **********
 n02123394 Persian cat
 n02123045 tabby, tabby cat
-n02127052 lynx, catamount
 n02123159 tiger cat
 n02124075 Egyptian cat
+n02127052 lynx, catamount
 ```
 </TabItem>
     <TabItem value="npu">
 ```shell-session
-$ ./mobilenetv1_example
+$ ./vgg16_example
+ ********** preprocess image **********
+ ********** run model **********
+INFO: NNA clock:406105 [kHz]
+INFO: Heap :anonymous (0x2)
+INFO: Heap :dmabuf (0x2)
+INFO: Heap :unified (0x5)
+Run graph execution time: 27.03402ms, FPS=36.99
 
+=== tensor info ===
+shape: 1 3 224 224
+data pointer: 0x150a8420
+
+=== tensor info ===
+shape: 1 1000
+data pointer: 0x3fac8d2000
+The max_value of output: 0.689127
+The min_value of output: 0.000000
+The mean_value of output: 0.000979
+The std_value of output: 0.000521
+ ============ top5: ===========
+283: 0.689127
+281: 0.212949
+282: 0.026619
+285: 0.020703
+287: 0.011831
+ ********** postprocess result **********
+ ********** probability top5: **********
+n02123394 Persian cat
+n02123045 tabby, tabby cat
+n02123159 tiger cat
+n02124075 Egyptian cat
+n02127052 lynx, catamount
 ```
     </TabItem>
 </Tabs>
-
-
