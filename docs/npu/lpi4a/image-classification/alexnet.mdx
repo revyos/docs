@@ -1,21 +1,21 @@
 ---
-title: Shufflenet
-description: 在 RevyOS 系统上运行 Shufflenet 模型的教程
-sidebar_position: 4
+title: Alexnet
+description: 在 RevyOS 系统上运行 Alexnet 模型的教程
+sidebar_position: 5
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Mobilenetv2
+# Alexnet
 
-本教程将引导你如何通过 CPU 在 RevyOS 系统上运行 Shufflenet 模型。Shufflenet 是一种轻量级卷积神经网络，专为移动设备和嵌入式设备等计算资源受限场景设计。
+本教程将引导你如何通过 CPU 或 NPU 在 RevyOS 系统上运行 Alexnet 模型。Alexnet 是一种常用的深度卷积神经网络（CNN）架构，广泛应用于图像分类任务。
 
 :::info[初始环境配置]
 在按照本教程操作前，请确保你已经完成了[环境配置](../../env)部分的内容。
 :::
 
-## 示例获取
+## 示例代码获取
 
 本教程配套的示例代码已更新到 [Github](https://github.com/zhangwm-pt/lpi4a-example) 中，使用 `git` 命令将其克隆到本地。
 
@@ -23,15 +23,15 @@ import TabItem from '@theme/TabItem';
 $ git clone https://github.com/zhangwm-pt/lpi4a-example.git
 ```
 
-适用于本教程的代码位于 `classification/shufflenet` 目录下。
+适用于本教程的代码位于 `classification/alexnet` 目录下。
 
 ## 模型获取
 
-我们使用的模型来自 [ONNX 模型仓库](https://github.com/onnx/models/blob/main/validated/vision/classification/shufflenet/model/shufflenet-9.onnx)，可以通过以下命令下载 Shufflenet 模型：
-
+我们使用的模型来自 [Caffe 模型仓库](https://github.com/BVLC/caffe/blob/master/models/bvlc_alexnet/readme.md)，可以通过以下命令下载 Alexnet 模型：
 
 ```shell-session
-$ curl -LO https://raw.githubusercontent.com/onnx/models/main/validated/vision/classification/shufflenet/model/shufflenet-9.onnx
+$ wget https://github.com/BVLC/caffe/raw/master/models/bvlc_alexnet/deploy.prototxt
+$ wget http://dl.caffe.berkeleyvision.org/bvlc_alexnet.caffemodel
 ```
 
 :::note[关于 Github 的网络代理]
@@ -40,32 +40,51 @@ $ curl -LO https://raw.githubusercontent.com/onnx/models/main/validated/vision/c
 
 ### 模型基本信息
 
-| input name | output name | input shape | layout | channel order | scale value | mean values |
-|------------|-------------|-------------|--------|--------------|-------------|-------------|
-| gpu_0/data_0      | gpu_0/softmax_1      | 1, 3, 224, 224 | NCHW   | RGB          | 0.017       | 124, 117, 104 |
+| GFLOPs | params | accuracy | input name | output name | shape | layout | channel order | mean values |
+| -------- | -------- | ---------- | ------------ | ------------- | ------- | -------- | ----------------| --------------- |
+| 1.5    | 60M    | top1 56.1%, top5 79.4% | data       | prob | 1, 3, 227, 227 | NCHW   | BGR | 104, 117, 123 |
 
----
 ## 转换和编译模型
-在 x86 机器上，使用 HHB 工具将 ONNX 模型转换为适用于 RevyOS 的计算图和胶水代码。在进行下面的操作前，请确保你已经按照[环境配置](../../env)部分的内容启动 HHB 容器，并克隆好示例仓库。
+
+在 x86 机器上，使用 HHB 工具将 caffemodel 模型转换为适用于 RevyOS 的计算图和胶水代码。在进行下面的操作前，请确保你已经按照[环境配置](../../env)部分的内容启动 HHB 容器，并克隆好示例仓库。
+
+
 
 ### HHB 转换模型
 
-在本步骤中，我们会将 `onnx` 模型转换为 HHB 平台能够使用的格式。
+在本步骤中，我们会将 `caffemodel` 模型转换为 HHB 平台能够使用的格式。
 
+进入 `classification/alexnet` 目录，执行以下命令：
 
-进入 `classification/mobilenetv2` 目录，执行以下命令：
-
-
+<Tabs
+  groupId='npu-version'
+  defaultValue="npu"
+  values={[
+    {label: 'NPU', value: 'npu'},
+    {label: 'CPU', value: 'cpu'},
+  ]}>
+<TabItem value="cpu">
 ```shell-session
-$ hhb -D --model-file ./shufflenet-9.onnx \
-    --data-scale 0.017 --data-mean "124 117 104"  \
-    --board c920  --postprocess save_and_top5 \
-    --input-name "gpu_0/data_0" --output-name "gpu_0/softmax_1" \
-    --input-shape "1 3 224 224" --quantization-scheme float16
+$ hhb -D --model-file bvlc_alexnet.caffemodel deploy.prototxt \
+    --data-scale 1 --data-mean "104 117 124"  --board c920  \
+    --postprocess save_and_top5 --input-name "data" \
+    --output-name "prob" --input-shape "1 3 227 227" \
+    --quantization-scheme float16 --pixel-format BGR
 ```
+</TabItem>
+    <TabItem value="npu">
+```shell-session
+$ hhb -D --model-file bvlc_alexnet.caffemodel deploy.prototxt \
+    --data-scale 1 --data-mean "104 117 124"  --board th1520  \
+    --postprocess save_and_top5 --input-name "data" \
+    --output-name "prob" --input-shape "1 3 227 227" \
+    --calibrate-dataset persian_cat.jpg  \
+    --quantization-scheme "int16_sym" --pixel-format BGR
+```
+    </TabItem>
+</Tabs>
 
-
-:::info[HHB参数说明]
+:::info[关于参数]
 - `-D`：指定 HHB 流程执行到生成可执行文件的阶段为止
 - `--model-file`：指定输入模型文件
 - `--data-mean`：指定均值
@@ -75,7 +94,7 @@ $ hhb -D --model-file ./shufflenet-9.onnx \
 - `--output-name`：模型的输出 tensor 名
 - `--input-shape`：模型的输入 tensor 形状
 - `--postprocess`：指定 HHB 生成的胶水代码的后处理行为。`save_and_top5` 表示保存输出结果，并且打印 top5 结果
-- `--quantization-scheme`：指定量化类型为 float16
+- `--quantization-scheme`：指定量化类型
 
 你可以通过运行 `hhb --help` 查看所有可用的参数和选项。
 :::
@@ -92,24 +111,21 @@ $ hhb -D --model-file ./shufflenet-9.onnx \
 - `io.h`：HHB 生成的示例程序，包含读写文件的辅助函数声明
 - `process.c`：HHB 生成的示例程序，包含图像预处理函数
 - `process.h`：HHB 生成的示例程序，包含图像预处理函数声明
-
-更详细的 HHB 选项说明可以参考 HHB 用户手册中的命令行参数说明。
 :::
 
 ### 编译应用程序
 
 HHB 生成的胶水代码仅仅能够测试模型的功能。为了完成图像的前处理和后处理，我们利用 OpenCV 编写了一个应用程序来加载模型并执行推理。
 
-在 `classification/shufflenet` 目录下，使用以下命令编译应用程序：
+在 `classification/alexnet` 目录下，使用以下命令编译应用程序：
 
 ```shell-session
 $ export OPENCV_DIR=../../modules/opencv/ # 配置 OpenCV 的路径
-$ riscv64-unknown-linux-gnu-g++ main.cpp -I${OPENCV_DIR}/include/opencv4 -L${OPENCV_DIR}/lib   \
-    -lopencv_imgproc   -lopencv_imgcodecs -L${OPENCV_DIR}/lib/opencv4/3rdparty/ \
-    -llibjpeg-turbo -llibwebp -llibpng -llibtiff -llibopenjp2    -lopencv_core -ldl  \
-    -lpthread -lrt -lzlib -lcsi_cv -latomic -static -o shufflenet_example
+$ riscv64-unknown-linux-gnu-g++ main.cpp -I${OPENCV_DIR}/include/opencv4 -L${OPENCV_DIR}/lib \
+    -L${OPENCV_DIR}/lib/opencv4/3rdparty/ -Wl,--start-group -lopencv_imgproc -lopencv_imgcodecs \
+    -llibjpeg-turbo -llibwebp -llibpng -llibtiff -llibopenjp2 -lopencv_core -Wl,--end-group -ldl  \
+    -lpthread -lrt -lzlib -lcsi_cv -latomic -static -o alexnet_example
 ```
-
 
 :::info[关于 OpenCV]
 本教程的示例代码中调用了 OpenCV 做模型输入的预处理，因此需要链接到预编译好的 OpenCV 静态库。请参照[环境配置](../../env)部分的内容，确保你已经安装了 OpenCV。
@@ -121,10 +137,14 @@ $ riscv64-unknown-linux-gnu-g++ main.cpp -I${OPENCV_DIR}/include/opencv4 -L${OPE
 - -lopencv_imgproc -lopencv_imgcodecs -lopencv_core：opencv 的库
 - -llibjpeg-turbo -llibwebp -llibpng -llibtiff -llibopenjp2 -lcsi_cv： opencv 的依赖库
 - -static：指定为静态链接
-- -o shufflenet_example：指定生成名为 shufflenet_example 的可执行文件
+- -o alexnet_example：指定生成名为 alexnet_example 的可执行文件
 
-编译命令正确执行完成后会在示例目录生成 `shufflenet_example` 文件
+编译命令正确执行完成后会在示例目录生成 `alexnet_example` 文件
 
+:::
+
+:::info[关于 OpenCV]
+本教程的示例代码中调用了 OpenCV 做模型输入的预处理，因此需要链接到预编译好的 OpenCV 静态库。请参照[环境配置](../../env)部分的内容，确保你已经安装了 OpenCV。
 :::
 
 ## 上传并运行应用程序
@@ -134,17 +154,17 @@ $ riscv64-unknown-linux-gnu-g++ main.cpp -I${OPENCV_DIR}/include/opencv4 -L${OPE
 将本目录中的所有文件打包上传到开发板中。例如，可以使用 `scp` 命令将文件上传到开发板的 `/home/debian/npu` 目录下：
 
 ```shell-session
-$ scp -r ../shufflenet/ debian@<开发板IP>:/home/debian/shufflenet/
+$ scp -r ../alexnet/ debian@<开发板IP>:/home/debian/alexnet/
 ```
 
 你也可以采取其他方式上传文件，如使用 USB 存储设备或通过网络共享等。
 
 ### 运行程序
 
-进入开发板的 `/home/debian/shufflenet` 目录，确保你已经在 RevyOS 上安装了 SHL 库并配置了 `LD_LIBRARY_PATH`。然后运行以下命令：
+进入开发板的 `/home/debian/alexnet` 目录，确保你已经在 RevyOS 上安装了 SHL 库并配置了 `LD_LIBRARY_PATH`。然后运行以下命令：
 
 ```shell-session
-$ ./shufflenet_example
+$ ./alexnet_example
 ```
 
 :::info[hhb_runtime报错]
@@ -187,36 +207,86 @@ $ sudo chmod 0666 /dev/vha0
 有关更多内容，请参考[常见问题和解决方案](../../issues#npu-推理运行时间过长)。
 :::
 
-程序的样例输出如下：
 
+样例输出如下：
+
+<Tabs
+  groupId='npu-version'
+  defaultValue="npu"
+  values={[
+    {label: 'NPU', value: 'npu'},
+    {label: 'CPU', value: 'cpu'},
+  ]}>
+<TabItem value="cpu">
 ```shell-session
-$ ./shufflenet_example
+$ ./alexnet_example
  ********** preprocess image **********
  ********** run model **********
-Run graph execution time: 38.48979ms, FPS=25.98
+Run graph execution time: 188.13387ms, FPS=5.32
 
 === tensor info ===
-shape: 1 3 224 224
-data pointer: 0x3077cbf0
+shape: 1 3 227 227
+data pointer: 0x31d3f150
 
 === tensor info ===
 shape: 1 1000
-data pointer: 0x306e8bb0
-The max_value of output: 0.794922
+data pointer: 0x31d8a910
+The max_value of output: 0.907715
 The min_value of output: 0.000000
 The mean_value of output: 0.001000
-The std_value of output: 0.000639
+The std_value of output: 0.000827
  ============ top5: ===========
-283: 0.794922
-281: 0.079346
-261: 0.024200
-262: 0.021698
-285: 0.015991
+283: 0.907715
+287: 0.058960
+281: 0.030121
+282: 0.002272
+285: 0.001055
  ********** postprocess result **********
  ********** probability top5: **********
 n02123394 Persian cat
+n02127052 lynx, catamount
 n02123045 tabby, tabby cat
-n02112350 keeshond
-n02112706 Brabancon griffon
+n02123159 tiger cat
 n02124075 Egyptian cat
 ```
+</TabItem>
+    <TabItem value="npu">
+```shell-session
+$ ./alexnet_example
+ ********** preprocess image **********
+ ********** run model **********
+INFO: Mapconfig format (S16e?) overrides network format (F32) at input input1_imgdnn0
+INFO: Mapconfig format (S16e?) overrides network format (F32) at output softmax_output@@prob_32_21
+INFO: NNA clock:406105 [kHz]
+INFO: Heap :anonymous (0x2)
+INFO: Heap :dmabuf (0x2)
+INFO: Heap :unified (0x5)
+Run graph execution time: 20.17579ms, FPS=49.56
+
+=== tensor info ===
+shape: 1 3 227 227
+data pointer: 0x5367d6e0
+
+=== tensor info ===
+shape: 1 1000
+data pointer: 0x3f9b557000
+The max_value of output: 0.904480
+The min_value of output: 0.000000
+The mean_value of output: 0.001000
+The std_value of output: 0.000822
+ ============ top5: ===========
+283: 0.904480
+287: 0.059723
+281: 0.032013
+282: 0.002380
+285: 0.001251
+ ********** postprocess result **********
+ ********** probability top5: **********
+n02123394 Persian cat
+n02127052 lynx, catamount
+n02123045 tabby, tabby cat
+n02123159 tiger cat
+n02124075 Egyptian cat
+```
+    </TabItem>
+</Tabs>
