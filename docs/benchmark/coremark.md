@@ -126,25 +126,27 @@ CoreMark 1.0 : 13219.644392 / GCC10.4.0 -O2 -march=rv64gv0p7_zfh_xtheadc -O3 -fu
 ### GCC 14.2 + xthead matrix
 
 ```bash
-make XCFLAGS="-march=rv64imafd_xtheadba_xtheadbb_xtheadbs_xtheadcmo_xtheadcondmov_xtheadfmemidx_xtheadfmv_xtheadint_xtheadmac_xtheadmemidx_xtheadmempair_xtheadsync -O3 -funroll-all-loops -finline-limit=500 -fgcse-sm -fno-schedule-insns -fno-code-hoisting -fno-thread-jumps"
+make XCFLAGS="-march=rv64imafd_xtheadba_xtheadbb_xtheadbs_xtheadcmo_xtheadcondmov_xtheadfmemidx_xtheadfmv_xtheadint_xtheadmac_xtheadmemidx_xtheadmempair_xtheadsync -O3 -funroll-all-loops -finline-limit=500 -fgcse-sm -fno-schedule-insns -fno-code-hoisting"
 ```
+
+运行结果：
 
 ```
 2K performance run parameters for coremark.
 CoreMark Size    : 666
-Total ticks      : 15794
-Total time (secs): 15.794000
-Iterations/Sec   : 6964.670128
-Iterations       : 110000
+Total ticks      : 18353
+Total time (secs): 18.353000
+Iterations/Sec   : 10897.400970
+Iterations       : 200000
 Compiler version : GCC14.2.0
-Compiler flags   : -O2 -march=rv64imafd_xtheadba_xtheadbb_xtheadbs_xtheadcmo_xtheadcondmov_xtheadfmemidx_xtheadfmv_xtheadint_xtheadmac_xtheadmemidx_xtheadmempair_xtheadsync -O3 -funroll-all-loops -finline-limit=500 -fgcse-sm -fno-schedule-insns -fno-code-hoisting -fno-thread-jumps -DPERFORMANCE_RUN=1  -lrt
+Compiler flags   : -O2 -march=rv64imafd_xtheadba_xtheadbb_xtheadbs_xtheadcmo_xtheadcondmov_xtheadfmemidx_xtheadfmv_xtheadint_xtheadmac_xtheadmemidx_xtheadmempair_xtheadsync -O3 -funroll-all-loops -finline-limit=500 -fgcse-sm -fno-schedule-insns -fno-code-hoisting -DPERFORMANCE_RUN=1  -lrt
 Memory location  : Please put data memory location here
                         (e.g. code in flash, data on heap etc)
 seedcrc          : 0xe9f5
 [0]crclist       : 0xe714
 [0]crcmatrix     : 0x1fd7
 [0]crcstate      : 0x8e3a
-[0]crcfinal      : 0x33ff
+[0]crcfinal      : 0x4983
 Correct operation validated. See README.md for run and reporting rules.
-CoreMark 1.0 : 6964.670128 / GCC14.2.0 -O2 -march=rv64imafd_xtheadba_xtheadbb_xtheadbs_xtheadcmo_xtheadcondmov_xtheadfmemidx_xtheadfmv_xtheadint_xtheadmac_xtheadmemidx_xtheadmempair_xtheadsync -O3 -funroll-all-loops -finline-limit=500 -fgcse-sm -fno-schedule-insns -fno-code-hoisting -fno-thread-jumps -DPERFORMANCE_RUN=1  -lrt / Heap
+CoreMark 1.0 : 10897.400970 / GCC14.2.0 -O2 -march=rv64imafd_xtheadba_xtheadbb_xtheadbs_xtheadcmo_xtheadcondmov_xtheadfmemidx_xtheadfmv_xtheadint_xtheadmac_xtheadmemidx_xtheadmempair_xtheadsync -O3 -funroll-all-loops -finline-limit=500 -fgcse-sm -fno-schedule-insns -fno-code-hoisting -DPERFORMANCE_RUN=1  -lrt / Heap
 ```

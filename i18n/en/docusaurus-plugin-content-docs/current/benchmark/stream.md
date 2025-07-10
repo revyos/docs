@@ -7,20 +7,22 @@ The STREAM benchmark is a simple synthetic benchmark program that measures susta
 STREAM consists of a single file. To run the test, simply compile `stream.c`:
 
 ```
-curl -OL http://www.cs.virginia.edu/stream/FTP/Code/stream.c
+git clone https://github.com/jeffhammond/STREAM
 cd STREAM
 gcc -O3 -fopenmp -DSTREAM_ARRAY_SIZE=10000000 -DNTIMES=10 stream.c -o stream
 export OMP_NUM_THREADS=8
 ./stream
 ```
 
-Parameter descriptions:
+:::info[Parameter Descriptions]
 
-- -O3: Specifies the highest compilation optimization level, i.e., 3.
-- fopenmp: Enables OpenMP, suitable for multi-processor environments, and helps achieve the actual maximum memory bandwidth. When enabled, the program defaults to running with the number of CPU threads.
-- DSTREAM_ARRAY_SIZE=10000000: Specifies the size of the test arrays a[], b[], and c[] (Array size). This value significantly affects the test results. Note: The test array size must be set much larger than the highest-level CPU cache (usually L3 Cache); otherwise, the test will measure CPU cache throughput rather than memory throughput.
-- -DNTIMES=10: Number of repetitions, with the best value selected from the results.
-- OMP_NUM_THREADS=8: Number of threads.
+- `-O3`: Specifies the highest compilation optimization level, i.e., 3.
+- `-fopenmp`: Enables OpenMP, suitable for multi-processor environments, and helps achieve the actual maximum memory bandwidth. When enabled, the program defaults to running with the number of CPU threads.
+- `-DSTREAM_ARRAY_SIZE=10000000`: Specifies the size of the test arrays `a[]`, `b[]`, and `c[]` (Array size). This value significantly affects the test results. Note: The test array size must be set much larger than the highest-level CPU cache (usually L3 Cache); otherwise, the test will measure CPU cache throughput rather than memory throughput.
+  Note: When this value exceeds `128M` (i.e., `128000000`), you need to add extra compile options `-mcmodel=large -fno-PIC`.
+- `-DNTIMES=10`: Number of repetitions, with the best value selected from the results.
+- `OMP_NUM_THREADS=8`: Number of threads.
+:::
 
 Sample results:
 

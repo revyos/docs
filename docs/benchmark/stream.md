@@ -7,21 +7,23 @@ STREAM 基准测试是一个简单的综合基准测试程序，它测量可持�
 stream 仅有单个文件，在进行测试时只需要对 `stream.c` 进行编译即可：
 
 ```
-curl -OL http://www.cs.virginia.edu/stream/FTP/Code/stream.c
+git clone https://github.com/jeffhammond/STREAM
 cd STREAM
 gcc -O3 -fopenmp -DSTREAM_ARRAY_SIZE=10000000 -DNTIMES=10 stream.c -o stream
 export OMP_NUM_THREADS=8
 ./stream
 ```
 
-参数说明：
+:::info[参数说明]
 
-- -O3：指定最高编译优化级别，即 3。
-- fopenmp：启用OpenMP，适应多处理器环境，更能得到内存带宽实际最大值。开启后，程序默认运行线程为CPU线程数
+- `-O3`：指定最高编译优化级别，即 3。
+- `-fopenmp`：启用OpenMP，适应多处理器环境，更能得到内存带宽实际最大值。开启后，程序默认运行线程为CPU线程数
 
-DSTREAM_ARRAY_SIZE=10000000：指定测试数组a[]、b[]、c[]的大小（Array size）。该值对测试结果影响较大。注意：必须设置测试数组大小远大于CPU 最高级缓存（一般为L3 Cache）的大小，否则就是测试CPU缓存的吞吐性能，而非内存吞吐性能。
-- -DNTIMES=10：执行的次数，并从这些结果中选最优值。
-- OMP_NUM_THREADS=8 线程数量。
+- `-DSTREAM_ARRAY_SIZE=10000000`：指定测试数组 `a[]`、 `b[]` 、 `c[]` 的大小（Array size）。该值对测试结果影响较大。注意：必须设置测试数组大小远大于CPU 最高级缓存（一般为L3 Cache）的大小，否则就是测试CPU缓存的吞吐性能，而非内存吞吐性能。
+注意：当该值大于 `128M` 即 `128000000` 时，需要添加额外编译参数 `-mcmodel=large -fno-PIC`。
+- `-DNTIMES=10`：执行的次数，并从这些结果中选最优值。
+- `OMP_NUM_THREADS=8`: 线程数量。
+:::
 
 参考结果：
 

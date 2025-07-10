@@ -107,6 +107,10 @@ Job placement selection [default 1]:
 
 `Memory`: Sets the test memory size. The default is `$MB`, which is the maximum testable memory calculated by the program, or you can manually define the test value. Here, we will use the default value.
 
+:::info
+Let `lmbench` automatically calculate the memory size will significantly increase the test time. As with the `STREAM` test, this value should be at least four times the size of the L3 Cache.
+:::
+
 ```
 =====================================================================
 
