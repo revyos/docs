@@ -22,8 +22,8 @@ export const imageLinks = [
   },
   {
     device: "Milk-V Pioneer",
-    version: "20241230",
-    downloadLink: "https://mirror.iscas.ac.cn/revyos/extra/images/sg2042/20241230/",
+    version: "20250703",
+    downloadLink: "https://mirror.iscas.ac.cn/revyos/extra/images/sg2042/20250703/",
     sdCardSupport: true,
   },
   {
