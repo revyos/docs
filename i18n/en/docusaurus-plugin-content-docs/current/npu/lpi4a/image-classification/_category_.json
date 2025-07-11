@@ -1,0 +1,9 @@
+{
+  "label": "Image Classification",
+  "position": 1,
+  "link": {
+    "type": "generated-index",
+    "title": "Image Classification Examples",
+    "description": "This directory contains documentation related to NPU image classification on the LicheePi 4A platform."
+  }
+}
