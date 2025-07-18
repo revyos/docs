@@ -1,15 +1,15 @@
 ---
-title: Alexnet
-description: Tutorial for running the Alexnet model on RevyOS
+title: AlexNet
+description: Tutorial for running the AlexNet model on RevyOS
 sidebar_position: 5
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Alexnet
+# AlexNet
 
-This tutorial provides guidance on running the Alexnet model on RevyOS using either the CPU or NPU. Alexnet is a widely used deep convolutional neural network (CNN) architecture, extensively applied in image classification tasks.
+This tutorial provides guidance on running the AlexNet model on RevyOS using either the CPU or NPU. AlexNet is a widely used deep convolutional neural network (CNN) architecture, extensively applied in image classification tasks.
 
 :::info[Initial Environment Setup]
 Before proceeding, please ensure you have completed the [environment setup](../../env) section.
@@ -27,7 +27,7 @@ The relevant code for this tutorial is located in the `classification/alexnet` d
 
 ## Obtaining the Model
 
-The model used in this tutorial is from the [Caffe model repository](https://github.com/BVLC/caffe/blob/master/models/bvlc_alexnet/readme.md). Download the Alexnet model with the following commands:
+The model used in this tutorial is from the [Caffe model repository](https://github.com/BVLC/caffe/blob/master/models/bvlc_alexnet/readme.md). Download the AlexNet model with the following commands:
 
 ```shell-session
 $ wget https://github.com/BVLC/caffe/raw/master/models/bvlc_alexnet/deploy.prototxt
@@ -198,7 +198,10 @@ In theory, the program should run quickly. However, the first run may take over 
 For more details, refer to [Common Issues and Solutions](../../issues#npu-推理运行时间过长).
 :::
 
-Sample output:
+### Sample output:
+
+In this tutorial, the input is a picture of a Persian cat. The expected result for ResNet50 is that the largest value is at index 283, corresponding to `Persian cat`. 
+![Persian cat](/img/image-for-flash/persian_cat.png)
 
 <Tabs
   groupId='npu-version'

@@ -1,15 +1,15 @@
 ---
-title: Inceptionv1
-description: Tutorial for running the Inceptionv1 model on RevyOS
+title: InceptionV1
+description: Tutorial for running the InceptionV1 model on RevyOS
 sidebar_position: 9
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Inceptionv1
+# InceptionV1
 
-This tutorial provides guidance on running the Inceptionv1 model on RevyOS using either the CPU or NPU. Inceptionv1 is a multi-branch convolutional neural network architecture capable of efficiently extracting multi-scale features for image classification tasks.
+This tutorial provides guidance on running the InceptionV1 model on RevyOS using either the CPU or NPU. InceptionV1 is a multi-branch convolutional neural network architecture capable of efficiently extracting multi-scale features for image classification tasks.
 
 :::info[Initial Environment Setup]
 Before proceeding, please ensure you have completed the [environment setup](../../env) section.
@@ -27,7 +27,7 @@ The relevant code for this tutorial is located in the `classification/inceptionv
 
 ## Obtaining the Model
 
-The model used in this tutorial is from the [TensorFlow model repository](https://github.com/tensorflow/models/tree/master/research/slim). You can download the Inceptionv1 model using the following commands:
+The model used in this tutorial is from the [TensorFlow model repository](https://github.com/tensorflow/models/tree/master/research/slim). You can download the InceptionV1 model using the following commands:
 
 ### Environment Preparation
 
@@ -235,7 +235,10 @@ In theory, the program should run quickly. However, the first run may take over 
 For more details, refer to [Common Issues and Solutions](../../issues#npu-推理运行时间过长).
 :::
 
-Sample output:
+### Sample output:
+
+In this tutorial, the input is a picture of a Persian cat. The expected result for ResNet50 is that the largest value is at index 283, corresponding to `Persian cat`. 
+![Persian cat](/img/image-for-flash/persian_cat.png)
 
 <Tabs
   groupId='npu-version'

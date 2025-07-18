@@ -1,15 +1,15 @@
 ---
-title: Squeezenet
-description: 在 RevyOS 系统上运行 Squeezenet 模型的教程
+title: SqueezeNet
+description: 在 RevyOS 系统上运行 SqueezeNet 模型的教程
 sidebar_position: 7
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Squeezenet
+# SqueezeNet
 
-本教程将引导你如何通过 CPU 或 NPU 在 RevyOS 系统上运行 Squeezenet 模型。Squeezenet 是一种极度轻量化的卷积神经网络（CNN）架构，广泛应用于图像分类任务。
+本教程将引导你如何通过 CPU 或 NPU 在 RevyOS 系统上运行 SqueezeNet 模型。 SqueezeNet 是一种极度轻量化的卷积神经网络（CNN）架构，广泛应用于图像分类任务。
 
 :::info[初始环境配置]
 在按照本教程操作前，请确保你已经完成了[环境配置](../../env)部分的内容。
@@ -27,7 +27,7 @@ $ git clone https://github.com/zhangwm-pt/lpi4a-example.git
 
 ## 模型获取
 
-我们使用的模型来自 [Caffe 模型仓库](https://github.com/forresti/SqueezeNet)，可以通过以下命令下载 Squeezenet 模型：
+我们使用的模型来自 [Caffe 模型仓库](https://github.com/forresti/SqueezeNet)，可以通过以下命令下载 SqueezeNet 模型：
 
 ```shell-session
 $ wget https://raw.githubusercontent.com/forresti/SqueezeNet/master/SqueezeNet_v1.1/deploy.prototxt -O squeezenet_v1.1_deploy.prototxt
@@ -206,7 +206,10 @@ $ sudo chmod 0666 /dev/vha0
 :::
 
 
-样例输出如下：
+### 样例输出如下：
+
+本教程中输入使用的是一个波斯猫的图片，预期 resnet50 的分类结果是第 283 项最大，对应于 `Persian cat`。
+![Persian cat](/img/image-for-flash/persian_cat.png)
 
 <Tabs
   groupId='npu-version'

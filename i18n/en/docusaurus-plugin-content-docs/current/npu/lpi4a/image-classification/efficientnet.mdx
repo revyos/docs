@@ -1,6 +1,6 @@
 ---
-title: Efficientnet
-description: Tutorial for running the Efficientnet model on RevyOS
+title: EfficientNet
+description: Tutorial for running the EfficientNet model on RevyOS
 
 sidebar_position: 3
 ---
@@ -8,9 +8,9 @@ sidebar_position: 3
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Efficientnet
+# EfficientNet
 
-This tutorial provides guidance on running the Efficientnet b0 model on RevyOS using either the CPU or NPU. Efficientnet is a highly efficient deep neural network model, widely adopted for optimization on mobile and embedded systems.
+This tutorial provides guidance on running the EfficientNet b0 model on RevyOS using either the CPU or NPU. EfficientNet is a highly efficient deep neural network model, widely adopted for optimization on mobile and embedded systems.
 
 :::info[Initial Environment Setup]
 Before proceeding, please ensure you have completed the [environment setup](../../env) section.
@@ -28,7 +28,7 @@ The relevant code for this tutorial is located in the `classification/efficientn
 
 ## Obtaining the Model
 
-The model used in this tutorial is from the [efficientnet-pytorch model repository](https://github.com/rwightman/gen-efficientnet-pytorch). Download the Efficientnet model with the following commands:
+The model used in this tutorial is from the [efficientnet-pytorch model repository](https://github.com/rwightman/gen-efficientnet-pytorch). Download the EfficientNet model with the following commands:
 
 ```shell-session
 $ git clone https://github.com/rwightman/gen-efficientnet-pytorch.git
@@ -218,7 +218,10 @@ In theory, the program should run quickly. However, the first run may take over 
 For more details, refer to [Common Issues and Solutions](../../issues#npu-推理运行时间过长).
 :::
 
-Sample output:
+### Sample output:
+
+In this tutorial, the input is a picture of a Persian cat. The expected result for ResNet50 is that the largest value is at index 283, corresponding to `Persian cat`. 
+![Persian cat](/img/image-for-flash/persian_cat.png)
 
 <Tabs
   groupId='npu-version'
@@ -262,6 +265,7 @@ n02124075 Egyptian cat
 </TabItem>
 <TabItem value="npu">
 ```shell-session
-$ ./mobilenetv1_example
+$ ./efficientnet_example
+
 
 ```
