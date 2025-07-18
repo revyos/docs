@@ -1,15 +1,15 @@
 ---
-title: Shufflenet
-description: 在 RevyOS 系统上运行 Shufflenet 模型的教程
+title: ShuffleNet
+description: 在 RevyOS 系统上运行 ShuffleNet 模型的教程
 sidebar_position: 4
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Mobilenetv2
+# ShuffleNet
 
-本教程将引导你如何通过 CPU 在 RevyOS 系统上运行 Shufflenet 模型。Shufflenet 是一种轻量级卷积神经网络，专为移动设备和嵌入式设备等计算资源受限场景设计。
+本教程将引导你如何通过 CPU 在 RevyOS 系统上运行 ShuffleNet 模型。 ShuffleNet是一种轻量级卷积神经网络，专为移动设备和嵌入式设备等计算资源受限场景设计。
 
 :::info[初始环境配置]
 在按照本教程操作前，请确保你已经完成了[环境配置](../../env)部分的内容。
@@ -27,7 +27,7 @@ $ git clone https://github.com/zhangwm-pt/lpi4a-example.git
 
 ## 模型获取
 
-我们使用的模型来自 [ONNX 模型仓库](https://github.com/onnx/models/blob/main/validated/vision/classification/shufflenet/model/shufflenet-9.onnx)，可以通过以下命令下载 Shufflenet 模型：
+我们使用的模型来自 [ONNX 模型仓库](https://github.com/onnx/models/blob/main/validated/vision/classification/shufflenet/model/shufflenet-9.onnx)，可以通过以下命令下载 ShuffleNet 模型：
 
 
 ```shell-session
@@ -53,7 +53,7 @@ $ curl -LO https://raw.githubusercontent.com/onnx/models/main/validated/vision/c
 在本步骤中，我们会将 `onnx` 模型转换为 HHB 平台能够使用的格式。
 
 
-进入 `classification/mobilenetv2` 目录，执行以下命令：
+进入 `classification/shufflenet` 目录，执行以下命令：
 
 
 ```shell-session
@@ -187,7 +187,10 @@ $ sudo chmod 0666 /dev/vha0
 有关更多内容，请参考[常见问题和解决方案](../../issues#npu-推理运行时间过长)。
 :::
 
-程序的样例输出如下：
+### 样例输出如下：
+
+本教程中输入使用的是一个波斯猫的图片，预期 resnet50 的分类结果是第 283 项最大，对应于 `Persian cat`。
+![Persian cat](/img/image-for-flash/persian_cat.png)
 
 ```shell-session
 $ ./shufflenet_example

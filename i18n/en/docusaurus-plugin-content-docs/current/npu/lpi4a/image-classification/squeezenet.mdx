@@ -1,15 +1,15 @@
 ---
-title: Squeezenet
-description: Tutorial for running the Squeezenet model on RevyOS
+title: SqueezeNet
+description: Tutorial for running the SqueezeNet model on RevyOS
 sidebar_position: 7
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Squeezenet
+# SqueezeNet
 
-This tutorial provides guidance on running the Squeezenet model on RevyOS using either the CPU or NPU. Squeezenet is an extremely lightweight convolutional neural network (CNN) architecture, widely used for image classification tasks.
+This tutorial provides guidance on running the SqueezeNet model on RevyOS using either the CPU or NPU. SqueezeNet is an extremely lightweight convolutional neural network (CNN) architecture, widely used for image classification tasks.
 
 :::info[Initial Environment Setup]
 Before proceeding, please ensure you have completed the [environment setup](../../env) section.
@@ -27,7 +27,7 @@ The relevant code for this tutorial is located in the `classification/squeezenet
 
 ## Obtaining the Model
 
-The model used in this tutorial is from the [Caffe model repository](https://github.com/forresti/SqueezeNet). Download the Squeezenet model with the following commands:
+The model used in this tutorial is from the [Caffe model repository](https://github.com/forresti/SqueezeNet). Download the SqueezeNet model with the following commands:
 
 ```shell-session
 $ wget https://raw.githubusercontent.com/forresti/SqueezeNet/master/SqueezeNet_v1.1/deploy.prototxt -O squeezenet_v1.1_deploy.prototxt
@@ -196,7 +196,10 @@ In theory, the program should run quickly. However, the first run may take over 
 For more details, refer to [Common Issues and Solutions](../../issues#npu-推理运行时间过长).
 :::
 
-Sample output:
+### Sample output:
+
+In this tutorial, the input is a picture of a Persian cat. The expected result for ResNet50 is that the largest value is at index 283, corresponding to `Persian cat`. 
+![Persian cat](/img/image-for-flash/persian_cat.png)
 
 <Tabs
   groupId='npu-version'
