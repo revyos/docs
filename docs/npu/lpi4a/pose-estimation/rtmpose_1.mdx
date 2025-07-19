@@ -28,12 +28,13 @@ $ source rtmpose/bin/activate
 ```
 
 ### 安装依赖包
+
 下载移植了 SHL 后端（execution providers），让 onnxruntime 能复用到 SHL 中针对玄铁 CPU 的高性能优化代码。
 
 ```shell-session
 $ git clone -b python3.11 https://github.com/zhangwm-pt/prebuilt_whl.git
 $ cd prebuilt_whl
-$ pip3 install opencv_python-4.5.4+4cd224d-cp311-cp311-linux_riscv64.whl. loguru onnx
+$ pip3 install opencv_python-4.5.4+4cd224d-cp311-cp311-linux_riscv64.whl loguru onnx
 ```
 
 ## 示例代码获取
@@ -61,7 +62,8 @@ $ wget https://github.com/zhangwm-pt/mmpose/releases/download/rtmpose-onnx/rtmpo
 
 ### 运行程序
 
-切换到源码中 ONNX 示例所在的目录，并执行示例
+切换到源码中 ONNX 示例所在的目录，并执行 main.py 进行模型推理：
+
 ```shell-session
 $ python3 main.py rtmpose.onnx human-pose.jpeg
 ``` 

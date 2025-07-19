@@ -9,7 +9,7 @@ import TabItem from '@theme/TabItem';
 
 # RTMPose Real-Time Demonstration
 
-This tutorial guides you through real-time acquisition and demonstration of the RTMPose model on the RevyOS system. RTMPose is a high-performance human pose estimation model based on the MMPose framework.
+This tutorial guides you through real-time acquisition and demonstration of the RTMPose model on RevyOS. RTMPose is a high-performance human pose estimation model based on the MMPose framework.
 
 :::info[Initial Environment Setup]
 Before proceeding, please ensure you have completed the [environment setup](../../env) section.
@@ -17,9 +17,7 @@ Before proceeding, please ensure you have completed the [environment setup](../.
 
 ## Real-Time Image Acquisition
 
-For RevyOS on LPi4A, it is recommended to use a USB camera for plug-and-play functionality.
-
-In previous tutorials, you have already run the model using static images. Next, you will use the OpenCV interface to acquire input from the camera and demonstrate the model in real time.
+For RevyOS on LPi4A, it is recommended to use a USB camera for plug-and-play functionality. The camera input is used as the model input, and each captured frame is preprocessed and fed to the model for inference. In previous tutorials, you have already run the model using images. Next, you will use the OpenCV interface to acquire input from the camera and demonstrate the model in real time.
 
 Simply copy main_2.py from Tutorial 2 to main_3.py, and replace the main function with the following code:
 
@@ -92,6 +90,48 @@ Run the program with the following command. Upon successful execution, the outpu
 $ python3 camera.py rtmpose0.onnx
 ```
 
-When running normally, if a person appears in front of the camera, the system will perform dynamic pose analysis on the captured image.
+:::note[Note:]
+Before running the program, please ensure the camera is connected to the development board and the camera driver is correctly installed. You can check if the camera device exists using the following command:
+```shell-session
+$ ls /dev/video*
+```
+
+You can also use the following `opencv-python` code to test whether the camera can capture images:
+
+```python
+import cv2
+
+# Open the camera
+cap = cv2.VideoCapture(0)
+
+# Check if the camera opened successfully
+if not cap.isOpened():
+    print("Unable to open camera")
+    exit()
+
+# Continuously read frames from the camera
+while True:
+    # Capture a frame from the camera
+    ret, frame = cap.read()
+
+    # Check if the frame was captured successfully
+    if not ret:
+        print("Unable to get image")
+        break
+
+    # Display the image
+    cv2.imshow("USB Camera", frame)
+
+    # Wait for ESC key to exit
+    if cv2.waitKey(1) == 27:
+        break
+
+# Release the camera and close all windows
+cap.release()
+cv2.destroyAllWindows()
+```
+:::
+
+After main_3.py runs successfully, if a person appears in front of the camera, the model will perform inference and dynamic pose analysis on the captured image.
 
 ![rtmpose-dynamic](/img/image-for-flash/rtmpose-dynamic.png)

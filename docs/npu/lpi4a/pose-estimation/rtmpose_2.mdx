@@ -65,9 +65,11 @@ onnx.utils.extract_model(input_path, output_path, input_names, output_names)
 
 ## NPU量化执行
 
+NPU 的量化执行需要手机量化数据之后再进行量化，并将量化后的模型生成 LPi4A NPU 能执行的模型文件。
+
 ### 收集量化数据
 
-拷贝一份 main.py 文件为 npz.py ，并将以下 main 函数中的内容进行替换：
+HHB 量化时需要一些校准参数确定量化参数，通过拷贝一份 main.py 文件为 npz.py ，并将以下 main 函数中的内容进行替换执行获取：
 
 ```python
 def main():
@@ -193,6 +195,12 @@ def main():
     visualize(img, keypoints, scores, args.save_path)
 
     logger.info('Done...')
+```
+
+执行命令
+
+```shell-session
+python3 main_3.py rtmpose.onnx human-pose.jpeg
 ```
 
 模型正确执行后，将输出与本教程第一部分类似的输出。
