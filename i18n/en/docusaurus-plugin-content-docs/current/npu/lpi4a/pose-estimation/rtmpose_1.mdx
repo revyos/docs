@@ -19,7 +19,7 @@ Before proceeding, please ensure you have completed the [environment setup](../.
 
 ### Creating a Virtual Environment
 
-It is recommended to use a virtual environment to isolate dependencies. You may use either `venv` or `conda` to create a virtual environment.
+It is recommended to use a virtual environment to isolate dependencies. You can use either `venv` or `conda` to create a virtual environment.
 
 ```shell-session
 $ mkdir rtmpose && cd rtmpose
@@ -29,7 +29,7 @@ $ source rtmpose/bin/activate
 
 ### Installing Dependencies
 
-Download the SHL backend (execution providers), enabling onnxruntime to utilize SHL's high-performance optimization for C-SKY CPUs.
+Download the SHL backend (execution providers), allowing onnxruntime to utilize SHL's high-performance optimization for C-SKY CPUs.
 
 ```shell-session
 $ git clone -b python3.11 https://github.com/zhangwm-pt/prebuilt_whl.git
@@ -60,16 +60,17 @@ If you encounter network issues accessing GitHub from mainland China, consider u
 
 ### Running the Program
 
-Navigate to the ONNX example directory in the source code and execute the example:
+Navigate to the ONNX example directory in the source code and run main.py for model inference:
 
 ```shell-session
 $ python3 main.py rtmpose.onnx human-pose.jpeg
-```
+``` 
 
 :::info[Parameter Description]
-- rtmpose.onnx: The pre-downloaded model file
+- rtmpose.onnx: The pre-downloaded model
 - human-pose.jpeg: The sample image provided in the example
 :::
 
 Upon successful execution, you will see the output image `output.jpg`.
+
 ![rtmpose](/img/image-for-flash/rtmpose.png)
