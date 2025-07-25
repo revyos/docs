@@ -217,7 +217,7 @@ env default -a -f; env save; reset
 
 从 eMMC 启动需要将 u-boot 文件、boot 文件以及 root 文件通过 fastboot 工具刷入eMMC中，所以需要先确认是否已安装 fastboot。
 
-您可以使用类似Everything的索引工具查找您的电脑上是否已安装了`fastboot.exe`，如果没有，请下载[Android SDK平台工具](https://developer.android.google.cn/tools/releases/platform-tools?hl=zh-cn#downloads)并将其解压到合适的位置。
+您可以使用类似Everything的索引工具查找您的电脑上是否已安装了`fastboot.exe`，如果没有或者版本低于 34，可使用 `winget install google.platformtools` 安装最新版本的 fastboot。（过低版本的 fastboot 刷写最新镜像会出现异常）
 
 在包含`fastboot.exe`的文件夹中打开Powershell，运行`.\fastboot.exe --version`，判断`fastboot.exe`是否能够正常运行。
 
