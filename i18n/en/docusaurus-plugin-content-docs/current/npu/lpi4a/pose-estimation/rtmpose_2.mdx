@@ -9,10 +9,6 @@ import TabItem from '@theme/TabItem';
 
 # RTMPose Performance Optimization
 
-<<<<<<< HEAD
-=======
-
->>>>>>> a1ba329 (Added new npu files to the docs)
 This tutorial guides you through optimizing the inference latency of the RTMPose model on RevyOS.
 
 The tutorial includes:
@@ -20,10 +16,6 @@ The tutorial includes:
 - Quantizing the first sub-model to int16 and running it on the NPU
 - Quantizing the second sub-model to float16 and running it on the CPU
 
-<<<<<<< HEAD
-=======
-
->>>>>>> a1ba329 (Added new npu files to the docs)
 ## Environment Preparation
 
 ### Installing Dependencies
@@ -71,10 +63,6 @@ onnx.utils.extract_model(input_path, output_path, input_names, output_names)
 
 Run the script locally to generate the rtmpose1.onnx model.
 
-<<<<<<< HEAD
-=======
-
->>>>>>> a1ba329 (Added new npu files to the docs)
 ## NPU Quantization and Execution
 
 NPU quantization requires collecting calibration data before quantizing and generating a model file executable on LPi4A NPU.
@@ -223,10 +211,6 @@ def main():
     logger.info('Done...')
 ```
 
-<<<<<<< HEAD
-=======
-
->>>>>>> a1ba329 (Added new npu files to the docs)
 Run the following command to execute the program:
 
 ```shell-session
@@ -237,10 +221,6 @@ After successful execution, the output will be similar to that of Part 1 of this
 
 The output image `output.jpg` will be generated locally, with the same effect as in Tutorial 1. After the above performance optimization steps, the expected processing time per frame can be reduced to within 100 ms.
 
-<<<<<<< HEAD
-=======
-
->>>>>>> a1ba329 (Added new npu files to the docs)
 Upon successful execution, you will see the output image `output.jpg`.
 
 ![rtmpose](/img/image-for-flash/rtmpose.png)
