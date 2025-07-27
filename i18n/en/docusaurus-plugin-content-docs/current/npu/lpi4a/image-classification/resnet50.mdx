@@ -194,7 +194,7 @@ For more details, refer to [Common Issues and Solutions](../../issues#npu-推理
 
 ### Sample output:
 
-In this tutorial, the input is a picture of a Persian cat. The expected result for ResNet50 is that the largest value is at index 283, corresponding to `Persian cat`. 
+In this tutorial, the input is a picture of a Persian cat. The expected result for ResNet50 is that the largest value is at index 283, corresponding to `Persian cat`.
 ![Persian cat](/img/image-for-flash/persian_cat.png)
 
 <Tabs
@@ -237,7 +237,7 @@ n02123159 tiger cat
 n02124075 Egyptian cat
 ```
 </TabItem>
-    <TabItem value="npu">
+<TabItem value="npu">
 ```shell-session
 $ ./resnet50_example
  ********** preprocess image **********
@@ -246,14 +246,8 @@ INFO: NNA clock:422733 [kHz]
 INFO: Heap :anonymous (0x2)
 INFO: Heap :dmabuf (0x2)
 INFO: Heap :unified (0x5)
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 WARNING: Mapping to the on chip ram failed (128 > 0), continuing...
 FATAL: Importing 150528 bytes of CPU memory has failed (wrong memory alignment)
->>>>>>> 8e04e1f (新添npu部分英文补充)
-=======
->>>>>>> dced023 (修改resnet50模型和添加efficientnet模型cpu复现及中英文档移植)
 Run graph execution time: 17.87514ms, FPS=55.94
 
 === tensor info ===
@@ -281,9 +275,5 @@ n02123045 tabby, tabby cat
 n02123159 tiger cat
 n02124075 Egyptian cat
 ```
-    </TabItem>
-<<<<<<< HEAD
+</TabItem>
 </Tabs>
-=======
-</Tabs>
->>>>>>> dced023 (修改resnet50模型和添加efficientnet模型cpu复现及中英文档移植)
