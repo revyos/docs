@@ -193,16 +193,10 @@ It is recommended to configure `udev` rules for automatic permission setting. Co
 :::info[About Long NPU Inference Time]
 In theory, the program should run quickly. However, the first run may take over 5 minutes due to JIT compilation when loading the model on the NPU. Due to HHB runtime design, JIT compilation occurs on every run, resulting in long execution times.
 
-<<<<<<< HEAD
-For more details, refer to [Common Issues and Solutions](../../issues#npu-推理运行时间过长).
-:::
-
-=======
 For more details, refer to [Common Issues and Solutions](../../issues#excessive-npu-inference-time).
 :::
 
 
->>>>>>> a1ba329 (Added new npu files to the docs)
 ### Sample output:
 
 In this tutorial, the input is a picture of a Persian cat. The expected result for ResNet50 is that the largest value is at index 283, corresponding to `Persian cat`. 

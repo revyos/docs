@@ -19,15 +19,10 @@ Before proceeding, please ensure you have completed the [environment setup](../.
 
 ### Creating a Virtual Environment
 
-<<<<<<< HEAD
-It is recommended to use a virtual environment to isolate dependencies. You can use either `venv` or `conda` to create a virtual environment.
-
-=======
 
 It is recommended to use a virtual environment to isolate dependencies. You can use either `venv` or `conda` to create a virtual environment.
 
 
->>>>>>> a1ba329 (Added new npu files to the docs)
 ```shell-session
 $ mkdir rtmpose && cd rtmpose
 $ python3 -m venv rtmpose
@@ -36,15 +31,10 @@ $ source rtmpose/bin/activate
 
 ### Installing Dependencies
 
-<<<<<<< HEAD
-Download the SHL backend (execution providers), allowing onnxruntime to utilize SHL's high-performance optimization for C-SKY CPUs.
-
-=======
 
 Download the SHL backend (execution providers), allowing onnxruntime to utilize SHL's high-performance optimization for C-SKY CPUs.
 
 
->>>>>>> a1ba329 (Added new npu files to the docs)
 ```shell-session
 $ git clone -b python3.11 https://github.com/zhangwm-pt/prebuilt_whl.git
 $ cd prebuilt_whl
@@ -74,10 +64,6 @@ If you encounter network issues accessing GitHub from mainland China, consider u
 
 ### Running the Program
 
-<<<<<<< HEAD
-=======
-
->>>>>>> a1ba329 (Added new npu files to the docs)
 Navigate to the ONNX example directory in the source code and run main.py for model inference:
 
 ```shell-session
@@ -85,11 +71,7 @@ $ python3 main.py rtmpose.onnx human-pose.jpeg
 ``` 
 
 :::info[Parameter Description]
-<<<<<<< HEAD
-- rtmpose.onnx: The pre-downloaded model
-=======
 - rtmpose.onnx: The pre-downloaded model file
->>>>>>> a1ba329 (Added new npu files to the docs)
 - human-pose.jpeg: The sample image provided in the example
 :::
 
