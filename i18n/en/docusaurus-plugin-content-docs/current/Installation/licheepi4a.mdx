@@ -178,7 +178,7 @@ The device name for the SD card might be `/dev/sda` or `/dev/mmcblk0`. In the de
 Before writing the image, unmount any mounted partitions of the SD card. If there are multiple partitions, unmount each one:
 
 ```bash
-sudo umount /dev/sda1
+sudo umount /dev/sdX1
 ```
 
 If no partitions are mounted, the `umount` command will display `not mounted`, and no further action is needed.
@@ -190,7 +190,7 @@ After unmounting the partitions, it is recommended to run the `sudo sync` comman
 After completing the above steps, you can proceed with writing the image. Before writing, ensure that the correct device is set in the `of=` parameter. In the demonstration environment, the SD card is recognized as `sda`. Replace `of=` with your device's partition accordingly.
 
 ```bash
-sudo dd if=./sdcard-lpi4a-20250110_151339.img of=/dev/sda bs=4M status=progress
+sudo dd if=./sdcard-lpi4a-20250110_151339.img of=/dev/sdX bs=4M status=progress
 ```
 
 ![dd](/img/image-for-flash/dd.png)

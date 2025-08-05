@@ -64,10 +64,10 @@ Insert the SD card into a reader connected to your computer, then verify the dev
 Navigate to the directory with `firmware_single_sg2042-v6.6-lts-v0p7.img` and flash it with the following command:
 
 ```shell
-sudo dd if=firmware_single_sg2042-v6.6-lts-v0p7.img of=/dev/sda bs=4M status=progress
+sudo dd if=firmware_single_sg2042-v6.6-lts-v0p7.img of=/dev/sdX bs=4M status=progress
 ```
 
-Replace `of=/dev/sda` with your specific device path if different.
+Replace `of=/dev/sdX` with your specific device path if different.
 
 After flashing, use `sync` to ensure data is fully written to the SD card.
 

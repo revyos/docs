@@ -313,7 +313,7 @@ The device name of the SD card may be /dev/sda or /dev/mmcblk0. In the demonstra
 Before writing the image, you need to unmount the mounted partition of the SD card. If there are multiple partitions, please unmount them one by one:
 
 ```bash
-sudo umount /dev/sda1
+sudo umount /dev/sdX1
 ```
 
 If no partition is mounted, the umount command will display `not mounted`, then no further action is required.
@@ -325,7 +325,7 @@ After unmounting the partition, it is recommended to run the `sudo sync` command
 After performing the above steps, you can start flashing. Before flashing, please ensure that you have set the correct device in `of=`. In the demonstration environment, the sd card is identified as sda. Please fill in the partition according to your own device after `of=`.
 
 ```bash
-sudo dd if=./sdcard-meles-20250323_154525.img of=/dev/sda bs=4M status=progress
+sudo dd if=./sdcard-meles-20250323_154525.img of=/dev/sdX bs=4M status=progress
 ```
 
 ![dd-meles](/img/image-for-flash/dd-meles.png)
