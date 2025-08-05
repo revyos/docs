@@ -63,10 +63,10 @@ RevyOS 镜像刷写遵循固件文件 + 系统文件的方式，因此会用到�
 在存放 `firmware_single_sg2042-v6.6-lts-v0p7.img` 文件的目录下时，使用 dd 命令将文件刷写到 SD 卡中
 
 ```shell
-sudo dd if=firmware_single_sg2042-v6.6-lts-v0p7.img of=/dev/sda bs=4M status=progress
+sudo dd if=firmware_single_sg2042-v6.6-lts-v0p7.img of=/dev/sdX bs=4M status=progress
 ```
 
-`of=/dev/sda` 此项请根据设备路径进行更改
+`of=/dev/sdX` 此项请根据设备路径进行更改
 
 刷写完成后请使用`sync`命令，确保数据写入到 SD 卡中。
 

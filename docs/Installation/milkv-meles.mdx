@@ -319,7 +319,7 @@ SD 卡的设备名可能是 /dev/sda 或 /dev/mmcblk0，在演示环境中，在
 在写入镜像前，需要卸载 SD 卡的挂载分区，如果有多个分区请逐一卸载：
 
 ```bash
-sudo umount /dev/sda1
+sudo umount /dev/sdX1
 ```
 
 如果没有分区被挂载，umount 命令会显示`not mounted`，这时无需进一步操作。
@@ -331,7 +331,7 @@ sudo umount /dev/sda1
 在执行完上述步骤后即可进行刷写，在刷写前请保证您在 `of=` 设置了正确的设备，在演示环境中，sd卡识别为sda，`of=`后请根据自身设备分区进行填写。
 
 ```bash
-sudo dd if=./sdcard-meles-20250323_154525.img of=/dev/sda bs=4M status=progress
+sudo dd if=./sdcard-meles-20250323_154525.img of=/dev/sdX bs=4M status=progress
 ```
 
 ![dd-meles](/img/image-for-flash/dd-meles.png)
