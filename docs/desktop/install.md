@@ -7,14 +7,14 @@ sidebar_position: 2
 
 在RevyOS中安装包只需要在 terminal 中输入
 
-```
-sudo apt install + 包名
+```bash
+sudo apt install  包名
 ```
 即可安装
 
-以下以安装 git作为演示
+以下以安装`git`作为演示
 
-```
+```bash
 debian@lpi4a:~$ sudo apt install git
 [sudo] password for debian: 
 Reading package lists... Done
@@ -55,3 +55,4 @@ Setting up git-man (1:2.40.1-1) ...
 Setting up git (1:2.40.1-1) ...
 Processing triggers for man-db (2.11.2-2) ...
 ```
+在确认输入 `Y `后，`git` 及其依赖项将被安装使用
