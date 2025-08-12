@@ -8,7 +8,7 @@ sidebar_position: 2
 在RevyOS中安装包只需要在 terminal 中输入
 
 ```
-apt install + 包名
+sudo apt install + 包名
 ```
 即可安装
 
