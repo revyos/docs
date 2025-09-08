@@ -10,8 +10,8 @@ interface ImageLink {
 export const imageLinks = [
   {
     device: "Lichee Pi 4A",
-    version: "20250526",
-    downloadLink: "https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250526/",
+    version: "20250729",
+    downloadLink: "https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250729/",
     sdCardSupport: true,
   },
   {
