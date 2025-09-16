@@ -16,14 +16,14 @@ export const imageLinks = [
   },
   {
     device: "Milk-V Meles",
-    version: "20250526",
-    downloadLink: "https://mirror.iscas.ac.cn/revyos/extra/images/meles/20250526/",
+    version: "20250729",
+    downloadLink: "https://mirror.iscas.ac.cn/revyos/extra/images/meles/20250729/",
     sdCardSupport: true,
   },
   {
     device: "Milk-V Pioneer",
-    version: "20250703",
-    downloadLink: "https://mirror.iscas.ac.cn/revyos/extra/images/sg2042/20250703/",
+    version: "20250901",
+    downloadLink: "https://mirror.iscas.ac.cn/revyos/extra/images/sg2042/20250901/",
     sdCardSupport: true,
   },
   {
@@ -33,8 +33,8 @@ export const imageLinks = [
   },
   {
     device: "Lichee Console 4A",
-    version: "20240720",
-    downloadLink: "https://mirror.iscas.ac.cn/revyos/extra/images/lcon4a/20240720/",
+    version: "20250729",
+    downloadLink: "https://mirror.iscas.ac.cn/revyos/extra/images/lcon4a/20250729/",
   },
   {
     device: "Lichee Book 4A",

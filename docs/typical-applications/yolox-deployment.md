@@ -5,11 +5,11 @@ sidebar_position: 5
 
 # 在 LicheePi 4A 上部署 YOLOX 并使用 HHB-onnxruntime 进行推理
 
-本文详细介绍如何在LicheePi 4A上部署YOLOX目标检测模型，并使用HHB-onnxruntime进行高效推理。
+本文详细介绍如何在 LicheePi 4A 上部署 YOLOX 目标检测模型，并使用 HHB-onnxruntime 进行高效推理。
 
 ## YOLOX简介
 
-YOLOX是一种高效的目标检测算法，在保持高精度的同时提供了出色的速度表现，非常适合边缘设备部署。
+YOLOX 是一种高效的目标检测算法，在保持高精度的同时提供了出色的速度表现，非常适合边缘设备部署。
 
 ## 1. 环境准备
 

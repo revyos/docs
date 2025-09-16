@@ -5,11 +5,11 @@ sidebar_position: 6
 
 # Licheepi 4A运行游戏Baby Is You
 
-本文介绍如何在Licheepi 4A平台上编译、安装和运行独立游戏"Baby Is You"。
+本文介绍如何在 LicheePi 4A平台上编译、安装和运行独立游戏 `Baby Is You`。
 
 ## 游戏简介
 
-"Baby Is You"是一款受欢迎的益智推箱子类游戏，灵感来源于"Baba Is You"。它具有简单的像素图形和基于规则的游戏机制，非常适合在嵌入式设备上运行。
+`Baby Is You` 是一款受欢迎的益智推箱子类游戏，灵感来源于 `Baba Is You`。它具有简单的像素图形和基于规则的游戏机制，非常适合在嵌入式设备上运行。
 
 ## 环境准备
 
@@ -49,7 +49,7 @@ sidebar_position: 6
    make -j$(nproc)
    ```
 
-4. 购买Baby Is You，下载 Linux 版
+4. 购买 `Baby Is You`，下载 Linux 版
 
 5. `chmod +x 游戏包中的run.sh`
 

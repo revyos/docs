@@ -1,8 +1,8 @@
 # gcc build programs 说明
 
-## 安装gcc
+## 安装 gcc
 
-首先确保安装gcc:
+首先确保安装 gcc:
 
 ```bash
 sudo apt update
@@ -38,7 +38,7 @@ hello, world
 # g++ build programs 说明
 
 
-首先确保安装g++:
+首先确保安装 g++:
 
 ```bash
 sudo apt update
@@ -71,5 +71,5 @@ debian@lpi4a:~/test$ ./hello
 Hello, World!
 ```
 
-以上就是gcc/g++ 编译程序并运行的最简单实例，更复杂的应用案例可以参考相应的
+以上就是 gcc/g++ 编译程序并运行的最简单实例，更复杂的应用案例可以参考相应的
 系统编程手册。

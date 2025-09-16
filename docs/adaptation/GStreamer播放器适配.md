@@ -34,7 +34,7 @@ video stream----+--->| omxh264dec +------>| video-sink +----+-->| player |
                         hardware
 ```
 
-1. 视频流（video stream）由 GStreamer 读入后经过一系列预处理，送到 GStreamer 的解码器`omxh264dec` 中
+1. 视频流（video stream）由 GStreamer 读入后经过一系列预处理，送到 GStreamer 的解码器 `omxh264dec` 中
 2. omxh264dec 调用动态库，即 PTG 提供的 vpu-omxil 库，该库通过驱动访问硬件（kernel module）进行硬解
 3. 解码后的流传输到 GStreamer 的 video-sink 中，并由播放器（player）呈现
 
@@ -196,7 +196,7 @@ gst-launch-1.0 filesrc location=<test.mp4> ! qtdemux !  h264parse ! omxh264dec  
 gst-launch-1.0 filesrc location=<test.mp4> ! qtdemux !  h264parse ! omxh264dec  ! videoconvert ! fpsdisplaysink video-sink=fakesink  text-overlay=false sync=false -v 2>&1
 ```
 
-`fakesink`会把前面的视频流全部吞掉，不输出画面（因而不会在 video-sink 这一环节损失性能），但是结合fpsdisplaysink可以读取到解码的速度。正常日志如下：
+`fakesink` 会把前面的视频流全部吞掉，不输出画面（因而不会在 video-sink 这一环节损失性能），但是结合 fpsdisplaysink 可以读取到解码的速度。正常日志如下：
 
 ```log
 Setting pipeline to PAUSED ...[DBGT]
@@ -210,20 +210,20 @@ New clock: GstSystemClockRedistribute latency...
 0:01:39.5 / 0:01:49.4 (90.9 %)
 ```
 
-**【TIP】**如果有 `[omxh264dec-omxh264dec0: Could not initialize supporting library.](https://gist.github.com/Sakura286/015fae6792e160268db7ad8a697dd2df)` 等字样的报错，可以安装`gst-omx`、`libomxil-bellagio`与`libc6`相关的 debug-symbol 包，使用 `gdb` 启动上述命令进行调试。调试时，先断`DWLInit`，然后再断`open`，具体看是打开哪个地方的时候出错了。
+**【TIP】**如果有 `[omxh264dec-omxh264dec0: Could not initialize supporting library.](https://gist.github.com/Sakura286/015fae6792e160268db7ad8a697dd2df)` 等字样的报错，可以安装 `gst-omx`、`libomxil-bellagio` 与 `libc6` 相关的 debug-symbol 包，使用 `gdb` 启动上述命令进行调试。调试时，先断 `DWLInit`，然后再断 `open`，具体看是打开哪个地方的时候出错了。
 
 #### RevyOS 适配记录
 
 RevyOS 适配过程中对于初始化动态库失败找到了如下三种原因：
 
 1. 编译 vpu-omxil 时使用的工具链与当前系统不兼容
-2. 未使用`omxregister-bellagio`注册 vpu-omxil
+2. 未使用 `omxregister-bellagio` 注册 vpu-omxil
 3. 未调整 `/dev` 目录下 `hantrodec` `vc8000` `vidmem` 等设备的权限
 
 ## B. 选用合适的 GStreamer video-sink
 
 `video-sink` 是视频流在整个 [GStreamer pipeline](https://gstreamer.freedesktop.org/documentation/tutorials/basic/concepts.html) 中的最后一步，其作用一般是将视频流输出到屏幕上。
-前文中`fakesink`只是测试解码器是否正常工作的特殊 `video-sink`，[可选的 video-sink](https://gstreamer.freedesktop.org/documentation/tutorials/basic/platform-specific-elements.html?gi-language=c)非常多，常见的有 `autovideosink`，`ximagesink`，`xvimagesink`，`fbdevsink`，`waylandsink`，`glimagesink`，`gtkglsink`等，它们各在不同的插件包里，需要酌情安装：
+前文中 `fakesink` 只是测试解码器是否正常工作的特殊 `video-sink`，[可选的 video-sink](https://gstreamer.freedesktop.org/documentation/tutorials/basic/platform-specific-elements.html?gi-language=c)非常多，常见的有 `autovideosink`，`ximagesink`，`xvimagesink`，`fbdevsink`，`waylandsink`，`glimagesink`，`gtkglsink` 等，它们各在不同的插件包里，需要酌情安装：
 
 | **video-sink** | **所属包名** |
 | --- | --- |
@@ -240,12 +240,12 @@ RevyOS 适配过程中对于初始化动态库失败找到了如下三种原因�
 
 ### RevyOS 适配记录
 
-- `**waylandsink**`：由于现在（20230720）RevyOS 采用了 Xfce 桌面，不可能支持 Wayland，故 `waylandsink`从原理上无法使用
+- `**waylandsink**`：由于现在（20230720）RevyOS 采用了 Xfce 桌面，不可能支持 Wayland，故 `waylandsink` 从原理上无法使用
 - `**fbdevsink**`与`**ximagesink**`：无法使用
 - `**xvimagesink**`：通过[流水线图](https://gstreamer.freedesktop.org/documentation/tutorials/basic/debugging-tools.html#getting-pipeline-graphs)以及日志可以确定，playbin 或 autovideosink 会自动调用 xvimagesink，使用 perf 分析后可以发现，使用xvimagesink 不可避免地会进行大量的 memcpy 操作，严重降低解码性能；该问题在获得PTG的 dmabuf 补丁后依然存在，故无法使用
 - `**gtkglsink**`：[GTK3 不支持 EGL on X11](https://gitlab.gnome.org/GNOME/gtk/-/issues/738)，而 RevyOS 目前基于 x11，且只支持 EGL，故无法使用
 
-剩下的只有`glimagesink`，根据 [Running and debugging GStreamer Applications](https://gstreamer.freedesktop.org/documentation/gstreamer/running.html#environment-variables)，并观察其他使用到 glimagesink 的例子，可以猜测需要明确指定环境变量 `GST_GL_API`与 `GST_GL_PLATFORM`
+剩下的只有`glimagesink`，根据 [Running and debugging GStreamer Applications](https://gstreamer.freedesktop.org/documentation/gstreamer/running.html#environment-variables)，并观察其他使用到 glimagesink 的例子，可以猜测需要明确指定环境变量 `GST_GL_API` 与 `GST_GL_PLATFORM`
 由于 RevyOS 使用了 gles2+egl 的组合，使用如下的命令，成功硬解。
 
 ```shell

@@ -5,7 +5,7 @@ sidebar_position: 3
 
 # Licheepi 4A TH1520 NPU 上运行 BERT 模型（HHB 量化 & 推理）
 
-本文详细介绍如何在Licheepi 4A的TH1520 NPU上部署和运行BERT模型，包括使用HHB工具进行量化和推理的完整流程。
+本文详细介绍如何在 LicheePi 4A 的 TH1520 NPU 上部署和运行 BERT 模型，包括使用 HHB 工具进行量化和推理的完整流程。
 
 ## BERT模型简介
 
@@ -45,7 +45,7 @@ cd /home/example/c920/bert_small
 
 ### **2.2. 运行 HHB 编译**
 
-注意必须要使用这这里的工具链，否则编译出的二进制文件无法在 LicheePi4A 上运行。
+注意必须要使用这这里的工具链，否则编译出的二进制文件无法在 LicheePi 4A 上运行。
 
 ```bash
 export PATH=/tools/Xuantie-900-gcc-linux-5.10.4-glibc-x86_64-V2.6.1-light.1/bin/:$PATH
