@@ -11,7 +11,7 @@ Conduct restart tests 500 times.
 
 ## Operating Steps
 
-Create a restart script named cycletest.service_ in /lib/system/system:
+Create a restart script named `cycletest.service_` in /lib/system/system:
 
 ```
 [Unit]

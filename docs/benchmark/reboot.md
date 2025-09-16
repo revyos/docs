@@ -11,7 +11,7 @@
 
 ## 操作步骤
 
-在 /lib/system/system 下创建名为 cycletest.service_ 重启脚本：
+在 /lib/system/system 下创建名为 `cycletest.service_` 的重启脚本：
 
 ```
 [Unit]

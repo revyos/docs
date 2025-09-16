@@ -2,7 +2,7 @@
 
 glmark2 是基于 OpenGL 2.0 以及 ES 2.0 的一个性能测试.
 
-此处我们只使用 glmark2-es2 ，软件包已经预装在RevyOS中，用于 x11-glesv2 的测试.
+此处我们只使用 glmark2-es2 ，软件包已经预装在 RevyOS中 ，用于 x11-glesv2 的测试.
 
 
 `th1520` 只支持 glmark-es2.
