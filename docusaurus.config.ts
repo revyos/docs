@@ -5,7 +5,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-  title: 'RevyOS Docs',
+  title: 'RevyOS',
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
@@ -48,7 +48,7 @@ const config: Config = {
   themeConfig: {
     image: 'img/docusaurus-social-card.jpg',
     navbar: {
-      title: 'RevyOS Docs',
+      title: 'RevyOS',
       logo: {
         alt: 'RevyOS Logo',
         src: 'img/RevyOS-logo.svg',
@@ -96,6 +96,10 @@ const config: Config = {
               to: '/docs/Installation/licheepi4a',
             },
             {
+              label: 'Milk-V Meles',
+              to: '/docs/Installation/milkv-meles',
+            },
+            {
               label: 'Milk-V Pioneer',
               to: '/docs/Installation/milkv-pioneer',
             }
@@ -107,6 +111,10 @@ const config: Config = {
             {
               label: 'PLCT 主页',
               href: 'https://plctlab.org/',
+            },
+            {
+              label: 'RuyiSDK 主页',
+              href: 'https://ruyisdk.org/',
             },
           ],
         },

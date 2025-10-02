@@ -16,7 +16,7 @@
     "description": "The label of footer link with label=Github linking to https://github.com/revyos/revyos"
   },
   "copyright": {
-    "message": "Copyright © 2025 RevyOS. Built with Docusaurus.",
+    "message": "Copyright © 2023 - 2025 RevyOS. Built with Docusaurus.",
     "description": "The footer copyright"
   },
   "link.title.PLCT Lab": {
@@ -27,6 +27,10 @@
     "message": "Lichee Pi 4A",
     "description": "The label of footer link with label=Lichee Pi 4A linking to /docs/Installation/licheepi4a"
   },
+  "link.item.label.Milk-V Meles": {
+    "message": "Milk-V Meles",
+    "description": "The label of footer link with label=Milk-V Meles linking to /docs/Installation/milkv-meles"
+  },
   "link.item.label.Milk-V Pioneer": {
     "message": "Milk-V Pioneer",
     "description": "The label of footer link with label=Milk-V Pioneer linking to /docs/Installation/milkv-pioneer"
@@ -34,6 +38,10 @@
   "link.item.label.PLCT 主页": {
     "message": "PLCT Homepage",
     "description": "The label of footer link with label=PLCT 主页 linking to https://plctlab.org/"
+  },
+  "link.item.label.RuyiSDK 主页": {
+    "message": "RuyiSDK Homepage",
+    "description": "The label of footer link with label=RuyiSDK 主页 linking to https://ruyisdk.org/"
   },
   "link.item.label.Telegram": {
     "message": "Telegram",
