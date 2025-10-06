@@ -13,9 +13,9 @@ sudo apt install -y \
 sudo apt install -y \
 	sbuild buildd ca-certificates apt-transport-https devscripts mmdebstrap
 
-# Fix debian-ports certificate issues on the host (may not be necessary at this stage)
-wget https://mirror.sjtu.edu.cn/debian/pool/main/d/debian-ports-archive-keyring/debian-ports-archive-keyring_2023.02.01_all.deb
-sudo dpkg -i ./debian-ports-archive-keyring_2023.02.01_all.deb
+# Install revyos keyring
+wget https://fast-mirror.isrc.ac.cn/revyos/trixie/revyos-addons/pool/main/r/revyos-keyring/revyos-keyring_2025.03.28_all.deb
+sudo dpkg -i ./revyos-keyring_2025.03.28_all.deb
 
 # Add current user to sbuild without root
 sudo sbuild-adduser $USER
@@ -23,35 +23,51 @@ sudo sbuild-adduser $USER
 
 ## Creating the Packaging Environment
 
+### revyos v1.0 (only for TH1520)
 
 ```bash
-export SUFFIX=revyos-sbuild
-sudo sbuild-createchroot --debootstrap=debootstrap --arch=riscv64 \
-	--chroot-suffix=-$SUFFIX \
-	--keyring='' \
+cat << EOF | sudo sbuild-createchroot --debootstrap=mmdebstrap --arch=riscv64 \
+	--chroot-suffix=-revyos-sbuild \
 	--no-deb-src \
-	--include=debian-ports-archive-keyring,ca-certificates,apt-transport-https,eatmydata \
-	--extra-repository="deb [trusted=yes] https://mirror.iscas.ac.cn/revyos/revyos-addons/ revyos-addons main" \
-	--extra-repository="deb [trusted=yes] https://mirror.iscas.ac.cn/revyos/revyos-base/ sid main contrib non-free non-firmware" \
-	sid /srv/chroot/sid-riscv64-$SUFFIX \
-	https://mirror.iscas.ac.cn/revyos/revyos-base/
-
-# Fix environment-related issues
-sudo sed -i 's/deb http/deb [trusted=yes] http/g' /srv/chroot/sid-riscv64-$SUFFIX/etc/apt/sources.list
-sudo rm -rf /srv/chroot/sid-riscv64-$SUFFIX/var/lib/apt/lists/*
-echo "command-prefix=eatmydata" | sudo tee -a /etc/schroot/chroot.d/sid-riscv64-$SUFFIX-*
-
-# Adjust source order - to use the addons repository for the same version
-# Edit sources.list to ensure the following order
+	--include=debian-ports-archive-keyring,ca-certificates,apt-transport-https,eatmydata,revyos-keyring \
+	sid /srv/chroot/sid-riscv64-revyos-sbuild - 
 deb [trusted=yes] https://mirror.iscas.ac.cn/revyos/revyos-addons/ revyos-addons main
 deb [trusted=yes] https://mirror.iscas.ac.cn/revyos/revyos-base/ sid main contrib non-free non-free-firmware
+EOF
+sudo rm -rf /srv/chroot/sid-riscv64-revyos-sbuild/var/lib/apt/lists/*
+echo "command-prefix=eatmydata" | sudo tee -a /etc/schroot/chroot.d/sid-riscv64-revyos-sbuild-*
+```
+
+### revyos v2.0 (for others)
+
+```bash
+export CODENAME=trixie
+#export ARCH=amd64
+export ARCH=riscv64
+cat << EOF | sudo sbuild-createchroot --debootstrap=mmdebstrap --arch=${ARCH} \
+	--chroot-suffix=-revyos-sbuild \
+	--no-deb-src \
+	--include=debian-archive-keyring,ca-certificates,apt-transport-https,eatmydata \
+	${CODENAME} /srv/chroot/${CODENAME}-${ARCH}-revyos-sbuild - 
+deb [trusted=yes] https://mirror.iscas.ac.cn/revyos/trixie/dev/revyos-addons ${CODENAME} main
+deb [trusted=yes] https://mirror.iscas.ac.cn/revyos/trixie/revyos-base ${CODENAME} main contrib non-free non-free-firmware
+EOF
+sudo rm -rf /srv/chroot/${CODENAME}-${ARCH}-revyos-sbuild/var/lib/apt/lists/*
+echo "command-prefix=eatmydata" | sudo tee -a /etc/schroot/chroot.d/${CODENAME}-${ARCH}-revyos-sbuild-*
 ```
 
 ## Build Command
 
+### revyos v1.0 (only for TH1520)
 
 ```bash
 sbuild --arch=riscv64 -d sid -c sid-riscv64-revyos-sbuild xxx.dsc
+```
+
+### revyos v2.0 (for others)
+
+```bash
+sbuild --arch=riscv64 -d trixie -c trixie-riscv64-revyos-sbuild xxx.dsc
 ```
 
 # Manual Kernel Compilation
