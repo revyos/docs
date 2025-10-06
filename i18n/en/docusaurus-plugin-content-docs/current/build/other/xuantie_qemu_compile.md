@@ -1,4 +1,4 @@
-# T-Head QEMU Compilation Process
+# Xuantie QEMU Compilation Process
 
 C910V forced CPU specification patch
 

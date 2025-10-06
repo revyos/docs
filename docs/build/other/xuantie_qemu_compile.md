@@ -1,4 +1,4 @@
-# T-Head QEMU 编译流程
+# XuanTie QEMU 编译流程
 
 C910V强制cpu指定补丁
 
