@@ -1,4 +1,8 @@
 {
   "position": 6,
-  "label": "镜像刷写"
+  "label": "镜像刷写",
+  "collapsed": false,
+  "link": {
+    "type": "generated-index"
+  }
 }
