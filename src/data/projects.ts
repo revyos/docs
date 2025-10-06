@@ -3,6 +3,28 @@ import type { InfoCardProps } from '../components/InfoCard';
 
 const projects: InfoCardProps[] = [
   {
+    title: 'RevyOS ROS',
+    title_en: 'RevyOS ROS',
+    logo: '/img/github-mark.svg',
+    subtitle: 'revyos-ros',
+    subtitle_en: 'revyos-ros',
+    description: '适用于 Xuantie 生态 ROS 仓库',
+    description_en: 'ROS repository for Xuantie ecosystem',
+    link: 'https://github.com/orgs/revyos-ros/repositories',
+    category: ProjectCategory.Ecosystem,
+  },
+  {
+    title: 'RevyOS ROCm',
+    title_en: 'RevyOS ROCm',
+    logo: '/img/github-mark.svg',
+    subtitle: 'revyos-rocm',
+    subtitle_en: 'revyos-rocm',
+    description: '适用于 Xuantie 生态 ROCm 仓库',
+    description_en: 'ROCm repository for Xuantie ecosystem',
+    link: 'https://github.com/orgs/revyos-rocm/repositories',
+    category: ProjectCategory.Ecosystem,
+  },
+  {
     title: 'TH1520 Linux 内核',
     title_en: 'TH1520 Linux kernel',
     logo: '/img/github-mark.svg',
@@ -198,6 +220,16 @@ const projects: InfoCardProps[] = [
     description: '适配 RevyOS 的 lmbench3 基准测试套件',
     description_en: 'lmbench3 benchmarking suite adapted for RevyOS',
     link: 'https://github.com/revyos/lmbench3',
+    category: ProjectCategory.Benchmark,
+  },
+  {
+    title: 'unixbench',
+    title_en: 'unixbench',
+    logo: '/img/github-mark.svg',
+    subtitle: 'revyos/unixbench',
+    description: '适配 RevyOS 的 unixbench 基准测试套件',
+    description_en: 'unixbench benchmarking suite adapted for RevyOS',
+    link: 'https://github.com/revyos/byte-unixbench',
     category: ProjectCategory.Benchmark,
   },
 ];
