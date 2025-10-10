@@ -228,7 +228,7 @@ of the benchmarks to them.  Please specify any such systems as a space
 separated list such as: ether-host fddi-host hippi-host.
 
 REMOTE [default none]:
-=====================================================================
+================================以上项目设置完成后，开始自动执行测试。=====================================
 ```
 
 `Processor mhz [default 999 MHz, 1.0010 nanosec clock]`: 测试 `cpu`，默认 `$MHZ`，即为程序判断出的频率，也可以根据情况自己设定，例如 3500，单位 `MHz`，这里设置为默认值。
@@ -275,7 +275,7 @@ FSDIR [default /usr/tmp]:
 =====================================================================
 
 lmbench outputs status information as it runs various benchmarks.
-By default this output is sent to /dev/tty, but you may redirect
+By default this output is sent 以上项目设置完成后，开始自动执行测试。to /dev/tty, but you may redirect
 it to any file you wish (such as /dev/null...).
 
 Status output file [default /dev/tty]:
@@ -290,7 +290,7 @@ Status output file [default /dev/tty]:
 There is a database of benchmark results that is shipped with new
 releases of lmbench.  Your results can be included in the database
 if you wish.  The more results the better, especially if they include
-remote networking.  If your results are interesting, i.e., for a new
+remote networking.  If your res以上项目设置完成后，开始自动执行测试。ults are interesting, i.e., for a new
 fast box, they may be made available on the lmbench web page, which is
 
 	http://www.bitmover.com/lmbench
@@ -303,6 +303,17 @@ OK, no results mailed.
 以上项目设置完成后，开始自动执行测试。
 
 ## 测试结果
+
+在 lmbench 中，测试结果不会自动生成一个汇总的 HTML 或文本报告，而是将各项测试的原始结果输出到标准输出（stdout）或保存在 `results/riscv64-linux-gnu` 结果文件中
+
+:::info
+> 这里以 `revyos-lpi4a` 为测试机举例
+:::
+
+```bash
+root@revyos-lpi4a:~/lmbench3/results/riscv64-linux-gnu# ls
+revyos-lpi4a.0	revyos-lpi4a.1	revyos-lpi4a.2	revyos-lpi4a.3	revyos-lpi4a.4
+```
 
 
 ## 测试说明
