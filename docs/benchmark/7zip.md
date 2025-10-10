@@ -6,7 +6,7 @@
 
 首先需要在 RevyOS 中安装 7zip
 
-```
+```bash
 debian@lpi4a:~/Desktop$ sudo apt update
 debian@lpi4a:~/Desktop$ sudo apt install 7zip
 ```
@@ -15,7 +15,7 @@ debian@lpi4a:~/Desktop$ sudo apt install 7zip
 
 进行 7zip 测试需要在终端中输入以下命令来执行：
 
-```
+```bash
 debian@lpi4a:~/Desktop$ 7zz b
 ```
 
@@ -25,7 +25,7 @@ debian@lpi4a:~/Desktop$ 7zz b
 
 以下是测试结果参考，使用镜像版本为[RevyOS 20250729](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250729/)16g版本
 
-```
+```bash
 debian@lpi4a:~/Desktop$ 7zz b
 
 7-Zip (z) 22.01 (riscv64) : Copyright (c) 1999-2022 Igor Pavlov : 2022-07-15
