@@ -40,19 +40,19 @@ export const imageLinks = [
   },
   {
     device: "Milk-V Pioneer",
-    version: "20250930",
-    downloadLink: "https://mirror.iscas.ac.cn/revyos/extra/images/sg2042/20250930/",
+    version: "20251012",
+    downloadLink: "https://mirror.iscas.ac.cn/revyos/extra/images/sg2042/20251012/",
     sdCardSupport: true,
   },
   {
     device: "Sophgo SG2044",
-    version: "20250930",
-    downloadLink: "https://mirror.iscas.ac.cn/revyos/extra/images/sg2044/20250930/",
+    version: "20251012",
+    downloadLink: "https://mirror.iscas.ac.cn/revyos/extra/images/sg2044/20251012/",
   },
   {
     device: "Sophgo Pisces",
-    version: "20250930",
-    downloadLink: "https://mirror.iscas.ac.cn/revyos/extra/images/sg2042/20250930/",
+    version: "20251012",
+    downloadLink: "https://mirror.iscas.ac.cn/revyos/extra/images/sg2042/20251012/",
   },
   {
     device: "Beagle-Ahead",
