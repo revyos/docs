@@ -304,5 +304,142 @@ OK, no results mailed.
 
 ## 测试结果
 
+测试结束后执行 `make see`
+
+```
+root@revyos-lpi4a:~/lmbench3# make see
+cd results && make summary >summary.out 2>summary.errs 
+cd results && make percent >percent.out 2>percent.errs 
+```
+
+可在 `results/` 目录下看到最终测试结果
+
+```
+
+                 L M B E N C H  3 . 0   S U M M A R Y
+                 ------------------------------------
+		(Alpha software, do not distribute)
+
+Basic system parameters
+------------------------------------------------------------------------------
+Host                 OS Description              Mhz  tlb  cache  mem   scal
+                                                     pages line   par   load
+                                                           bytes  
+--------- ------------- ----------------------- ---- ----- ----- ------ ----
+revyos-lp Linux 6.6.108       riscv64-linux-gnu 1846          64 7.8200    1
+revyos-lp Linux 6.6.108       riscv64-linux-gnu 1846          64 7.6700    1
+revyos-lp Linux 6.6.108       riscv64-linux-gnu 1846          64 7.7000    1
+revyos-lp Linux 6.6.108       riscv64-linux-gnu 1846          64 7.7800    1
+
+Processor, Processes - times in microseconds - smaller is better
+------------------------------------------------------------------------------
+Host                 OS  Mhz null null      open slct sig  sig  fork exec sh  
+                             call  I/O stat clos TCP  inst hndl proc proc proc
+--------- ------------- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+revyos-lp Linux 6.6.108 1846                                                  
+revyos-lp Linux 6.6.108 1846                                                  
+revyos-lp Linux 6.6.108 1846                                                  
+revyos-lp Linux 6.6.108 1846                                                  
+
+Basic integer operations - times in nanoseconds - smaller is better
+-------------------------------------------------------------------
+Host                 OS  intgr intgr  intgr  intgr  intgr  
+                          bit   add    mul    div    mod   
+--------- ------------- ------ ------ ------ ------ ------ 
+revyos-lp Linux 6.6.108                                   
+revyos-lp Linux 6.6.108                                   
+revyos-lp Linux 6.6.108                                   
+revyos-lp Linux 6.6.108                                   
+
+Basic uint64 operations - times in nanoseconds - smaller is better
+------------------------------------------------------------------
+Host                 OS int64  int64  int64  int64  int64  
+                         bit    add    mul    div    mod   
+--------- ------------- ------ ------ ------ ------ ------ 
+revyos-lp Linux 6.6.108                                   
+revyos-lp Linux 6.6.108                                   
+revyos-lp Linux 6.6.108                                   
+revyos-lp Linux 6.6.108                                   
+
+Basic float operations - times in nanoseconds - smaller is better
+-----------------------------------------------------------------
+Host                 OS  float  float  float  float
+                         add    mul    div    bogo
+--------- ------------- ------ ------ ------ ------ 
+revyos-lp Linux 6.6.108                            
+revyos-lp Linux 6.6.108                            
+revyos-lp Linux 6.6.108                            
+revyos-lp Linux 6.6.108                            
+
+Basic double operations - times in nanoseconds - smaller is better
+------------------------------------------------------------------
+Host                 OS  double double double double
+                         add    mul    div    bogo
+--------- ------------- ------  ------ ------ ------ 
+revyos-lp Linux 6.6.108                            
+revyos-lp Linux 6.6.108                            
+revyos-lp Linux 6.6.108                            
+revyos-lp Linux 6.6.108                            
+
+Context switching - times in microseconds - smaller is better
+-------------------------------------------------------------------------
+Host                 OS  2p/0K 2p/16K 2p/64K 8p/16K 8p/64K 16p/16K 16p/64K
+                         ctxsw  ctxsw  ctxsw ctxsw  ctxsw   ctxsw   ctxsw
+--------- ------------- ------ ------ ------ ------ ------ ------- -------
+revyos-lp Linux 6.6.108   11.2   12.4   12.6   13.7   15.5    16.5    35.3
+revyos-lp Linux 6.6.108   11.9   11.6   13.9   12.6   19.0    15.7    29.2
+revyos-lp Linux 6.6.108   12.3   12.0   12.1   15.4   15.7    15.7    30.5
+revyos-lp Linux 6.6.108   12.0   12.4   12.9   13.7   17.9    17.3    31.3
+
+*Local* Communication latencies in microseconds - smaller is better
+---------------------------------------------------------------------
+Host                 OS 2p/0K  Pipe AF     UDP  RPC/   TCP  RPC/ TCP
+                        ctxsw       UNIX         UDP         TCP conn
+--------- ------------- ----- ----- ---- ----- ----- ----- ----- ----
+revyos-lp Linux 6.6.108  11.2             66.9        87.4       174.
+revyos-lp Linux 6.6.108  11.9             67.7        88.1       174.
+revyos-lp Linux 6.6.108  12.3             67.2        87.9       174.
+revyos-lp Linux 6.6.108  12.0             67.0        88.2       175.
+
+*Remote* Communication latencies in microseconds - smaller is better
+---------------------------------------------------------------------
+Host                 OS   UDP  RPC/  TCP   RPC/ TCP
+                               UDP         TCP  conn
+--------- ------------- ----- ----- ----- ----- ----
+revyos-lp Linux 6.6.108                             
+revyos-lp Linux 6.6.108                             
+revyos-lp Linux 6.6.108                             
+revyos-lp Linux 6.6.108                             
+
+File & VM system latencies in microseconds - smaller is better
+-------------------------------------------------------------------------------
+Host                 OS   0K File      10K File     Mmap    Prot   Page   100fd
+                        Create Delete Create Delete Latency Fault  Fault  selct
+--------- ------------- ------ ------ ------ ------ ------- ----- ------- -----
+revyos-lp Linux 6.6.108   77.4   58.4  134.1   87.6  356.8K                    
+revyos-lp Linux 6.6.108   76.5   55.6  135.9   87.3  350.3K                    
+revyos-lp Linux 6.6.108   76.3   55.5  135.7   87.2  355.7K                    
+revyos-lp Linux 6.6.108   77.4   55.6  134.6   86.9  384.3K                    
+
+*Local* Communication bandwidths in MB/s - bigger is better
+-----------------------------------------------------------------------------
+Host                OS  Pipe AF    TCP  File   Mmap  Bcopy  Bcopy  Mem   Mem
+                             UNIX      reread reread (libc) (hand) read write
+--------- ------------- ---- ---- ---- ------ ------ ------ ------ ---- -----
+revyos-lp Linux 6.6.108 645. 1345 779. 1751.1 3930.9 3904.1 4168.2 4051 5222.
+revyos-lp Linux 6.6.108 573. 1331 785. 1755.2 3932.5 3902.2 4191.3 4050 5226.
+revyos-lp Linux 6.6.108 636. 1306 774. 1766.2 3928.1 3906.1 4185.9 4052 5225.
+revyos-lp Linux 6.6.108 557. 1361 774. 1745.5 3929.6 3904.5 4188.2 4054 5225.
+
+Memory latencies in nanoseconds - smaller is better
+    (WARNING - may not be correct, check graphs)
+------------------------------------------------------------------------------
+Host                 OS   Mhz   L1 $   L2 $    Main mem    Rand mem    Guesses
+--------- -------------   ---   ----   ----    --------    --------    -------
+revyos-lp Linux 6.6.108  1846 1.6260   10.9        29.6       168.9
+revyos-lp Linux 6.6.108  1846 1.6260   10.6        29.6       168.1
+revyos-lp Linux 6.6.108  1846 1.6260   10.3        29.6       168.9
+revyos-lp Linux 6.6.108  1846 1.6260   10.3        29.6       167.9
+```
 
 ## 测试说明
