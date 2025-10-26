@@ -1,6 +1,6 @@
 # Submitting Issues and Known Issues
 
-Thank you for using RevyOS! If you encounter any problems or discover bugs during use, please follow these steps:
+Thank you for using RevyOS! If you run into problems, discover bugs, have feature requests, or simply want to make a wish, please refer to the information below.
 
 ## Submitting a New Issue
 
@@ -19,20 +19,17 @@ Thank you for using RevyOS! If you encounter any problems or discover bugs durin
 Before submitting a new issue, we recommend checking our record of known issues:
 
 - Visit the Discussions page: [Known Compatibility Issues](https://github.com/orgs/revyos/discussions/83)
-- Check if someone has already reported the same or a similar issue.
 
 If the issue already exists, you can:
 
-- Add a comment to the corresponding issue or discussion to provide more information.
+- Add a comment to the corresponding issue or discussion to provide further information so the testing team can follow up.
 
 ## Tips
 
-- Ensure your issue has not been submitted previously.
-- Providing detailed and complete information will help us resolve the issue faster.
+- Provide complete and detailed information so the testing team can reproduce the issue quickly and help you resolve it sooner.
 
 ## Contact Us
 
-If you would like to discuss any issues encountered during use, you can reach us through the following channels:
+If you would like to discuss issues encountered during use, contact us via:
 
-- Join the Telegram group: [Invitation Link](https://t.me/+Pi6px22-OsUxM2M1)  
-- Send an email to: [support@revyos](mailto:chenglongcan@iscas.ac.cn)
+- Join the Telegram group: [Invitation Link](https://t.me/+Pi6px22-OsUxM2M1)
