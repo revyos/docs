@@ -6,53 +6,48 @@ import { DownloadLink } from "@site/src/components/ImageLinks";
 
 # Milk-V Meles Image Flashing Guide
 
-This page provides a tutorial for flashing images to the Milk-V Meles, specifically for Linux.
+This page describes the Linux workflow for flashing images to Milk-V Meles. Use the links below for other devices or operating systems.
 
-To view image flashing tutorials for other operating systems, please click the links in the table below:
+| Other Flashing Tutorials | Link |
+| --- | --- |
+| Lichee Pi 4A (Linux) | [Linux flashing guide](../licheepi4a/) |
+| Lichee Pi 4A (Windows) | [Windows flashing guide](../licheepi4a-windows/) |
+| Milk-V Pioneer | [Flashing guide](../milkv-pioneer/) |
 
-| Other Flashing Tutorials | Link                                         |
-| ------------------------ | -------------------------------------------- |
-| LicheePi4A               | [Linux Flashing Tutorial](../licheepi4a/)     |
-| LicheePi4A               | [Windows Flashing Tutorial](../licheepi4a-windows/) |
-| Milk-V Pioneer           | [Flashing Tutorial](../milkv-pioneer/)        |
+:::warning
+Before you proceed, compare your board against the reference image and make sure the hardware matches.
 
-:::note
-
-Before proceeding with this tutorial, please ensure that the board you have matches the image below. Only continue if they are identical.
-
-![Milk-V Meles Broad Example](/img/image-for-flash/meles.png)
+![Milk-V Meles reference](/img/image-for-flash/meles.png)
 :::
 
-## Introduction to the Demonstration Environment
+## Demonstration Environment
 
-All image flashing operations in this tutorial are performed using the following environment:
+All steps were validated under the following environment:
 
-- System and Version: Ubuntu 22.04.5 LTS
+- Operating system: Ubuntu 22.04.5 LTS
 - Architecture: x86_64
-- Board Specifications: 8GB RAM
-- Python Version: 3.10.12
+- Milk-V Meles configuration: 8 GB RAM
+- Python version: 3.10.12
 
-All operations in this tutorial are reproducible in this environment. If you encounter any issues during image flashing in this environment, please refer to [this page](../../issue/) to submit an issue.
+If you follow this procedure in the same environment and encounter issues, submit an issue via [the support page](../../issue/).
 
-:::note
-Using a Python version higher than 3.12 may cause the the procedure of writing bootloader to SPI Nor Flash to fail. Please use a Python version prior to 3.12.
+:::warning
+Python versions newer than 3.12 may fail when writing the bootloader to SPI NOR flash. Use Python 3.11 or earlier.
 :::
 
 ## Tool Installation
 
-This section introduces the software packages and tools required for downloading and flashing the image. Please download and install them before proceeding with the subsequent image flashing operations.
+The following packages are required for downloading and flashing images. Install them before continuing.
 
-### File Download Tool
+### Download Utility
 
-When using a graphical interface, you can download images from the image repository by directly clicking the download link. If you want to download via the command line, there are many ways, such as wget and curl. Here, we choose wget as the download tool.
-
-In the [demonstration environment](#introduction-to-the-demonstration-environment), wget is usually pre-installed. You can check whether wget is installed by querying the wget version in the command line.
+In a desktop environment you can download images from the mirror via a browser. For command-line downloads we use `wget`.
 
 ```bash
 wget --version
 ```
 
-If wget is not installed, please use the following command to install it:
+If `wget` is missing, install it:
 
 ```bash
 sudo apt install wget
@@ -60,15 +55,11 @@ sudo apt install wget
 
 ![wget-install](/img/image-for-flash/wget-install.png)
 
-:::note
-The sudo command requires the user to enter a password for confirmation before execution. Please ensure that you know the password before executing this command. This will not be repeated later.
-:::
+> `sudo` prompts for your password. Ensure you know it; this reminder will not be repeated later.
 
-### File Unzipping Tool
+### Archive Utility
 
-In the above [demonstration environment](#introduction-to-the-demonstration-environment), there are several ways to decompress zst file compression packages, such as zstd, tar, and 7z. This tutorial only lists one of them. Use the zstd tool to decompress via the command line. This method requires us to install the zstd software package in the system before decompressing.
-
-If you do not know whether ztsd has been installed in the system, please execute the following command. This command is used to view the zstd version. You can determine whether the system has pre-installed the ztsd software package through the echo.
+`.zst` archives can be unpacked with `zstd`, `tar`, or `7z`. This tutorial demonstrates the `zstd` command-line tool. Confirm whether it is installed:
 
 ```bash
 zstd --version
@@ -76,13 +67,7 @@ zstd --version
 
 ![zstd-version](/img/image-for-flash/zstd-version.png)
 
-If the version number is displayed normally, it proves that the installation has been successful. For example, the following echo indicates that zstd has been installed:
-
-```bash
-*** zstd command line interface 64-bits v1.4.8, by Yann Collet ***
-```
-
-If no version number is displayed, please install zstd via the command line:
+If no version is shown, install `zstd`:
 
 ```bash
 sudo apt update
@@ -91,33 +76,31 @@ sudo apt install zstd
 
 ![zstd-install](/img/image-for-flash/zstd-version.png)
 
-## Introduction to Broad's Boot Methods
+## Boot Options
 
-Milk-V Meles currently supports two boot methods: [Booting from SD card](#booting-from-sd-card) and [Booting from eMMC](#booting-from-emmc). This tutorial provides instructions for both boot methods. Please click to jump to the instructions according to the flashing method you need.
+Milk-V Meles supports two boot paths: [booting from an SD card](#boot-from-sd-card) and [booting from eMMC](#boot-from-emmc). Choose the method that fits your scenario.
 
 :::warning
-Regardless of which flashing method is used, the original user data will be lost, so be sure to back up your data before flashing!
+Flashing erases existing data. Back up important files before you begin.
 :::
 
-Before introducing the two flashing methods, it should be noted that regardless of which flashing method is used, you must ensure that the correct firmware is flashed into the SPI Nor Flash. Next, we will introduce how to flash the SPI Nor Flash firmware.
+Before tackling either boot mode, ensure that the SPI NOR flash holds the correct firmware. The next section explains how to program it.
 
-## Flashing SPI Nor Flash Firmware
+## Flash the SPI NOR Firmware
 
-The Milk-V Meles development board has a SPI nor Flash. It is used to store the Bootloader to implement system startup and SoC download mode. The Soc itself does not support booting from Micro SD card or USB or other storage media.
+Milk-V Meles relies on its SPI NOR flash to store the bootloader that brings up the system and exposes the SoC download mode. The SoC cannot boot directly from MicroSD or USB.
 
-When you replace a brand new SPI Nor Flash or the firmware is damaged, you may need to burn an image to it. At this time, you need to use a serial port connection to burn it.
-
-For how to connect the serial port, please refer to the official [hardware introduction](https://milkv.io/zh/docs/meles/hardware/meles-main-board). The connection with the host should follow the TX to RX, RX to TX, and GND to GND wiring.
+If you replace the SPI NOR device or the firmware becomes corrupted, reflash the bootloader via a serial connection. Wiring instructions are available in the official [hardware documentation](https://milkv.io/zh/docs/meles/hardware/meles-main-board); connect TX ↔ RX and GND ↔ GND between the board and host.
 
 ### Preparation
 
-First, you need to install yoctools to the local device. In the demonstration environment, you can directly install it through the pip command:
+Install Yoctools:
 
 ```bash
 sudo pip install yoctools -U
 ```
 
-If the pip command cannot be executed, please install pip first if pip is not installed:
+If `pip` is unavailable, install it first:
 
 ```bash
 sudo apt install python3-pip
@@ -125,262 +108,178 @@ sudo apt install python3-pip
 
 ![pip-install](/img/image-for-flash/pip-install.png)
 
-After yoctools is installed, you can check whether the installation is successful by checking the version. If the version number is successfully echoed, it means the installation is successful.
+Verify the installation:
 
 ```bash
 yoc --version
-2.1.11
 ```
 
 ![yoc-version](/img/image-for-flash/yoc-version.png)
 
-Secondly, you need to download the image burning software:
+Download the image writer utility:
 
 ```bash
 wget https://github.com/milkv-meles/thead-bin/raw/main/image-writer/iw-single-line.bin
 ```
 
-Finally, you need to download the U-Boot file of the board. Please select the U-Boot file corresponding to your board in the download link. If your development board is the 8GB version, you need to download ```u-boot-with-spl-meles.bin```. If your development board is the 16GB version, download ```u-boot-with-spl-meles-16g.bin```. The 8GB version of the board is used in this demonstration environment, so ```u-boot-with-spl-meles.bin``` is downloaded.
+Download the U-Boot binary that matches your board:
+
+- 8 GB model: `u-boot-with-spl-meles.bin`
+- 16 GB model: `u-boot-with-spl-meles-16g.bin`
+
+Example (8 GB board):
 
 ```bash
 wget https://fast-mirror.isrc.ac.cn/revyos/extra/images/meles/20250323/u-boot-with-spl-meles.bin
 ```
 
-After the above preparations are completed, you can perform the operation of flashing the SPI Nor Flash firmware.
+### Write the Bootloader to SPI NOR Flash
 
-### Write Bootloader to SPI Nor Flash
-
-First you need to use the cct tool to check for available devices.
-
-Before this, we need to confirm the address of the serial port device. `/dev/ttyUSB0` is usually the first serial port device name assigned by the system when you plug in the first USB to serial port adapter or some devices with built-in USB to serial port functions. We run the following command in the terminal:
+1. Determine the serial port device (commonly `/dev/ttyUSB0`).
+2. List available devices with `cct`:
 
 ```bash
 sudo cct list -u /dev/ttyUSB0
-Wait ..............
 ```
 
-![cct-list](/img/image-for-flash/cct-list.png)
-
-The log "Wait ......" output here means that the cct program is waiting for Meles to respond. If the serial port is not connected, it will continue to wait until the serial port is connected before continuing to execute. So it is a normal phenomenon, just continue to perform the operation according to the steps below.
-
-If it is not connected for too long, the terminal will display the following text:
-
-![timeout](/img/image-for-flash/timeout.png)
-
--   First connect the USB to TTL serial port module to the Meles debugging interface
-    -   Connect TXD to RXD
-    -   Connect RXD to TXD
-    -   Connect GND to GND
--   Then press and hold the download button
--   Connect the power supply to power on Meles
--   Release the download button
-
-At this time, the terminal will print the storage list, as shown below:
+The program waits for the board to respond. Connect the USB-to-TTL adapter, wire TX ↔ RX and GND ↔ GND, press and hold the download button, power the board via USB Type-C, then release the button. The storage list should appear:
 
 ```bash
-sudo cct list -u /dev/ttyUSB0
-Wait ............................
 Memory device list:
   dev = ram0   , size =    1.1MB
   dev = qspi0  , size =   16.0MB
 ```
 
-![cct-list1](/img/image-for-flash/cct-list1.png)
-
-Then we download the image burning software to SRAM:
+3. Load the image writer into SRAM:
 
 ```bash
 sudo cct download -u /dev/ttyUSB0 -d ram0 -f iw-single-line.bin -v checksum -r
 ```
 
-After executing this command, there will be a percentage progress bar. Please wait for about 30 seconds.
+Wait for the transfer and checksum to complete.
 
-![cct-download](/img/image-for-flash/cct-download.png)
-
-Then the download is complete:
-
-```bash
-sudo cct download -u /dev/ttyUSB0 -d ram0 -f iw-single-line.bin -v checksum -r
-Wait
-Send file 'iw-single-line.bin' to 2:0 ...
-File iw-single-line.bin download success.
-Start to verify data with method:[checksum]
-checksum value is: 0x880572
-读出并校验成功!
-Start to run image...
-```
-
-![cct-download1](/img/image-for-flash/cct-download1.png)
-
-Finally, download the Bootloader to SPI Nor Flash. Before this step, please confirm again whether the board specifications and the downloaded ```.bin``` file correspond. The demonstration uses the 8GB version of the board, so ```u-boot-with-spl-meles.bin``` is downloaded. Please replace the file name yourself when copying the command.
-
-At the same time, please pay attention to the file directory. The demonstration file is in the current directory. If it is not in the current directory, please replace the file path yourself.
-
-```bash
-$ sudo cct download -u /dev/ttyUSB0 -d qspi0 -f u-boot-with-spl-meles.bin -v checksum -r -t 1200
-```
-
-![cct-download2](/img/image-for-flash/cct-download2.png)
-
-After executing this command, there will also be a percentage progress bar. Please wait for about one minute.
-
-Then the download is complete:
+4. Flash the U-Boot binary to SPI NOR (adjust the file name if you use the 16 GB image):
 
 ```bash
 sudo cct download -u /dev/ttyUSB0 -d qspi0 -f u-boot-with-spl-meles.bin -v checksum -r -t 1200
-Wait
-Send file 'u-boot-with-spl-meles.bin' to 23:0 ...
-File u-boot-with-spl-meles.bin download success.
-Start to verify data with method:[checksum]
-checksum value is: 0x43bce40
-读出并校验成功!
-Start to run image...
 ```
 
-![cct-download3](/img/image-for-flash/cct-download3.png)
+A progress indicator appears; the operation typically finishes within a minute. After the checksum passes, the SPI NOR flash is updated.
 
-So far, the flashing is complete. Subsequent boot methods are divided into [Booting from SD card](#booting-from-sd-card) and [Booting from eMMC](#booting-from-emmc). Please select and flash according to your needs.
+You can now proceed with either boot method.
 
-## Booting from SD card
+## Boot from SD Card
 
 ### Hardware Preparation
 
-Prepare a MicroSD card reader and a MicroSD card. Currently, there are compatibility issues with MicroSD cards. RevyOS provides a [MicroSD card list(Chinese only)](https://github.com/revyos/revyos/blob/main/Installation/card%20list.md) that has been tested.
+Prepare a MicroSD card reader and a MicroSD card. Because compatibility varies, refer to the [tested card list](https://github.com/revyos/revyos/blob/main/Installation/card%20list.md).
 
-If the MicroSD card you are using is not on the list of known available cards, and you encounter problems such as being unable to flash the image correctly or being unable to start the image after flashing, please refer to [this page](../../issue/) to submit an issue, and try referring to the [Booting from eMMC](#booting-from-emmc) image flashing tutorial to flash the image.
+If flashing or booting fails with an unlisted card, submit an [issue](../../issue/) and consider using the eMMC method instead.
 
-### SD Card Image Preparation
+### Obtain the SD Card Image
 
-The latest version of the SD card image is 20250323, which can be downloaded via the following command:
+Download the SD card image (prefixed with `sdcard-meles-`) from:
+
+- [RevyOS 20240720 (Kernel 5.10)](https://mirror.iscas.ac.cn/revyos/extra/images/meles/20240720/)
+- Latest release (Kernel 6.6): {<DownloadLink device="Milk-V Meles" />}
+
+Example for RevyOS 20250323:
 
 ```bash
 wget https://fast-mirror.isrc.ac.cn/revyos/extra/images/meles/20250323/sdcard-meles-20250323_154525.img.zst
-```
-
-This file is a .zst compressed package, which needs to be decompressed after downloading. You can use the zstd tool to decompress it.
-
-```bash
 unzstd sdcard-meles-20250323_154525.img.zst
 ```
 
-After decompression, an image file named `sdcard-meles-20250323_154525.img` will be generated.
+The extraction generates `sdcard-meles-20250323_154525.img`.
 
-### Introduction to Burning Methods
+### Writing Options
 
-If you choose to boot from SD card, you can choose to burn the image to the MicroSD card in two different ways. One is to use [graphical interface software to burn](#writing-the-image-to-the-microsd-card-using-balenaetcher), and the other is to use the dd command [to burn in the command line](#writing-the-image-using-dd-command).
-Here we will introduce the operation steps of the two burning methods, you can choose one of them according to your needs.
+Choose one of the following methods to write the image to the SD card:
 
-#### Writing the image to the MicroSD card using BalenaEtcher
+#### BalenaEtcher
 
-Get the burning tool BalenaEtcher from the official website [https://etcher.balena.io/](https://etcher.balena.io/). When downloading, please select the file to download according to your machine's situation. According to the description in [Demonstration Environment](#introduction-to-the-demonstration-environment), select [Etcher for Linux x64 (64-bit) (zip)](https://github.com/balena-io/etcher/releases/download/v1.19.25/balenaEtcher-linux-x64-1.19.25.zip) to download, decompress and install.
+Download BalenaEtcher from [https://etcher.balena.io/](https://etcher.balena.io/) and install the Linux x64 build.
 
 ![BE-version](/img/image-for-flash/BE-version.png)
 
-Insert the SD card into the card reader and insert it into the computer.
-
-Run BalenaEtcher to write the image to the SD card.
-
-In the BalenaEtcher window, first click "Flash from file" to select the image file.
+1. Insert the SD card.
+2. Launch BalenaEtcher.
+3. Click **Flash from file** and select the image.
+4. Select the target device.
+5. Click **Flash** and wait for completion.
 
 ![BE5](/img/image-for-flash/BE5.png)
-
-After selecting the image file, select the device to be written in the second column.
-
 ![BE6](/img/image-for-flash/BE6.png)
-
-After selecting both items, click "Flash" to write the image.
-
-After waiting for a while, it will show that the burning is complete.
-
 ![BE7](/img/image-for-flash/BE7.png)
 
-#### Writing the image using dd command
+#### `dd`
 
-dd is a powerful command line tool in Linux and Unix-like systems, mainly used to copy files or data according to the specified size and format, and is generally pre-installed in the system.
-
-Writing an image using the dd command requires following these steps:
-
-First, you need to view the device list. Run the following command before and after inserting the SD card to find the device name corresponding to the SD card:
-
-```bash
-lsblk
-```
-
-The device name of the SD card may be /dev/sda or /dev/mmcblk0. In the demonstration environment, after executing `lsblk`, confirm that the sd card partition is `/dev/sda`.
-
-![lsblk-meles](/img/image-for-flash/lsblk-meles.png)
-
-Before writing the image, you need to unmount the mounted partition of the SD card. If there are multiple partitions, please unmount them one by one:
+1. Identify the device node (`/dev/sdX` or `/dev/mmcblk0`) using `lsblk`.
+2. Unmount any mounted partitions:
 
 ```bash
 sudo umount /dev/sdX1
 ```
 
-If no partition is mounted, the umount command will display `not mounted`, then no further action is required.
-
-After unmounting the partition, it is recommended to run the `sudo sync` command to ensure that all data has been synchronized.
-
-![sync-meles](/img/image-for-flash/sync-meles.png)
-
-After performing the above steps, you can start flashing. Before flashing, please ensure that you have set the correct device in `of=`. In the demonstration environment, the sd card is identified as sda. Please fill in the partition according to your own device after `of=`.
+3. Flush pending writes:
 
 ```bash
-sudo dd if=./sdcard-meles-20250323_154525.img of=/dev/sdX bs=4M status=progress
+sudo sync
+```
+
+4. Write the image (replace `sdX` with the correct device):
+
+```bash
+sudo dd if=sdcard-meles-20250323_154525.img of=/dev/sdX bs=4M status=progress
+sudo sync
 ```
 
 ![dd-meles](/img/image-for-flash/dd-meles.png)
 
-After the flashing is completed, please also execute the `sudo sync` command to ensure that the data has been synchronized. Then you need to confirm that the sd card is in an unmounted state. Only after these two points are executed can you remove the sd card and insert it into the development board.
+Ensure the card is unmounted before removing it.
 
-#### Booting the system via SD card
+### Boot from SD Card
 
-After writing the image, insert the SD card into the card slot shown in the figure.
+Insert the SD card into the slot shown below and power on the board.
 
-![SDCard slot](/img/image-for-flash/sd-card-slot.png)
+![SD slot](/img/image-for-flash/sd-card-slot.png)
 
-## Booting from eMMC
+## Boot from eMMC
 
-Before flashing, make sure that the eMMC module has been successfully installed on the back of the development board.
+Ensure the eMMC module is installed on the back of the board before flashing.
 
-### eMMC Image Preparation
+### Obtain the eMMC Images
 
-The latest version of the eMMC image is 20250323, which can be downloaded via the following command:
+Download the following files:
+
+- [RevyOS 20240720 (Kernel 5.10)](https://mirror.iscas.ac.cn/revyos/extra/images/meles/20240720/)
+- Latest release (Kernel 6.6): {<DownloadLink device="Milk-V Meles" />}
+
+Required files:
+
+- `u-boot-with-spl-meles*.bin` — U-Boot binary
+- `boot-meles-*.ext4.zst` — boot partition
+- `root-meles-*.ext4.zst` — root partition
+
+Example (20250323):
 
 ```bash
 wget https://fast-mirror.isrc.ac.cn/revyos/extra/images/meles/20250323/u-boot-with-spl-meles.bin
 wget https://fast-mirror.isrc.ac.cn/revyos/extra/images/meles/20250323/boot-meles-20250323_154525.ext4.zst
 wget https://fast-mirror.isrc.ac.cn/revyos/extra/images/meles/20250323/root-meles-20250323_154525.ext4.zst
-```
-
-The three files are the u-boot boot file, the boot partition and the root partition image files, respectively. After downloading, you need to decompress them. You can use the zstd tool to decompress them.
-
-```bash
 unzstd boot-meles-20250323_154525.ext4.zst
 unzstd root-meles-20250323_154525.ext4.zst
 ```
 
-After decompression, two image files named `boot-meles-20250323_154525.ext4` and `root-meles-20250323_154525.ext4` will be generated.
+### Install Fastboot
 
-### Burning Tool Preparation
-
-To boot from eMMC, you need to flash the u-boot file, boot file, and root file into the eMMC through the fastboot tool, so you need to confirm whether fastboot has been installed first.
-
-If you do not know whether fastboot has been installed in the system, please execute the following command. This command is used to view the fastboot version. You can determine whether the system has pre-installed the fastboot software package through the echo.
+Check whether `fastboot` is available:
 
 ```bash
 fastboot --version
 ```
 
-![fastboot-version](/img/image-for-flash/fastboot-version.png)
-
-If the version number is displayed normally, it proves that the installation has been successful. For example, the following echo indicates that fastboot has been installed:
-
-```bash
-fastboot version 28.0.2-debian
-Installed as /usr/lib/android-sdk/platform-tools/fastboot
-```
-
-If no version number is displayed, please install fastboot via the command line:
+If not, install it:
 
 ```bash
 sudo apt install fastboot
@@ -388,66 +287,50 @@ sudo apt install fastboot
 
 ![fastboot-install](/img/image-for-flash/fastboot-install.png)
 
-#### Writing the image to eMMC
+### Flash the eMMC
 
-First, you need to put the board into burning mode. Please perform the following operations in order:
-
--   Press and hold the Meles download button
--   Insert the Type-C data cable into the power port once, and connect the other end of the data cable to the host
--   Release the download button
-
-At this time, you can judge whether the device is connected normally according to the output content in `lsusb`.
-
-![lsusb-meles](/img/image-for-flash/lsusb-meles.png)
-
-After a normal connection, the following device `ID 2345:7654 T-HEAD USB download gadget` will be displayed under the `lsusb` command.
+1. Enter download mode:
+   - Hold the download button on the board.
+   - Connect a USB Type-C cable from the power port to the host.
+   - Release the button.
+2. Confirm that `lsusb` lists `ID 2345:7654 T-HEAD USB download gadget`.
+3. Flash the images:
 
 ```bash
 fastboot flash ram u-boot-with-spl-meles.bin
 fastboot reboot
-# Pause here for 3-5 seconds to wait for Meles to restart
+sleep 3
 fastboot flash boot boot-meles-20250323_154525.ext4
 fastboot flash root root-meles-20250323_154525.ext4
 ```
 
 ![fastboot-meles](/img/image-for-flash/fastboot-meles.png)
 
-After the flashing is completed, it can be started normally.
+After flashing, reboot to start from eMMC.
 
+## Troubleshooting
 
-### Potential Issues
+### Weak Wi-Fi Signal on the Latest Kernel
 
-#### weak Wi-Fi signal / using external antenna by default
+When using the [latest RevyOS kernel](https://fast-mirror.isrc.ac.cn/revyos/extra/images/meles/20250729/) (6.6.82 at the time of writing), the board defaults to an external antenna. Without an antenna connected to the IPEX connector, Wi-Fi performance degrades significantly.
 
-On `Milk-V Meles` with the [latest kernel](https://fast-mirror.isrc.ac.cn/revyos/extra/images/meles/20250729/) (6.6.82 by the time writing this), the board is using the external antenna by default, rather than the on board ceramic/chip antenna.
+Use `gpiod` to switch to the onboard antenna:
 
-As a result, the Wi-Fi signal is very weak without external antenna connected to the coax/ipex connector.Or not picking up any Wi-Fi signal at all.
-
-
-You can try using 'sudo' to execute the 'GPIO' command to manually switch to the on-board antenna.
-
-```
+```bash
 sudo apt update && sudo apt upgrade -y
-sudo apt install -y gpiod # Install the gpiod tool.
-sudo gpioset 5 24=1 # Set pin 24 of chip 5 to high level.
+sudo apt install -y gpiod
+sudo gpioset 5 24=1
 ```
 
 :::warning
-
-You need to re-execute after reboot!
-
+Reapply the GPIO setting after each reboot.
 :::
 
+## User Credentials
 
-### User Login
+Default login credentials:
 
-- Login account: `debian`
+- Username: `debian`
 - Password: `debian`
 
-When starting the image for the first time, you can log in with the above user password. 
-
-For security reasons, please be sure to change your password after your first login to avoid any problems.
-
-
-
-
+Change the password immediately after the first login for security.

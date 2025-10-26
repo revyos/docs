@@ -1,0 +1,114 @@
+---
+title: YOLOX
+description: 在 RevyOS 系统上运行 YOLOX 模型的教程
+sidebar_position: 1
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+
+## YOLOX
+
+本教程介绍如何在 **LicheePi 4A** 上部署 YOLOX 目标检测模型，并使用 **HHB-onnxruntime** 实现高效推理。
+
+
+:::info[初始环境配置]
+在按照本教程操作前，请确保你已经完成了[环境配置](../../env)部分的内容。
+:::
+
+## 示例代码获取
+
+本教程配套的示例代码已更新到 [Github](https://github.com/zhangwm-pt/lpi4a-example) 中，使用 `git` 命令将其克隆到本地。
+
+```shell-session
+$ git clone https://github.com/zhangwm-pt/lpi4a-example.git
+```
+适用于本教程的代码位于 `detection/yolox` 目录下。
+
+## 模型获取
+
+我们使用的模型来自 [Megvii-BaseDetection/YOLOX](https://github.com/Megvii-BaseDetection/YOLOX)，可以通过以下命令下载 YOLOX 模型：
+
+```shell-session
+$ git clone https://github.com/Megvii-BaseDetection/YOLOX.git
+$ cd YOLOX/demo/ONNXRuntime
+$ wget https://github.com/Megvii-BaseDetection/YOLOX/releases/download/0.1.1rc0/yolox_s.onnx
+```
+
+:::note[关于 Github 的网络代理]
+如果你在中国大陆访问 GitHub 时遇到网络问题，可以考虑使用网络代理工具来加速访问。
+:::
+
+## 修改源码
+修改文件 demo/ONNXRuntime/onnx_inference.py 的开头，新增如下所示的第四和第五行代码
+```python
+#!/usr/bin/env python3
+# Copyright (c) Megvii, Inc. and its affiliates.
+
++import sys
++sys.path.insert(0, "../../")
+
+import argparse
+import os
+```
+代码中使用 sys.path.insert 指定搜索路径，以此免去从源码中安装 YOLOX 的安装包的操作。
+
+## 环境准备
+
+本教程中的 YOLOX 示例依赖了较多的 python 包，下载预编译好的 python 包
+```shell-session
+$ git clone -b python3.11 https://github.com/zhangwm-pt/prebuilt_whl.git
+$ cd prebuilt_whl
+```
+
+或者也可以通过手动下载进行处理
+```
+$ pip3 install numpy-1.25.0-cp311-cp311-linux_riscv64.whl
+$ pip3 install opencv_python-4.5.4+4cd224d-cp311-cp311-linux_riscv64.whl
+$ pip3 install kiwisolver-1.4.4-cp311-cp311-linux_riscv64.whl
+$ pip3 install Pillow-9.5.0-cp311-cp311-linux_riscv64.whl
+$ pip3 install matplotlib-3.7.2.dev0+gb3bd929cf0.d20230630-cp311-cp311-linux_riscv64.whl
+$ pip3 install pycocotools-2.0.6-cp311-cp311-linux_riscv64.whl
+$ pip3 install loguru-0.7.0-py3-none-any.whl
+$ pip3 install MarkupSafe-2.1.3-cp311-cp311-linux_riscv64.whl
+$ pip3 install torch-2.0.0a0+gitc263bd4-cp311-cp311-linux_riscv64.whl
+$ pip3 install torchvision-0.15.1a0-cp311-cp311-linux_riscv64.whl
+$ pip3 install psutil-5.9.5-cp311-abi3-linux_riscv64.whl
+$ pip3 install tqdm-4.65.0-py3-none-any.whl
+$ pip3 install tabulate-0.9.0-py3-none-any.whl
+```
+安装过程中会涉及到其他纯 python 依赖包，pip 会自动从官方源下载。
+
+
+## 推理执行
+
+在示例目录中执行 onnx_inference.py 示例
+
+```bash
+$ python3 onnx_inference.py -m yolox_s.onnx -i ../../assets/dog.jpg -o outdir -s 0.7 --input_shape 640,640
+```
+
+:::info[关于参数]
+
+- `-m`：指定模型文件 
+- `-i`：输入图片路径 
+- `-o`：输出结果目录 
+- `-s`：检测阈值 
+- `--input_shape`：输入图像尺寸 
+:::
+
+## 参考结果
+
+本教程中输入如下图，0.7的阈值下，预期 YOLOX 的检测结果如下。
+
+
+![输入图像](https://wiki.sipeed.com/hardware/zh/lichee/th1520/lpi4a/assets/application/yolox_detection_soccer_input.jpg)
+
+示例正常执行后，会在 outdir 目录下生成结果图片 dog.jpg。图片中会用框画出检测到的目标，并标注概率，效果如下图：
+
+![检测结果](https://wiki.sipeed.com/hardware/zh/lichee/th1520/lpi4a/assets/application/yolox_detection_soccer_output.jpg)
+
+检测到两个人和一个足球。
+
+

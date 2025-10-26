@@ -9,23 +9,21 @@ import { DownloadLink } from "@site/src/components/ImageLinks";
 
 ## Introduction
 
-[RevyOS](https://github.com/revyos) is a Debian based custom distribution developed and maintained by the RevyOS team under RuyiSDK, specifically optimized for the XuanTie chip ecosystem.
+[RevyOS](https://github.com/orgs/revyos/repositories) is a Debian-based customised distribution developed and maintained by the RevyOS squad of the RuyiSDK team for the XuanTie chip ecosystem.
 
-RevyOS is part of [RuyiSDK](https://github.com/ruyisdk), an open-source project initiated by PLCT Lab, aimed at providing a convenient and comprehensive development environment for RISC-V developers. It offers the latest hardware information and software support, such as details about supported hardware devices and software components like OS images (e.g., RevyOS), toolchains, and package managers.
+RevyOS is part of [RuyiSDK](https://ruyisdk.org/), an open-source project initiated by [PLCT Lab](https://plctlab.org/zh/). The goal of RuyiSDK is to provide a convenient and comprehensive development environment for RISC-V developers. It delivers up-to-date hardware information and software support, including details on supported devices as well as software components such as images (e.g. RevyOS), toolchains, and package managers.
 
-__RevyOS__ provides complete and thorough support for XuanTie chips including XuanTie C906, C910, C920, C908, with default integration of the XuanTie extended instruction sets and the GCC toolchain supporting RVV 1.0. It also features Glibc and Kernel optimized with RVV 1.0 instruction set.
+__RevyOS__ offers comprehensive adaptation and optimisation for XuanTie C906, C910, C920, C908 and other processors. It ships with a GCC toolchain that supports the XuanTie extension instruction set and RVV 1.0 by default, together with Glibc and the kernel that are tuned for RVV 1.0.
 
-Currently, __RevyOS__ meets basic user needs in office work, web browsing, and video watching.
+At present, __RevyOS__ already satisfies day-to-day needs in office work, web browsing, and video playback.
 
-Based on these customizations and optimizations, __RevyOS__ delivers excellent performance and a great experience on hardware platforms like Lichee Pi 4A, BeagleV-Ahead, and Milk-V Pioneer.
+Thanks to these customisations and optimisations, __RevyOS__ delivers excellent performance and user experience on hardware platforms such as Milk-V Meles and Lichee Pi 4A.
 
-## Image Download and Installation
+## Image Download
 
-The user version images of __RevyOS__ are currently updated on the [ISCAS (Institute of Software, Chinese Academy of Sciences)](https://mirror.iscas.ac.cn/revyos) / [Felix Finland Source](https://mirrors.felixc.at/revyos/) open-source mirror sites.
+The user-edition images of __RevyOS__ are currently updated on the [ISCAS mirror](https://mirror.iscas.ac.cn/revyos/extra/images/). To obtain the latest image, visit the [download directory](https://mirror.iscas.ac.cn/revyos/extra/images/) and select the files that correspond to your device. After downloading, follow the [image flashing instructions](../Installation/intro/) for your board.
 
-If you want to obtain the latest version of __RevyOS__, please select the corresponding device to download the appropriate U-Boot, boot partition, and root partition files. After downloading, please visit [Installation](../Installation/intro/) for the installation guide for your device.
-
-| Supported Devices | Image Download (Latest Version)  | SD Card Support |
+| Supported Devices                        | Image Download (Latest Version)              | SD Card Support |
 | ---------------------------------- | -------------------------------------------------------------------------------- | --------- |
 | Lichee Pi 4A                       | {<DownloadLink device="Lichee Pi 4A" />}      | Supported       |
 | Milk-V Meles                       | {<DownloadLink device="Milk-V Meles" />}      | Supported       |
@@ -43,9 +41,7 @@ If you want to obtain the latest version of __RevyOS__, please select the corres
 ~~For more details, see this document: [How to Enable Optimized GCC](../build/debian/enable_optimization_gcc/).~~
 
 :::warning
-When the toolchain of RevyOS is upgraded to gcc14, this repository is abandoned.
-There will be a replacement for c910v repo later. Please wait for further updates.
-（[Issue Track #124](https://github.com/revyos/revyos/issues/124)）
+Since the RevyOS toolchain has been upgraded to GCC 14, the `c910v` repository used by the T-Head optimised GCC is deprecated. Please wait for subsequent updates. ([Tracking issue #124](https://github.com/revyos/revyos/issues/124))
 :::
 
 ## Changelog
@@ -66,4 +62,4 @@ RevyOS has its own Telegram group: [Invitation Link](https://t.me/+Pi6px22-OsUxM
 
 ## Internship Recruitment
 
-We are currently recruiting test interns. For more information, visit: [RevyOS Team Test Intern Recruitment](https://github.com/plctlab/weloveinterns/blob/master/open-internships.md#j143-revyos%E5%B0%8F%E9%98%9F%E6%B5%8B%E8%AF%95%E5%AE%9E%E4%B9%A0%E7%94%9F20241111%E5%BC%80%E6%94%BE100%E5%90%8D) (Chinese only)
+We are currently recruiting testing interns. For details, please see [RevyOS Team Testing Intern Recruitment](https://github.com/plctlab/weloveinterns/blob/master/open-internships.md#j143-revyos%E5%B0%8F%E9%98%9F%E6%B5%8B%E8%AF%95%E5%AE%9E%E4%B9%A0%E7%94%9F20241111%E5%BC%80%E6%94%BE100%E5%90%8D).
