@@ -4,259 +4,343 @@ sidebar_position: 4
 
 import { DownloadLink } from "@site/src/components/ImageLinks";
 
-# Installing RevyOS on the LicheePi 4A (Windows)
+# Lichee Pi 4A Image Flashing Guide (Windows)
 
-This page provides a tutorial for flashing the LicheePi 4A image on Windows.
-If you want to flash the image on a Linux, or view other image flashing tutorials, please view the links in the table below.
+This document describes how to flash Lichee Pi 4A images on Windows.
+For the Linux workflow or other device guides, use the links below.
 
-| Other Flashing Tutorial | Link |
-| ----------------- | -------------- |
-| LicheePi4A (Installing using Linux)| [Installation guilde for Linux](../licheepi4a/) |
-| Milk-V Pioneer    | [Flashing Tutorial](./milkv-pioneer.mdx) |
+| Other Flashing Tutorials        | Link |
+| -------------------------------- | ---- |
+| Lichee Pi 4A (Linux)            | [Linux flashing guide](../licheepi4a/) |
+| Milk-V Pioneer                  | [Flashing guide](../milkv-pioneer/) |
+| Milk-V Meles                    | [Flashing guide](../milkv-meles/) |
 
-## Attention!
+:::warning
+Before following the instructions, **compare your board with the reference image below**. Proceed only after confirming that the hardware matches.
 
-Before following this tutorial, please compare your board with the image below to ensure it matches. Only proceed with the tutorial after confirming the match.
-
-![LicheePi4A Example Image](/img/image-for-flash/lpi4a.png)
+![Lichee Pi 4A reference](/img/image-for-flash/lpi4a.png)
+:::
 
 ## Demonstration Environment
 
-All image flashing operations in this tutorial use the following environment:
+All steps in this tutorial were validated in the following environment:
 
-- Operating System: Windows 11 24H2 OS Build 26100.3194
+- Operating system: Windows 11 24H2 (OS build 26100.3194)
 - Architecture: x86_64
-- LicheePi4A Board Specifications: 16G RAM + 128G eMMC
+- Lichee Pi 4A configuration: 16 GB RAM + 128 GB eMMC
 
-All operations in this tutorial are reproducible in this environment. If you encounter any issues while flashing the image in this environment, please refer to [this page](../issue.md) to submit an issue.
+:::note
+Every procedure documented here is reproducible in this environment. If you encounter any issues during flashing, please refer to [issue submission](../../issue/).
+:::
 
-## Boot Methods Introduction
+## Boot Options
 
-LicheePi4A currently supports two boot methods: [Booting from SD card](#booting-from-sd-card) and [Booting from eMMC](#booting-from-emmc). This tutorial provides instructions for both methods. Please click to jump to the section that matches your desired flashing method.
+Lichee Pi 4A supports two boot modes: [boot from an SD card](#boot-from-sd-card) and [boot from eMMC](#boot-from-emmc). Select the mode that fits your scenario.
 
-Please note that regardless of the flashing method used, existing user data will be lost. Make sure to back up your data before proceeding with the flashing process!
+:::warning
+Flashing an image erases all existing data. **Back up important information before you start.**
+:::
 
-## Booting from SD card
+## Boot from SD Card
 
-Note: Booting from an SD card does not require changing the DIP switch! Set the DIP switch to eMMC boot!
+:::warning
+**DIP switch reminder**
 
-![DIP Switch Example](/img/image-for-flash/Switch.png)
+Booting from SD card does not require changing the DIP switch; keep it in the eMMC position.
 
-The DIP switch is located on the bottom of the carrier board and can only be seen after removing the LM4A SoM. The correct setting should be `BOOT_SEL[1:0]=0 0`, i.e. `SW1=SW2=off`.
+![DIP switch reference](/img/image-for-flash/Switch.png)
 
-**Note!** Some early versions of LicheePi4A boards do not have a DIP switch.
+The DIP switch is located on the underside of the board and becomes visible after removing the core board. Both toggles should point downward.
 
-Additionally, SD cards may have compatibility issues. Please check the [LicheePi 4A SD Card Compatibility List](../../miscellaneous/lpi4a-sdcard-list/) to see if your SD card has any known compatibility issues.
+**Note:** Early revisions of the Lichee Pi 4A board may not include a DIP switch.
+:::
+
+:::warning
+**SD card compatibility**
+
+Some SD cards may not work reliably. Check the [Lichee Pi 4A SD card compatibility list](../../miscellaneous/lpi4a-sdcard-list/) to confirm whether your card has known issues.
+:::
 
 ### Preparation
 
-#### Obtaining the SD card image
+:::warning
+**Upgrading from images dated `20240720` or earlier requires resetting the U-Boot environment variables.**
 
-Download the LicheePi4A SD card boot system image with the prefix `sdcard-` from the following links:
+Reset procedure:
+Connect to the board over the serial console, power it on, interrupt U-Boot by pressing Enter, and run:
 
-- [RevyOS20240720 (5.10 kernel)](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20240720/)
+```bash
+env default -a -f; env save; reset
+```
 
-- [RevyOS20250123 (6.6 kernel)](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250123/)
+This restores all U-Boot environment variables and reboots the board.
+:::
 
-- Latest version: {<DownloadLink device="Lichee Pi 4A" />}
+#### Obtain the SD Card Image
 
-The 20240720 image uses the 5.10 kernel, which is currently in a more mature state and performs more stably in video encoding/decoding and various applications.
+Download the Lichee Pi 4A system image that starts with `sdcard-` from the following locations:
 
-The 20250123 image uses the 6.6 kernel, which may have some unknown issues. Known issues include video stuttering and USB power loss, which are currently being fixed.
+- [RevyOS 20240720 (Kernel 5.10)](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20240720/)
+- Latest release (Kernel 6.6): {<DownloadLink device="Lichee Pi 4A" />}
 
-Please choose the appropriate image based on your needs after reading the above information.
+:::note
+**About kernel versions**
 
-Using the 20250123 image as an example:
+The 20240720 image uses Kernel 5.10, which is stable for multimedia and general workloads.
 
-There are two ways to download the image:
+The latest image uses Kernel 6.6. It may still contain unresolved issues—video stutter and USB power loss have been observed and are being fixed.
+:::
 
-- Through a web browser. Simply click the link to download.
+The example below uses the 20250123 image.
 
-![Download image through web](/img/image-for-flash/web-download-windows-en.png)
+Two download methods are available:
 
-- Through command line. Open PowerShell and run the following command:
+- **Browser download:** click the link to start downloading.
+
+![Browser download](/img/image-for-flash/web-download-windows.png)
+
+- **Command-line download:** open PowerShell and run:
 
 ```powershell
 curl.exe -OL https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250123/sdcard-lpi4a-20250123_195216.img.zst
 ```
 
-> **Note**: `curl.exe` is [shipped in Windows as a default component since Windows 10](https://curl.se/windows/microsoft.html). If `curl.exe` isn't working, use web browser.
+:::note
+`curl.exe` [has shipped with Windows since Windows 10](https://curl.se/windows/microsoft.html). If it is unavailable, use the browser download method instead.
+:::
 
-Wait for the progress to reach 100% to complete the download.
+Wait until the progress reaches 100%; the download then completes.
 
-![Download image through command line](/img/image-for-flash/download-image-command-line-windows.png)
+![Command-line download](/img/image-for-flash/download-image-command-line-windows.png)
 
-Both methods will result in a compressed image file named `sdcard-lpi4a-20250123_195216.img.zst`. Due to the possibility of transmission errors during download, it is recommended to perform a hash verification step to verify the accuracy of the image.
+Regardless of the method, the result is the compressed archive `sdcard-lpi4a-20250123_195216.img.zst`. Because transmission errors can occur, verifying the download with a checksum is recommended.
 
-#### Image Verification (Optional, Recommended)
+#### Verify the Image (Optional but Recommended)
 
-Open File Explorer, navigate to the folder containing the image file, right-click and select "Open in terminal"
+Open File Explorer, navigate to the folder containing the image, right-click, and choose **Open in Terminal**.
 
-![Select "Open in terminal" from the context menu](/img/image-for-flash/context_menu_terminal_open_windows-en.png)
+![Open in Terminal](/img/image-for-flash/context_menu_terminal_open_windows.png)
 
-Click to open the PowerShell terminal. Enter the following command to get the `md5sum.txt` checksum from the mirror site:
+In the PowerShell window, fetch the reference checksums from the mirror:
 
 ```powershell
 curl.exe -L https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20250123/md5sum.txt
 ```
 
-This should display the checksums for various image files. Run the following command to calculate the local image checksum:
+Then compute the checksum for the local file:
 
 ```powershell
 Get-FileHash -Algorithm MD5 .\sdcard-lpi4a-20250123_195216.img.zst
 ```
 
-![Verify image file checksum](/img/image-for-flash/checksum-verification-image.png)
+![Checksum verification](/img/image-for-flash/checksum-verification-image.png)
 
-Compare the two checksums, they should match. If not, you need to re-download the image.
+Compare the two values. If they differ, re-download the image.
 
-#### Extracting the Image
+#### Extract the Image
 
-The image is compressed with `zstd`, you can use compression tools like [PeaZip](https://peazip.github.io/) or [7-zip Zstd version](https://github.com/mcmilk/7-Zip-zstd) to extract it.
+The image is compressed with `zstd`. Use an archive tool that supports `.zst`, such as [PeaZip](https://peazip.github.io/) or [7-Zip (Zstd build)](https://github.com/mcmilk/7-Zip-zstd).
 
-**Note**: After extraction, the image itself and the compressed file will occupy about **10.2GB** of space, please ensure you have enough space!
+![Extract with PeaZip](/img/image-for-flash/peazip_extraction_illustration.png)
+
+:::warning
+**Extraction size reminder**
+
+The extracted file is about **10.2 GB**. Ensure sufficient disk space before unpacking.
+:::
 
 #### Hardware Preparation
 
-Prepare a MicroSD card reader and a MicroSD card. There are currently compatibility issues with MicroSD cards. RevyOS provides a [list of tested MicroSD cards](https://github.com/revyos/revyos/blob/main/Installation/card%20list.md).
+Prepare a MicroSD card reader and a MicroSD card. Because of compatibility concerns, consult the [tested card list](https://github.com/revyos/revyos/blob/main/Installation/card%20list.md).
 
-If your MicroSD card is not on the known working list and you encounter issues with flashing the image or booting after flashing, please refer to [this page](../issue.md) to submit an issue, and try following the [Booting from eMMC](#booting-from-emmc) image flashing tutorial.
+:::note
+If your card is not on the list and you experience flashing or boot failures, submit an issue via [this page](../../issue/) and consider using the [eMMC flashing method](#boot-from-emmc) instead.
+:::
 
-#### Using BalenaEtcher to Write the Image to MicroSD Card
+#### Write the Image with BalenaEtcher
 
-Download the flashing tool BalenaEtcher from the official website [https://etcher.balena.io/](https://etcher.balena.io/). When downloading, please choose the file according to your machine's specifications. Choose [Etcher for Windows](https://github.com/balena-io/etcher/releases/download/v1.19.25/balenaEtcher-1.19.25.Setup.exe) to download and install.
+Download BalenaEtcher from [https://etcher.balena.io/](https://etcher.balena.io/). Select [Etcher for Windows](https://github.com/balena-io/etcher/releases/download/v1.19.25/balenaEtcher-1.19.25.Setup.exe) and install it.
 
-![BalenaEtcher Version Selection](/img/image-for-flash/balenaetcher-version-selection.png)
+![BalenaEtcher version selection](/img/image-for-flash/balenaetcher-version-selection.png)
 
-1. Insert the SD card into the card reader and plug it into your computer.
-2. Run BalenaEtcher to write the image to the SD card.
-3. In the BalenaEtcher window, first click "Flash from file" to select the image file.
-4. After selecting the image file, choose the device to write to in the second column.
-5. After selecting both items, click "Flash" to write the image.
-6. After waiting for a while, it will show that the flashing is complete.
+1. Insert the SD card into the reader and connect it to the PC.
+2. Launch BalenaEtcher.
+3. Click **Flash from file** and choose the image.
+4. Select the target device.
+5. Click **Flash** to start writing.
+6. Wait for the success message.
 
-![BalenaEtcher Flashing Process](/img/image-for-flash/balenaetcher-flashing-guide-en.png)
+![BalenaEtcher flashing flow](/img/image-for-flash/balenaetcher-flashing-guide.png)
 
-### Booting the System from SD Card
+:::warning
+**Safe removal reminder**
 
-After writing the image, insert the SD card into the slot shown in the image.
+Before removing the SD card, ensure BalenaEtcher reports completion, the SD card LED has stopped blinking, and eject the card via the system tray. Otherwise, the card or data may be corrupted.
+:::
+
+### Boot the System via SD Card
+
+After flashing, insert the SD card into the slot shown below.
 ![](/img/image-for-flash/lpi4a5.png)
 
-First connect the HDMI cable (if you need an external display), then connect the USB-C end of the USB-A to USB-C data cable (included in the box) to the development board, and the other end to a USB power supply with at least 5V2A output to start.
+Connect an HDMI cable if a monitor is required. Use the supplied USB-A-to-USB-C cable: plug the USB-C end into the board and the USB-A end into a power source that can supply at least 5 V / 2 A to power on the system.
 
-## Booting from eMMC
+## Boot from eMMC
 
-When booting the image from eMMC, there are two ways to flash the image: with or without connecting to a serial port. Considering that connecting to a serial port is not necessary, the default method is flashing without connecting to a serial port. If you have a serial cable, you can also choose to refer to the section on flashing with a serial connection. There are some differences in the operations involved. If you want to flash with a serial cable connected, please refer to the relevant section in the [Linux Flashing Tutorial](./licheepi4a.mdx).
+You can flash the eMMC image with or without a serial cable. Because a serial cable is optional, the default workflow below assumes no serial connection. If you plan to use a serial console, refer to the relevant sections in the [Linux flashing guide](./licheepi4a.mdx).
 
-**Please note**: Remove the SD Card before booting from eMMC!
+:::warning
+Remove the SD card before booting from eMMC.
+:::
 
 ### Preparation
 
-#### Installing the Image Flashing Tool
+:::warning
+**Upgrading from images dated `20240720` or earlier requires resetting the U-Boot environment variables.**
 
-Booting from eMMC requires flashing u-boot files, boot files, and root files into eMMC using the fastboot tool, so you need to first confirm whether fastboot is installed.
+Reset procedure:
+Connect to the board via serial, power it on, interrupt U-Boot, and run:
 
-You can use an indexing tool like Everything to search for `fastboot.exe` on your computer. If you don't have it, please download the [Android SDK Platform Tools](https://developer.android.google.cn/tools/releases/platform-tools?hl=zh-cn#downloads) and extract it to an appropriate location.
+```bash
+env default -a -f; env save; reset
+```
 
-Open PowerShell in the folder containing `fastboot.exe`, run `.\fastboot.exe --version` to determine if `fastboot.exe` can run normally.
+This restores all U-Boot environment variables and reboots the board.
+:::
 
-![Fastboot Tool Detection](/img/image-for-flash/fastboot_tool_detection.png)
+#### Install the Flashing Tools
 
-If it can display the version number normally as shown above, it proves the installation was successful.
+Flashing eMMC requires writing the `u-boot`, `boot`, and `root` images with `fastboot`. Determine whether `fastboot.exe` is installed. If it is missing or older than version 34, install the latest Platform Tools:
 
-#### Obtaining the Image
+```powershell
+winget install google.platformtools
+```
 
-Download the LicheePi4A system image through the above links.
+(Older `fastboot` releases fail when flashing recent images.)
 
-**Note**: The uboot files for different memory versions of LicheePi4A are not interchangeable. Please choose the corresponding image according to your LiChee Pi4A SoM version.
+Open PowerShell in the folder containing `fastboot.exe` and verify it runs:
 
-|Memory Storage Combination|Corresponding uboot Image|
-|---|---|
-|8G RAM + 8G eMMC|u-boot-with-spl-lpi4a-main_8gemmc.bin|
-|8G RAM + 32G eMMC|u-boot-with-spl-lpi4a-main.bin|
-|16G RAM|u-boot-with-spl-lpi4a-16g-main.bin|
+```powershell
+.\fastboot.exe --version
+```
 
-If you can't confirm the specifications of the Lichee Pi4A SoM, you can scan the QR code on the SoM to check. When LicheePi4A boards are sold, there will be a QR code sticker on both the SoM and the motherboard. After scanning the QR code sticker on the SoM/motherboard, it will display the memory and storage configuration of the SoM.
+![Fastboot tool detection](/img/image-for-flash/fastboot_tool_detection.png)
 
-For example, on a 16G RAM + 128G SoM, the sticker is in the part shown in the image
+A version string indicates that `fastboot` is ready.
+
+#### Obtain the Images
+
+Download the Lichee Pi 4A system images from:
+
+- [RevyOS 20240720 (Kernel 5.10)](https://mirror.iscas.ac.cn/revyos/extra/images/lpi4a/20240720/)
+- Latest release (Kernel 6.6): {<DownloadLink device="Lichee Pi 4A" />}
+
+:::note
+**About kernel versions**
+
+The 20240720 image (Kernel 5.10) is stable for multimedia workloads.
+
+The latest image (Kernel 6.6) may still expose issues such as video stutter or USB power loss; fixes are underway.
+:::
+
+:::warning
+**Selecting the correct U-Boot image**
+
+Different memory configurations require different U-Boot binaries. Match your core board to the table below:
+
+| Memory and storage | U-Boot image |
+| --- | --- |
+| 8 GB RAM + 8 GB eMMC | u-boot-with-spl-lpi4a-main_8gemmc.bin |
+| 8 GB RAM + 32 GB eMMC | u-boot-with-spl-lpi4a-main.bin |
+| 16 GB RAM | u-boot-with-spl-lpi4a-16g-main.bin |
+
+If you cannot confirm the configuration, scan the QR code sticker on the core board. Each shipped board includes stickers on both the core and base boards. Scanning the core board sticker reveals the RAM and storage combination.
+
+Example for a 16 GB RAM + 128 GB eMMC board:
 
 ![core-card](/img/image-for-flash/core-card.png)
 
-The display after scanning the QR code is as follows
+The scanned result looks like this:
 
 ![Core board-info](/img/image-for-flash/card-info.png)
 
-In the result after scanning, the second part of the number is the memory + storage configuration of the SoM.
+The second line specifies the RAM plus storage configuration.
+:::
 
-After confirming the board specifications, download, verify, and extract the corresponding uboot, boot, and root files (the uboot file does not need to be extracted). This part can refer to the "Booting from SD Card" section above.
+After identifying the correct build, download, verify, and extract the `uboot`, `boot`, and `root` images (the U-Boot binary does not require extraction) as described in the SD card section.
 
-![Downloaded image files](/img/image-for-flash/downloaded_image.png)
+![Downloaded images](/img/image-for-flash/downloaded_image.png)
 
-#### Connecting the Board and Installing the Driver
+#### Connect the Board and Install Drivers
 
-While holding down the BOOT button on the board, connect the Type-C port near the BOOT button to the computer. The board will enter flashing mode.
+Press and hold the BOOT button, then connect the Type-C port nearest the BOOT button to the PC. The board enters flashing mode.
 
-Right-click on the Windows logo, open Device Manager. If you see "USB download gadget" under "Other devices", it means the device has been correctly recognized. However, the driver is not installed.
+Open **Device Manager**. If you see `USB download gadget` under **Other devices**, the device is detected but lacks a driver.
 
-To install the fastboot driver, you need to download the [Google USB Driver (proxy required)](https://dl.google.com/android/repository/usb_driver_r13-windows.zip), download and extract it to a location.
+Download the [Google USB Driver](https://dl.google.com/android/repository/usb_driver_r13-windows.zip) (a proxy may be required), extract it, and install it:
 
-1. Right-click on "USB download gadget" in Device Manager, click "Update driver"
-2. Choose "Browse my computer for drivers"
-![Driver Update Step 2](/img/image-for-flash/driver-update-step2-en.png)
-3. Select "Let me pick from a list of available drivers on my computer"
-4. Select "Show All Devices" and click "Next"
-![Driver Update Step 4](/img/image-for-flash/driver-update-step-4-en.png)
-5. Click "Have Disk"
-6. Click "Browse", select the inf file under the Google USB Driver, click OK
-![Driver Update Step 6](/img/image-for-flash/driver-update-step-6-en.png)
-7. Select "Android Bootloader Interface", click "Next", click "Yes" in the pop-up dialog, click "Install" in the Windows Security Center dialog that pops up
-![Driver Update Step 7](/img/image-for-flash/driver-update-step7-en.png)
-8. Successfully installed the fastboot driver
-![Driver Update Step 8](/img/image-for-flash/driver_update_step8-en.png)
+1. Right-click `USB download gadget` and choose **Update driver**.
+2. Select **Browse my computer for drivers**.
+![Driver update step 2](/img/image-for-flash/driver-update-step2.png)
+3. Choose **Let me pick from a list of available drivers on my computer**.
+4. Select **Show All Devices**, then click **Next**.
+![Driver update step 4](/img/image-for-flash/driver-update-step-4.png)
+5. Click **Have Disk**.
+6. Click **Browse**, select the `.inf` file inside the Google USB Driver folder, and confirm.
+![Driver update step 6](/img/image-for-flash/driver-update-step-6.png)
+7. Choose **Android Bootloader Interface**, click **Next**, approve the prompts, and select **Install** when Windows Security asks for confirmation.
+![Driver update step 7](/img/image-for-flash/driver-update-step7.png)
+8. The fastboot driver finishes installing.
+![Driver update step 8](/img/image-for-flash/driver_update_step8.png)
 
-If there are problems with the above steps, please go back to Device Manager, find the device, click "Uninstall driver", then unplug and replug the development board and try again.
+If installation fails, uninstall the device from Device Manager, reconnect the board, and repeat the steps.
 
-Return to the PowerShell terminal containing `fastboot.exe`, enter the following command, the program should output one line of information indicating that one device is connected.
+### Flash the Images
+
+Back in the PowerShell window that contains `fastboot.exe`, verify the device connection:
 
 ```powershell
 .\fastboot.exe devices
 ```
 
-![Fastboot Device Detection](/img/image-for-flash/fastboot_device_detection.png)
+![Fastboot device detection](/img/image-for-flash/fastboot_device_detection.png)
+
+Flash a temporary U-Boot to RAM and reboot:
 
 ```powershell
-.\fastboot.exe flash ram .\u-boot-with-spl-lpi4a-16g.bin # Replace with the path to the uboot file corresponding to your board specifications, you can drag and drop the file in File Explorer to the terminal to quickly input the file path
-.\fastboot reboot
+.\fastboot.exe flash ram .\u-boot-with-spl-lpi4a-16g.bin # Replace with the path to the U-Boot image for your configuration
+.\fastboot.exe reboot
 ```
 
-![Flash uboot into memory](/img/image-for-flash/uboot_memory_flash.png)
+![Flash U-Boot to RAM](/img/image-for-flash/uboot_memory_flash.png)
 
-Then proceed with flashing the image files
+After the board restarts, Windows may again report an unknown `USB download gadget`. Install the driver once more if needed.
 
-**Note**: After the development board restarts, the computer may again detect an unknown device named "USB download gadget". Please follow the driver installation tutorial above to reinstall the driver for this device before continuing with the steps below.
+Then flash the persistent images (drag-and-drop files into PowerShell to insert their paths quickly):
 
 ```powershell
-# Replace the following three lines with the paths to the uboot, boot, root files corresponding to your board specifications, you can drag and drop the files in File Explorer to the terminal to quickly input the file paths
 .\fastboot.exe flash uboot u-boot-with-spl-lpi4a-16g.bin
 .\fastboot.exe flash boot boot-lpi4a-20240720_171951.ext4
 .\fastboot.exe flash root root-lpi4a-20240720_171951.ext4
 ```
 
-![Fastboot System Installation Guide](/img/image-for-flash/fastboot_installation_guide.png)
+![Fastboot flashing](/img/image-for-flash/fastboot_installation_guide.png)
 
-The uboot file and boot file flash quickly, while the root file takes about 5 minutes to complete. If when flashing the root file, it's not 30+ data blocks but 2000+ or 3000+(shown below), it indicates that the previous flashing operation was incorrect. In this case, the image will not boot after writing is complete. Please perform the flashing operation again.
+:::warning
+**Progress and timing note**
 
-![](/img/image-for-flash/bad-fastboot-flash.png)
+Flashing `uboot` and `boot` completes quickly. Writing `root` takes roughly five minutes. If `fastboot` shows an unusually small number of data blocks (e.g. only a few thousand), the earlier steps likely failed—repeat the flashing procedure.
 
-At this point, the image flashing is complete, and you can start the system by unplugging and plugging in the power cord.
+![Incorrect fastboot flashing](/img/image-for-flash/bad-fastboot-flash.png)
+:::
 
-### User Login
+Once flashing finishes, power-cycle the board to boot from eMMC.
 
-Below are the default system account and password
+## User Credentials
 
-- Login account: debian
-- Account password: debian
+Default login credentials:
 
-You can use the above user password to log in when first booting the image.
+- Username: `debian`
+- Password: `debian`
 
-**For security reasons, please be sure to change the password after the first login to avoid problems.**
+Use these for the first boot and change the password immediately for security.

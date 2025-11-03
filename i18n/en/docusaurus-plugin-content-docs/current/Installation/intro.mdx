@@ -2,23 +2,35 @@
 sidebar_position: 1
 ---
 
-# Installation Instructions Overview
+# Image Flashing Notes
 
-RevyOS currently supports multiple devices. The table below provides the status of installation guides for each supported device. Please click the relevant link as needed. Some guides are still in progress and will be completed in the future.
+RevyOS currently supports multiple devices. The table below summarises which flashing guides are available for each device; follow the link that matches your needs. Some guides are still being compiled and will be added later.
 
-## Installation Guide Availability
+:::warning
+**If you are upgrading from an image dated `20240720` or earlier, you must reset the U-Boot environment variables.**
+
+To reset:
+Connect to the board via the serial console, power it on, press Enter when U-Boot starts to interrupt the boot sequence, and run the following commands at the U-Boot prompt:
+
+```bash
+env default -a -f; env save; reset
+```
+
+This resets all U-Boot environment variables and reboots the board.
+:::
+
+## Flashing Guide Availability
 
 import { DownloadLink } from "@site/src/components/ImageLinks";
 import { RedirectBasedOnUA } from "@site/src/components/RedirectBasedOnUA";
 
-| Supported Device   | Image Download (Latest Version)                      | Installation Guide                                 |
-| ------------------ | ---------------------------------------------------- | ---------------------------------------------- |
-| Lichee Pi 4A       | {<DownloadLink device="Lichee Pi 4A" />}       | {<RedirectBasedOnUA windowsLink="../licheepi4a-windows/" otherLink="../licheepi4a/" description="Installation Guide" /> }               |
-| Milk-V Meles       | {<DownloadLink device="Lichee Pi 4A" />}       | [Official Milk-V Installation Guide](https://milkv.io/docs/meles/installation) |
-| Milk-V Pioneer     | {<DownloadLink device="Milk-V Pioneer" />}     | [Installation Guide](../milkv-pioneer/)            |
-| Lichee Cluster 4A | {<DownloadLink device="Lichee Cluster 4A" />}  | In Progress |
-| Lichee Console 4A | {<DownloadLink device="Lichee Console 4A" />}  | In Progress |
-| Lichee Book 4A    | {<DownloadLink device="Lichee Book 4A" />}     | In Progress |
-| Beagle-Ahead      | {<DownloadLink device="Beagle-Ahead" />}       | In Progress |
-| Huiwei book       | {<DownloadLink device="Huiwei book" />}        | In Progress |
-
+| Supported Device   | Image Download (Latest Version) | Flashing Guide |
+| ------------------ | ------------------------------- | -------------- |
+| Lichee Pi 4A       | {<DownloadLink device="Lichee Pi 4A" />}       | {<RedirectBasedOnUA windowsLink="../licheepi4a-windows/" otherLink="../licheepi4a/" description="Flashing Guide" /> } |
+| Milk-V Meles       | {<DownloadLink device="Milk-V Meles" />}       | [Milk-V official flashing guide](https://milkv.io/zh/docs/meles/installation) |
+| Milk-V Pioneer     | {<DownloadLink device="Milk-V Pioneer" />}     | [Flashing Guide](../milkv-pioneer/) |
+| Lichee Cluster 4A | {<DownloadLink device="Lichee Cluster 4A" />}  | In progress |
+| Lichee Console 4A | {<DownloadLink device="Lichee Console 4A" />}  | In progress |
+| Lichee Book 4A    | {<DownloadLink device="Lichee Book 4A" />}     | In progress |
+| Beagle-Ahead      | {<DownloadLink device="Beagle-Ahead" />}       | In progress |
+| Huiwei book       | {<DownloadLink device="Huiwei book" />}        | In progress |
