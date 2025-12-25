@@ -21,7 +21,7 @@ RevyOS image directory: [Download Link](https://mirror.iscas.ac.cn/revyos/extra/
 
 Latest image version: {<DownloadLink device="Milk-V Pioneer" />}
 
-Example directory for the 20241230 image:
+Example directory for the 20251226 image:
 
 ![Image Directory](/img/image-for-flash/pioneer-image-dir.png)
 
@@ -32,8 +32,8 @@ There are two separate firmware, one include `zsbl`, `linuxboot`, device trees a
 This part of firmware can be flashed to either the SPI Flash or microSD card:
 
 - **Firmware files**:
-  - `firmware_single_sg2042-v6.6-lts-v0p7.bin` (for SPI Flash)
-  - `firmware_single_sg2042-v6.6-lts-v0p7.img` (for SD card)
+  - `firmware_sg2042-single-revyos_6.18.y-sg204x-v1.7.bin` (for SPI Flash)
+  - `firmware_sg2042-single-revyos_6.18.y-sg204x-v1.7.img` (for SD card)
 
 The other part is the MCU firmware. Newer versions of MCU firmware has fixed some known issues, an upgrade is recommended, after completing the system installation.
 
@@ -41,7 +41,7 @@ The other part is the MCU firmware. Newer versions of MCU firmware has fixed som
 
 And also the system image itself which needs to be flashed to M.2 NVMe SSD:
 
-- `revyos-pioneer-20241230-212249.img.zst`
+- `revyos-pioneer-20251226-002451.img.zst`
 
 ---
 
@@ -53,7 +53,7 @@ And also the system image itself which needs to be flashed to M.2 NVMe SSD:
 
 #### Using BalenaEtcher
 
-1. Select the file `firmware_single_sg2042-v6.6-lts-v0p7.img`.
+1. Select the file `firmware_sg2042-single-revyos_6.18.y-sg204x-v1.7.img`.
 2. Choose the target SD card.
 3. Click "Flash" to start the process.
 
@@ -61,10 +61,10 @@ And also the system image itself which needs to be flashed to M.2 NVMe SSD:
 
 Insert the SD card into a reader connected to your computer, then verify the device path.
 
-Navigate to the directory with `firmware_single_sg2042-v6.6-lts-v0p7.img` and flash it with the following command:
+Navigate to the directory with `firmware_sg2042-single-revyos_6.18.y-sg204x-v1.7.img` and flash it with the following command:
 
 ```shell
-sudo dd if=firmware_single_sg2042-v6.6-lts-v0p7.img of=/dev/sdX bs=4M status=progress
+sudo dd if=firmware_sg2042-single-revyos_6.18.y-sg204x-v1.7.img of=/dev/sdX bs=4M status=progress
 ```
 
 Replace `of=/dev/sdX` with your specific device path if different.
@@ -73,7 +73,7 @@ After flashing, use `sync` to ensure data is fully written to the SD card.
 
 ### Flashing Firmware to SPI Flash
 
-**Operating System**: RevyOS 20241230
+**Operating System**: RevyOS 20251226
 
 > **Note**: For first-time installation, using an SD card to store the firmware is recommended.
 
@@ -91,13 +91,13 @@ Install necessary packages:
 Download the firmware file:
 
    ```bash
-   wget https://mirror.iscas.ac.cn/revyos/extra/images/sg2042/20241230/firmware_single_sg2042-v6.6-lts-v0p7.bin
+   wget https://mirror.iscas.ac.cn/revyos/extra/images/sg2042/20251226/firmware_sg2042-single-revyos_6.18.y-sg204x-v1.7.bin
    ```
 
-Navigate to the directory where `firmware_single_sg2042-v6.6-lts-v0p7.bin` was downloaded and run:
+Navigate to the directory where `firmware_sg2042-single-revyos_6.18.y-sg204x-v1.7.bin` was downloaded and run:
 
    ```bash
-   sudo flashcp -v firmware_single_sg2042-v6.6-lts-v0p7.bin /dev/mtd1
+   sudo flashcp -v firmware_sg2042-single-revyos_6.18.y-sg204x-v1.7.bin /dev/mtd1
    ```
 
 Flashing to SPI Flash is now complete.
@@ -110,11 +110,11 @@ Flashing to SPI Flash is now complete.
 
 ### Using Command Line
 
-1. Decompress the `revyos-pioneer-20241230-212249.img.zst` file using `unzstd revyos-pioneer-20241230-212249.img.zst`. This produces the `revyos-pioneer-20241230-212249.img` file.
+1. Decompress the `revyos-pioneer-20251226-002451.img.zst` file using `unzstd revyos-pioneer-20251226-002451.img.zst`. This produces the `revyos-pioneer-20251226-212249.img` file.
 
 2. Insert the NVMe SSD into the reader and connect it to your computer, then confirm the device path.
 
-3. In the directory containing `revyos-pioneer-20241230-212249.img`, flash the image to the NVMe SSD with dd command: `sudo dd if=revyos-pioneer-20241230-212249.img of=/dev/nvme0n1 bs=4M status=progress`. Replace `of=/dev/nvme0n1` with the correct device path if different.
+3. In the directory containing `revyos-pioneer-20251226-212249.img`, flash the image to the NVMe SSD with dd command: `sudo dd if=revyos-pioneer-20251226-212249.img of=/dev/nvme0n1 bs=4M status=progress`. Replace `of=/dev/nvme0n1` with the correct device path if different.
 
 4. After flashing, use `sync` to ensure the data is fully written to the NVMe SSD.
 

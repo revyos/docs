@@ -21,7 +21,7 @@ RevyOS 镜像目录：[镜像下载](https://mirror.iscas.ac.cn/revyos/extra/ima
 
 目前最新镜像版本为：{<DownloadLink device="Milk-V Pioneer" />}
 
-以下以 20241230 镜像目录为例：
+以下以 20251226 镜像目录为例：
 
 ![](/img/image-for-flash/pioneer-image-dir.png)
 
@@ -31,8 +31,8 @@ RevyOS 镜像刷写遵循固件文件 + 系统文件的方式，因此会用到�
 
 这部分固件可刷写到 SPI Flash 中，也可以刷写到 microSD 卡中：
 
-- `firmware_single_sg2042-v6.6-lts-v0p7.bin`（刷写进 SPI Flash 中）
-- `firmware_single_sg2042-v6.6-lts-v0p7.img`（刷写进 SD 卡中）
+- `firmware_sg2042-single-revyos_6.18.y-sg204x-v1.7.bin`（刷写进 SPI Flash 中）
+- `firmware_sg2042-single-revyos_6.18.y-sg204x-v1.7.img`（刷写进 SD 卡中）
 
 另一部分是 MCU 固件，新版本解决了一些已知问题，推荐在刷写系统完成后进行更新。
 
@@ -40,7 +40,7 @@ RevyOS 镜像刷写遵循固件文件 + 系统文件的方式，因此会用到�
 
 此外是系统镜像本体，这部分需刷写至 M.2 NVMe SSD 中：
 
-- `revyos-pioneer-20241230-212249.img.zst`
+- `revyos-pioneer-20251226-002451.img.zst`
 
 ## 固件刷写
 
@@ -52,7 +52,7 @@ RevyOS 镜像刷写遵循固件文件 + 系统文件的方式，因此会用到�
 
 #### 使用 BalenaEtcher 写入
 
-1、选择文件 firmware_single_sg2042-v6.6-lts-v0p7.img
+1、选择文件 firmware_sg2042-single-revyos_6.18.y-sg204x-v1.7.img
 2、选择目标 SD 卡
 3、点击烧录
 
@@ -60,10 +60,10 @@ RevyOS 镜像刷写遵循固件文件 + 系统文件的方式，因此会用到�
 
 将 SD 卡插入读卡器并连接至电脑，确认是否正确连接以及设备路径
 
-在存放 `firmware_single_sg2042-v6.6-lts-v0p7.img` 文件的目录下时，使用 dd 命令将文件刷写到 SD 卡中
+在存放 `firmware_sg2042-single-revyos_6.18.y-sg204x-v1.7.img` 文件的目录下时，使用 dd 命令将文件刷写到 SD 卡中
 
 ```shell
-sudo dd if=firmware_single_sg2042-v6.6-lts-v0p7.img of=/dev/sdX bs=4M status=progress
+sudo dd if=firmware_sg2042-single-revyos_6.18.y-sg204x-v1.7.img of=/dev/sdX bs=4M status=progress
 ```
 
 `of=/dev/sdX` 此项请根据设备路径进行更改
@@ -72,7 +72,7 @@ sudo dd if=firmware_single_sg2042-v6.6-lts-v0p7.img of=/dev/sdX bs=4M status=pro
 
 ### 将固件刷写到 SPI Flash 中
 
-操作环境：RevyOS 20241230
+操作环境：RevyOS 20251226
 
 注意事项：首次使用时推荐使用 SD 卡存放固件
 
@@ -88,13 +88,13 @@ sudo modprobe mtdblock
 然后下载文件
 
 ```shell
-wget https://mirror.iscas.ac.cn/revyos/extra/images/sg2042/20241230/firmware_single_sg2042-v6.6-lts-v0p7.bin
+wget https://mirror.iscas.ac.cn/revyos/extra/images/sg2042/20251226/firmware_sg2042-single-revyos_6.18.y-sg204x-v1.7.bin
 ```
 
-下载完成后切换到 firmware_single_sg2042-v6.6-lts-v0p7.bin 的下载目录下，执行以下命令
+下载完成后切换到 firmware_sg2042-single-revyos_6.18.y-sg204x-v1.7.bin 的下载目录下，执行以下命令
 
 ```shell
-sudo flashcp -v firmware_single_sg2042-v6.6-lts-v0p7.bin /dev/mtd1
+sudo flashcp -v firmware_sg2042-single-revyos_6.18.y-sg204x-v1.7.bin /dev/mtd1
 ```
 
 至此刷写完成
@@ -105,20 +105,20 @@ sudo flashcp -v firmware_single_sg2042-v6.6-lts-v0p7.bin /dev/mtd1
 
 ### 通过命令行写入
 
-首先需要解压`revyos-pioneer-20241230-212249.img.zst`文件
+首先需要解压`revyos-pioneer-20251226-002451.img.zst`文件
 
 ```shell
-unzstd revyos-pioneer-20241230-212249.img.zst
+unzstd revyos-pioneer-20251226-002451.img.zst
 ```
 
-得到`revyos-pioneer-20241230-212249.img`文件
+得到`revyos-pioneer-20251226-212249.img`文件
 
 将 NVMe SSD 插入硬盘盒并连接至电脑，确认是否正确连接以及设备路径。
 
-在存放 `revyos-pioneer-20241230-212249.img` 文件的目录下时，使用 dd 命令将文件刷写到 NVMe SSD 中
+在存放 `revyos-pioneer-20251226-212249.img` 文件的目录下时，使用 dd 命令将文件刷写到 NVMe SSD 中
 
 ```shell
-sudo dd if=revyos-pioneer-20241230-212249.img of=/dev/nvme0n1 bs=4M status=progress
+sudo dd if=revyos-pioneer-20251226-212249.img of=/dev/nvme0n1 bs=4M status=progress
 ```
 
 `of=/dev/nvme0n1` 此项请根据设备路径进行更改
