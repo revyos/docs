@@ -1,0 +1,31 @@
+# pnpm configuration
+#
+# allowBuilds: approve core-js postinstall scripts (pnpm 11 requires explicit
+#   build-script approval; without this the build fails with ERR_PNPM_IGNORED_BUILDS).
+#
+# overrides:
+#  - webpackbar 6.0.1 + webpack 5.104.1: pin to the versions yarn.lock used.
+#    webpack 5.109 tightened the ProgressPlugin options schema and rejects the
+#    name/color/reporters fields webpackbar 6.0.1 passes, breaking the build.
+#  - @docusaurus/* -> 3.9.2: @easyops-cn/docusaurus-search-local declares several
+#    @docusaurus packages as "^2 || ^3" dependencies. Without an override pnpm
+#    resolves them to the latest 3.10.x, which drags in duplicate 3.10.x
+#    theme-common instances. Two theme-common copies means two ColorModeContext
+#    objects, so SSG fails with "useColorMode is called outside <ColorModeProvider>".
+#    Pinning the whole suite to 3.9.2 (matching package.json) keeps a single
+#    instance. yarn.lock already held everything at 3.9.2.
+allowBuilds:
+  core-js: true
+  core-js-pure: true
+overrides:
+  webpackbar: 6.0.1
+  webpack: 5.104.1
+  "@docusaurus/core": 3.9.2
+  "@docusaurus/mdx-loader": 3.9.2
+  "@docusaurus/module-type-aliases": 3.9.2
+  "@docusaurus/plugin-content-docs": 3.9.2
+  "@docusaurus/theme-common": 3.9.2
+  "@docusaurus/theme-translations": 3.9.2
+  "@docusaurus/utils": 3.9.2
+  "@docusaurus/utils-common": 3.9.2
+  "@docusaurus/utils-validation": 3.9.2

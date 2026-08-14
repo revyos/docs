@@ -37,19 +37,19 @@ sidebar_position: 1
 
 中文：
 ```
-$ yarn start
+$ pnpm start
 ```
 
 英文：
 ```
-$ yarn start --locale en
+$ pnpm start --locale en
 ```
 只可以同时开发一种语言的文档
 
 ### 构建
 
 ```
-$ yarn build
+$ pnpm build
 ```
 
 ### 翻译
@@ -58,11 +58,11 @@ $ yarn build
 
 #### 页面按钮
 ```
-$ npm run write-translations -- --locale en
+$ pnpm write-translations --locale en
 ```
 然后在 `i18n/en` 下的 `json` 文件中翻译
 
 ### 提交前注意事项
 
 1. 在提交 PR 前请确保同时编写了中文和英文版本。如果仅提交中文版文档请记得之后提交对应的英文翻译
-2. 提交前务必在本地运行 `yarn run build` 构建一个生产版本，能够提早发现 CI 中可能会出现的问题（损坏的链接/损坏的锚点）
+2. 提交前务必在本地运行 `pnpm run build` 构建一个生产版本，能够提早发现 CI 中可能会出现的问题（损坏的链接/损坏的锚点）
