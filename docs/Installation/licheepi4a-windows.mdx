@@ -187,7 +187,13 @@ Get-FileHash -Algorithm MD5 .\sdcard-lpi4a-20250123_195216.img.zst
 在写入镜像完成后将SD 卡插入如图所示卡槽中。
 ![](/img/image-for-flash/lpi4a5.png)
 
-需要先将HDMI线（如果有外接显示器需求）进行连接，然后将随箱附赠的USB-A接口到USB-C接口的数据线中的C口一端接入到开发板上，另一端接入至少5V2A 输出的 USB 电源上，即可启动。
+建议启动流程：先连接好 HDMI 外接显示器（如需），再使用**随箱附赠**的 USB-A 转 USB Type-C 数据线，将开发板连接至一个至少 5V/2A 的 USB 电源适配器 (开发板通电后将自动开机)。
+
+:::warning
+**关于 USB-A 转 USB Type-C 数据线的选用**
+
+写入镜像时一定要选用支持充电和高速数据传输的优质数据线；不能用只能充电或者数据传输速度极慢的廉价数据线。
+:::
 
 ## 从 eMMC 启动
 
@@ -315,6 +321,8 @@ LicheePi4A 不同的内存版本的 uboot 文件不通用，可参照下表根�
 开发板重启后，计算机可能再次检测到一个名为`USB download gadget`的未知设备。请按照上面的驱动安装教程重新为该设备安装驱动后继续下面的步骤。
 
 ```powershell
+# 确保驱动工作正常，而且设备没有掉线
+.\fastboot.exe devices # 预期输出: <序列号> fastboot
 # 以下三行替换为您的板卡规格对应的 uboot boot root 文件的路径，可在资源管理器中将文件拖放到终端以快捷输入文件的路径
 .\fastboot.exe flash uboot u-boot-with-spl-lpi4a-16g.bin
 .\fastboot.exe flash boot boot-lpi4a-20240720_171951.ext4
@@ -326,7 +334,7 @@ LicheePi4A 不同的内存版本的 uboot 文件不通用，可参照下表根�
 :::warning
 **关于刷写进度和耗时的提示**
 
-uboot 和 boot 文件刷写较快，root 文件大约需 5 分钟。如果刷写 root 文件时数据块数量异常（如下图所示，2000+ 或 3000+），说明前面操作有误，请重新刷写。
+uboot 和 boot 文件刷写较快，root 文件大约需 5 分钟。如果刷写 root 文件时数据块数量异常（如下图所示，2000+ 或 3000+），说明前面操作有误，请重新刷写（也可以尝试更换更高传输速率的数据线）。
 
 ![错误的fastboot刷写](/img/image-for-flash/bad-fastboot-flash.png)
 :::
