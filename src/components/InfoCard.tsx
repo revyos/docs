@@ -4,6 +4,7 @@ import styles from './InfoCard.module.css';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import type { ProjectCategory } from './ProjectCategory';
 import { ProjectCategoryLabels } from './ProjectCategory';
+import { CategoryIcon } from './CategoryIcon';
 
 export type InfoCardProps = {
   title: string;        // 标题，中文
@@ -47,7 +48,7 @@ export const InfoCard: React.FC<InfoCardProps> = ({
     >
       <div className={styles.header}>
         <span className={styles.icon} aria-hidden="true">
-          {meta.icon}
+          <CategoryIcon category={category} />
         </span>
         <div className={styles.titleWrap}>
           <h3 className={styles.title}>{displayTitle}</h3>

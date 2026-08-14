@@ -54,9 +54,11 @@
   border-radius: 10px;
   background: var(--cat);
   color: #fff;
-  font-weight: 700;
-  font-size: 0.85rem;
-  letter-spacing: 0.5px;
+}
+
+.icon svg {
+  width: 22px;
+  height: 22px;
 }
 
 .titleWrap {
