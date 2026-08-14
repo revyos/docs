@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react';
-import { useColorMode } from '@docusaurus/theme-common';
 import Translate, { translate } from '@docusaurus/Translate';
 import Layout from '@theme/Layout';
 import styles from './projects.module.css';
@@ -8,17 +7,21 @@ import { ProjectCategory, ProjectCategoryLabels } from '../components/ProjectCat
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import projects from '../data/projects';
 
-const Intro = () => (
+const Intro: React.FC<{ count: number; isEn: boolean }> = ({ count, isEn }) => (
   <div className={styles.intro}>
     <h1 className={styles.introTitle}>
       <Translate>RevyOS 项目列表</Translate>
     </h1>
+    <p className={styles.introSubtitle}>
+      <Translate>RevyOS 维护的开源项目与仓库</Translate>
+    </p>
+    <p className={styles.introCount}>
+      {isEn ? `${count} projects` : `共 ${count} 个项目`}
+    </p>
   </div>
 );
 
 const ProjectsInner: React.FC = () => {
-  const { colorMode } = useColorMode();
-  const dark = colorMode === 'dark';
   const { i18n: { currentLocale } } = useDocusaurusContext();
   const isEn = currentLocale === 'en';
 
@@ -34,7 +37,7 @@ const ProjectsInner: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <Intro />
+      <Intro count={projects.length} isEn={isEn} />
       {Object.entries(grouped).map(([cat, items]) => {
         const labelObj = Object.prototype.hasOwnProperty.call(ProjectCategoryLabels, cat)
           ? ProjectCategoryLabels[cat as keyof typeof ProjectCategoryLabels]

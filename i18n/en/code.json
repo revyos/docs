@@ -11,8 +11,11 @@
   "RevyOS 项目列表": {
     "message": "RevyOS Projects"
   },
-  "访问项目": {
-    "message": "Visit Project"
+  "RevyOS 维护的开源项目与仓库": {
+    "message": "Open-source projects and repositories maintained by RevyOS"
+  },
+  "在 GitHub 查看": {
+    "message": "View on GitHub"
   },
   "theme.ErrorPageContent.title": {
     "message": "This page crashed.",

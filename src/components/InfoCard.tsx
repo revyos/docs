@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { useColorMode } from '@docusaurus/theme-common';
+import React from 'react';
 import Translate from '@docusaurus/Translate';
-import styles from './InfoCard.module.css'
-import useBaseUrl from '@docusaurus/useBaseUrl';
+import styles from './InfoCard.module.css';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import type { ProjectCategory } from './ProjectCategory';
 import { ProjectCategoryLabels } from './ProjectCategory';
@@ -10,7 +8,7 @@ import { ProjectCategoryLabels } from './ProjectCategory';
 export type InfoCardProps = {
   title: string;        // 标题，中文
   title_en?: string;    // 标题，英文
-  logo?: string;        // logo， xx.xx -> xx.dark.xx for night mode
+  logo?: string;        // 保留字段以兼容旧数据，新版以分类图标方块代替
   subtitle?: string;
   subtitle_en?: string;
   description?: string;
@@ -19,58 +17,58 @@ export type InfoCardProps = {
   category: ProjectCategory; // 分类枚举，必填
 };
 
-export const InfoCard: React.FC<InfoCardProps> = ({ title, title_en, logo, subtitle, subtitle_en, description, description_en, link, category }) => {
-  const [dark, setDark] = useState(false);
-  const { colorMode } = useColorMode();
-  useEffect(() => {
-    setDark(colorMode === 'dark');
-  }, [[]])
-  const [name, ext] = logo.split(/\.(?=[^.]+$)/);
+export const InfoCard: React.FC<InfoCardProps> = ({
+  title,
+  title_en,
+  subtitle,
+  subtitle_en,
+  description,
+  description_en,
+  link,
+  category,
+}) => {
   const {
     i18n: { currentLocale },
   } = useDocusaurusContext();
   const isEn = currentLocale === 'en';
-  const categoryLabel = isEn ? ProjectCategoryLabels[category].en : ProjectCategoryLabels[category].zh;
+  const meta = ProjectCategoryLabels[category];
+  const displayTitle = isEn ? (title_en ?? title) : title;
+  const displaySubtitle = isEn ? (subtitle_en ?? subtitle) : subtitle;
+  const displayDescription = isEn ? (description_en ?? description) : description;
+  const categoryLabel = isEn ? meta.en : meta.zh;
 
   return (
-    <div className={styles.card}>
-      <div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          {logo &&
-            (dark ?
-              <img src={useBaseUrl(`${name}.dark.${ext}`)} alt={title} style={{ width: 40, height: 40, borderRadius: '50%' }} onError={(e) => (e.currentTarget.src = useBaseUrl(logo))} />
-              :
-              <img src={useBaseUrl(logo)} alt={title} style={{ width: 40, height: 40, borderRadius: '50%' }} />
-            )
-          }
-          <div>
-            <h3 style={{ margin: 0, fontSize: '1.1em' }}>
-              {isEn ? (title_en != null ? title_en : title) : title}
-            </h3>
-            <p className={styles.subTitle} style={{ margin: 0 }}>
-              {isEn ? (subtitle_en != null ? subtitle_en : subtitle) : subtitle}
-            </p>
-            <p
-              className={`${styles.categoryLabel} ${dark ? styles.categoryLabelDark : styles.categoryLabelLight}`}
-              style={{ margin: '4px 0 0', fontSize: '0.85em' }}
-            >
-              {categoryLabel}
-            </p>
-          </div>
+    <a
+      className={styles.card}
+      href={link}
+      target="_blank"
+      rel="noopener noreferrer"
+      data-category={category}
+    >
+      <div className={styles.header}>
+        <span className={styles.icon} aria-hidden="true">
+          {meta.icon}
+        </span>
+        <div className={styles.titleWrap}>
+          <h3 className={styles.title}>{displayTitle}</h3>
+          {displaySubtitle && <p className={styles.subtitle}>{displaySubtitle}</p>}
         </div>
-        <p style={{ margin: '10px 0 0', fontSize: '0.85em', color: dark ? '#aaa' : '#555' }}>
-          {isEn ? (description_en != null ? description_en : description) : description}
-        </p>
+        <span className={styles.badge}>{categoryLabel}</span>
       </div>
-      <div className={styles.cardActions}>
-        <button className={styles.visitButton} onClick={() => window.open(link, '_blank')}>
-          <Translate>访问项目</Translate>
-        </button>
+
+      {displayDescription && (
+        <p className={styles.description}>{displayDescription}</p>
+      )}
+
+      <div className={styles.footer}>
+        <span className={styles.viewLink}>
+          <Translate>在 GitHub 查看</Translate>
+          <span className={styles.arrow} aria-hidden="true">↗</span>
+        </span>
       </div>
-    </div>
+    </a>
   );
 };
-
 
 const InfoCardList: React.FC<{ items: InfoCardProps[] }> = ({ items }) => {
   return (

@@ -9,13 +9,16 @@ export enum ProjectCategory {
   Uncategorized = 'Uncategorized',
 }
 
-export const ProjectCategoryLabels: Record<ProjectCategory, { zh: string; en: string }> = {
-  [ProjectCategory.Ecosystem]: { zh: '软件生态', en: 'Ecosystem' },
-  [ProjectCategory.Kernel]: { zh: '内核', en: 'Kernel' },
-  [ProjectCategory.Firmware]: { zh: '固件', en: 'Firmware' },
-  [ProjectCategory.BuildScripts]: { zh: '构建脚本', en: 'Build Scripts' },
-  [ProjectCategory.Documentation]: { zh: '文档', en: 'Documentation' },
-  [ProjectCategory.Electron]: { zh: 'Electron', en: 'Electron' },
-  [ProjectCategory.Benchmark]: { zh: '基准测试', en: 'Benchmark' },
-  [ProjectCategory.Uncategorized]: { zh: '未分类', en: 'Uncategorized' },
+export const ProjectCategoryLabels: Record<
+  ProjectCategory,
+  { zh: string; en: string; icon: string }
+> = {
+  [ProjectCategory.Ecosystem]: { zh: '软件生态', en: 'Ecosystem', icon: 'EC' },
+  [ProjectCategory.Kernel]: { zh: '内核', en: 'Kernel', icon: 'KN' },
+  [ProjectCategory.Firmware]: { zh: '固件', en: 'Firmware', icon: 'FW' },
+  [ProjectCategory.BuildScripts]: { zh: '构建脚本', en: 'Build Scripts', icon: 'BL' },
+  [ProjectCategory.Documentation]: { zh: '文档', en: 'Documentation', icon: 'DO' },
+  [ProjectCategory.Electron]: { zh: 'Electron', en: 'Electron', icon: 'EL' },
+  [ProjectCategory.Benchmark]: { zh: '基准测试', en: 'Benchmark', icon: 'BM' },
+  [ProjectCategory.Uncategorized]: { zh: '未分类', en: 'Uncategorized', icon: '?' },
 };
