@@ -75,7 +75,7 @@ export const imageLinks = [
 export const DownloadLink: React.FC<{device: string}> = ({ device }) => {
   const link = imageLinks.find((item) => item.device === device);
 
-  if (!link) return <span>${device} 暂无镜像</span>;
+  if (!link) return <span>{device} 暂无镜像</span>;
 
   return <a href={link.downloadLink}>{link.version}</a>;
 };
